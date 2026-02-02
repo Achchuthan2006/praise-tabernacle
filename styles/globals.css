@@ -1,0 +1,29 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    color-scheme: light;
+  }
+
+  body {
+    font-family: var(--font-sans), system-ui, -apple-system, Segoe UI, Roboto,
+      Helvetica, Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
+  }
+
+  .font-tamil {
+    font-family: var(--font-tamil), var(--font-sans), system-ui, -apple-system,
+      Segoe UI, Roboto, Helvetica, Arial, "Noto Sans";
+  }
+
+  ::selection {
+    background: rgb(30 58 138 / 0.18);
+  }
+}
+
+@layer utilities {
+  .focus-ring {
+    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-churchBlueLight/60 focus-visible:ring-offset-2 focus-visible:ring-offset-churchBlueSoft;
+  }
+}
