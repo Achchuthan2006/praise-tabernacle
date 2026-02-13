@@ -1,5 +1,10 @@
 node_modules
 .next
+*.tsbuildinfo
+data/
+.data
+.data/
+backups/
 .env
 .env.local
 .env.production

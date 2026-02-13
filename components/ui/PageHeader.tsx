@@ -14,15 +14,27 @@ export default function PageHeader({
   return (
     <section className="relative border-b border-churchBlue/10 bg-white">
       <Container className="py-12">
-        <h1 className="text-3xl font-semibold tracking-tight text-churchBlue sm:text-4xl">
-          {titleEn}
+        <div className="section-kicker">Praise Tabernacle</div>
+        <h1 className="section-heading">
+          <span data-lang="en" lang="en">
+            {titleEn}
+          </span>
+          <span data-lang="ta" lang="ta" className="font-tamil">
+            {titleTa}
+          </span>
         </h1>
-        <p className="mt-2 text-xl text-churchBlueLight font-tamil">{titleTa}</p>
+
         {descriptionEn || descriptionTa ? (
           <div className="mt-5 max-w-3xl space-y-2 text-sm text-churchBlue/75 sm:text-base">
-            {descriptionEn ? <p>{descriptionEn}</p> : null}
+            {descriptionEn ? (
+              <p data-lang="en" lang="en">
+                {descriptionEn}
+              </p>
+            ) : null}
             {descriptionTa ? (
-              <p className="font-tamil text-churchBlue/70">{descriptionTa}</p>
+              <p data-lang="ta" lang="ta" className="font-tamil text-churchBlue/70">
+                {descriptionTa}
+              </p>
             ) : null}
           </div>
         ) : null}

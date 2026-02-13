@@ -1,0 +1,48 @@
+import type { Metadata } from "next"
+
+import GalleryGrid from "@/components/GalleryGrid"
+import Lang from "@/components/language/Lang"
+import Container from "@/components/ui/Container"
+import PageHeader from "@/components/ui/PageHeader"
+import Reveal from "@/components/ui/Reveal"
+import { mediaPhotos } from "@/lib/media"
+import { pageMetadata } from "@/lib/seo"
+
+export const metadata: Metadata = pageMetadata({
+  title: "Photos",
+  description: "Photos from Praise Tabernacle — worship, ministry, and community moments.",
+  path: "/photos",
+})
+
+export default function PhotosPage() {
+  const images = mediaPhotos.map((p) => p.src)
+  return (
+    <>
+      <PageHeader
+        titleEn="Photos"
+        titleTa="புகைப்படங்கள்"
+        descriptionEn="A glimpse of church life."
+        descriptionTa="சபை வாழ்க்கையின் சில தருணங்கள்."
+      />
+
+      <section className="bg-white">
+        <Container className="pb-16 sm:pb-20">
+          <div className="mx-auto max-w-6xl">
+            <Reveal>
+              <div className="rounded-3xl border border-churchBlue/10 bg-churchBlueSoft p-6 text-sm text-churchBlue/75 shadow-glow sm:p-8">
+                <Lang
+                  en="Tip: add more images in /public/photos and update lib/media.ts to show them here."
+                  ta="Tip: /public/photos-ல் மேலும் புகைப்படங்களை சேர்த்து, இங்கே காண lib/media.ts-ஐ புதுப்பிக்கவும்."
+                  taClassName="font-tamil"
+                />
+              </div>
+            </Reveal>
+
+            <GalleryGrid images={images} />
+          </div>
+        </Container>
+      </section>
+    </>
+  )
+}
+

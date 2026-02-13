@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-label="Community event">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#1a2744"/>
+      <stop offset="0.6" stop-color="#2563eb"/>
+      <stop offset="1" stop-color="#0e7490"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="30%" cy="30%" r="70%">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0.18"/>
+      <stop offset="0.6" stop-color="#ffffff" stop-opacity="0"/>
+      <stop offset="1" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#f5c344"/>
+      <stop offset="1" stop-color="#3b82f6"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1600" height="900" fill="url(#bg)"/>
+  <rect width="1600" height="900" fill="url(#glow)"/>
+
+  <path d="M0 780 C 320 650, 540 980, 880 820 C 1160 690, 1360 760, 1600 640 L1600 900 L0 900 Z" fill="#ffffff" opacity="0.08"/>
+  <path d="M0 860 C 380 720, 640 990, 1010 840 C 1280 730, 1440 805, 1600 700 L1600 900 L0 900 Z" fill="#ffffff" opacity="0.06"/>
+
+  <g transform="translate(1200 200)" opacity="0.95">
+    <circle cx="0" cy="0" r="160" fill="#000000" opacity="0.18"/>
+    <circle cx="0" cy="0" r="160" fill="none" stroke="url(#accent)" stroke-width="10" opacity="0.85"/>
+    <g fill="#ffffff" opacity="0.92">
+      <circle cx="-60" cy="-10" r="28"/>
+      <circle cx="0" cy="-30" r="30"/>
+      <circle cx="60" cy="-10" r="28"/>
+      <path d="M-120 95 C-105 40,-70 25,-60 25 C-20 25,-15 55,-15 75 C-15 90,-30 105,-60 110 C-90 105,-110 100,-120 95 Z"/>
+      <path d="M-45 120 C-30 70,-5 55,0 55 C30 55,45 85,45 120 C45 135,20 150,0 152 C-20 150,-45 135,-45 120 Z"/>
+      <path d="M15 95 C25 40,60 25,60 25 C95 25,110 55,110 75 C110 90,95 105,60 110 C30 105,20 100,15 95 Z"/>
+    </g>
+  </g>
+
+  <g transform="translate(110 110)" opacity="0.95">
+    <rect x="0" y="0" width="560" height="120" rx="60" fill="#000000" opacity="0.18"/>
+    <rect x="0" y="0" width="560" height="120" rx="60" fill="none" stroke="#ffffff" stroke-opacity="0.18" stroke-width="2"/>
+    <text x="38" y="76" fill="#ffffff" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial" font-size="44" font-weight="800" letter-spacing="0.04em">
+      COMMUNITY EVENT
+    </text>
+  </g>
+</svg>

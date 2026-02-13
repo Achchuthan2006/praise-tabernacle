@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="2400" height="1350" viewBox="0 0 2400 1350" role="img" aria-label="Hero photo placeholder">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0b1224"/>
+      <stop offset="0.55" stop-color="#1a2744"/>
+      <stop offset="1" stop-color="#5b21b6"/>
+    </linearGradient>
+    <radialGradient id="spot1" cx="22%" cy="28%" r="45%">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0.22"/>
+      <stop offset="0.45" stop-color="#ffffff" stop-opacity="0.08"/>
+      <stop offset="1" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="spot2" cx="68%" cy="22%" r="50%">
+      <stop offset="0" stop-color="#8b5cf6" stop-opacity="0.22"/>
+      <stop offset="0.55" stop-color="#8b5cf6" stop-opacity="0.08"/>
+      <stop offset="1" stop-color="#8b5cf6" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="spot3" cx="55%" cy="78%" r="60%">
+      <stop offset="0" stop-color="#3b82f6" stop-opacity="0.18"/>
+      <stop offset="0.6" stop-color="#3b82f6" stop-opacity="0.06"/>
+      <stop offset="1" stop-color="#3b82f6" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="haze" x1="0" y1="1" x2="1" y2="0">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0.10"/>
+      <stop offset="0.35" stop-color="#ffffff" stop-opacity="0.04"/>
+      <stop offset="1" stop-color="#ffffff" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="2400" height="1350" fill="url(#bg)"/>
+  <rect width="2400" height="1350" fill="url(#spot1)"/>
+  <rect width="2400" height="1350" fill="url(#spot2)"/>
+  <rect width="2400" height="1350" fill="url(#spot3)"/>
+
+  <path d="M0 1140 C 420 980, 720 1450, 1200 1200 C 1590 1000, 1920 1100, 2400 900 L2400 1350 L0 1350 Z" fill="url(#haze)"/>
+
+  <g opacity="0.22">
+    <path d="M1200 240 L1200 620" stroke="#f5c344" stroke-width="26" stroke-linecap="round"/>
+    <path d="M1040 420 L1360 420" stroke="#f5c344" stroke-width="26" stroke-linecap="round"/>
+  </g>
+</svg>

@@ -5,7 +5,7 @@ import type { Language } from "@/lib/i18n"
 
 const options: Array<{ value: Language; label: string }> = [
   { value: "en", label: "EN" },
-  { value: "ta", label: "தமிழ்" },
+  { value: "ta", label: "\u0ba4\u0bae\u0bbf\u0bb4\u0bcd" }, // தமிழ்
 ]
 
 export default function LanguageToggle() {
@@ -13,9 +13,9 @@ export default function LanguageToggle() {
 
   return (
     <div
-      className="inline-flex items-center rounded-full border border-white/25 bg-white/10 p-1 text-sm text-white"
+      className="language-toggle inline-flex items-center rounded-full border border-churchBlue/15 bg-churchBlueSoft p-1.5 text-sm text-churchBlue"
       role="group"
-      aria-label="Language"
+      aria-label={language === "ta" ? "மொழி" : "Language"}
     >
       {options.map((opt) => {
         const active = opt.value === language
@@ -25,16 +25,14 @@ export default function LanguageToggle() {
             type="button"
             onClick={() => setLanguage(opt.value)}
             className={[
-              "rounded-full px-3 py-1.5 transition-colors",
+              "min-h-11 rounded-full px-3 py-2 transition-colors",
               active
-                ? "bg-white text-churchBlue shadow-sm"
-                : "text-white/80 hover:text-white hover:bg-white/10",
+                ? "bg-churchBlue text-white shadow-sm"
+                : "text-churchBlue/70 hover:text-churchBlue hover:bg-white",
             ].join(" ")}
             aria-pressed={active}
           >
-            <span className={opt.value === "ta" ? "font-tamil" : undefined}>
-              {opt.label}
-            </span>
+            <span className={opt.value === "ta" ? "font-tamil" : undefined}>{opt.label}</span>
           </button>
         )
       })}

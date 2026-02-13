@@ -1,0 +1,307 @@
+"use client"
+
+import Image from "next/image"
+import Link from "next/link"
+import { useEffect, useMemo, useRef, useState } from "react"
+
+import Lang from "@/components/language/Lang"
+import Container from "@/components/ui/Container"
+import Reveal from "@/components/ui/Reveal"
+import type { Testimonial, TestimonyCategory } from "@/lib/testimonials"
+import { listTestimonialsNewestFirst } from "@/lib/testimonials"
+import { siteConfig } from "@/lib/site"
+
+type CategoryOption = { id: "all" | TestimonyCategory; labelEn: string; labelTa: string }
+
+const categories: CategoryOption[] = [
+  { id: "all", labelEn: "All", labelTa: "அனைத்து" },
+  { id: "healing", labelEn: "Healing", labelTa: "சுகமடைதல்" },
+  { id: "financial", labelEn: "Financial", labelTa: "நிதி" },
+  { id: "family", labelEn: "Family", labelTa: "குடும்பம்" },
+  { id: "deliverance", labelEn: "Deliverance", labelTa: "விடுதலை" },
+  { id: "salvation", labelEn: "Salvation", labelTa: "ரட்சிப்பு" },
+  { id: "guidance", labelEn: "Guidance", labelTa: "வழிகாட்டுதல்" },
+]
+
+function categoryLabel(id: TestimonyCategory) {
+  const opt = categories.find((c) => c.id === id)
+  return opt ?? { id, labelEn: id, labelTa: id }
+}
+
+function thumbFor(videoId?: string) {
+  const id = (videoId ?? "").trim()
+  if (!id) return "/event-teaching.svg"
+  return `https://i.ytimg.com/vi/${id}/hqdefault.jpg`
+}
+
+function initials(name: string) {
+  const parts = name
+    .trim()
+    .split(/\s+/g)
+    .filter(Boolean)
+    .slice(0, 2)
+  return parts.map((p) => p[0]?.toUpperCase() ?? "").join("")
+}
+
+function showLabel(t: Testimonial) {
+  return t.name ?? t.attribution ?? ""
+}
+
+function getDetailHref(t: Testimonial) {
+  return t.youtubeVideoId ? `/testimonies/${t.slug}?play=1` : `/testimonies/${t.slug}`
+}
+
+function Card({
+  t,
+  delay,
+}: {
+  t: Testimonial
+  delay: 0 | 1 | 2 | 3
+}) {
+  const hasVideo = Boolean((t.youtubeVideoId ?? "").trim())
+  const href = getDetailHref(t)
+  const thumb = hasVideo ? thumbFor(t.youtubeVideoId) : (t.graphicSrc ?? "").trim() || "/event-teaching.svg"
+
+  return (
+    <Reveal delay={delay} className="h-full">
+      <article className="card overflow-hidden h-full">
+        <div className="card-image">
+          <Link href={href} className="group relative block focus-ring" aria-label={t.titleEn}>
+            <div className="relative aspect-video w-full overflow-hidden bg-churchBlueSoft">
+              <Image
+                src={thumb}
+                alt={t.titleEn}
+                fill
+                sizes="(max-width: 768px) 80vw, (max-width: 1200px) 40vw, 360px"
+                className="object-cover"
+                quality={85}
+              />
+              {hasVideo ? (
+                <div
+                  aria-hidden="true"
+                  className="pointer-events-none absolute inset-0 z-20 grid place-items-center opacity-100 transition-opacity duration-300 group-hover:opacity-100 group-focus-visible:opacity-100"
+                >
+                  <div className="grid h-14 w-14 place-items-center rounded-full bg-white/90 shadow-glow backdrop-blur">
+                    <svg viewBox="0 0 24 24" className="ml-0.5 h-7 w-7 text-churchBlue" fill="currentColor">
+                      <path d="M8 5v14l11-7z" />
+                    </svg>
+                  </div>
+                </div>
+              ) : null}
+            </div>
+          </Link>
+        </div>
+
+        <div className="card-content p-6">
+          <div className="flex flex-wrap items-center gap-2">
+            {t.categories.slice(0, 3).map((c) => {
+              const label = categoryLabel(c)
+              return (
+                <span
+                  key={`${t.slug}-${c}`}
+                  className="rounded-full border border-churchBlue/10 bg-churchBlueSoft px-3 py-1 text-xs font-semibold text-churchBlue/80"
+                >
+                  <Lang en={label.labelEn} ta={label.labelTa} taClassName="font-tamil" />
+                </span>
+              )
+            })}
+            {t.dateIso ? (
+              <span className="text-xs font-semibold tracking-wide text-churchBlue/55">{t.dateIso}</span>
+            ) : null}
+          </div>
+
+          <h3 className="mt-3 text-lg font-semibold tracking-tight text-churchBlue">
+            <Lang en={t.titleEn} ta={t.titleTa} taClassName="font-tamil" />
+          </h3>
+
+          {t.quote ? (
+            <p className="mt-3 text-sm leading-relaxed text-churchBlue/75 line-clamp-3">
+              &ldquo;{t.quote}&rdquo;
+            </p>
+          ) : null}
+
+          {t.beforeEn || t.afterEn ? (
+            <div className="mt-4 grid gap-2 sm:grid-cols-2">
+              <div className="rounded-2xl border border-churchBlue/10 bg-white p-3">
+                <div className="text-xs font-semibold tracking-wide text-churchBlue/60">
+                  <Lang en="Before" ta="முன்பு" taClassName="font-tamil" />
+                </div>
+                <div className="mt-1 text-sm text-churchBlue/75 line-clamp-2">
+                  <Lang en={t.beforeEn ?? ""} ta={t.beforeTa ?? t.beforeEn ?? ""} taClassName="font-tamil" />
+                </div>
+              </div>
+              <div className="rounded-2xl border border-churchBlue/10 bg-churchBlueSoft p-3">
+                <div className="text-xs font-semibold tracking-wide text-churchBlue/60">
+                  <Lang en="After" ta="பிறகு" taClassName="font-tamil" />
+                </div>
+                <div className="mt-1 text-sm text-churchBlue/75 line-clamp-2">
+                  <Lang en={t.afterEn ?? ""} ta={t.afterTa ?? t.afterEn ?? ""} taClassName="font-tamil" />
+                </div>
+              </div>
+            </div>
+          ) : null}
+
+          {showLabel(t) ? (
+            <div className="mt-5 flex items-center gap-3">
+              <div className="grid h-10 w-10 shrink-0 place-items-center overflow-hidden rounded-full border border-churchBlue/10 bg-churchBlueSoft">
+                {t.photoSrc ? (
+                  <Image
+                    src={t.photoSrc}
+                    alt={showLabel(t) || "Testimonial"}
+                    width={80}
+                    height={80}
+                    sizes="40px"
+                    className="h-full w-full object-cover"
+                  />
+                ) : (
+                  <span className="text-xs font-semibold text-churchBlue/70" aria-hidden="true">
+                    {t.name ? initials(t.name) : "✓"}
+                  </span>
+                )}
+              </div>
+              <div className="min-w-0">
+                <div className="text-sm font-semibold text-churchBlue/80">
+                  {showLabel(t)}
+                  {t.detail ? <span className="text-churchBlue/55">{" \u2022 "}{t.detail}</span> : null}
+                </div>
+              </div>
+            </div>
+          ) : null}
+
+          <div className="mt-6">
+            <Link href={href} className="btn btn-sm btn-primary w-full">
+              <Lang en={hasVideo ? "Watch video" : "Read story"} ta={hasVideo ? "வீடியோ பார்க்க" : "சாட்சி"} taClassName="font-tamil" />
+            </Link>
+          </div>
+        </div>
+      </article>
+    </Reveal>
+  )
+}
+
+export default function TestimonySection() {
+  const mailto = `mailto:${siteConfig.email}?subject=${encodeURIComponent("Testimony")}`
+  const all = useMemo(() => listTestimonialsNewestFirst(), [])
+  const [selected, setSelected] = useState<CategoryOption["id"]>("all")
+  const scrollerRef = useRef<HTMLDivElement | null>(null)
+
+  const filtered = useMemo(() => {
+    if (selected === "all") return all
+    return all.filter((t) => t.categories.includes(selected))
+  }, [all, selected])
+
+  useEffect(() => {
+    scrollerRef.current?.scrollTo({ left: 0, behavior: "smooth" })
+  }, [selected])
+
+  const scrollByCards = (dir: -1 | 1) => {
+    const el = scrollerRef.current
+    if (!el) return
+    const amount = Math.max(280, Math.min(520, el.clientWidth * 0.85))
+    el.scrollBy({ left: dir * amount, behavior: "smooth" })
+  }
+
+  return (
+    <section className="bg-churchBlueSoft">
+      <Container className="section-padding">
+        <div className="rounded-3xl border border-churchBlue/10 bg-white p-8 shadow-glow md:p-12 fade-up">
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+            <div>
+              <div className="section-kicker">
+                <Lang en="Community" ta="சமூகம்" taClassName="font-tamil" />
+              </div>
+              <div className="mt-3">
+                <h2 className="section-heading">
+                  <Lang en="Testimonies" ta="சாட்சிகள்" taClassName="font-tamil" />
+                </h2>
+              </div>
+              <p className="mt-3 max-w-2xl text-sm text-churchBlue/70 sm:text-base">
+                <Lang
+                  en="Watch and read real stories of God’s work — and filter by category."
+                  ta="தேவன் செய்த காரியங்களைப் பாருங்கள்/படிக்கவும் — தலைப்பு அடிப்படையில் தேர்வு செய்யுங்கள்."
+                  taClassName="font-tamil"
+                />
+              </p>
+              <p className="mt-2 max-w-2xl text-xs text-churchBlue/55">
+                <Lang
+                  en="Tip: add names/photos only with permission (or keep them anonymous)."
+                  ta="குறிப்பு: அனுமதி இருந்தால் மட்டுமே பெயர்/புகைப்படம் சேர்க்கவும் (அல்லது பெயரில்லாமல்)."
+                  taClassName="font-tamil"
+                />
+              </p>
+            </div>
+
+            <div className="flex flex-col gap-2 sm:items-end">
+              <div className="flex flex-wrap gap-2">
+                <button type="button" className="btn btn-sm btn-secondary" onClick={() => scrollByCards(-1)} aria-label="Scroll left">
+                  ←
+                </button>
+                <button type="button" className="btn btn-sm btn-secondary" onClick={() => scrollByCards(1)} aria-label="Scroll right">
+                  →
+                </button>
+                <Link href="/testimonies" className="btn btn-sm btn-secondary">
+                  <Lang en="View all" ta="அனைத்தும்" taClassName="font-tamil" />
+                </Link>
+                <a href={mailto} className="btn btn-sm btn-secondary">
+                  <Lang en="Share a story" ta="சாட்சி பகிர" taClassName="font-tamil" />
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-6 flex flex-wrap gap-2">
+            {categories.map((c) => {
+              const active = selected === c.id
+              return (
+                <button
+                  key={c.id}
+                  type="button"
+                  onClick={() => setSelected(c.id)}
+                  className={[
+                    "focus-ring rounded-full border px-4 py-2 text-xs font-semibold transition",
+                    active
+                      ? "border-churchBlue/15 bg-churchBlueSoft text-churchBlue"
+                      : "border-churchBlue/10 bg-white text-churchBlue/75 hover:bg-churchBlueSoft",
+                  ].join(" ")}
+                >
+                  <Lang en={c.labelEn} ta={c.labelTa} taClassName="font-tamil" />
+                </button>
+              )
+            })}
+          </div>
+
+          <div className="mt-6">
+            <div className="section-divider" aria-hidden="true" />
+          </div>
+
+          <div className="mt-8">
+            <div
+              ref={scrollerRef}
+              className="flex gap-4 overflow-x-auto pb-2 pr-1 scroll-smooth snap-x snap-mandatory"
+              aria-label="Testimonies carousel"
+            >
+              {filtered.map((t, idx) => (
+                <div
+                  key={t.slug}
+                  className="w-[280px] shrink-0 snap-start sm:w-[340px] md:w-[380px]"
+                >
+                  <Card t={t} delay={(idx % 4) as 0 | 1 | 2 | 3} />
+                </div>
+              ))}
+            </div>
+            {filtered.length === 0 ? (
+              <div className="mt-6 rounded-2xl border border-churchBlue/10 bg-churchBlueSoft p-5 text-sm text-churchBlue/75">
+                <Lang
+                  en="No testimonies in this category yet. Check back soon."
+                  ta="இந்த தலைப்பில் இன்னும் சாட்சிகள் இல்லை. விரைவில் புதுப்பிக்கப்படும்."
+                  taClassName="font-tamil"
+                />
+              </div>
+            ) : null}
+          </div>
+        </div>
+      </Container>
+    </section>
+  )
+}
+

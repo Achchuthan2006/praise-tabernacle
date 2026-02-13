@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="2400" height="1350" viewBox="0 0 2400 1350" fill="none">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="2400" y2="1350" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#0A1D5C"/>
+      <stop offset="0.55" stop-color="#102B7A"/>
+      <stop offset="1" stop-color="#1E3A8A"/>
+    </linearGradient>
+    <radialGradient id="glow1" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(720 220) rotate(20) scale(900 520)">
+      <stop stop-color="#FFD84D" stop-opacity="0.22"/>
+      <stop offset="1" stop-color="#FFD84D" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glow2" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(1840 520) rotate(-12) scale(980 640)">
+      <stop stop-color="#EAF0FF" stop-opacity="0.18"/>
+      <stop offset="1" stop-color="#EAF0FF" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glow3" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(1300 1180) rotate(0) scale(1200 520)">
+      <stop stop-color="#0A1D5C" stop-opacity="0.4"/>
+      <stop offset="1" stop-color="#0A1D5C" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="soft" x="-20%" y="-20%" width="140%" height="140%" filterUnits="objectBoundingBox">
+      <feGaussianBlur stdDeviation="18" />
+    </filter>
+  </defs>
+
+  <rect width="2400" height="1350" fill="url(#bg)"/>
+  <rect width="2400" height="1350" fill="url(#glow1)"/>
+  <rect width="2400" height="1350" fill="url(#glow2)"/>
+  <rect width="2400" height="1350" fill="url(#glow3)"/>
+
+  <!-- abstract "city lights" texture -->
+  <g opacity="0.28" filter="url(#soft)">
+    <circle cx="460" cy="640" r="22" fill="#EAF0FF"/>
+    <circle cx="520" cy="690" r="14" fill="#FFD84D"/>
+    <circle cx="610" cy="610" r="10" fill="#EAF0FF"/>
+    <circle cx="2020" cy="740" r="18" fill="#EAF0FF"/>
+    <circle cx="1930" cy="810" r="12" fill="#FFD84D"/>
+    <circle cx="2080" cy="820" r="10" fill="#EAF0FF"/>
+    <circle cx="1680" cy="320" r="16" fill="#EAF0FF"/>
+    <circle cx="1560" cy="360" r="10" fill="#FFD84D"/>
+  </g>
+</svg>

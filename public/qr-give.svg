@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="640" viewBox="0 0 640 640">
+  <rect width="640" height="640" fill="#f4f6fb"/>
+  <rect x="60" y="60" width="160" height="160" fill="#1a2744"/>
+  <rect x="80" y="80" width="120" height="120" fill="#f4f6fb"/>
+  <rect x="100" y="100" width="80" height="80" fill="#1a2744"/>
+  <rect x="420" y="60" width="160" height="160" fill="#1a2744"/>
+  <rect x="440" y="80" width="120" height="120" fill="#f4f6fb"/>
+  <rect x="460" y="100" width="80" height="80" fill="#1a2744"/>
+  <rect x="60" y="420" width="160" height="160" fill="#1a2744"/>
+  <rect x="80" y="440" width="120" height="120" fill="#f4f6fb"/>
+  <rect x="100" y="460" width="80" height="80" fill="#1a2744"/>
+  <rect x="260" y="260" width="120" height="120" fill="#1a2744"/>
+  <rect x="420" y="260" width="60" height="60" fill="#1a2744"/>
+  <rect x="500" y="340" width="80" height="80" fill="#1a2744"/>
+  <text x="320" y="590" font-family="Arial, sans-serif" font-size="24" text-anchor="middle" fill="#1a2744">
+    Replace with real QR code
+  </text>
+</svg>

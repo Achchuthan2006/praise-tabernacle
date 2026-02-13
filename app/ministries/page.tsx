@@ -1,35 +1,27 @@
 import type { Metadata } from "next"
+import Link from "next/link"
 
+import Lang from "@/components/language/Lang"
 import Container from "@/components/ui/Container"
 import PageHeader from "@/components/ui/PageHeader"
+import Reveal from "@/components/ui/Reveal"
+import { ministries, ministryCategories } from "@/lib/ministries"
+import { pageMetadata } from "@/lib/seo"
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Ministries",
   description: "Ways to connect and serve at Praise Tabernacle.",
-}
-
-const ministries = [
-  {
-    titleEn: "Worship & Tech",
-    titleTa: "ஆராதனை & தொழில்நுட்பம்",
-    bodyEn: "Serve with music and sound to support a calm, focused worship service.",
-    bodyTa: "அமைதியான, கவனமான ஆராதனை நடைபெற இசை மற்றும் ஒலியில் சேவை செய்யலாம்.",
-  },
-  {
-    titleEn: "Youth & Young Adults",
-    titleTa: "இளைஞர்கள்",
-    bodyEn: "A welcoming space to connect, ask questions, and grow together.",
-    bodyTa: "இணைந்திருக்கவும், கேள்விகள் கேட்கவும், ஒன்றாக வளரவும் ஒரு வரவேற்கும் இடம்.",
-  },
-  {
-    titleEn: "Prayer & Care",
-    titleTa: "ஜெபம் & பராமரிப்பு",
-    bodyEn: "A place to be prayed for, encouraged, and supported in a safe way.",
-    bodyTa: "பாதுகாப்பான முறையில் ஜெபம் பெறவும், ஊக்கம் மற்றும் ஆதரவு பெறவும் ஒரு இடம்.",
-  },
-]
+  path: "/ministries",
+})
 
 export default function MinistriesPage() {
+  const categoryTa: Record<string, string> = {
+    "Life Stages": "வாழ்க்கை கட்டங்கள்",
+    "Special Ministries": "சிறப்பு சேவைகள்",
+    Missions: "மிஷன்",
+    General: "பொது",
+  }
+
   return (
     <>
       <PageHeader
@@ -39,34 +31,101 @@ export default function MinistriesPage() {
         descriptionTa="சேர்ந்து, சேவை செய்து, உங்கள் வேகத்தில் வளர ஒரு இடத்தை கண்டுபிடிக்கவும்."
       />
 
-      <Container className="py-16 sm:py-20">
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {ministries.map((m) => (
-            <section
-              key={m.titleEn}
-              className="rounded-3xl border border-churchBlue/10 bg-white p-6 shadow-glow"
-            >
-              <h2 className="text-lg font-semibold text-churchBlue">{m.titleEn}</h2>
-              <p className="mt-1 text-sm text-churchBlue/70 font-tamil">{m.titleTa}</p>
-              <p className="mt-4 text-sm text-churchBlue/75 sm:text-base">{m.bodyEn}</p>
-              <p className="mt-3 text-sm text-churchBlue/70 sm:text-base font-tamil">{m.bodyTa}</p>
-            </section>
-          ))}
-        </div>
+      <Container className="section-padding">
+        <div className="mx-auto max-w-6xl">
+          {ministryCategories.map((category, sectionIdx) => {
+            const items = ministries.filter((m) => m.category === category)
+            if (items.length === 0) return null
 
-        <div className="mt-12 rounded-3xl border border-churchBlue/10 bg-white p-8 shadow-glow">
-          <h3 className="text-xl font-semibold tracking-tight text-churchBlue">
-            Want to get involved?
-          </h3>
-          <p className="mt-2 text-sm text-churchBlue/70 font-tamil">சேவையில் சேர விரும்புகிறீர்களா?</p>
-          <p className="mt-4 text-sm text-churchBlue/75 sm:text-base">
-            Send us a message and we’ll help you find a good fit. There’s no pressure —
-            we’ll guide you gently.
-          </p>
-          <p className="mt-2 text-sm text-churchBlue/70 sm:text-base font-tamil">
-            எங்களுக்கு ஒரு செய்தி அனுப்புங்கள். உங்களுக்கு பொருத்தமான சேவையை கண்டுபிடிக்க
-            உதவுகிறோம். எந்த அழுத்தமும் இல்லை — மெதுவாக வழிகாட்டுவோம்.
-          </p>
+            return (
+              <Reveal key={category} delay={sectionIdx === 0 ? 0 : sectionIdx === 1 ? 1 : 2}>
+                <section className={sectionIdx === 0 ? "" : "mt-14"}>
+                  <div className="flex items-end justify-between gap-4">
+                    <h2 className="text-2xl font-semibold tracking-tight text-churchBlue sm:text-3xl">
+                      <Lang en={category} ta={categoryTa[category] ?? category} taClassName="font-tamil" />
+                    </h2>
+                    <span className="text-xs text-churchBlue/60">
+                      <Lang
+                        en={`${items.length} ministries`}
+                        ta={`${items.length} சேவைகள்`}
+                        taClassName="font-tamil"
+                      />
+                    </span>
+                  </div>
+
+                  <div className="mt-8 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+                    {items.map((m) => (
+                      <Link
+                        key={m.slug}
+                        href={`/ministries/${m.slug}`}
+                        className="focus-ring group card block"
+                      >
+                        <div className="card-content">
+                          <div className="flex flex-wrap items-center gap-2">
+                            {m.tags.slice(0, 2).map((t) => (
+                              <span
+                                key={t}
+                                className="rounded-full border border-churchBlue/10 bg-churchBlueSoft px-3 py-1 text-xs font-semibold text-churchBlue/80"
+                              >
+                                {t}
+                              </span>
+                            ))}
+                          </div>
+                          <h3 className="mt-4 text-lg font-semibold text-churchBlue group-hover:text-churchBlueLight">
+                            <Lang en={m.nameEn} ta={m.nameTa} taClassName="font-tamil" />
+                          </h3>
+                          <p className="mt-4 text-sm text-churchBlue/75 sm:text-base">
+                            <Lang en={m.summaryEn} ta={m.summaryTa} taClassName="font-tamil" />
+                          </p>
+                          <div className="mt-6 text-sm text-churchBlue/70">
+                            <div>
+                              <span className="font-semibold text-churchBlue">
+                                <Lang en="When:" ta="எப்போது:" taClassName="font-tamil" />
+                              </span>{" "}
+                              <Lang en={m.meetingTimeEn} ta={m.meetingTimeTa} taClassName="font-tamil" />
+                            </div>
+                            <div className="mt-1">
+                              <span className="font-semibold text-churchBlue">
+                                <Lang en="Where:" ta="எங்கே:" taClassName="font-tamil" />
+                              </span>{" "}
+                              <Lang en={m.locationEn} ta={m.locationTa} taClassName="font-tamil" />
+                            </div>
+                          </div>
+                        </div>
+                      </Link>
+                    ))}
+                  </div>
+                </section>
+              </Reveal>
+            )
+          })}
+
+          <Reveal className="mt-14">
+            <div className="rounded-3xl border border-churchBlue/10 bg-churchBlueSoft p-8 shadow-glow md:p-10">
+              <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+                <div>
+                  <h3 className="text-xl font-semibold tracking-tight text-churchBlue">
+                    <Lang en="Want to get involved?" ta="ஈடுபட விரும்புகிறீர்களா?" taClassName="font-tamil" />
+                  </h3>
+                  <p className="mt-2 text-sm text-churchBlue/70">
+                    <Lang
+                      en="Send us a note and we&apos;ll help you find a good fit."
+                      ta="உங்களுக்கு பொருத்தமான சேவையை கண்டுபிடிக்க எங்களுக்கு செய்தி அனுப்புங்கள்."
+                      taClassName="font-tamil"
+                    />
+                  </p>
+                </div>
+                <div className="flex flex-col gap-2 sm:flex-row">
+                  <Link href="/contact" className="btn btn-md btn-primary">
+                    <Lang en="Request to Join" ta="சேர கோருங்கள்" taClassName="font-tamil" />
+                  </Link>
+                  <Link href="/events" className="btn btn-md btn-secondary">
+                    <Lang en="View Events" ta="நிகழ்வுகளை பார்க்கவும்" taClassName="font-tamil" />
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </Reveal>
         </div>
       </Container>
     </>

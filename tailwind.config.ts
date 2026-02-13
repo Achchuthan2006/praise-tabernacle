@@ -5,13 +5,28 @@ export default {
   theme: {
     extend: {
       colors: {
-        churchBlue: "#0A1D5C",
-        churchBlueLight: "#1E3A8A",
-        churchBlueSoft: "#EAF0FF",
-        churchGold: "#FFD84D",
+        // Brand roles (logo + supporting colors)
+        brandPrimary: "rgb(var(--color-primary-rgb) / <alpha-value>)",
+        brandSecondary: "rgb(var(--color-secondary-rgb) / <alpha-value>)",
+        brandAccent: "rgb(var(--color-accent-rgb) / <alpha-value>)",
+        brandDark: "rgb(var(--color-bg-dark-rgb) / <alpha-value>)",
+        brandDarkAlt: "rgb(var(--color-bg-dark-alt-rgb) / <alpha-value>)",
+        brandSurface: "rgb(var(--color-bg-surface-rgb) / <alpha-value>)",
+        brandText: "rgb(var(--color-text-main-rgb) / <alpha-value>)",
+        brandMuted: "rgb(var(--color-text-muted-rgb) / <alpha-value>)",
+
+        // Backward-compatible names used throughout the app
+        churchBlue: "rgb(var(--color-text-main-rgb) / <alpha-value>)",
+        churchBlueLight: "rgb(var(--color-text-muted-rgb) / <alpha-value>)",
+        churchBlueSoft: "rgb(var(--color-bg-surface-rgb) / <alpha-value>)",
+        churchGold: "rgb(var(--color-secondary-rgb) / <alpha-value>)",
+        stagePurple: "rgb(var(--color-accent-rgb) / <alpha-value>)",
+        stageBlue: "rgb(var(--color-bg-dark-alt-rgb) / <alpha-value>)",
+        burgundy: "rgb(var(--burgundy) / <alpha-value>)",
+        charcoal: "rgb(var(--charcoal) / <alpha-value>)",
       },
       boxShadow: {
-        glow: "0 0 0 1px rgb(10 29 92 / 0.10), 0 14px 40px rgb(10 29 92 / 0.10)",
+        glow: "0 0 0 1px rgb(var(--color-bg-dark-rgb) / 0.10), 0 14px 40px rgb(var(--color-bg-dark-rgb) / 0.10)",
       },
     },
   },
