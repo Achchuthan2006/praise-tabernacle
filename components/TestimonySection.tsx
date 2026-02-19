@@ -183,6 +183,7 @@ export default function TestimonySection() {
   const mailto = `mailto:${siteConfig.email}?subject=${encodeURIComponent("Testimony")}`
   const all = useMemo(() => listTestimonialsNewestFirst(), [])
   const [selected, setSelected] = useState<CategoryOption["id"]>("all")
+  const [activeIndex, setActiveIndex] = useState(0)
   const scrollerRef = useRef<HTMLDivElement | null>(null)
 
   const filtered = useMemo(() => {
@@ -193,6 +194,45 @@ export default function TestimonySection() {
   useEffect(() => {
     scrollerRef.current?.scrollTo({ left: 0, behavior: "smooth" })
   }, [selected])
+
+  useEffect(() => {
+    const el = scrollerRef.current
+    if (!el) return
+
+    const updateActive = () => {
+      const cards = Array.from(el.querySelectorAll<HTMLElement>("[data-testimony-slide]"))
+      if (!cards.length) {
+        setActiveIndex(0)
+        return
+      }
+
+      const viewportCenter = el.scrollLeft + el.clientWidth / 2
+      let next = 0
+      let minDist = Number.POSITIVE_INFINITY
+      cards.forEach((card, idx) => {
+        const center = card.offsetLeft + card.offsetWidth / 2
+        const dist = Math.abs(center - viewportCenter)
+        if (dist < minDist) {
+          minDist = dist
+          next = idx
+        }
+      })
+      setActiveIndex(next)
+    }
+
+    updateActive()
+    el.addEventListener("scroll", updateActive, { passive: true })
+    return () => el.removeEventListener("scroll", updateActive)
+  }, [filtered.length])
+
+  const scrollToIndex = (index: number) => {
+    const el = scrollerRef.current
+    if (!el) return
+    const cards = el.querySelectorAll<HTMLElement>("[data-testimony-slide]")
+    const target = cards[index]
+    if (!target) return
+    el.scrollTo({ left: target.offsetLeft, behavior: "smooth" })
+  }
 
   const scrollByCards = (dir: -1 | 1) => {
     const el = scrollerRef.current
@@ -249,7 +289,7 @@ export default function TestimonySection() {
             </div>
           </div>
 
-          <div className="mt-6 flex flex-wrap gap-2">
+          <div className="mt-6 flex flex-wrap items-center justify-start gap-2">
             {categories.map((c) => {
               const active = selected === c.id
               return (
@@ -277,18 +317,40 @@ export default function TestimonySection() {
           <div className="mt-8">
             <div
               ref={scrollerRef}
-              className="flex gap-4 overflow-x-auto pb-2 pr-1 scroll-smooth snap-x snap-mandatory"
+              className="no-scrollbar flex gap-4 overflow-x-auto pb-2 pr-1 scroll-smooth snap-x snap-mandatory"
               aria-label="Testimonies carousel"
             >
               {filtered.map((t, idx) => (
                 <div
                   key={t.slug}
-                  className="w-[280px] shrink-0 snap-start sm:w-[340px] md:w-[380px]"
+                  data-testimony-slide
+                  className="w-[85vw] shrink-0 snap-start sm:w-[340px] md:w-[380px]"
                 >
                   <Card t={t} delay={(idx % 4) as 0 | 1 | 2 | 3} />
                 </div>
               ))}
             </div>
+            {filtered.length > 0 ? (
+              <div className="mt-4 flex items-center justify-between gap-3">
+                <div className="text-xs font-semibold tracking-wide text-churchBlue/65">
+                  {`${activeIndex + 1}/${filtered.length}`}
+                </div>
+                <div className="flex items-center gap-2">
+                  {filtered.map((t, idx) => (
+                    <button
+                      key={`${t.slug}-dot`}
+                      type="button"
+                      aria-label={`Go to testimony ${idx + 1}`}
+                      onClick={() => scrollToIndex(idx)}
+                      className={[
+                        "h-2.5 w-2.5 rounded-full border border-churchBlue/20 transition",
+                        idx === activeIndex ? "bg-churchBlue" : "bg-white hover:bg-churchBlueSoft",
+                      ].join(" ")}
+                    />
+                  ))}
+                </div>
+              </div>
+            ) : null}
             {filtered.length === 0 ? (
               <div className="mt-6 rounded-2xl border border-churchBlue/10 bg-churchBlueSoft p-5 text-sm text-churchBlue/75">
                 <Lang
@@ -304,4 +366,3 @@ export default function TestimonySection() {
     </section>
   )
 }
-

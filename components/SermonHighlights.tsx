@@ -1,5 +1,8 @@
+"use client"
+
 import Image from "next/image"
 import Link from "next/link"
+import { useEffect, useRef, useState } from "react"
 
 import Lang from "@/components/language/Lang"
 import Tilt from "@/components/ui/Tilt"
@@ -75,6 +78,52 @@ export default function SermonHighlights() {
           thumbSrc: `https://i.ytimg.com/vi/${s.youtubeVideoId}/hqdefault.jpg`,
         }))
 
+  const scrollerRef = useRef<HTMLDivElement | null>(null)
+  const [activeIndex, setActiveIndex] = useState(0)
+
+  const scrollToIndex = (index: number) => {
+    const el = scrollerRef.current
+    if (!el) return
+    const cards = el.querySelectorAll<HTMLElement>("[data-sermon-slide]")
+    const target = cards[index]
+    if (!target) return
+    el.scrollTo({ left: target.offsetLeft, behavior: "smooth" })
+  }
+
+  const scrollByCard = (dir: -1 | 1) => {
+    const next = Math.max(0, Math.min(items.length - 1, activeIndex + dir))
+    scrollToIndex(next)
+  }
+
+  useEffect(() => {
+    const el = scrollerRef.current
+    if (!el) return
+
+    const updateActive = () => {
+      const cards = Array.from(el.querySelectorAll<HTMLElement>("[data-sermon-slide]"))
+      if (!cards.length) {
+        setActiveIndex(0)
+        return
+      }
+      const viewportCenter = el.scrollLeft + el.clientWidth / 2
+      let next = 0
+      let minDist = Number.POSITIVE_INFINITY
+      cards.forEach((card, idx) => {
+        const center = card.offsetLeft + card.offsetWidth / 2
+        const dist = Math.abs(center - viewportCenter)
+        if (dist < minDist) {
+          minDist = dist
+          next = idx
+        }
+      })
+      setActiveIndex(next)
+    }
+
+    updateActive()
+    el.addEventListener("scroll", updateActive, { passive: true })
+    return () => el.removeEventListener("scroll", updateActive)
+  }, [items.length])
+
   return (
     <section className="border-t border-churchBlue/10 bg-white">
       <Container className="section-padding">
@@ -109,7 +158,120 @@ export default function SermonHighlights() {
             </div>
           </Reveal>
 
-          <div className="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+          <div className="mt-10 md:hidden">
+            <div className="flex items-center justify-between gap-3">
+              <div className="text-xs font-semibold tracking-wide text-churchBlue/65">
+                {items.length > 0 ? `${activeIndex + 1}/${items.length}` : "0/0"}
+              </div>
+              <div className="flex items-center gap-2">
+                <button
+                  type="button"
+                  className="btn btn-sm btn-secondary"
+                  onClick={() => scrollByCard(-1)}
+                  aria-label="Previous sermon"
+                >
+                  ←
+                </button>
+                <button
+                  type="button"
+                  className="btn btn-sm btn-secondary"
+                  onClick={() => scrollByCard(1)}
+                  aria-label="Next sermon"
+                >
+                  →
+                </button>
+              </div>
+            </div>
+
+            <div
+              ref={scrollerRef}
+              className="mt-4 flex gap-4 overflow-x-auto pb-2 pr-1 scroll-smooth snap-x snap-mandatory"
+              aria-label="Sermon highlights carousel"
+            >
+              {items.map((item, idx) => {
+                const languageLabel =
+                  item.language === "ta"
+                    ? "Tamil (TA)"
+                    : item.language === "en"
+                      ? "English (EN)"
+                      : "TA + EN"
+
+                return (
+                  <div key={`${item.key}-mobile`} data-sermon-slide className="w-[86vw] max-w-[26rem] shrink-0 snap-start">
+                    <Tilt>
+                      <article className="card overflow-hidden">
+                        <Link
+                          href={item.href.startsWith("/sermons/") ? `${item.href}?play=1` : item.href}
+                          className="group relative block focus-ring"
+                          aria-label={`Play sermon: ${item.title}`}
+                        >
+                          <div className="aspect-video w-full overflow-hidden bg-churchBlueSoft">
+                            <Image
+                              src={item.thumbSrc}
+                              alt={item.title}
+                              width={800}
+                              height={450}
+                              sizes="86vw"
+                              className="h-full w-full object-cover"
+                              quality={85}
+                            />
+                          </div>
+                          <div
+                            aria-hidden="true"
+                            className="pointer-events-none absolute inset-0 z-20 grid place-items-center opacity-100 transition-opacity duration-300 group-hover:opacity-100 group-focus-visible:opacity-100"
+                          >
+                            <div className="grid h-14 w-14 place-items-center rounded-full bg-white/90 shadow-glow backdrop-blur">
+                              <svg viewBox="0 0 24 24" className="ml-0.5 h-7 w-7 text-churchBlue" fill="currentColor">
+                                <path d="M8 5v14l11-7z" />
+                              </svg>
+                            </div>
+                          </div>
+                        </Link>
+                        <div className="card-content p-5">
+                          <div className="flex flex-wrap items-center gap-2">
+                            <span className="rounded-full border border-churchBlue/10 bg-churchBlueSoft px-3 py-1 text-xs font-semibold text-churchBlue/80">
+                              {languageLabel}
+                            </span>
+                            <span className="text-xs font-semibold tracking-wide text-churchBlue/60">
+                              {formatDate(item.dateIso)}
+                            </span>
+                          </div>
+                          <h3 className="mt-3 text-base font-semibold tracking-tight text-churchBlue">
+                            {item.title}
+                          </h3>
+                          <div className="mt-5">
+                            <Link
+                              href={item.href.startsWith("/sermons/") ? `${item.href}?play=1` : item.href}
+                              className="btn btn-sm btn-primary w-full"
+                            >
+                              <Lang en="Watch" ta="à®ªà®¾à®°à¯à®™à¯à®•à®³à¯" taClassName="font-tamil" />
+                            </Link>
+                          </div>
+                        </div>
+                      </article>
+                    </Tilt>
+                  </div>
+                )
+              })}
+            </div>
+
+            <div className="mt-4 flex items-center justify-center gap-2">
+              {items.map((item, idx) => (
+                <button
+                  key={`${item.key}-dot`}
+                  type="button"
+                  aria-label={`Go to sermon ${idx + 1}`}
+                  onClick={() => scrollToIndex(idx)}
+                  className={[
+                    "h-2.5 w-2.5 rounded-full border border-churchBlue/20 transition",
+                    idx === activeIndex ? "bg-churchBlue" : "bg-white hover:bg-churchBlueSoft",
+                  ].join(" ")}
+                />
+              ))}
+            </div>
+          </div>
+
+          <div className="mt-10 hidden gap-6 md:grid md:grid-cols-2 lg:grid-cols-4">
             {items.map((item, idx) => {
               const languageLabel =
                 item.language === "ta"
@@ -119,7 +281,7 @@ export default function SermonHighlights() {
                     : "TA + EN"
 
               return (
-                <Reveal key={item.key} delay={delayForIndex(idx)}>
+                <Reveal key={`${item.key}-desktop`} delay={delayForIndex(idx)}>
                   <Tilt>
                     <article className="card overflow-hidden">
                     <Link
@@ -195,7 +357,7 @@ export default function SermonHighlights() {
                 </p>
 
                 {topics.length ? (
-                  <div className="mt-5 flex flex-wrap gap-2">
+                  <div className="mt-5 flex flex-wrap items-center justify-start gap-2">
                     {topics.map((topic) => (
                       <Link
                         key={topic}
@@ -209,12 +371,12 @@ export default function SermonHighlights() {
                 ) : null}
               </div>
 
-              <div className="grid gap-4 sm:grid-cols-2 lg:w-[520px]">
+              <div className="grid w-full gap-4 md:grid-cols-2 lg:w-[520px]">
                 {sermonSeries.slice(0, 4).map((series) => (
                   <Link
                     key={series.id}
                     href={`/sermons?series=${encodeURIComponent(series.id)}`}
-                    className="card group overflow-hidden focus-ring"
+                    className="card group min-h-[60px] overflow-hidden focus-ring"
                     aria-label={`Open series: ${series.title}`}
                   >
                     <div className="relative aspect-video w-full bg-white">

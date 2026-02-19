@@ -34,7 +34,7 @@ export default function CurrentSeriesSection() {
             </div>
           </div>
 
-          <div className="mt-10 grid gap-6 lg:grid-cols-12">
+          <div className="mt-6 grid gap-6 sm:mt-10 lg:grid-cols-12">
             <div className="lg:col-span-7">
               <div className="card">
                 <div className="card-content p-8">
@@ -74,4 +74,3 @@ export default function CurrentSeriesSection() {
     </section>
   )
 }
-

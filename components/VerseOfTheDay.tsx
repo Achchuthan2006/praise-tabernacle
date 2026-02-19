@@ -44,24 +44,43 @@ export default function VerseOfTheDay({
           </div>
 
           {imageSrcs.length ? (
-            <div className="mt-8 grid gap-4 sm:grid-cols-2">
-              {imageSrcs.map((src, idx) => (
-                <Reveal key={src} delay={(idx % 4) as 0 | 1 | 2 | 3}>
+            <>
+              <div className="mt-8 sm:hidden">
+                <Reveal>
                   <div className="votd-image-card group overflow-hidden rounded-3xl border border-churchBlue/10 bg-white shadow-glow">
                     <div className="relative aspect-[16/9] w-full">
                       <div className="votd-image-sheen" aria-hidden="true" />
                       <Image
-                        src={src}
-                        alt="Verse of the Day background image"
+                        src={imageSrcs[0]}
+                        alt="Verse of the Day featured background image"
                         fill
-                        sizes="(min-width: 1024px) 520px, (min-width: 640px) 50vw, 100vw"
+                        sizes="100vw"
                         className="votd-image object-cover"
                       />
                     </div>
                   </div>
                 </Reveal>
-              ))}
-            </div>
+              </div>
+
+              <div className="mt-8 hidden gap-4 sm:grid sm:grid-cols-2">
+                {imageSrcs.map((src, idx) => (
+                  <Reveal key={src} delay={(idx % 4) as 0 | 1 | 2 | 3}>
+                    <div className="votd-image-card group overflow-hidden rounded-3xl border border-churchBlue/10 bg-white shadow-glow">
+                      <div className="relative aspect-[16/9] w-full">
+                        <div className="votd-image-sheen" aria-hidden="true" />
+                        <Image
+                          src={src}
+                          alt="Verse of the Day background image"
+                          fill
+                          sizes="(min-width: 1024px) 520px, (min-width: 640px) 50vw, 100vw"
+                          className="votd-image object-cover"
+                        />
+                      </div>
+                    </div>
+                  </Reveal>
+                ))}
+              </div>
+            </>
           ) : null}
 
           <div className="mt-10 grid gap-6 lg:grid-cols-2">

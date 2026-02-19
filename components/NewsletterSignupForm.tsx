@@ -101,22 +101,7 @@ export default function NewsletterSignupForm({
           <span className="float-label">Email</span>
         </div>
       </label>
-      {variant === "section" ? (
-        <div className="flex flex-wrap items-center gap-2 text-xs text-churchBlue/70">
-          <span className="inline-flex items-center gap-2 rounded-full border border-churchBlue/10 bg-churchBlueSoft px-3 py-1">
-            <span className="h-1.5 w-1.5 rounded-full bg-churchBlue/40" aria-hidden="true" />
-            <Lang en="Sermons & events" ta="பிரசங்கங்கள் & நிகழ்வுகள்" taClassName="font-tamil" />
-          </span>
-          <span className="inline-flex items-center gap-2 rounded-full border border-churchBlue/10 bg-churchBlueSoft px-3 py-1">
-            <span className="h-1.5 w-1.5 rounded-full bg-churchBlue/40" aria-hidden="true" />
-            <Lang en="No spam" ta="ஸ்பாம் இல்லை" taClassName="font-tamil" />
-          </span>
-          <span className="inline-flex items-center gap-2 rounded-full border border-churchBlue/10 bg-churchBlueSoft px-3 py-1">
-            <span className="h-1.5 w-1.5 rounded-full bg-churchBlue/40" aria-hidden="true" />
-            <Lang en="Unsubscribe anytime" ta="எப்போது வேண்டுமானாலும் நிறுத்தலாம்" taClassName="font-tamil" />
-          </span>
-        </div>
-      ) : null}
+
       <button
         type="submit"
         className={["btn btn-md btn-primary w-full", status === "loading" ? "opacity-90" : ""].join(" ")}
@@ -130,6 +115,17 @@ export default function NewsletterSignupForm({
           taClassName="font-tamil"
         />
       </button>
+
+      {variant === "section" ? (
+        <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-churchBlue/70">
+          <Lang en="Sermons & events" ta="பிரசங்கங்கள் & நிகழ்வுகள்" taClassName="font-tamil" />
+          <span aria-hidden="true">•</span>
+          <Lang en="No spam" ta="ஸ்பாம் இல்லை" taClassName="font-tamil" />
+          <span aria-hidden="true">•</span>
+          <Lang en="Unsubscribe anytime" ta="எப்போது வேண்டுமானாலும் நிறுத்தலாம்" taClassName="font-tamil" />
+        </div>
+      ) : null}
+
       <p id={noteId} className={noteToneClass}>
         {showInvalid ? (
           <Lang en="Please enter a valid email address." ta="தயவுசெய்து சரியான மின்னஞ்சலை உள்ளிடுங்கள்." taClassName="font-tamil" />
@@ -138,7 +134,7 @@ export default function NewsletterSignupForm({
         ) : status === "error" ? (
           <>
             <Lang
-              en="Couldn’t submit right now. Please email "
+              en="Couldn't submit right now. Please email "
               ta="இப்போது சமர்ப்பிக்க முடியவில்லை. தயவு செய்து மின்னஞ்சல் செய்யவும்: "
               taClassName="font-tamil"
             />

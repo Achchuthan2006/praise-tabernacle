@@ -164,13 +164,13 @@ export default function GetInvolvedSection() {
             </div>
           </Reveal>
 
-          <div className="mt-10 grid gap-6 md:grid-cols-3">
+          <div className="mt-10 grid grid-cols-1 gap-4 lg:grid-cols-3">
             {pathways.map((p, idx) => (
-              <Reveal key={p.href} delay={idx === 0 ? 0 : idx === 1 ? 1 : 2}>
+              <Reveal key={p.href} delay={idx === 0 ? 0 : idx === 1 ? 1 : 2} className="w-full">
                 {(() => {
                   const meta = getPathwayMeta(p.href)
                   return (
-                    <article className="card card-accent-left h-full" data-accent={meta.accent}>
+                    <article className="card card-accent-left h-full w-full" data-accent={meta.accent}>
                   <div className="card-content p-7">
                     <div className="mb-4 inline-grid h-12 w-12 place-items-center rounded-2xl border border-churchBlue/10 bg-churchBlueSoft text-churchBlue/80 shadow-glow">
                       <PathwayIcon

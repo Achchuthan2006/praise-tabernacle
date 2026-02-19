@@ -387,31 +387,30 @@ function GiveRow({
           ) : null}
         </div>
 
-        {badgeEn || ctaHref ? (
-          <div className="mt-5 flex flex-wrap items-center justify-between gap-3">
-            {badgeEn ? (
-              <span className="inline-flex items-center rounded-full border border-churchBlue/10 bg-churchBlueSoft px-3 py-1 text-xs text-churchBlue/75">
-                <Lang en={badgeEn} ta={badgeTa ?? badgeEn} taClassName="font-tamil" />
-              </span>
+        {badgeEn ? (
+          <div className="mt-4">
+            <span className="inline-flex items-center rounded-full border border-churchBlue/10 bg-churchBlueSoft px-3 py-1 text-xs text-churchBlue/75">
+              <Lang en={badgeEn} ta={badgeTa ?? badgeEn} taClassName="font-tamil" />
+            </span>
+          </div>
+        ) : null}
+
+        {ctaHref ? (
+          <div className="mt-5">
+            {isInternalHref(ctaHref) ? (
+              <Link href={ctaHref} className="btn btn-sm btn-primary w-full sm:w-auto">
+                <Lang en={ctaEn ?? "Contact"} ta={ctaTa ?? (ctaEn ?? "Contact")} taClassName="font-tamil" />
+              </Link>
             ) : (
-              <span />
+              <a
+                href={ctaHref}
+                target={isHttpHref(ctaHref) ? "_blank" : undefined}
+                rel={isHttpHref(ctaHref) ? "noreferrer" : undefined}
+                className="btn btn-sm btn-primary w-full sm:w-auto"
+              >
+                <Lang en={ctaEn ?? "Contact"} ta={ctaTa ?? (ctaEn ?? "Contact")} taClassName="font-tamil" />
+              </a>
             )}
-            {ctaHref ? (
-              isInternalHref(ctaHref) ? (
-                <Link href={ctaHref} className="btn btn-sm btn-primary whitespace-nowrap">
-                  <Lang en={ctaEn ?? "Contact"} ta={ctaTa ?? (ctaEn ?? "Contact")} taClassName="font-tamil" />
-                </Link>
-              ) : (
-                <a
-                  href={ctaHref}
-                  target={isHttpHref(ctaHref) ? "_blank" : undefined}
-                  rel={isHttpHref(ctaHref) ? "noreferrer" : undefined}
-                  className="btn btn-sm btn-primary whitespace-nowrap"
-                >
-                  <Lang en={ctaEn ?? "Contact"} ta={ctaTa ?? (ctaEn ?? "Contact")} taClassName="font-tamil" />
-                </a>
-              )
-            ) : null}
           </div>
         ) : null}
       </div>

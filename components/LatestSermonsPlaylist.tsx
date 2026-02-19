@@ -48,7 +48,7 @@ export default function LatestSermonsPlaylist({
           </div>
         </div>
 
-        <div className="mt-10 overflow-hidden rounded-3xl border border-churchBlue/10 bg-white shadow-glow fade-up">
+        <div className="mt-6 overflow-hidden rounded-3xl border border-churchBlue/10 bg-white shadow-glow fade-up sm:mt-10">
           <div className="aspect-video w-full bg-churchBlueSoft">
             <YouTubeLiteEmbed
               kind="playlist"

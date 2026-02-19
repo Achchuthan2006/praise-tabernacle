@@ -67,7 +67,7 @@ function PromiseTile({ promise }: { promise: PromiseVideo }) {
           <Link
             href={href}
             className={[
-              "focus-ring promise-btn inline-flex items-center justify-center rounded-full px-5 py-3 text-sm font-semibold transition",
+              "focus-ring promise-btn inline-flex min-h-11 items-center justify-center rounded-full px-5 py-3 text-sm font-semibold transition",
               "border border-white/20 bg-white/15 text-white backdrop-blur hover:bg-white/20",
             ].join(" ")}
           >
@@ -75,7 +75,7 @@ function PromiseTile({ promise }: { promise: PromiseVideo }) {
           </Link>
           <Link
             href="/promises"
-            className="focus-ring promise-btn inline-flex items-center justify-center rounded-full border border-white/15 bg-transparent px-5 py-3 text-sm font-semibold text-white/85 transition hover:bg-white/10"
+            className="focus-ring promise-btn inline-flex min-h-11 items-center justify-center rounded-full border border-white/15 bg-transparent px-5 py-3 text-sm font-semibold text-white/85 transition hover:bg-white/10"
           >
             <Lang en="All promises" ta="அனைத்து வாக்குத்தத்தங்கள்" taClassName="font-tamil" />
           </Link>
@@ -145,7 +145,7 @@ function DailyPromiseTile({
           <Link
             href="/promises/daily?play=1"
             className={[
-              "focus-ring promise-btn inline-flex items-center justify-center rounded-full px-5 py-3 text-sm font-semibold transition",
+              "focus-ring promise-btn inline-flex min-h-11 items-center justify-center rounded-full px-5 py-3 text-sm font-semibold transition",
               "border border-white/20 bg-white/15 text-white backdrop-blur hover:bg-white/20",
             ].join(" ")}
           >
@@ -153,7 +153,7 @@ function DailyPromiseTile({
           </Link>
           <Link
             href="/promises"
-            className="focus-ring promise-btn inline-flex items-center justify-center rounded-full border border-white/15 bg-transparent px-5 py-3 text-sm font-semibold text-white/85 transition hover:bg-white/10"
+            className="focus-ring promise-btn inline-flex min-h-11 items-center justify-center rounded-full border border-white/15 bg-transparent px-5 py-3 text-sm font-semibold text-white/85 transition hover:bg-white/10"
           >
             <Lang en="All promises" ta="அனைத்து வாக்குத்தத்தங்கள்" taClassName="font-tamil" />
           </Link>
@@ -177,11 +177,24 @@ export default function PromiseHeroPanel() {
 
   return (
     <div className="p-5 sm:p-7">
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        <DailyPromiseTile promise={daily} hydrated={hydrated} />
-        {month ? <PromiseTile promise={month} /> : null}
-        {year ? <PromiseTile promise={year} /> : null}
+      <div className="-mx-5 overflow-x-auto px-5 pb-2 md:mx-0 md:overflow-visible md:px-0 md:pb-0">
+        <div className="flex snap-x snap-mandatory gap-4 md:grid md:grid-cols-2 lg:grid-cols-3">
+          <div className="w-[85vw] max-w-[26rem] shrink-0 snap-start md:w-auto md:max-w-none md:shrink md:snap-none">
+            <DailyPromiseTile promise={daily} hydrated={hydrated} />
+          </div>
+          {month ? (
+            <div className="w-[85vw] max-w-[26rem] shrink-0 snap-start md:w-auto md:max-w-none md:shrink md:snap-none">
+              <PromiseTile promise={month} />
+            </div>
+          ) : null}
+          {year ? (
+            <div className="w-[85vw] max-w-[26rem] shrink-0 snap-start md:w-auto md:max-w-none md:shrink md:snap-none">
+              <PromiseTile promise={year} />
+            </div>
+          ) : null}
+        </div>
       </div>
+      <p className="mt-2 text-xs text-white/70 md:hidden">Swipe for more promises {"->"}</p>
     </div>
   )
 }

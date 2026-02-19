@@ -151,7 +151,7 @@ export default function Hero() {
       />
       <div className="hero-stage-overlay" aria-hidden="true" />
 
-      <Container className="hero-content py-20 sm:py-28">
+      <Container className="hero-content py-14 sm:py-24">
         <div className="mx-auto max-w-5xl text-center">
           <Reveal>
             <div className="flex flex-col items-center gap-4">
@@ -161,7 +161,7 @@ export default function Hero() {
               </div>
 
               <div className="leading-tight">
-                <div className="logo-container hero-logo-wrap mx-auto w-full max-w-[280px] sm:max-w-[340px] lg:max-w-[390px]">
+                <div className="logo-container hero-logo-wrap mx-auto w-full max-w-[210px] sm:max-w-[300px] lg:max-w-[360px]">
                   <BrandLogo variant="onDark" className="w-full" priority />
                 </div>
                 <span className="sr-only">{siteConfig.nameEn}</span>
@@ -172,11 +172,11 @@ export default function Hero() {
           <Reveal delay={1}>
             <h1
               className={[
-                "hero-stage-title hero-title-anim mt-10 text-balance",
+                "hero-stage-title hero-title-anim mt-6 sm:mt-8 text-balance",
                 language === "ta" ? "font-tamil" : "",
               ].join(" ")}
             >
-              {language === "ta" ? heroHeadline : <span className="typewriter">{heroHeadline}</span>}
+              {heroHeadline}
             </h1>
           </Reveal>
 

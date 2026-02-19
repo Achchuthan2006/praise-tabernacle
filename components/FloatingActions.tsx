@@ -1,4 +1,4 @@
-"use client"
+﻿"use client"
 
 import Link from "next/link"
 import { usePathname } from "next/navigation"
@@ -50,15 +50,12 @@ function computeLiveState(now = new Date(), timeZone = "America/Toronto"): LiveS
   const { weekday, hour, minute } = getZonedParts(now, timeZone)
   const mins = hour * 60 + minute
 
-  // Sunday services: 9:15 AM (English) and 10:30 AM (Tamil with English translation).
   const service1Start = 9 * 60 + 15
   const service2Start = 10 * 60 + 30
-
   const service: 1 | 2 = mins < service2Start ? 1 : 2
 
-  // Show "Live" during a practical Sunday window (keeps UX simple and avoids DST pitfalls).
-  const liveWindowStart = 9 * 60 + 10 // 9:10 AM
-  const liveWindowEnd = 12 * 60 + 15 // 12:15 PM
+  const liveWindowStart = 9 * 60 + 10
+  const liveWindowEnd = 12 * 60 + 15
   const live = weekday === 0 && mins >= liveWindowStart && mins <= liveWindowEnd
 
   return live ? { live: true, service } : { live: false, service }
@@ -100,54 +97,43 @@ function Icon({ name }: { name: "play" | "prayer" | "give" }) {
 function Action({
   href,
   active,
-  variant,
   icon,
   labelEn,
   labelTa,
-  badge,
-  className,
+  showLiveDot,
 }: {
   href: string
   active: boolean
-  variant: "primary" | "secondary" | "live"
   icon: "play" | "prayer" | "give"
   labelEn: string
   labelTa: string
-  badge?: React.ReactNode
-  className?: string
+  showLiveDot?: boolean
 }) {
-  const pulse = variant === "live" || icon === "prayer" || icon === "give"
-  const base = "group relative flex items-center gap-2 rounded-full px-4 py-3 text-sm font-semibold shadow-glow focus-ring"
-
-  const style =
-    variant === "live"
-      ? "text-white bg-[linear-gradient(135deg,rgb(var(--primary-purple)),rgb(var(--primary-teal)))]"
-      : variant === "primary"
-        ? "text-white bg-churchBlue"
-        : "text-churchBlue bg-white/95 border border-churchBlue/10 backdrop-blur"
-
-  const dim = active ? "opacity-60 pointer-events-none" : ""
-
   return (
     <Link
       href={href}
-      className={[base, style, pulse ? "cta-pulse" : "", dim, className ?? ""].join(" ").trim()}
+      className={[
+        "focus-ring relative flex min-h-14 items-center justify-center gap-2 rounded-xl px-2 text-sm font-semibold transition",
+        active
+          ? "bg-churchBlue text-white shadow-[0_10px_24px_rgb(2_6_23_/_0.25)]"
+          : "bg-transparent text-churchBlue hover:bg-churchBlueSoft",
+      ].join(" ")}
       aria-label={`${labelEn} / ${labelTa}`}
     >
-      <span className="btn-icon grid h-8 w-8 place-items-center rounded-full bg-black/10 text-current">
-        <Icon name={icon} />
-      </span>
-      <span className="whitespace-nowrap">
-        <Lang en={labelEn} ta={labelTa} taClassName="font-tamil" />
-      </span>
-      {badge ? <span className="ml-1">{badge}</span> : null}
       <span
         className={[
-          "pointer-events-none absolute inset-0 rounded-full ring-1 ring-white/0 transition",
-          variant === "live" ? "group-hover:ring-white/25 group-focus-visible:ring-white/25" : "group-hover:ring-churchBlue/15 group-focus-visible:ring-churchBlue/15",
+          "grid h-7 w-7 place-items-center rounded-full",
+          active ? "bg-white/15" : "bg-churchBlue/10",
         ].join(" ")}
-        aria-hidden="true"
-      />
+      >
+        <Icon name={icon} />
+      </span>
+      <span className="whitespace-nowrap text-[13px] leading-none">
+        <Lang en={labelEn} ta={labelTa} taClassName="font-tamil" />
+      </span>
+      {showLiveDot ? (
+        <span className="absolute right-3 top-2 inline-flex h-2 w-2 rounded-full bg-red-500" />
+      ) : null}
     </Link>
   )
 }
@@ -167,51 +153,42 @@ export default function FloatingActions() {
     return liveState.service === 1 ? "/watch?service=1" : "/watch?service=2"
   }, [liveState.service])
 
-  const liveBadge = liveState.live ? (
-    <span className="inline-flex items-center gap-1 rounded-full bg-white/15 px-2 py-1 text-[11px] font-semibold tracking-wide">
-      <span className="relative inline-flex h-2 w-2">
-        <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-white/70 opacity-60" />
-        <span className="relative inline-flex h-2 w-2 rounded-full bg-white" />
-      </span>
-      LIVE
-    </span>
-  ) : null
-
   return (
     <div
       className={[
-        "fixed bottom-4 right-4 z-[90]",
-        "flex flex-col items-end gap-2",
-        "pb-[env(safe-area-inset-bottom)] pr-[env(safe-area-inset-right)]",
+        "fixed inset-x-0 bottom-0 z-[85] border-t border-churchBlue/10 bg-white/95 px-3 pt-2 shadow-[0_-8px_24px_rgb(2_6_23_/_0.12)] backdrop-blur md:hidden",
+        "pb-[max(env(safe-area-inset-bottom),0.5rem)]",
       ].join(" ")}
     >
-      <Action
-        href={watchHref}
-        active={pathname.startsWith("/watch")}
-        variant={liveState.live ? "live" : "secondary"}
-        icon="play"
-        labelEn={liveState.live ? "Watch Live" : "Watch"}
-        labelTa={liveState.live ? "நேரலை பார்க்க" : "பார்க்க"}
-        badge={liveBadge}
-        className={undefined}
-      />
-      <Action
-        href="/prayer"
-        active={pathname.startsWith("/prayer")}
-        variant="secondary"
-        icon="prayer"
-        labelEn="Prayer Request"
-        labelTa="ஜெப வேண்டுகோள்"
-      />
-      <Action
-        href="/give"
-        active={pathname.startsWith("/give")}
-        variant="primary"
-        icon="give"
-        labelEn="Give"
-        className=""
-        labelTa="கொடுங்கள்"
-      />
+      <nav aria-label="Quick actions" className="mx-auto grid h-14 w-full max-w-screen-sm grid-cols-3 gap-2">
+        <Action
+          href={watchHref}
+          active={pathname.startsWith("/watch")}
+          icon="play"
+          labelEn={liveState.live ? "Watch Live" : "Watch"}
+          labelTa={
+            liveState.live
+              ? "\u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BAA\u0BBE\u0BB0\u0BCD\u0B95\u0BCD\u0B95"
+              : "\u0BAA\u0BBE\u0BB0\u0BCD\u0B95\u0BCD\u0B95"
+          }
+          showLiveDot={liveState.live}
+        />
+        <Action
+          href="/prayer"
+          active={pathname.startsWith("/prayer")}
+          icon="prayer"
+          labelEn="Prayer"
+          labelTa="\u0B9C\u0BC6\u0BAA\u0BAE\u0BCD"
+        />
+        <Action
+          href="/give"
+          active={pathname.startsWith("/give")}
+          icon="give"
+          labelEn="Give"
+          labelTa="\u0B95\u0BCA\u0B9F\u0BC1\u0B99\u0BCD\u0B95\u0BB3\u0BCD"
+        />
+      </nav>
     </div>
   )
 }
+

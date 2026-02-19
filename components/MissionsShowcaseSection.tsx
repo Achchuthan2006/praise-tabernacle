@@ -45,8 +45,8 @@ export default function MissionsShowcaseSection() {
             </div>
           </Reveal>
 
-          <div className="mt-10 grid gap-6 lg:grid-cols-12 lg:items-start">
-            <Reveal className="lg:col-span-6">
+          <div className="mt-10 grid grid-cols-1 gap-6 xl:grid-cols-12 xl:items-start">
+            <Reveal className="w-full xl:col-span-6">
               <div className="rounded-3xl border border-churchBlue/10 bg-white p-7 shadow-glow">
                 <div className="text-sm font-semibold text-churchBlue/70">
                   <Lang en="Current projects" ta="தற்போதைய திட்டங்கள்" taClassName="font-tamil" />
@@ -89,13 +89,13 @@ export default function MissionsShowcaseSection() {
               </div>
             </Reveal>
 
-            <div className="grid gap-6 lg:col-span-6">
-              <Reveal delay={1}>
+            <div className="grid grid-cols-1 gap-6 w-full xl:col-span-6">
+              <Reveal delay={1} className="w-full">
                 <div className="rounded-3xl border border-churchBlue/10 bg-white p-7 shadow-glow">
                   <div className="text-sm font-semibold text-churchBlue/70">
                     <Lang en="Partner missionaries" ta="மிஷனரி கூட்டாளிகள்" taClassName="font-tamil" />
                   </div>
-                  <div className="mt-5 grid gap-4 sm:grid-cols-2">
+                  <div className="mt-5 grid gap-4 lg:grid-cols-2">
                     {partners.map((m) => (
                       <div key={m.id} className="rounded-2xl border border-churchBlue/10 bg-churchBlueSoft p-5">
                         <div className="text-sm font-semibold text-churchBlue">{m.name}</div>
@@ -109,12 +109,12 @@ export default function MissionsShowcaseSection() {
                 </div>
               </Reveal>
 
-              <Reveal delay={1}>
+              <Reveal delay={1} className="w-full">
                 <div className="rounded-3xl border border-churchBlue/10 bg-white p-7 shadow-glow">
                   <div className="text-sm font-semibold text-churchBlue/70">
                     <Lang en="Local outreach" ta="உள்ளூர் சேவை" taClassName="font-tamil" />
                   </div>
-                  <div className="mt-5 grid gap-4 sm:grid-cols-2">
+                  <div className="mt-5 grid gap-4 lg:grid-cols-2">
                     {initiatives.map((initiative) => (
                       <div key={initiative.id} className="rounded-2xl border border-churchBlue/10 bg-churchBlueSoft p-5">
                         <div className="text-sm font-semibold text-churchBlue">
@@ -143,4 +143,3 @@ export default function MissionsShowcaseSection() {
     </section>
   )
 }
-

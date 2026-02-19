@@ -90,6 +90,7 @@ export default function StickyScrollNextSteps() {
   }, [steps])
 
   const active = steps.find((s) => s.id === activeId) ?? steps[0]
+  const totalSteps = steps.length
 
   return (
     <section className="border-t border-churchBlue/10 bg-white">
@@ -104,14 +105,63 @@ export default function StickyScrollNextSteps() {
             </h2>
             <p className="mt-3 max-w-2xl text-sm text-churchBlue/70 sm:text-base">
               <Lang
-                en="Scroll to explore what to do next—visit, watch, and get connected."
+                en="Follow these next steps to visit, watch, and get connected."
                 ta="ஸ்க்ரோல் செய்து அடுத்ததாக என்ன செய்யலாம் என்பதைப் பாருங்கள்—வருகை, பார்வை, இணைவு."
                 taClassName="font-tamil"
               />
             </p>
           </Reveal>
 
-          <div className="sticky-scroll-container mt-10">
+          <div className="mt-8 lg:hidden">
+            <div className="mb-4 rounded-2xl border border-churchBlue/10 bg-churchBlueSoft p-4">
+              <p className="text-sm font-semibold text-churchBlue">
+                <Lang
+                  en="3 simple steps"
+                  ta="\u0bae\u0bc2\u0ba9\u0bcd\u0bb1\u0bc1 \u0b8e\u0bb3\u0bbf\u0baf \u0baa\u0b9f\u0bbf\u0b95\u0bb3\u0bcd"
+                  taClassName="font-tamil"
+                />
+              </p>
+              <div className="mt-3 h-2 w-full overflow-hidden rounded-full bg-white">
+                <div className="h-full w-full rounded-full bg-churchBlue" aria-hidden="true" />
+              </div>
+            </div>
+
+            <div className="space-y-4">
+              {steps.map((step, index) => (
+                <article
+                  key={`mobile-${step.id}`}
+                  className="relative rounded-3xl border border-churchBlue/10 bg-white p-5 shadow-glow"
+                >
+                  <div className="flex items-start gap-4">
+                    <div className="flex w-10 flex-col items-center">
+                      <div className="grid h-10 w-10 place-items-center rounded-full bg-churchBlue text-base font-bold text-white">
+                        {index + 1}
+                      </div>
+                      {index < totalSteps - 1 ? (
+                        <div className="mt-2 h-10 w-0.5 rounded-full bg-churchBlue/20" aria-hidden="true" />
+                      ) : null}
+                    </div>
+
+                    <div className="min-w-0 flex-1">
+                      <h3 className="text-base font-semibold text-churchBlue">
+                        <Lang en={step.titleEn} ta={step.titleTa} taClassName="font-tamil" />
+                      </h3>
+                      <p className="mt-2 text-sm leading-relaxed text-churchBlue/75">
+                        <Lang en={step.bodyEn} ta={step.bodyTa} taClassName="font-tamil" />
+                      </p>
+                      <div className="mt-4">
+                        <Link href={step.ctaHref} className="btn btn-md btn-secondary w-full min-h-11">
+                          <Lang en={step.ctaEn} ta={step.ctaTa} taClassName="font-tamil" />
+                        </Link>
+                      </div>
+                    </div>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </div>
+
+          <div className="sticky-scroll-container mt-10 hidden lg:block">
             <div className="grid gap-10 lg:grid-cols-12 lg:items-start">
               <div className="lg:col-span-5">
                 <div className="sticky-content">
@@ -181,4 +231,3 @@ export default function StickyScrollNextSteps() {
     </section>
   )
 }
-

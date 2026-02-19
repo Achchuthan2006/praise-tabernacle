@@ -702,6 +702,22 @@ export default function Navbar() {
     }
   }, [open, renderMobileMenu])
 
+  useEffect(() => {
+    if (!open) return
+
+    const previousOverflow = document.body.style.overflow
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setOpen(false)
+    }
+
+    document.body.style.overflow = "hidden"
+    window.addEventListener("keydown", onKeyDown)
+    return () => {
+      document.body.style.overflow = previousOverflow
+      window.removeEventListener("keydown", onKeyDown)
+    }
+  }, [open])
+
   const activeHrefs = useMemo(() => {
     const hrefs: string[] = []
     for (const item of navItems) {
@@ -1261,7 +1277,6 @@ export default function Navbar() {
         </nav>
 
         <div className="flex items-center gap-2 md:hidden">
-          <LanguageToggle />
           <button
             type="button"
             className="focus-ring inline-flex h-11 w-11 items-center justify-center rounded-xl border border-white/15 bg-white/10 text-white transition-colors hover:bg-white/15"
@@ -1301,117 +1316,158 @@ export default function Navbar() {
         <div
           id="mobile-nav"
           className={[
-            "border-t border-churchBlue/10 bg-white md:hidden overflow-hidden overscroll-contain",
-            "transform-gpu transition-[max-height,opacity,transform] duration-200 ease-out",
-            open
-              ? "max-h-[calc(100dvh-5.5rem)] opacity-100 translate-y-0 visible pointer-events-auto"
-              : "max-h-0 opacity-0 -translate-y-2 invisible pointer-events-none",
+            "fixed inset-0 z-[70] md:hidden",
+            "transition-opacity duration-200 ease-out",
+            open ? "opacity-100 visible pointer-events-auto" : "opacity-0 invisible pointer-events-none",
           ].join(" ")}
           aria-hidden={!open}
         >
-          <div className="max-h-[calc(100dvh-5.5rem)] overflow-y-auto">
-            <Container className="py-4">
+          <button
+            type="button"
+            aria-label="Close menu overlay"
+            className="absolute inset-0 bg-black/45 backdrop-blur-[2px]"
+            onClick={() => setOpen(false)}
+          />
+
+          <div
+            className={[
+              "absolute right-0 top-0 h-full w-[min(92vw,24rem)] overflow-y-auto border-l border-churchBlue/10 bg-white shadow-[0_24px_80px_rgb(2_6_23_/_0.45)]",
+              "transform-gpu transition-transform duration-200 ease-out",
+              open ? "translate-x-0" : "translate-x-full",
+            ].join(" ")}
+          >
+            <div className="sticky top-0 z-10 border-b border-churchBlue/10 bg-white/95 p-4 backdrop-blur">
+              <div className="flex items-center justify-between gap-3">
+                <div className="text-sm font-semibold text-churchBlue">Menu</div>
+                <div className="flex items-center gap-2">
+                  <LanguageToggle />
+                  <button
+                    type="button"
+                    className="focus-ring inline-flex h-10 w-10 items-center justify-center rounded-xl border border-churchBlue/20 text-churchBlue"
+                    aria-label={mobileMenuCloseLabel}
+                    onClick={() => setOpen(false)}
+                  >
+                    <span aria-hidden="true" className="text-lg leading-none">
+                      ×
+                    </span>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div className="p-4 pb-28">
               <div className="flex flex-col gap-2">
-              <div className="grid gap-2 px-2">
-                <Link href="/care" onClick={() => setOpen(false)} className="btn btn-md btn-primary w-full">
-                  {t(ui.cta.requestCare, language)}
-                </Link>
-                <Link href="/give" onClick={() => setOpen(false)} className="btn btn-md btn-offerings w-full">
-                  {language === "ta" ? "தசமபாகமும் கொடைகளும்" : "Tithes & Offerings"}
-                </Link>
-                <Link href="/search" onClick={() => setOpen(false)} className="btn btn-md btn-secondary w-full">
-                  {language === "ta" ? "தேடல்" : "Search"}
-                </Link>
-              </div>
+                <div className="grid gap-2">
+                  <Link href="/care" onClick={() => setOpen(false)} className="btn btn-md btn-primary w-full">
+                    {t(ui.cta.requestCare, language)}
+                  </Link>
+                  <Link href="/watch" onClick={() => setOpen(false)} className="btn btn-md btn-secondary w-full">
+                    Watch
+                  </Link>
+                  <Link href="/search" onClick={() => setOpen(false)} className="btn btn-md btn-secondary w-full">
+                    Search
+                  </Link>
+                </div>
 
-              {navItems.map((item) => {
-                if (item.type === "link") {
-                  const isActive = item.href === activeHref
+                {navItems.map((item) => {
+                  if (item.type === "link") {
+                    const isActive = item.href === activeHref
+                    return (
+                      <Link
+                        key={item.href}
+                        href={item.href}
+                        onClick={() => setOpen(false)}
+                        className={[
+                          "focus-ring block rounded-xl border border-transparent px-4 py-3 text-sm transition",
+                          isActive
+                            ? "bg-churchBlueSoft text-churchBlue border-stagePurple/25 shadow-[0_0_0_1px_rgb(var(--stage-purple)_/_0.14),0_10px_24px_rgb(var(--stage-purple)_/_0.12)]"
+                            : "text-churchBlue/80 hover:bg-churchBlueSoft hover:text-churchBlue",
+                        ].join(" ")}
+                      >
+                        <div className="flex items-center justify-between">
+                          <span>{t(ui.nav[item.key], language)}</span>
+                          <span className="text-churchBlue/60" aria-hidden="true">
+                            {"\u203A"}
+                          </span>
+                        </div>
+                      </Link>
+                    )
+                  }
+
+                  const isExpanded = Boolean(mobileSections[item.id])
+                  const label = (() => {
+                    if (item.id === "ourChurch") return t(ui.navGroups.ourChurch, language)
+                    if (item.id === "getInvolved") return t(ui.navGroups.getInvolved, language)
+                    if (item.id === "resources") return "Resources"
+                    return t(ui.nav.ministries, language)
+                  })()
+
                   return (
-                    <Link
-                      key={item.href}
-                      href={item.href}
-                      onClick={() => setOpen(false)}
-                      className={[
-                        "focus-ring block rounded-xl border border-transparent px-4 py-3 text-sm transition",
-                        isActive
-                          ? "bg-churchBlueSoft text-churchBlue border-stagePurple/25 shadow-[0_0_0_1px_rgb(var(--stage-purple)_/_0.14),0_10px_24px_rgb(var(--stage-purple)_/_0.12)]"
-                          : "text-churchBlue/80 hover:bg-churchBlueSoft hover:text-churchBlue",
-                      ].join(" ")}
-                    >
-                      <div className="flex items-center justify-between">
-                        <span>{t(ui.nav[item.key], language)}</span>
-                        <span className="text-churchBlue/60" aria-hidden="true">
-                          {"\u203A"}
+                    <div key={item.id}>
+                      <button
+                        type="button"
+                        className="focus-ring flex min-h-11 w-full items-center justify-between rounded-xl px-4 py-3 text-sm font-semibold text-churchBlue hover:bg-churchBlueSoft"
+                        aria-expanded={isExpanded}
+                        onClick={() =>
+                          setMobileSections((v) => ({ ...v, [item.id]: !Boolean(v[item.id]) }))
+                        }
+                      >
+                        <span className={language === "ta" ? "font-tamil" : undefined}>{label}</span>
+                        <span className="text-xs text-churchBlue/70" aria-hidden="true">
+                          {isExpanded ? "\u2212" : "+"}
                         </span>
-                      </div>
-                    </Link>
-                  )
-                }
-
-                const isExpanded = Boolean(mobileSections[item.id])
-                const label = (() => {
-                  if (item.id === "ourChurch") return t(ui.navGroups.ourChurch, language)
-                  if (item.id === "getInvolved") return t(ui.navGroups.getInvolved, language)
-                  if (item.id === "resources") return language === "ta" ? "Resources" : "Resources"
-                  return t(ui.nav.ministries, language)
-                })()
-
-                return (
-                  <div key={item.id} className="px-2">
-                    <button
-                      type="button"
-                      className="focus-ring flex min-h-11 w-full items-center justify-between rounded-xl px-4 py-3 text-sm font-semibold text-churchBlue hover:bg-churchBlueSoft"
-                      aria-expanded={isExpanded}
-                      onClick={() =>
-                        setMobileSections((v) => ({ ...v, [item.id]: !Boolean(v[item.id]) }))
-                      }
-                    >
-                      <span className={language === "ta" ? "font-tamil" : undefined}>{label}</span>
-                      <span className="text-xs text-churchBlue/70" aria-hidden="true">
-                        {isExpanded ? "\u2212" : "+"}
-                      </span>
-                    </button>
-                    {isExpanded ? (
-                      <div className="mt-1 space-y-1">
-                        {buildMenuLayout(item).flatItems.map((sub) => {
-                          const isActive = sub.href === activeHref
-                          return (
-                            <Link
-                              key={sub.href}
-                              href={sub.href}
-                              onClick={() => setOpen(false)}
-                              className={[
-                                "focus-ring block rounded-xl border border-transparent px-4 py-3 text-sm transition",
-                                isActive
-                                  ? "bg-churchBlueSoft text-churchBlue border-stagePurple/25 shadow-[0_0_0_1px_rgb(var(--stage-purple)_/_0.14),0_10px_24px_rgb(var(--stage-purple)_/_0.12)]"
-                                  : "text-churchBlue/80 hover:bg-churchBlueSoft hover:text-churchBlue",
-                              ].join(" ")}
-                            >
-                              <div className="flex items-center justify-between">
-                                <span className="flex items-center gap-2">
-                                  <span className="grid h-8 w-8 place-items-center rounded-xl bg-churchBlueSoft text-churchBlue/85">
-                                    <MenuIcon name={menuIconForHref(sub.href)} />
+                      </button>
+                      {isExpanded ? (
+                        <div className="mt-1 space-y-1">
+                          {buildMenuLayout(item).flatItems.map((sub) => {
+                            const isActive = sub.href === activeHref
+                            return (
+                              <Link
+                                key={sub.href}
+                                href={sub.href}
+                                onClick={() => setOpen(false)}
+                                className={[
+                                  "focus-ring block rounded-xl border border-transparent px-4 py-3 text-sm transition",
+                                  isActive
+                                    ? "bg-churchBlueSoft text-churchBlue border-stagePurple/25 shadow-[0_0_0_1px_rgb(var(--stage-purple)_/_0.14),0_10px_24px_rgb(var(--stage-purple)_/_0.12)]"
+                                    : "text-churchBlue/80 hover:bg-churchBlueSoft hover:text-churchBlue",
+                                ].join(" ")}
+                              >
+                                <div className="flex items-center justify-between">
+                                  <span className="flex items-center gap-2">
+                                    <span className="grid h-8 w-8 place-items-center rounded-xl bg-churchBlueSoft text-churchBlue/85">
+                                      <MenuIcon name={menuIconForHref(sub.href)} />
+                                    </span>
+                                    <span>{t(ui.nav[sub.key], language)}</span>
                                   </span>
-                                  <span>{t(ui.nav[sub.key], language)}</span>
-                                </span>
-                                <span className="text-churchBlue/60" aria-hidden="true">
-                                  {"\u203A"}
-                                </span>
-                              </div>
-                            </Link>
-                          )
-                        })}
-                      </div>
-                    ) : null}
-                  </div>
-                )
-              })}
+                                  <span className="text-churchBlue/60" aria-hidden="true">
+                                    {"\u203A"}
+                                  </span>
+                                </div>
+                              </Link>
+                            )
+                          })}
+                        </div>
+                      ) : null}
+                    </div>
+                  )
+                })}
               </div>
-            </Container>
+            </div>
           </div>
         </div>
       ) : null}
+
+      <div className="fixed inset-x-0 bottom-0 z-[60] border-t border-churchBlue/10 bg-white/95 px-4 pb-[max(env(safe-area-inset-bottom),0.5rem)] pt-3 shadow-[0_-12px_28px_rgb(2_6_23_/_0.12)] backdrop-blur md:hidden">
+        <div className="mx-auto grid w-full max-w-screen-sm grid-cols-2 gap-3">
+          <Link href="/watch" className="btn btn-md btn-secondary w-full" aria-label="Watch">
+            Watch
+          </Link>
+          <Link href="/give" className="btn btn-md btn-offerings w-full" aria-label="Give">
+            Give
+          </Link>
+        </div>
+      </div>
     </header>
   )
 }
@@ -1453,3 +1509,4 @@ function NavLink({
     </Link>
   )
 }
+

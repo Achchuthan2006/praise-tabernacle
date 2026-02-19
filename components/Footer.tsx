@@ -106,7 +106,81 @@ export default function Footer() {
   return (
     <footer className="footer-wave relative bg-churchBlue text-white">
       <Container className="py-14">
-        <div className="grid gap-12 lg:grid-cols-12 lg:items-start">
+        <div className="mx-auto max-w-md space-y-8 text-center md:hidden">
+          <div>
+            <div className="logo-container footer-logo-glow mx-auto">
+              <BrandLogo variant="onDark" className="w-[170px]" />
+            </div>
+            <p className="mt-4 text-sm text-white/85">
+              <Lang
+                en={
+                  <>
+                    A warm Tamil &amp; English church family in {siteConfig.locationShort}.
+                  </>
+                }
+                ta={
+                  <>
+                    {siteConfig.locationShort} à®¨à®•à®°à®¿à®²à¯ à®‰à®³à¯à®³ à®’à®°à¯ à®µà®°à®µà¯‡à®±à¯à®•à¯à®®à¯ à®¤à®®à®¿à®´à¯ &amp; à®†à®™à¯à®•à®¿à®² à®šà®ªà¯ˆà®•à¯ à®•à¯à®Ÿà¯à®®à¯à®ªà®®à¯.
+                  </>
+                }
+              />
+            </p>
+          </div>
+
+          <div className="grid grid-cols-2 gap-2">
+            {socials.slice(0, 4).map((s) => (
+              <a
+                key={`mobile-${s.label}`}
+                href={s.href}
+                target={s.href.startsWith("mailto:") ? undefined : "_blank"}
+                rel={s.href.startsWith("mailto:") ? undefined : "noreferrer"}
+                className={[
+                  "focus-ring inline-flex min-h-11 w-full items-center justify-center gap-2",
+                  "rounded-full border border-white/20 bg-white/10 px-4 py-2 text-sm text-white",
+                  "transition-colors hover:bg-white/15",
+                ].join(" ")}
+                aria-label={s.label}
+                title={s.label}
+              >
+                <Icon name={s.icon} />
+                <span>{s.label}</span>
+              </a>
+            ))}
+          </div>
+
+          <div className="text-sm text-white/85">
+            <div className="text-xs font-semibold text-white/85">
+              <Lang en="Address" ta="à®®à¯à®•à®µà®°à®¿" taClassName="font-tamil" />
+            </div>
+            <p className="mt-2">
+              {siteConfig.addressLines[0]}
+              <br />
+              {siteConfig.addressLines[1]}
+            </p>
+          </div>
+
+          <div className="rounded-3xl border border-white/15 bg-white/10 p-6 text-left backdrop-blur">
+            <div className="text-sm font-semibold text-white">
+              <Lang en="Newsletter" ta="à®šà¯†à®¯à¯à®¤à®¿à®®à®Ÿà®²à¯" />
+            </div>
+            <p className="mt-2 text-sm text-white/80">
+              <Lang
+                en="Get updates about events, prayer times, and church news."
+                ta="à®¨à®¿à®•à®´à¯à®µà¯à®•à®³à¯, à®œà¯†à®ª à®¨à¯‡à®°à®™à¯à®•à®³à¯, à®®à®±à¯à®±à¯à®®à¯ à®šà®ªà¯ˆ à®šà¯†à®¯à¯à®¤à®¿à®•à®³à¯ˆà®ªà¯ à®ªà®±à¯à®±à®¿à®¯ à®ªà¯à®¤à¯à®ªà¯à®ªà®¿à®ªà¯à®ªà¯à®•à®³à¯ˆ à®ªà¯†à®±à¯à®™à¯à®•à®³à¯."
+              />
+            </p>
+            <NewsletterSignupForm variant="footer" className="mt-4" noteId="footer-newsletter-note-mobile" />
+          </div>
+
+          <div className="grid grid-cols-2 gap-3 text-left">
+            {footerGroups.map((group) => (
+              <FooterAccordionGroup key={`mobile-acc-${group.titleEn}`} group={group} />
+            ))}
+            <FooterInfoAccordion />
+          </div>
+        </div>
+
+        <div className="hidden gap-12 md:grid lg:grid-cols-12 lg:items-start">
           <div className="lg:col-span-4">
             <div className="logo-container footer-logo-glow">
               <BrandLogo variant="onDark" className="w-[170px]" />
@@ -247,6 +321,39 @@ function FooterColumn({ group }: { group: FooterGroup }) {
   )
 }
 
+function FooterAccordionGroup({ group }: { group: FooterGroup }) {
+  return (
+    <details className="rounded-2xl border border-white/15 bg-white/10 p-3">
+      <summary className="focus-ring flex cursor-pointer list-none items-center justify-between gap-2 text-sm font-semibold text-white [&::-webkit-details-marker]:hidden">
+        <Lang en={group.titleEn} ta={group.titleTa} />
+        <span aria-hidden="true" className="text-white/60">
+          +
+        </span>
+      </summary>
+      <ul className="mt-3 space-y-2 text-sm">
+        {group.links.map((l) => (
+          <li key={`mobile-${l.href}-${l.labelEn}`}>
+            {l.external ? (
+              <a
+                href={l.href}
+                target="_blank"
+                rel="noreferrer"
+                className="focus-ring text-white/85 transition-colors hover:text-white"
+              >
+                <Lang en={l.labelEn} ta={l.labelTa} />
+              </a>
+            ) : (
+              <Link href={l.href} className="focus-ring text-white/85 transition-colors hover:text-white">
+                <Lang en={l.labelEn} ta={l.labelTa} />
+              </Link>
+            )}
+          </li>
+        ))}
+      </ul>
+    </details>
+  )
+}
+
 function FooterInfo() {
   return (
     <div className="sm:col-span-2 lg:col-span-1">
@@ -255,15 +362,11 @@ function FooterInfo() {
       </div>
       <ul className="mt-3 space-y-2 text-sm text-white/85">
         {siteConfig.serviceTimes.map((s) => (
-          <li key={s.time} className="flex flex-col gap-1 sm:flex-row sm:items-start sm:justify-between sm:gap-4">
-            <div className="min-w-0 leading-snug">
-              <div className="text-white">
-                <Lang en={s.labelEn} ta={s.labelTa} />
-              </div>
+          <li key={s.time} className="space-y-1 leading-snug">
+            <div className="text-white">
+              <Lang en={s.labelEn} ta={s.labelTa} />
             </div>
-            <div className="text-white/85 sm:flex-shrink-0 sm:whitespace-nowrap sm:text-right">
-              {normalizeBullets(s.time)}
-            </div>
+            <div className="block text-white/85">{normalizeBullets(s.time)}</div>
           </li>
         ))}
       </ul>
@@ -280,6 +383,40 @@ function FooterInfo() {
         <div className="mt-2">{siteConfig.phone}</div>
       </div>
     </div>
+  )
+}
+
+function FooterInfoAccordion() {
+  return (
+    <details className="rounded-2xl border border-white/15 bg-white/10 p-3">
+      <summary className="focus-ring flex cursor-pointer list-none items-center justify-between gap-2 text-sm font-semibold text-white [&::-webkit-details-marker]:hidden">
+        <Lang en="Info" ta="à®¤à®•à®µà®²à¯" />
+        <span aria-hidden="true" className="text-white/60">
+          +
+        </span>
+      </summary>
+      <ul className="mt-3 space-y-2 text-sm text-white/85">
+        {siteConfig.serviceTimes.map((s) => (
+          <li key={`mobile-${s.time}`} className="space-y-1 leading-snug">
+            <div className="text-white">
+              <Lang en={s.labelEn} ta={s.labelTa} />
+            </div>
+            <div className="block text-white/85">{normalizeBullets(s.time)}</div>
+          </li>
+        ))}
+      </ul>
+      <div className="mt-4 border-t border-white/15 pt-4 text-sm text-white/85">
+        <div>
+          <a
+            className="focus-ring text-white/85 transition-colors hover:text-white"
+            href={`mailto:${siteConfig.email}`}
+          >
+            {siteConfig.email}
+          </a>
+        </div>
+        <div className="mt-2">{siteConfig.phone}</div>
+      </div>
+    </details>
   )
 }
 

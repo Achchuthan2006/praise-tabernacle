@@ -16,9 +16,6 @@ export default function BlogPreviewSection() {
     .sort((a, b) => (a.dateIso < b.dateIso ? 1 : -1))
     .slice(0, 3)
 
-  const featured = posts[0]
-  const rest = posts.slice(1)
-
   return (
     <section className="bg-churchBlueSoft">
       <Container className="section-padding">
@@ -40,69 +37,44 @@ export default function BlogPreviewSection() {
                   />
                 </p>
               </div>
-              <Link href="/blog" className="btn btn-sm btn-secondary">
-                <Lang en="View blog" ta="செய்திகளை பார்க்க" taClassName="font-tamil" />
-              </Link>
             </div>
           </Reveal>
 
-          <div className="mt-10 grid gap-6 lg:grid-cols-3">
-            {featured ? (
-              <Reveal className="lg:col-span-2">
-                <article className="h-full card">
-                  <div className="card-content p-8">
+          <div className="mt-10 grid grid-cols-1 gap-6">
+            {posts.map((post, idx) => (
+              <Reveal key={post.slug} delay={idx === 0 ? 0 : idx === 1 ? 1 : 2}>
+                <article className="card w-full">
+                  <div className="card-content p-6 sm:p-8">
                     <div className="flex flex-wrap items-center gap-2">
                       <span className="rounded-full border border-churchBlue/10 bg-churchBlueSoft px-3 py-1 text-xs font-semibold text-churchBlue/80">
-                        {blogCategoryLabels[featured.category]}
+                        {blogCategoryLabels[post.category]}
                       </span>
                       <span className="text-xs text-churchBlue/60">
-                        {formatDate(featured.dateIso)} • {featured.readTimeMinutes} min read
+                        {formatDate(post.dateIso)} • {post.readTimeMinutes} min read
                       </span>
                     </div>
-                    <h3 className="mt-4 text-2xl font-semibold tracking-tight text-churchBlue sm:text-3xl">
-                      {featured.title}
+                    <h3 className="mt-4 text-xl font-semibold tracking-tight text-churchBlue sm:text-2xl">
+                      {post.title}
                     </h3>
-                    <p className="mt-4 text-sm leading-relaxed text-churchBlue/75 sm:text-base">
-                      {featured.excerpt}
-                    </p>
-                    <div className="mt-7">
-                      <Link href={`/blog/${featured.slug}`} className="btn btn-md btn-primary">
+                    <p className="mt-3 text-sm leading-relaxed text-churchBlue/75 sm:text-base">{post.excerpt}</p>
+                    <div className="mt-6">
+                      <Link href={`/blog/${post.slug}`} className="btn btn-sm btn-secondary">
                         <Lang en="Read article" ta="பதிவை படிக்க" taClassName="font-tamil" />
                       </Link>
                     </div>
                   </div>
                 </article>
               </Reveal>
-            ) : null}
-
-            <div className="grid gap-6">
-              {rest.map((post, idx) => (
-                <Reveal key={post.slug} delay={idx === 0 ? 1 : 2}>
-                  <article className="card">
-                    <div className="card-content p-6">
-                      <div className="flex flex-wrap items-center gap-2">
-                        <span className="rounded-full border border-churchBlue/10 bg-churchBlueSoft px-3 py-1 text-xs font-semibold text-churchBlue/80">
-                          {blogCategoryLabels[post.category]}
-                        </span>
-                        <span className="text-xs text-churchBlue/60">
-                          {formatDate(post.dateIso)} • {post.readTimeMinutes} min
-                        </span>
-                      </div>
-                      <h3 className="mt-3 text-lg font-semibold tracking-tight text-churchBlue">
-                        {post.title}
-                      </h3>
-                      <p className="mt-2 text-sm leading-relaxed text-churchBlue/75">{post.excerpt}</p>
-                      <div className="mt-4">
-                        <Link href={`/blog/${post.slug}`} className="btn btn-sm btn-secondary">
-                          <Lang en="Read" ta="படிக்க" taClassName="font-tamil" />
-                        </Link>
-                      </div>
-                    </div>
-                  </article>
-                </Reveal>
-              ))}
-            </div>
+            ))}
           </div>
+
+          <Reveal className="mt-8">
+            <div className="flex justify-start">
+              <Link href="/blog" className="btn btn-sm btn-secondary">
+                <Lang en="View blog" ta="செய்திகளை பார்க்க" taClassName="font-tamil" />
+              </Link>
+            </div>
+          </Reveal>
         </div>
       </Container>
     </section>

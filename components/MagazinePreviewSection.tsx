@@ -51,8 +51,8 @@ export default function MagazinePreviewSection() {
           <div className="mt-10">
             <Reveal>
               <article className="card overflow-hidden">
-                <div className="grid gap-0 md:grid-cols-12">
-                  <div className="md:col-span-5">
+                <div className="grid gap-0 lg:grid-cols-12">
+                  <div className="lg:col-span-5">
                     <Link href={href} className="group block focus-ring" aria-label={latest.titleEn}>
                       <div className="relative aspect-[4/3] w-full bg-churchBlueSoft">
                         {cover ? (
@@ -60,7 +60,7 @@ export default function MagazinePreviewSection() {
                             src={cover}
                             alt={latest.titleEn}
                             fill
-                            sizes="(max-width: 768px) 100vw, 40vw"
+                            sizes="(max-width: 1024px) 100vw, 40vw"
                             className="object-cover"
                             quality={85}
                           />
@@ -71,7 +71,7 @@ export default function MagazinePreviewSection() {
                     </Link>
                   </div>
 
-                  <div className="md:col-span-7">
+                  <div className="lg:col-span-7">
                     <div className="card-content p-8">
                       <div className="text-xs font-semibold tracking-wide text-churchBlue/60">
                         {formatMonth(latest.monthIso)}
@@ -87,7 +87,7 @@ export default function MagazinePreviewSection() {
                         />
                       </p>
 
-                      <div className="mt-7 grid gap-2 sm:grid-cols-2">
+                      <div className="mt-7 grid grid-cols-1 gap-2 sm:grid-cols-2">
                         <Link href={href} className="btn btn-md btn-primary w-full">
                           <Lang en="Open issue" ta="இதழை திறக்க" taClassName="font-tamil" />
                         </Link>
@@ -106,4 +106,3 @@ export default function MagazinePreviewSection() {
     </section>
   )
 }
-

@@ -25,7 +25,7 @@ export default function FaqSection() {
             </p>
           </div>
 
-          <div className="mt-8 grid gap-4 md:grid-cols-2">
+          <div className="mt-8 grid grid-cols-1 gap-4 min-[400px]:grid-cols-2">
             {visitFaqs.map((faq) => (
               <div key={faq.id} className="rounded-2xl border border-churchBlue/10 bg-churchBlueSoft px-5 py-4">
                 <div className="text-sm font-semibold text-churchBlue">

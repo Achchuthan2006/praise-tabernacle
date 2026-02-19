@@ -1,4 +1,4 @@
-import type { Metadata } from "next"
+﻿import type { Metadata } from "next"
 import Link from "next/link"
 
 import ContactMessageForm from "@/components/ContactMessageForm"
@@ -12,7 +12,7 @@ import { siteConfig } from "@/lib/site"
 
 export const metadata: Metadata = pageMetadata({
   title: "Contact",
-  description: "Contact Praise Tabernacle — service times, location, and a simple message form.",
+  description: "Contact Praise Tabernacle â€” service times, location, and a simple message form.",
   path: "/contact",
 })
 
@@ -25,19 +25,19 @@ export default function ContactPage() {
     <>
       <PageHeader
         titleEn="Contact"
-        titleTa="தொடர்பு"
-        descriptionEn="We’d love to hear from you. Ask a question, request prayer, or plan your visit."
-        descriptionTa="உங்களிடமிருந்து கேட்க விரும்புகிறோம். கேள்விகள் கேளுங்கள், ஜெபம் வேண்டுங்கள், அல்லது வருகையை திட்டமிடுங்கள்."
+        titleTa="à®¤à¯Šà®Ÿà®°à¯à®ªà¯"
+        descriptionEn="Weâ€™d love to hear from you. Ask a question, request prayer, or plan your visit."
+        descriptionTa="à®‰à®™à¯à®•à®³à®¿à®Ÿà®®à®¿à®°à¯à®¨à¯à®¤à¯ à®•à¯‡à®Ÿà¯à®• à®µà®¿à®°à¯à®®à¯à®ªà¯à®•à®¿à®±à¯‹à®®à¯. à®•à¯‡à®³à¯à®µà®¿à®•à®³à¯ à®•à¯‡à®³à¯à®™à¯à®•à®³à¯, à®œà¯†à®ªà®®à¯ à®µà¯‡à®£à¯à®Ÿà¯à®™à¯à®•à®³à¯, à®…à®²à¯à®²à®¤à¯ à®µà®°à¯à®•à¯ˆà®¯à¯ˆ à®¤à®¿à®Ÿà¯à®Ÿà®®à®¿à®Ÿà¯à®™à¯à®•à®³à¯."
       />
 
       <Container className="section-padding">
-        <div className="grid gap-12 lg:grid-cols-12 lg:items-start">
+        <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:items-start">
           <div className="lg:col-span-5">
             <div className="mx-auto max-w-xl lg:mx-0">
               <Reveal>
                 <section className="border-y border-churchBlue/10 py-8">
                   <h2 className="text-xl font-semibold tracking-tight text-churchBlue">
-                    <Lang en="Location" ta="இடம்" taClassName="font-tamil" />
+                    <Lang en="Location" ta="à®‡à®Ÿà®®à¯" taClassName="font-tamil" />
                   </h2>
                   <div className="mt-5 space-y-1 text-sm leading-relaxed text-churchBlue/75 sm:text-base">
                     {siteConfig.addressLines.map((line) => (
@@ -46,18 +46,18 @@ export default function ContactPage() {
                   </div>
                   <div className="mt-6 flex flex-col gap-3 sm:flex-row">
                     <a
-                      className="btn btn-md btn-primary"
+                      className="btn btn-md btn-primary w-full sm:w-auto"
                       href={directionsUrl}
                       target="_blank"
                       rel="noreferrer"
                     >
-                      <Lang en="Get directions" ta="வழிமுறைகள் பெறுங்கள்" taClassName="font-tamil" />
+                      <Lang en="Get directions" ta="à®µà®´à®¿à®®à¯à®±à¯ˆà®•à®³à¯ à®ªà¯†à®±à¯à®™à¯à®•à®³à¯" taClassName="font-tamil" />
                     </a>
                     <Link
                       href="/visit"
-                      className="btn btn-md btn-secondary"
+                      className="btn btn-md btn-secondary w-full sm:w-auto"
                     >
-                      <Lang en="Plan your visit" ta="வருகையை திட்டமிடுங்கள்" taClassName="font-tamil" />
+                      <Lang en="Plan your visit" ta="à®µà®°à¯à®•à¯ˆà®¯à¯ˆ à®¤à®¿à®Ÿà¯à®Ÿà®®à®¿à®Ÿà¯à®™à¯à®•à®³à¯" taClassName="font-tamil" />
                     </Link>
                   </div>
 
@@ -65,7 +65,7 @@ export default function ContactPage() {
                     <GoogleMapEmbed
                       title="Google Map - Praise Tabernacle"
                       src={mapEmbedUrl}
-                      className="aspect-[16/10] w-full bg-churchBlueSoft"
+                      className="h-[200px] w-full bg-churchBlueSoft sm:h-[240px] md:h-[280px]"
                       ctaLabel="Tap to move the map"
                     />
                   </div>
@@ -75,7 +75,7 @@ export default function ContactPage() {
               <Reveal delay={1}>
                 <section className="border-b border-churchBlue/10 py-8">
                   <h3 className="text-sm font-semibold tracking-tight text-churchBlue">
-                    <Lang en="Service Times" ta="ஆராதனை நேரங்கள்" taClassName="font-tamil" />
+                    <Lang en="Service Times" ta="à®†à®°à®¾à®¤à®©à¯ˆ à®¨à¯‡à®°à®™à¯à®•à®³à¯" taClassName="font-tamil" />
                   </h3>
                   <ul className="mt-5 space-y-3 text-sm text-churchBlue/75 sm:text-base">
                     {siteConfig.serviceTimes.map((s) => (
@@ -95,7 +95,7 @@ export default function ContactPage() {
               <Reveal delay={2}>
                 <section className="py-8">
                   <h3 className="text-sm font-semibold tracking-tight text-churchBlue">
-                    <Lang en="Contact" ta="தொடர்பு" taClassName="font-tamil" />
+                    <Lang en="Contact" ta="à®¤à¯Šà®Ÿà®°à¯à®ªà¯" taClassName="font-tamil" />
                   </h3>
                   <div className="mt-5 space-y-2 text-sm sm:text-base">
                     <a
@@ -123,3 +123,4 @@ export default function ContactPage() {
     </>
   )
 }
+

@@ -230,7 +230,95 @@ export default function SermonArchive({
           </div>
         </div>
 
-        <div className="mt-8 grid gap-3 lg:grid-cols-12">
+        <div className="mt-8 space-y-3 lg:hidden">
+          <label className="block">
+            <div className="float-field">
+              <input
+                className="float-input"
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                placeholder="Search sermons..."
+              />
+              <span className="float-label">Search</span>
+            </div>
+          </label>
+
+          <div className="grid grid-cols-2 gap-3">
+            <Filter
+              label="Series"
+              value={selectedSeries}
+              onChange={setSelectedSeries}
+              options={seriesIds.map((id) => ({ value: id, label: seriesById.get(id)?.title ?? id }))}
+            />
+            <Filter
+              label="Topic"
+              value={selectedTopic}
+              onChange={setSelectedTopic}
+              options={topics.map((t) => ({ value: t, label: t }))}
+            />
+          </div>
+
+          <div className="grid grid-cols-2 gap-3">
+            <Filter
+              label="Speaker"
+              value={selectedSpeaker}
+              onChange={setSelectedSpeaker}
+              options={speakers.map((s) => ({ value: s, label: s }))}
+            />
+            <Filter
+              label="Language"
+              value={selectedLanguage}
+              onChange={setSelectedLanguage}
+              options={[
+                { value: "en", label: "English" },
+                { value: "ta", label: "Tamil" },
+                { value: "mixed", label: "Tamil + English" },
+              ]}
+            />
+          </div>
+
+          <div className="grid grid-cols-2 gap-3">
+            <label className="block">
+              <span className="text-sm font-medium text-churchBlue">From</span>
+              <input
+                type="date"
+                className="mt-2 h-11 w-full rounded-xl border border-churchBlue/15 bg-white px-3 text-sm text-churchBlue focus-ring"
+                value={fromDate}
+                onChange={(e) => setFromDate(e.target.value)}
+              />
+            </label>
+            <label className="block">
+              <span className="text-sm font-medium text-churchBlue">To</span>
+              <input
+                type="date"
+                className="mt-2 h-11 w-full rounded-xl border border-churchBlue/15 bg-white px-3 text-sm text-churchBlue focus-ring"
+                value={toDate}
+                onChange={(e) => setToDate(e.target.value)}
+              />
+            </label>
+          </div>
+
+          <Filter
+            label="Sort"
+            value={sortMode}
+            onChange={(v) => setSortMode(v as SortMode)}
+            options={[
+              { value: "relevance", label: "Relevance" },
+              { value: "newest", label: "Newest first" },
+              { value: "oldest", label: "Oldest first" },
+              { value: "title-az", label: "Title (A-Z)" },
+            ]}
+          />
+
+          <div className="rounded-2xl border border-churchBlue/10 bg-churchBlueSoft px-4 py-3">
+            <div className="text-xs font-semibold tracking-wide text-churchBlue/60">Results</div>
+            <div className="mt-1 text-sm font-semibold text-churchBlue">
+              {filtered.length} sermon{filtered.length === 1 ? "" : "s"}
+            </div>
+          </div>
+        </div>
+
+        <div className="mt-8 hidden gap-3 lg:grid lg:grid-cols-12">
           <div className="lg:col-span-5">
             <label className="block">
               <div className="float-field">
@@ -245,7 +333,7 @@ export default function SermonArchive({
             </label>
           </div>
 
-          <div className="grid gap-3 sm:grid-cols-2 lg:col-span-7 lg:grid-cols-4">
+          <div className="grid gap-3 lg:col-span-7 lg:grid-cols-4">
             <Filter
               label="Series"
               value={selectedSeries}
@@ -277,7 +365,7 @@ export default function SermonArchive({
           </div>
         </div>
 
-        <div className="mt-3 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-3 hidden gap-3 lg:grid lg:grid-cols-4">
           <label className="block">
             <span className="text-sm font-medium text-churchBlue">From</span>
             <input

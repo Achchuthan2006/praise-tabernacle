@@ -65,20 +65,20 @@ export default async function SocialMediaSection() {
             </p>
           </Reveal>
 
-          <div className="mt-8 grid gap-8 lg:grid-cols-12 lg:items-start">
-            <Reveal className="lg:col-span-5">
+          <div className="mt-8 grid grid-cols-1 gap-8 xl:grid-cols-12 xl:items-start">
+            <Reveal className="w-full xl:col-span-5">
               <div className="rounded-3xl border border-churchBlue/10 bg-white p-6 shadow-glow">
                 <div className="text-sm font-semibold text-churchBlue/70">
                   <Lang en="Live feed" ta="நேரலை புதுப்பிப்புகள்" taClassName="font-tamil" />
                 </div>
-                <div className="mt-4 space-y-4">
+                <div className="mt-4 space-y-5">
                   {(liveFeed ?? socialFeed).map((item) => (
                     <a
                       key={item.id}
                       href={item.href}
                       target="_blank"
                       rel="noreferrer"
-                      className="block rounded-2xl border border-churchBlue/10 bg-churchBlueSoft p-4 transition-colors hover:bg-white"
+                      className="block w-full rounded-2xl border border-churchBlue/10 bg-churchBlueSoft p-5 transition-colors hover:bg-white"
                     >
                       <div className="text-xs font-semibold tracking-wide text-churchBlue/60">{item.platform}</div>
                       <div className="mt-2 text-sm font-semibold text-churchBlue">{item.title}</div>
@@ -109,7 +109,7 @@ export default async function SocialMediaSection() {
               </div>
             </Reveal>
 
-            <Reveal className="lg:col-span-7" delay={1}>
+            <Reveal className="w-full xl:col-span-7" delay={1}>
               <div className="rounded-3xl border border-churchBlue/10 bg-white p-6 shadow-glow">
                 <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
                   <div>
@@ -127,7 +127,7 @@ export default async function SocialMediaSection() {
                   ) : null}
                 </div>
 
-                <div className="mt-5 grid gap-3 sm:grid-cols-3">
+                <div className="mt-5 grid grid-cols-2 gap-3 md:grid-cols-3">
                   {instagramWallImages.map((img) => (
                     <a
                       key={img.id}
