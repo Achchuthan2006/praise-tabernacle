@@ -51,8 +51,8 @@ export default function MagazinePreviewSection() {
           <div className="mt-10">
             <Reveal>
               <article className="card overflow-hidden">
-                <div className="grid gap-0 lg:grid-cols-12">
-                  <div className="lg:col-span-5">
+                <div className="flex flex-col md:flex-row">
+                  <div className="md:w-5/12">
                     <Link href={href} className="group block focus-ring" aria-label={latest.titleEn}>
                       <div className="relative aspect-[4/3] w-full bg-churchBlueSoft">
                         {cover ? (
@@ -71,7 +71,7 @@ export default function MagazinePreviewSection() {
                     </Link>
                   </div>
 
-                  <div className="lg:col-span-7">
+                  <div className="md:w-7/12">
                     <div className="card-content p-8">
                       <div className="text-xs font-semibold tracking-wide text-churchBlue/60">
                         {formatMonth(latest.monthIso)}
