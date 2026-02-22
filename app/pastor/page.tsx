@@ -27,8 +27,8 @@ export default function PastorPage() {
       />
 
       <Container className="section-padding">
-        <div className="grid gap-10 lg:grid-cols-12 lg:items-start">
-          <div className="lg:col-span-5">
+        <div className="flex flex-col lg:flex-row gap-8 lg:items-start">
+          <div className="w-full lg:w-5/12">
             <Reveal>
               <div className="overflow-hidden rounded-3xl border border-churchBlue/10 bg-white shadow-glow">
                 <div className="relative aspect-[4/5] w-full bg-churchBlueSoft">
@@ -46,7 +46,7 @@ export default function PastorPage() {
             </Reveal>
           </div>
 
-          <div className="lg:col-span-7">
+          <div className="w-full lg:w-7/12">
             <Reveal>
               <h2 className="text-2xl font-semibold tracking-tight text-churchBlue sm:text-3xl">
                 <Lang en={pastorProfile.nameEn} ta={pastorProfile.nameTa} taClassName="font-tamil" />
