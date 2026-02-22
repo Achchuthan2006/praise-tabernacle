@@ -2579,6 +2579,12 @@
     }
   }
 
+  @media (max-width: 480px) {
+    .blog-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
   .hero-title-anim {
     animation: hero-slide-up-fade 900ms ease-out both;
   }
