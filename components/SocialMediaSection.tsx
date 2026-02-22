@@ -65,8 +65,8 @@ export default async function SocialMediaSection() {
             </p>
           </Reveal>
 
-          <div className="mt-8 grid grid-cols-1 gap-8 xl:grid-cols-12 xl:items-start">
-            <Reveal className="w-full xl:col-span-5">
+          <div className="mt-8 flex flex-col gap-8 md:flex-row md:items-start">
+            <Reveal className="w-full md:w-5/12">
               <div className="rounded-3xl border border-churchBlue/10 bg-white p-6 shadow-glow">
                 <div className="text-sm font-semibold text-churchBlue/70">
                   <Lang en="Live feed" ta="நேரலை புதுப்பிப்புகள்" taClassName="font-tamil" />
@@ -109,7 +109,7 @@ export default async function SocialMediaSection() {
               </div>
             </Reveal>
 
-            <Reveal className="w-full xl:col-span-7" delay={1}>
+            <Reveal className="w-full md:w-7/12" delay={1}>
               <div className="rounded-3xl border border-churchBlue/10 bg-white p-6 shadow-glow">
                 <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
                   <div>
