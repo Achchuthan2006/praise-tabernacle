@@ -877,7 +877,7 @@ export default function Navbar() {
         scrolled ? "scrolled" : "",
       ].join(" ")}
     >
-      <Container className="flex items-center justify-between gap-4 py-4">
+      <Container className="flex items-center justify-between gap-3 py-3 xl:gap-4 xl:py-4">
         <Link
           href="/"
           className="group flex items-center gap-3 focus-ring rounded-lg"
@@ -892,12 +892,12 @@ export default function Navbar() {
 
          <nav
            className={[
-             "hidden flex-1 items-center justify-end gap-2 lg:flex",
+             "hidden flex-1 items-center justify-end gap-1 lg:flex xl:gap-2",
            ].join(" ")}
            aria-label="Primary navigation"
          >
           <div
-            className="relative flex items-center gap-1"
+            className="relative flex items-center gap-0.5 xl:gap-1"
             ref={desktopNavRef}
             onMouseLeave={() => {
               setHoveredKey(null)
@@ -937,8 +937,8 @@ export default function Navbar() {
                     <Lang
                       en={labelEn}
                       ta={labelTa}
-                      enClassName="text-[14px] whitespace-nowrap"
-                      taClassName="font-tamil text-[14px] whitespace-nowrap"
+                      enClassName="text-[13px] whitespace-nowrap"
+                      taClassName="font-tamil text-[13px] whitespace-nowrap"
                     />
                   </NavLink>
                 )
@@ -968,7 +968,7 @@ export default function Navbar() {
                   <button
                     type="button"
                     className={[
-                      "nav-link focus-ring inline-flex whitespace-nowrap items-center gap-1 rounded-full px-3 py-2 text-sm font-medium",
+                      "nav-link focus-ring inline-flex whitespace-nowrap items-center gap-1 rounded-full px-2.5 py-2 text-[13px] font-medium",
                       isActive || openMenu === item.id ? "active" : "",
                     ].join(" ")}
                     aria-expanded={openMenu === item.id}
@@ -982,8 +982,8 @@ export default function Navbar() {
                     <Lang
                       en={labelEn}
                       ta={labelTa}
-                      enClassName="text-[14px] whitespace-nowrap"
-                      taClassName="font-tamil text-[14px] whitespace-nowrap"
+                      enClassName="text-[13px] whitespace-nowrap"
+                      taClassName="font-tamil text-[13px] whitespace-nowrap"
                     />
                     <span
                       className={[
@@ -1494,7 +1494,7 @@ function NavLink({
       aria-label={ariaLabel}
       title={title}
       className={[
-        "nav-link focus-ring relative whitespace-nowrap rounded-full px-3 py-2 text-sm font-medium",
+        "nav-link focus-ring relative whitespace-nowrap rounded-full px-2.5 py-2 text-[13px] font-medium",
         active ? "active" : "",
       ].join(" ")}
       aria-current={active ? "page" : undefined}

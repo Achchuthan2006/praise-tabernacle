@@ -522,7 +522,7 @@
   }
 
   .navbar .logo-container {
-    width: 180px;
+    width: 164px;
     height: auto;
   }
 
@@ -584,6 +584,12 @@
     .hero-stage .logo-container {
       width: 200px;
       max-width: 60vw;
+    }
+  }
+
+  @media (max-width: 1366px) {
+    .navbar .logo-container {
+      width: 150px;
     }
   }
 
