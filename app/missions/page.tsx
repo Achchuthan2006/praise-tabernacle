@@ -52,7 +52,7 @@ export default function MissionsPage() {
                 </p>
               </div>
 
-              <div className="mt-10 grid grid-cols-1 gap-6 md:grid-cols-2">
+              <div className="mt-10 grid grid-cols-1 md:grid-cols-2 gap-8">
                 <div>
                   <div className="section-kicker">
                     <Lang en="Local" ta="உள்ளூர்" taClassName="font-tamil" />
