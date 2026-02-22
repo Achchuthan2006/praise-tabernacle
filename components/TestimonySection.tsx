@@ -1,4 +1,4 @@
-"use client"
+﻿"use client"
 
 import Image from "next/image"
 import Link from "next/link"
@@ -14,13 +14,13 @@ import { siteConfig } from "@/lib/site"
 type CategoryOption = { id: "all" | TestimonyCategory; labelEn: string; labelTa: string }
 
 const categories: CategoryOption[] = [
-  { id: "all", labelEn: "All", labelTa: "அனைத்து" },
-  { id: "healing", labelEn: "Healing", labelTa: "சுகமடைதல்" },
-  { id: "financial", labelEn: "Financial", labelTa: "நிதி" },
-  { id: "family", labelEn: "Family", labelTa: "குடும்பம்" },
-  { id: "deliverance", labelEn: "Deliverance", labelTa: "விடுதலை" },
-  { id: "salvation", labelEn: "Salvation", labelTa: "ரட்சிப்பு" },
-  { id: "guidance", labelEn: "Guidance", labelTa: "வழிகாட்டுதல்" },
+  { id: "all", labelEn: "All", labelTa: "à®…à®©à¯ˆà®¤à¯à®¤à¯" },
+  { id: "healing", labelEn: "Healing", labelTa: "à®šà¯à®•à®®à®Ÿà¯ˆà®¤à®²à¯" },
+  { id: "financial", labelEn: "Financial", labelTa: "à®¨à®¿à®¤à®¿" },
+  { id: "family", labelEn: "Family", labelTa: "à®•à¯à®Ÿà¯à®®à¯à®ªà®®à¯" },
+  { id: "deliverance", labelEn: "Deliverance", labelTa: "à®µà®¿à®Ÿà¯à®¤à®²à¯ˆ" },
+  { id: "salvation", labelEn: "Salvation", labelTa: "à®°à®Ÿà¯à®šà®¿à®ªà¯à®ªà¯" },
+  { id: "guidance", labelEn: "Guidance", labelTa: "à®µà®´à®¿à®•à®¾à®Ÿà¯à®Ÿà¯à®¤à®²à¯" },
 ]
 
 function categoryLabel(id: TestimonyCategory) {
@@ -133,7 +133,7 @@ function Card({
             <div className="mt-4 grid gap-2 sm:grid-cols-2">
               <div className="rounded-2xl border border-churchBlue/10 bg-white p-3">
                 <div className="text-xs font-semibold tracking-wide text-churchBlue/60">
-                  <Lang en="Before" ta="முன்பு" taClassName="font-tamil" />
+                  <Lang en="Before" ta="à®®à¯à®©à¯à®ªà¯" taClassName="font-tamil" />
                 </div>
                 <div className="mt-1 text-sm text-churchBlue/75 line-clamp-2">
                   <Lang en={t.beforeEn ?? ""} ta={t.beforeTa ?? t.beforeEn ?? ""} taClassName="font-tamil" />
@@ -141,7 +141,7 @@ function Card({
               </div>
               <div className="rounded-2xl border border-churchBlue/10 bg-churchBlueSoft p-3">
                 <div className="text-xs font-semibold tracking-wide text-churchBlue/60">
-                  <Lang en="After" ta="பிறகு" taClassName="font-tamil" />
+                  <Lang en="After" ta="à®ªà®¿à®±à®•à¯" taClassName="font-tamil" />
                 </div>
                 <div className="mt-1 text-sm text-churchBlue/75 line-clamp-2">
                   <Lang en={t.afterEn ?? ""} ta={t.afterTa ?? t.afterEn ?? ""} taClassName="font-tamil" />
@@ -164,7 +164,7 @@ function Card({
                   />
                 ) : (
                   <span className="text-xs font-semibold text-churchBlue/70" aria-hidden="true">
-                    {t.name ? initials(t.name) : "✓"}
+                    {t.name ? initials(t.name) : "âœ“"}
                   </span>
                 )}
               </div>
@@ -179,7 +179,7 @@ function Card({
 
           <div className="mt-6">
             <Link href={href} className="btn btn-sm btn-primary w-full">
-              <Lang en={hasVideo ? "Watch video" : "Read story"} ta={hasVideo ? "வீடியோ பார்க்க" : "சாட்சி"} taClassName="font-tamil" />
+              <Lang en={hasVideo ? "Watch video" : "Read story"} ta={hasVideo ? "à®µà¯€à®Ÿà®¿à®¯à¯‹ à®ªà®¾à®°à¯à®•à¯à®•" : "à®šà®¾à®Ÿà¯à®šà®¿"} taClassName="font-tamil" />
             </Link>
           </div>
         </div>
@@ -257,24 +257,17 @@ export default function TestimonySection() {
           <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
             <div>
               <div className="section-kicker">
-                <Lang en="Community" ta="சமூகம்" taClassName="font-tamil" />
+                <Lang en="Community" ta="à®šà®®à¯‚à®•à®®à¯" taClassName="font-tamil" />
               </div>
               <div className="mt-3">
                 <h2 className="section-heading">
-                  <Lang en="Testimonies" ta="சாட்சிகள்" taClassName="font-tamil" />
+                  <Lang en="Testimonies" ta="à®šà®¾à®Ÿà¯à®šà®¿à®•à®³à¯" taClassName="font-tamil" />
                 </h2>
               </div>
               <p className="mt-3 max-w-2xl text-sm text-churchBlue/70 sm:text-base">
                 <Lang
-                  en="Watch and read real stories of God’s work — and filter by category."
-                  ta="தேவன் செய்த காரியங்களைப் பாருங்கள்/படிக்கவும் — தலைப்பு அடிப்படையில் தேர்வு செய்யுங்கள்."
-                  taClassName="font-tamil"
-                />
-              </p>
-              <p className="mt-2 max-w-2xl text-xs text-churchBlue/55">
-                <Lang
-                  en="Tip: add names/photos only with permission (or keep them anonymous)."
-                  ta="குறிப்பு: அனுமதி இருந்தால் மட்டுமே பெயர்/புகைப்படம் சேர்க்கவும் (அல்லது பெயரில்லாமல்)."
+                  en="Watch and read real stories of Godâ€™s work â€” and filter by category."
+                  ta="à®¤à¯‡à®µà®©à¯ à®šà¯†à®¯à¯à®¤ à®•à®¾à®°à®¿à®¯à®™à¯à®•à®³à¯ˆà®ªà¯ à®ªà®¾à®°à¯à®™à¯à®•à®³à¯/à®ªà®Ÿà®¿à®•à¯à®•à®µà¯à®®à¯ â€” à®¤à®²à¯ˆà®ªà¯à®ªà¯ à®…à®Ÿà®¿à®ªà¯à®ªà®Ÿà¯ˆà®¯à®¿à®²à¯ à®¤à¯‡à®°à¯à®µà¯ à®šà¯†à®¯à¯à®¯à¯à®™à¯à®•à®³à¯."
                   taClassName="font-tamil"
                 />
               </p>
@@ -283,16 +276,16 @@ export default function TestimonySection() {
             <div className="flex flex-col gap-2 sm:items-end">
               <div className="flex flex-wrap gap-2">
                 <button type="button" className="btn btn-sm btn-secondary" onClick={() => scrollByCards(-1)} aria-label="Scroll left">
-                  ←
+                  â†
                 </button>
                 <button type="button" className="btn btn-sm btn-secondary" onClick={() => scrollByCards(1)} aria-label="Scroll right">
-                  →
+                  â†’
                 </button>
                 <Link href="/testimonies" className="btn btn-sm btn-secondary">
-                  <Lang en="View all" ta="அனைத்தும்" taClassName="font-tamil" />
+                  <Lang en="View all" ta="à®…à®©à¯ˆà®¤à¯à®¤à¯à®®à¯" taClassName="font-tamil" />
                 </Link>
                 <a href={mailto} className="btn btn-sm btn-secondary">
-                  <Lang en="Share a story" ta="சாட்சி பகிர" taClassName="font-tamil" />
+                  <Lang en="Share a story" ta="à®šà®¾à®Ÿà¯à®šà®¿ à®ªà®•à®¿à®°" taClassName="font-tamil" />
                 </a>
               </div>
             </div>
@@ -364,7 +357,7 @@ export default function TestimonySection() {
               <div className="mt-6 rounded-2xl border border-churchBlue/10 bg-churchBlueSoft p-5 text-sm text-churchBlue/75">
                 <Lang
                   en="No testimonies in this category yet. Check back soon."
-                  ta="இந்த தலைப்பில் இன்னும் சாட்சிகள் இல்லை. விரைவில் புதுப்பிக்கப்படும்."
+                  ta="à®‡à®¨à¯à®¤ à®¤à®²à¯ˆà®ªà¯à®ªà®¿à®²à¯ à®‡à®©à¯à®©à¯à®®à¯ à®šà®¾à®Ÿà¯à®šà®¿à®•à®³à¯ à®‡à®²à¯à®²à¯ˆ. à®µà®¿à®°à¯ˆà®µà®¿à®²à¯ à®ªà¯à®¤à¯à®ªà¯à®ªà®¿à®•à¯à®•à®ªà¯à®ªà®Ÿà¯à®®à¯."
                   taClassName="font-tamil"
                 />
               </div>

@@ -32,9 +32,6 @@ export default function PhotosMediaSection() {
                 <p className="mt-2 max-w-2xl text-sm text-churchBlue/70 sm:text-base">
                   Worship, ministries, and community moments from Praise Tabernacle.
                 </p>
-                <p className="mt-2 max-w-2xl text-xs text-churchBlue/55">
-                  Tip: replace these with authentic church photos in `public/photos/` for the best connection with visitors.
-                </p>
               </div>
             </div>
           </Reveal>
