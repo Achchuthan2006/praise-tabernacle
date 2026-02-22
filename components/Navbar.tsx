@@ -708,6 +708,7 @@ export default function Navbar() {
       if (item.type === "link") hrefs.push(item.href)
       else hrefs.push(...item.items.map((s) => s.href))
     }
+    hrefs.push("/care")
     return hrefs
   }, [])
 
@@ -747,6 +748,9 @@ export default function Navbar() {
     }
     return activeHref
   }, [activeHref])
+
+  const careActive = activeHref === "/care"
+  const offeringsActive = activeHref === "/give"
 
   const updateIndicatorToKey = useCallback((key: string | null) => {
     const host = desktopNavRef.current
@@ -1139,7 +1143,14 @@ export default function Navbar() {
             })}
           </div>
 
-          <Link href="/care" className="btn btn-sm btn-primary whitespace-nowrap">
+          <Link
+            href="/care"
+            className={[
+              "btn btn-sm btn-primary whitespace-nowrap",
+              careActive ? "ring-2 ring-white/80 ring-offset-2 ring-offset-transparent" : "",
+            ].join(" ")}
+            aria-current={careActive ? "page" : undefined}
+          >
             <Lang
               en={t(ui.cta.requestCare, "en")}
               ta={t(ui.cta.requestCare, "ta")}
@@ -1159,13 +1170,17 @@ export default function Navbar() {
           >
             <Link
               href="/give"
-              className="btn btn-sm btn-offerings whitespace-nowrap"
+              className={[
+                "btn btn-sm btn-offerings whitespace-nowrap",
+                offeringsActive ? "ring-2 ring-white/80 ring-offset-2 ring-offset-transparent" : "",
+              ].join(" ")}
               data-navkey="offerings"
               onPointerEnter={() => setHoveredKey("offerings")}
               onFocus={() => setHoveredKey("offerings")}
               onClick={() => setOfferingsOpen((v) => !v)}
               aria-haspopup="dialog"
               aria-expanded={offeringsOpen}
+              aria-current={offeringsActive ? "page" : undefined}
             >
               <Lang en={t(ui.cta.offerings, "en")} ta={t(ui.cta.offerings, "ta")} taClassName="font-tamil" />
             </Link>
