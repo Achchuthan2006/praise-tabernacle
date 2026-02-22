@@ -892,7 +892,7 @@ export default function Navbar() {
 
          <nav
            className={[
-             "hidden flex-1 items-center justify-end gap-1 lg:flex xl:gap-2",
+             "hidden flex-1 items-center justify-end gap-1 xl:flex xl:gap-2",
            ].join(" ")}
            aria-label="Primary navigation"
          >
@@ -1283,7 +1283,7 @@ export default function Navbar() {
           </Link>
         </nav>
 
-        <div className="flex items-center gap-2 lg:hidden">
+        <div className="flex items-center gap-2 xl:hidden">
           <LanguageToggle />
           <button
             type="button"
@@ -1323,7 +1323,7 @@ export default function Navbar() {
       {renderMobileMenu ? (
         <div
           className={[
-            "fixed inset-0 z-[70] lg:hidden",
+            "fixed inset-0 z-[70] xl:hidden",
             "transition-opacity duration-200 ease-out",
             open ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none",
           ].join(" ")}
@@ -1338,18 +1338,18 @@ export default function Navbar() {
           <div
             id="mobile-nav"
             className={[
-              "absolute right-0 top-0 h-dvh w-[min(94vw,26rem)] border-l border-churchBlue/10 bg-white shadow-[0_24px_80px_rgb(15_23_42_/_0.35)]",
+              "absolute inset-0 h-dvh w-full bg-[linear-gradient(135deg,rgb(15_23_42),rgb(30_64_175))] text-white",
               "transform-gpu transition-transform duration-200 ease-out",
-              open ? "translate-x-0" : "translate-x-full",
+              open ? "translate-y-0" : "-translate-y-full",
             ].join(" ")}
           >
             <div className="flex h-full flex-col">
-              <div className="sticky top-0 z-10 border-b border-churchBlue/10 bg-white/95 px-4 py-3 backdrop-blur">
+              <div className="sticky top-0 z-10 border-b border-white/15 bg-white/5 px-4 py-3 backdrop-blur">
                 <div className="flex items-center justify-between">
-                  <span className="text-sm font-semibold text-churchBlue">Menu</span>
+                  <span className="text-sm font-semibold text-white">Menu</span>
                   <button
                     type="button"
-                    className="focus-ring inline-flex h-10 w-10 items-center justify-center rounded-xl border border-churchBlue/15 bg-churchBlueSoft text-churchBlue"
+                    className="focus-ring inline-flex h-10 w-10 items-center justify-center rounded-xl border border-white/20 bg-white/10 text-white"
                     onClick={() => setOpen(false)}
                     aria-label={mobileMenuCloseLabel}
                   >
@@ -1385,13 +1385,13 @@ export default function Navbar() {
                           className={[
                             "focus-ring block rounded-xl border border-transparent px-4 py-3 text-sm transition",
                             isActive
-                              ? "bg-churchBlueSoft text-churchBlue border-stagePurple/25 shadow-[0_0_0_1px_rgb(var(--stage-purple)_/_0.14),0_10px_24px_rgb(var(--stage-purple)_/_0.12)]"
-                              : "text-churchBlue/80 hover:bg-churchBlueSoft hover:text-churchBlue",
+                              ? "border-[#F5A623]/50 bg-[#F5A623]/20 text-[#F5A623]"
+                              : "text-white/85 hover:bg-white/10 hover:text-white",
                           ].join(" ")}
                         >
                           <div className="flex items-center justify-between">
                             <span>{t(ui.nav[item.key], language)}</span>
-                            <span className="text-churchBlue/60" aria-hidden="true">
+                            <span className="text-white/60" aria-hidden="true">
                               {"\u203A"}
                             </span>
                           </div>
@@ -1411,14 +1411,14 @@ export default function Navbar() {
                       <div key={item.id} className="px-2">
                         <button
                           type="button"
-                          className="focus-ring flex min-h-11 w-full items-center justify-between rounded-xl px-4 py-3 text-sm font-semibold text-churchBlue hover:bg-churchBlueSoft"
+                          className="focus-ring flex min-h-11 w-full items-center justify-between rounded-xl px-4 py-3 text-sm font-semibold text-white hover:bg-white/10"
                           aria-expanded={isExpanded}
                           onClick={() =>
                             setMobileSections((v) => ({ ...v, [item.id]: !Boolean(v[item.id]) }))
                           }
                         >
                           <span className={language === "ta" ? "font-tamil" : undefined}>{label}</span>
-                          <span className="text-xs text-churchBlue/70" aria-hidden="true">
+                          <span className="text-xs text-white/70" aria-hidden="true">
                             {isExpanded ? "\u2212" : "+"}
                           </span>
                         </button>
@@ -1434,18 +1434,18 @@ export default function Navbar() {
                                   className={[
                                     "focus-ring block rounded-xl border border-transparent px-4 py-3 text-sm transition",
                                     isActive
-                                      ? "bg-churchBlueSoft text-churchBlue border-stagePurple/25 shadow-[0_0_0_1px_rgb(var(--stage-purple)_/_0.14),0_10px_24px_rgb(var(--stage-purple)_/_0.12)]"
-                                      : "text-churchBlue/80 hover:bg-churchBlueSoft hover:text-churchBlue",
+                                      ? "border-[#F5A623]/50 bg-[#F5A623]/20 text-[#F5A623]"
+                                      : "text-white/85 hover:bg-white/10 hover:text-white",
                                   ].join(" ")}
                                 >
                                   <div className="flex items-center justify-between">
                                     <span className="flex items-center gap-2">
-                                      <span className="grid h-8 w-8 place-items-center rounded-xl bg-churchBlueSoft text-churchBlue/85">
+                                      <span className="grid h-8 w-8 place-items-center rounded-xl bg-white/10 text-white/85">
                                         <MenuIcon name={menuIconForHref(sub.href)} />
                                       </span>
                                       <span>{t(ui.nav[sub.key], language)}</span>
                                     </span>
-                                    <span className="text-churchBlue/60" aria-hidden="true">
+                                    <span className="text-white/60" aria-hidden="true">
                                       {"\u203A"}
                                     </span>
                                   </div>
