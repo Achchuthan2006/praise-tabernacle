@@ -54,7 +54,7 @@ export default function TestimoniesPage() {
               </div>
             </Reveal>
 
-            <div className="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            <div className="mt-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {items.map((t, idx) => (
                 <Reveal key={t.slug} delay={(idx % 4) as 0 | 1 | 2 | 3}>
                   <Link
@@ -120,4 +120,3 @@ export default function TestimoniesPage() {
     </>
   )
 }
-
