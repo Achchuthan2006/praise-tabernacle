@@ -253,17 +253,13 @@ function FooterInfo() {
       <div className="text-sm font-semibold text-white">
         <Lang en="Info" ta="தகவல்" />
       </div>
-      <ul className="mt-3 space-y-2 text-sm text-white/85">
+      <ul className="mt-3 space-y-3 text-sm text-white/85">
         {siteConfig.serviceTimes.map((s) => (
-          <li key={s.time} className="flex flex-col gap-1 sm:flex-row sm:items-start sm:justify-between sm:gap-4">
-            <div className="min-w-0 leading-snug">
-              <div className="text-white">
-                <Lang en={s.labelEn} ta={s.labelTa} />
-              </div>
-            </div>
-            <div className="text-white/85 sm:flex-shrink-0 sm:whitespace-nowrap sm:text-right">
-              {normalizeBullets(s.time)}
-            </div>
+          <li key={s.time} className="leading-snug">
+            <p className="text-white">
+              <Lang en={s.labelEn} ta={s.labelTa} />
+            </p>
+            <p className="text-white/85">{normalizeBullets(s.time)}</p>
           </li>
         ))}
       </ul>
