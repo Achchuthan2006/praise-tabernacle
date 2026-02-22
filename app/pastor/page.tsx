@@ -2,7 +2,6 @@ import type { Metadata } from "next"
 
 import Link from "next/link"
 
-import FallbackImage from "@/components/FallbackImage"
 import Lang from "@/components/language/Lang"
 import Container from "@/components/ui/Container"
 import PageHeader from "@/components/ui/PageHeader"
@@ -32,14 +31,17 @@ export default function PastorPage() {
             <Reveal>
               <div className="overflow-hidden rounded-3xl border border-churchBlue/10 bg-white shadow-glow">
                 <div className="relative aspect-[4/5] w-full bg-churchBlueSoft">
-                  <FallbackImage
+                  <img
                     src={pastorProfile.photoSrc}
-                    fallbackSrc={pastorProfile.photoFallbackSrc}
                     alt={pastorProfile.nameEn}
-                    width={1200}
-                    height={1500}
-                    sizes="(max-width: 1024px) 100vw, 40vw"
                     className="h-full w-full object-cover"
+                    loading="eager"
+                    onError={(e) => {
+                      const target = e.currentTarget
+                      if (pastorProfile.photoFallbackSrc && target.src !== pastorProfile.photoFallbackSrc) {
+                        target.src = pastorProfile.photoFallbackSrc
+                      }
+                    }}
                   />
                 </div>
               </div>
