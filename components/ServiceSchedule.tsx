@@ -101,13 +101,13 @@ export default function ServiceSchedule({
                     </div>
                     <div className="mt-2 text-sm text-churchBlue/75">{normalizeBullets(item.time)}</div>
                     <div className="mt-4 flex flex-wrap gap-2">
-                      <a href={item.links.ics} className="btn btn-sm btn-secondary" title="Download an iCal reminder for the next service">
+                      <a href={item.links.ics} className="btn btn-sm btn-secondary w-full sm:w-auto" title="Download an iCal reminder for the next service">
                         {language === "ta" ? "iCal (.ics)" : "Download iCal"}
                       </a>
-                      <a href={item.links.google} target="_blank" rel="noreferrer" className="btn btn-sm btn-secondary">
+                      <a href={item.links.google} target="_blank" rel="noreferrer" className="btn btn-sm btn-secondary w-full sm:w-auto">
                         {language === "ta" ? "Google Calendar" : "Add to Google Calendar"}
                       </a>
-                      <a href={item.links.outlook} target="_blank" rel="noreferrer" className="btn btn-sm btn-secondary">
+                      <a href={item.links.outlook} target="_blank" rel="noreferrer" className="btn btn-sm btn-secondary w-full sm:w-auto">
                         {language === "ta" ? "Outlook" : "Add to Outlook"}
                       </a>
                     </div>
