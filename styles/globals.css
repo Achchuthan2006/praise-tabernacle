@@ -360,9 +360,9 @@
   .btn-secondary-invert {
     border-radius: 9999px;
     padding: 0.75rem 1.6rem;
-    border: 1px solid rgb(148 163 184 / 0.70);
-    color: rgb(var(--ptc-text-main-rgb));
-    background: transparent;
+    border: 2px solid rgb(255 255 255 / 0.80);
+    color: rgb(255 255 255);
+    background: rgb(255 255 255 / 0.10);
     backdrop-filter: blur(10px);
     transition:
       border-color 200ms ease,
@@ -376,8 +376,9 @@
   }
 
   .btn-secondary-invert:hover {
-    border-color: rgb(var(--ptc-purple-rgb));
-    background: rgb(15 23 42 / 0.70);
+    border-color: rgb(255 255 255 / 0.95);
+    background: rgb(255 255 255);
+    color: rgb(26 26 46);
     box-shadow: 0 16px 34px rgb(0 0 0 / 0.30);
   }
 
