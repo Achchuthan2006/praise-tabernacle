@@ -1269,7 +1269,7 @@
   }
 
   .section-padding {
-    @apply py-10 sm:py-20 lg:py-24;
+    @apply py-10 lg:py-16;
   }
 
   /* Dark band sections (subtle blue glow + deep dark gradient). */
