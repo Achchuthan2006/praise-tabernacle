@@ -2548,6 +2548,19 @@
     }
   }
 
+  @media (max-width: 480px) {
+    .hero-stage-title {
+      font-size: 1.75rem;
+      letter-spacing: 0.02em;
+      line-height: 1.14;
+    }
+
+    .hero-stage-lead {
+      font-size: 0.95rem;
+      line-height: 1.65;
+    }
+  }
+
   .hero-title-anim {
     animation: hero-slide-up-fade 900ms ease-out both;
   }
