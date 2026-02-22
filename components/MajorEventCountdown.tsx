@@ -90,7 +90,7 @@ export default function MajorEventCountdown() {
     <section className="relative bg-white overflow-hidden">
       <div className="blob-background blob-left" aria-hidden="true" />
       <div className="mx-auto max-w-6xl px-6 py-10">
-        <div className="feature-box rounded-3xl border border-churchBlue/10 bg-white p-6 shadow-glow sm:p-8">
+        <div className="rounded-3xl border border-churchBlue/10 bg-white p-6 shadow-glow sm:p-8">
           <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
             <div className="min-w-0">
               <div className="section-kicker">
