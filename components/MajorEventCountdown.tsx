@@ -123,7 +123,7 @@ export default function MajorEventCountdown() {
             </div>
           </div>
 
-          <div className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2">
+          <div className="event-actions mt-6 grid grid-cols-2 gap-2 sm:gap-3">
             <Link href={`/events/${event.slug}`} className="btn btn-sm btn-primary w-full text-sm">
               <Lang en="View event details" ta="à®¨à®¿à®•à®´à¯à®µà¯ à®µà®¿à®µà®°à®™à¯à®•à®³à¯" taClassName="font-tamil" />
             </Link>
