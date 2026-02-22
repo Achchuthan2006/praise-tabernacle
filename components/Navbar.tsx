@@ -599,7 +599,7 @@ export default function Navbar() {
   const [hydrated, setHydrated] = useState(false)
   const safePathname = hydrated ? pathname : ""
   // Keep SSR/client markup stable even if the language preference differs at hydration time.
-  const searchLabel = "Search / à®¤à¯‡à®Ÿà®²à¯"
+  const searchLabel = "Search"
   const mobileMenuOpenLabel = "Open menu / à®®à¯†à®©à¯à®µà¯ˆ à®¤à®¿à®±"
   const mobileMenuCloseLabel = "Close menu / à®®à¯†à®©à¯à®µà¯ˆ à®®à¯‚à®Ÿà¯"
   const offeringsDialogLabel = "Tithes and offerings / à®¤à®šà®®à®ªà®¾à®•à®®à¯à®®à¯ à®•à®¾à®£à®¿à®•à¯à®•à¯ˆà®•à®³à¯à®®à¯"
@@ -1242,9 +1242,8 @@ export default function Navbar() {
 
           <Link
             href="/search"
-            className="group focus-ring inline-flex h-11 w-11 items-center justify-center rounded-xl border border-white/15 bg-white/10 text-white transition-[transform,background-color,box-shadow] hover:bg-white/15 hover:shadow-[0_14px_40px_rgb(0_0_0_/_0.22)] active:scale-95"
+            className="group focus-ring inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-white/15 bg-white/10 text-white transition-[transform,background-color,box-shadow] hover:bg-white/15 hover:shadow-[0_14px_40px_rgb(0_0_0_/_0.22)] active:scale-95"
             aria-label={searchLabel}
-            title={searchLabel}
             onClick={() => {
               setOfferingsOpen(false)
               setOpenMenu(null)
