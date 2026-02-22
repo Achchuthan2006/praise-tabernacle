@@ -110,7 +110,7 @@ export default function Footer() {
     <footer className="footer-wave relative bg-churchBlue text-white">
       <Container className="py-14">
         <div className="grid gap-12 lg:grid-cols-12 lg:items-start">
-          <div className="lg:col-span-4">
+          <div className="order-1 lg:col-span-4">
             <div className="logo-container footer-logo-glow">
               <BrandLogo variant="onDark" className="w-[170px]" />
             </div>
@@ -185,8 +185,8 @@ export default function Footer() {
             </div>
           </div>
 
-          <div className="lg:col-span-8">
-            <div className="grid grid-cols-2 gap-8 sm:grid-cols-3 lg:grid-cols-5">
+          <div className="order-2 lg:col-span-8">
+            <div className="grid grid-cols-1 min-[360px]:grid-cols-2 gap-8 sm:grid-cols-3 lg:grid-cols-5">
               {primaryFooterGroups.map((group) => (
                 <FooterColumn key={group.titleEn} group={group} />
               ))}
