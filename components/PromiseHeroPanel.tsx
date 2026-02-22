@@ -177,24 +177,23 @@ export default function PromiseHeroPanel() {
 
   return (
     <div className="p-5 sm:p-7">
-      <div className="-mx-5 overflow-x-auto px-5 pb-2 md:mx-0 md:overflow-visible md:px-0 md:pb-0">
-        <div className="flex snap-x snap-mandatory gap-4 md:grid md:grid-cols-2 lg:grid-cols-3">
-          <div className="w-[85vw] max-w-[26rem] shrink-0 snap-start md:w-auto md:max-w-none md:shrink md:snap-none">
+      <div>
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+          <div>
             <DailyPromiseTile promise={daily} hydrated={hydrated} />
           </div>
           {month ? (
-            <div className="w-[85vw] max-w-[26rem] shrink-0 snap-start md:w-auto md:max-w-none md:shrink md:snap-none">
+            <div>
               <PromiseTile promise={month} />
             </div>
           ) : null}
           {year ? (
-            <div className="w-[85vw] max-w-[26rem] shrink-0 snap-start md:w-auto md:max-w-none md:shrink md:snap-none">
+            <div>
               <PromiseTile promise={year} />
             </div>
           ) : null}
         </div>
       </div>
-      <p className="mt-2 text-xs text-white/70 md:hidden">Swipe for more promises {"->"}</p>
     </div>
   )
 }
