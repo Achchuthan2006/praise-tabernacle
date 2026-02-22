@@ -883,7 +883,7 @@ export default function Navbar() {
 
          <nav
            className={[
-             "hidden flex-1 items-center justify-end gap-2 md:flex",
+             "hidden flex-1 items-center justify-end gap-2 lg:flex",
            ].join(" ")}
            aria-label="Primary navigation"
          >
@@ -1274,7 +1274,7 @@ export default function Navbar() {
           </Link>
         </nav>
 
-        <div className="flex items-center gap-2 md:hidden">
+        <div className="flex items-center gap-2 lg:hidden">
           <LanguageToggle />
           <button
             type="button"
@@ -1314,7 +1314,7 @@ export default function Navbar() {
       {renderMobileMenu ? (
         <div
           className={[
-            "fixed inset-0 z-[70] md:hidden",
+            "fixed inset-0 z-[70] lg:hidden",
             "transition-opacity duration-200 ease-out",
             open ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none",
           ].join(" ")}
@@ -1495,3 +1495,4 @@ function NavLink({
     </Link>
   )
 }
+
