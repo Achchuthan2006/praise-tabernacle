@@ -24,6 +24,10 @@ export default function AnnouncementBar() {
       return `${service.labelTa} ${time}`
     }),
   )
+  const serviceTimesCompact = joinWithBullet(
+    siteConfig.serviceTimes.map((service) => splitDayTime(service.time).time),
+  )
+  const serviceSummaryEnCompact = `Sun ${serviceTimesCompact}`
 
   const hasAnnouncement = Boolean(siteConfig.topBar.announcementEn || siteConfig.topBar.announcementTa)
   const announcementEn = siteConfig.topBar.announcementEn || "Important update"
@@ -31,22 +35,27 @@ export default function AnnouncementBar() {
 
   return (
     <div className="top-bar border-b border-white/10 bg-[linear-gradient(90deg,rgb(var(--primary-navy))_0%,rgb(var(--primary-purple))_55%,rgb(var(--primary-teal))_100%)] text-white">
-      <Container className="flex flex-col gap-2 py-2.5 md:flex-row md:items-center md:justify-between">
-        <div className="min-w-0">
-          <div className="truncate text-xs font-medium text-white/90">
+      <Container className="flex flex-col items-center gap-2 py-2 text-center sm:py-2.5 md:flex-row md:items-center md:justify-between md:text-left">
+        <div className="w-full min-w-0 md:w-auto">
+          <div className="text-xs font-medium text-white/90">
             <span className="font-semibold">
               <Lang en="Service times:" ta="ஆராதனை நேரங்கள்:" />
             </span>{" "}
-            <Lang en={serviceSummaryEn} ta={serviceSummaryTa} taClassName="font-tamil" />
+            <span className="hidden sm:inline">
+              <Lang en={serviceSummaryEn} ta={serviceSummaryTa} taClassName="font-tamil" />
+            </span>
+            <span className="sm:hidden">
+              <Lang en={serviceSummaryEnCompact} ta={serviceTimesCompact} taClassName="font-tamil" />
+            </span>
           </div>
         </div>
 
-        <div className="flex flex-wrap items-center gap-3">
+        <div className="flex w-full flex-col items-center justify-center gap-2 sm:w-auto sm:flex-row sm:flex-wrap sm:gap-3 md:justify-end">
           <LiveServiceIndicator />
           {hasAnnouncement ? (
             <Link
               href={siteConfig.topBar.announcementHref}
-              className="focus-ring inline-flex min-h-11 items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3 py-1.5 text-xs font-semibold text-white transition-colors hover:bg-white/15"
+              className="focus-ring inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-full border border-white/20 bg-white/10 px-3 py-1.5 text-xs font-semibold text-white transition-colors hover:bg-white/15 sm:w-auto"
               aria-label="Announcement / அறிவிப்பு"
               title={siteConfig.topBar.announcementTa || siteConfig.topBar.announcementEn}
             >
@@ -66,7 +75,7 @@ export default function AnnouncementBar() {
 
           <Link
             href={siteConfig.topBar.watchLatestHref}
-            className="focus-ring watch-btn inline-flex min-h-11 items-center rounded-full px-4 py-1.5 text-xs font-semibold text-churchBlue"
+            className="focus-ring watch-btn inline-flex min-h-11 w-full items-center justify-center rounded-full px-4 py-1.5 text-xs font-semibold text-churchBlue sm:w-auto"
           >
             <span className="hidden sm:inline">
               <Lang en={siteConfig.topBar.watchLatestLabelEn} ta={siteConfig.topBar.watchLatestLabelTa} taClassName="font-tamil" />
