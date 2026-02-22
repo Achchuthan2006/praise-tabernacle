@@ -97,7 +97,7 @@ export default function ImpactStatsSection() {
                 <div className="section-divider" aria-hidden="true" />
               </div>
 
-              <div className="mt-8 grid grid-cols-2 gap-6 md:grid-cols-4">
+              <div className="mt-8 grid grid-cols-2 gap-4 xl:grid-cols-4">
                 <StatCard
                   titleEn="People served"
                   titleTa="சேவை பெற்றவர்கள்"
