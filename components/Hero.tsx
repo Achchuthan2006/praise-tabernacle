@@ -4,7 +4,6 @@ import Image from "next/image"
 import Link from "next/link"
 import { useEffect, useRef, useState } from "react"
 
-import BrandLogo from "@/components/BrandLogo"
 import { useLanguage } from "@/components/language/LanguageProvider"
 import Magnetic from "@/components/ui/Magnetic"
 import Container from "@/components/ui/Container"
@@ -162,7 +161,14 @@ export default function Hero() {
 
               <div className="leading-tight">
                 <div className="logo-container hero-logo-wrap mx-auto w-full max-w-[210px] sm:max-w-[300px] lg:max-w-[360px]">
-                  <BrandLogo variant="onDark" className="w-full" priority />
+                  <Image
+                    src={language === "ta" ? siteConfig.branding.logoTaSrc : siteConfig.branding.logoEnSrc}
+                    alt={language === "ta" ? siteConfig.nameTa : siteConfig.nameEn}
+                    width={520}
+                    height={240}
+                    priority
+                    className="logo-icon h-auto w-full select-none drop-shadow-[0_10px_18px_rgba(0,0,0,0.35)]"
+                  />
                 </div>
                 <span className="sr-only">{siteConfig.nameEn}</span>
               </div>
