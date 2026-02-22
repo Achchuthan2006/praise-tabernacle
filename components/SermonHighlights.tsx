@@ -8,7 +8,7 @@ import Lang from "@/components/language/Lang"
 import Tilt from "@/components/ui/Tilt"
 import Container from "@/components/ui/Container"
 import Reveal from "@/components/ui/Reveal"
-import { sermonSeries, sermons } from "@/lib/sermons"
+import { publicSermons, sermonSeries } from "@/lib/sermons"
 import { siteConfig } from "@/lib/site"
 
 function formatDate(dateIso: string) {
@@ -38,7 +38,7 @@ function delayForIndex(idx: number): 0 | 1 | 2 | 3 {
 
 function buildTopicLinks(limit: number) {
   const counts = new Map<string, number>()
-  for (const sermon of sermons) {
+  for (const sermon of publicSermons) {
     for (const topic of sermon.topics ?? []) {
       counts.set(topic, (counts.get(topic) ?? 0) + 1)
     }
@@ -55,7 +55,7 @@ export default function SermonHighlights() {
 
   const items: HighlightItem[] =
     highlights.length === 0
-      ? sermons
+      ? publicSermons
           .slice()
           .sort((a, b) => b.dateIso.localeCompare(a.dateIso))
           .slice(0, 8)

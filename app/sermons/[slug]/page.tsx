@@ -10,11 +10,11 @@ import Container from "@/components/ui/Container"
 import PageHeader from "@/components/ui/PageHeader"
 import Reveal from "@/components/ui/Reveal"
 import { pageMetadata, sermonJsonLd } from "@/lib/seo"
-import { getAllSermonSlugs, getSeriesById, getSermonBySlug, getSermonsBySeries } from "@/lib/sermons"
+import { getAllPublicSermonSlugs, getPublicSermonBySlug, getPublicSermonsBySeries, getSeriesById } from "@/lib/sermons"
 import { siteConfig } from "@/lib/site"
 
 export function generateStaticParams() {
-  return getAllSermonSlugs().map((slug) => ({ slug }))
+  return getAllPublicSermonSlugs().map((slug) => ({ slug }))
 }
 
 export async function generateMetadata({
@@ -23,7 +23,7 @@ export async function generateMetadata({
   params: { slug: string } | Promise<{ slug: string }>
 }): Promise<Metadata> {
   const resolvedParams = await params
-  const sermon = getSermonBySlug(resolvedParams.slug)
+  const sermon = getPublicSermonBySlug(resolvedParams.slug)
   if (!sermon) return { title: "Sermon" }
   return pageMetadata({
     title: sermon.title,
@@ -44,11 +44,11 @@ export default async function SermonDetailPage({
   const resolvedParams = await params
   const resolvedSearchParams = searchParams ? await searchParams : undefined
 
-  const sermon = getSermonBySlug(resolvedParams.slug)
+  const sermon = getPublicSermonBySlug(resolvedParams.slug)
   if (!sermon) notFound()
 
   const series = getSeriesById(sermon.seriesId ?? undefined)
-  const seriesSermons = sermon.seriesId ? getSermonsBySeries(sermon.seriesId) : []
+  const seriesSermons = sermon.seriesId ? getPublicSermonsBySeries(sermon.seriesId) : []
   const currentIdx = seriesSermons.findIndex((s) => s.slug === sermon.slug)
   const prev = currentIdx >= 0 ? seriesSermons[currentIdx + 1] : null
   const next = currentIdx >= 1 ? seriesSermons[currentIdx - 1] : null

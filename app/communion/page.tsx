@@ -6,7 +6,7 @@ import SermonArchive from "@/components/SermonArchive"
 import Container from "@/components/ui/Container"
 import PageHeader from "@/components/ui/PageHeader"
 import { pageMetadata } from "@/lib/seo"
-import { sermonSeries, sermons } from "@/lib/sermons"
+import { publicSermons, sermonSeries } from "@/lib/sermons"
 
 export const metadata: Metadata = pageMetadata({
   title: "Communion Service",
@@ -15,7 +15,7 @@ export const metadata: Metadata = pageMetadata({
 })
 
 export default function CommunionPage() {
-  const communionSermons = sermons
+  const communionSermons = publicSermons
     .filter((s) => (s.topics ?? []).some((t) => t.toLowerCase().includes("communion")) || s.title.toLowerCase().includes("communion"))
     .slice()
     .sort((a, b) => b.dateIso.localeCompare(a.dateIso))
@@ -57,4 +57,3 @@ export default function CommunionPage() {
     </>
   )
 }
-

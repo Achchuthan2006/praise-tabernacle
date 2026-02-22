@@ -6,7 +6,7 @@ import SiteSearch from "@/components/SiteSearch"
 import { blogPosts } from "@/lib/blog"
 import { events } from "@/lib/events"
 import { pageMetadata } from "@/lib/seo"
-import { sermonSeries, sermons } from "@/lib/sermons"
+import { publicSermons, sermonSeries } from "@/lib/sermons"
 
 export const metadata: Metadata = pageMetadata({
   title: "Search",
@@ -42,7 +42,7 @@ export default function SearchPage({
         <Container className="section-padding">
           <SiteSearch
             initialQuery={q ?? ""}
-            sermons={sermons}
+            sermons={publicSermons}
             series={sermonSeries}
             events={events}
             blogPosts={blogItems}
@@ -52,4 +52,3 @@ export default function SearchPage({
     </>
   )
 }
-

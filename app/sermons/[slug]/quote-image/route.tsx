@@ -1,7 +1,7 @@
 import { ImageResponse } from "next/og"
 import { notFound } from "next/navigation"
 
-import { getSermonBySlug } from "@/lib/sermons"
+import { getPublicSermonBySlug } from "@/lib/sermons"
 import { siteConfig } from "@/lib/site"
 
 export const runtime = "edge"
@@ -15,7 +15,7 @@ export async function GET(
   { params }: { params: Promise<{ slug: string }> | { slug: string } },
 ) {
   const resolvedParams = await params
-  const sermon = getSermonBySlug(resolvedParams.slug)
+  const sermon = getPublicSermonBySlug(resolvedParams.slug)
   if (!sermon) notFound()
 
   const quote = quoteForSermon(sermon)
@@ -62,4 +62,3 @@ export async function GET(
   headers.set("content-disposition", `attachment; filename="${sermon.slug}-quote.png"`)
   return new Response(image.body, { headers, status: image.status, statusText: image.statusText })
 }
-

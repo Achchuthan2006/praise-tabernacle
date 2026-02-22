@@ -8,7 +8,7 @@ import SermonArchive from "@/components/SermonArchive"
 import Lang from "@/components/language/Lang"
 import Container from "@/components/ui/Container"
 import PageHeader from "@/components/ui/PageHeader"
-import { sermonSeries, sermons } from "@/lib/sermons"
+import { publicSermons, sermonSeries } from "@/lib/sermons"
 import { siteConfig } from "@/lib/site"
 import { pageMetadata } from "@/lib/seo"
 
@@ -20,7 +20,7 @@ export const metadata: Metadata = pageMetadata({
 
 function topTopics(limit: number) {
   const counts = new Map<string, number>()
-  for (const sermon of sermons) {
+  for (const sermon of publicSermons) {
     for (const topic of sermon.topics ?? []) counts.set(topic, (counts.get(topic) ?? 0) + 1)
   }
   return Array.from(counts.entries())
@@ -37,7 +37,7 @@ export default async function SermonsPage({
     | Promise<{ series?: string; topic?: string; speaker?: string; language?: string; q?: string }>
 }) {
   const resolvedSearchParams = searchParams ? await searchParams : undefined
-  const sermonsNewestFirst = sermons.slice().sort((a, b) => b.dateIso.localeCompare(a.dateIso))
+  const sermonsNewestFirst = publicSermons.slice().sort((a, b) => b.dateIso.localeCompare(a.dateIso))
   const topics = topTopics(12)
 
   const initialFilters = resolvedSearchParams

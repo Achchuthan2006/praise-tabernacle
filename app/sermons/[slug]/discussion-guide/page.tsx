@@ -6,10 +6,10 @@ import PrintButton from "@/components/PrintButton"
 import Container from "@/components/ui/Container"
 import PageHeader from "@/components/ui/PageHeader"
 import { pageMetadata } from "@/lib/seo"
-import { getAllSermonSlugs, getSermonBySlug } from "@/lib/sermons"
+import { getAllPublicSermonSlugs, getPublicSermonBySlug } from "@/lib/sermons"
 
 export function generateStaticParams() {
-  return getAllSermonSlugs().map((slug) => ({ slug }))
+  return getAllPublicSermonSlugs().map((slug) => ({ slug }))
 }
 
 export async function generateMetadata({
@@ -18,7 +18,7 @@ export async function generateMetadata({
   params: { slug: string } | Promise<{ slug: string }>
 }): Promise<Metadata> {
   const resolvedParams = await params
-  const sermon = getSermonBySlug(resolvedParams.slug)
+  const sermon = getPublicSermonBySlug(resolvedParams.slug)
   if (!sermon) return { title: "Discussion Guide" }
   return pageMetadata({
     title: `Discussion Guide: ${sermon.title}`,
@@ -33,7 +33,7 @@ export default async function SermonDiscussionGuidePage({
   params: { slug: string } | Promise<{ slug: string }>
 }) {
   const resolvedParams = await params
-  const sermon = getSermonBySlug(resolvedParams.slug)
+  const sermon = getPublicSermonBySlug(resolvedParams.slug)
   if (!sermon) notFound()
 
   const questions =
@@ -115,4 +115,3 @@ export default async function SermonDiscussionGuidePage({
     </>
   )
 }
-

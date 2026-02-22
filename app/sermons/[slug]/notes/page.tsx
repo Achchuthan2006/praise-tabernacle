@@ -6,10 +6,10 @@ import PrintButton from "@/components/PrintButton"
 import Container from "@/components/ui/Container"
 import PageHeader from "@/components/ui/PageHeader"
 import { pageMetadata } from "@/lib/seo"
-import { getAllSermonSlugs, getSermonBySlug } from "@/lib/sermons"
+import { getAllPublicSermonSlugs, getPublicSermonBySlug } from "@/lib/sermons"
 
 export function generateStaticParams() {
-  return getAllSermonSlugs().map((slug) => ({ slug }))
+  return getAllPublicSermonSlugs().map((slug) => ({ slug }))
 }
 
 export async function generateMetadata({
@@ -18,7 +18,7 @@ export async function generateMetadata({
   params: { slug: string } | Promise<{ slug: string }>
 }): Promise<Metadata> {
   const resolvedParams = await params
-  const sermon = getSermonBySlug(resolvedParams.slug)
+  const sermon = getPublicSermonBySlug(resolvedParams.slug)
   if (!sermon) return { title: "Sermon Notes" }
   return pageMetadata({
     title: `Sermon Notes: ${sermon.title}`,
@@ -33,7 +33,7 @@ export default async function SermonNotesPage({
   params: { slug: string } | Promise<{ slug: string }>
 }) {
   const resolvedParams = await params
-  const sermon = getSermonBySlug(resolvedParams.slug)
+  const sermon = getPublicSermonBySlug(resolvedParams.slug)
   if (!sermon) notFound()
 
   return (
@@ -113,4 +113,3 @@ function NoteBlock({ title, lines }: { title: string; lines: number }) {
     </div>
   )
 }
-

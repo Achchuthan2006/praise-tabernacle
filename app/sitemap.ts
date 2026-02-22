@@ -4,7 +4,7 @@ import { blogPosts } from "@/lib/blog"
 import { bibleStudies } from "@/lib/bibleStudies"
 import { events } from "@/lib/events"
 import { ministries } from "@/lib/ministries"
-import { sermons } from "@/lib/sermons"
+import { publicSermons } from "@/lib/sermons"
 import { siteConfig } from "@/lib/site"
 
 function absoluteUrl(path: string) {
@@ -67,7 +67,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
         priority: variant === "/" ? 1 : path === "/" ? 0.95 : 0.7,
       })),
     ),
-    ...sermons.flatMap((s) =>
+    ...publicSermons.flatMap((s) =>
       languageVariants(`/sermons/${s.slug}`).map((variant) => ({
         url: absoluteUrl(variant),
         lastModified: new Date(`${s.dateIso}T00:00:00`),

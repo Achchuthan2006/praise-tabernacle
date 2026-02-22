@@ -1,7 +1,7 @@
 import { ImageResponse } from "next/og"
 import { notFound } from "next/navigation"
 
-import { getSermonBySlug } from "@/lib/sermons"
+import { getPublicSermonBySlug } from "@/lib/sermons"
 import { siteConfig } from "@/lib/site"
 
 export const runtime = "edge"
@@ -15,7 +15,7 @@ export const contentType = "image/png"
 
 export default async function OpenGraphImage({ params }: { params: { slug: string } | Promise<{ slug: string }> }) {
   const resolvedParams = await params
-  const sermon = getSermonBySlug(resolvedParams.slug)
+  const sermon = getPublicSermonBySlug(resolvedParams.slug)
   if (!sermon) notFound()
 
   const quote = (sermon.shareQuote ?? sermon.scriptures?.[0] ?? sermon.title).trim()
@@ -59,4 +59,3 @@ export default async function OpenGraphImage({ params }: { params: { slug: strin
     size,
   )
 }
-

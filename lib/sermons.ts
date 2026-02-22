@@ -757,6 +757,12 @@ export const sermons: Sermon[] = [
   },
 ]
 
+export function hasSermonVideo(sermon: Sermon) {
+  return Boolean((sermon.youtubeVideoId ?? "").trim())
+}
+
+export const publicSermons: Sermon[] = sermons.filter(hasSermonVideo)
+
 export function getSermonBySlug(slug: string) {
   return sermons.find((s) => s.slug === slug) ?? null
 }
@@ -765,13 +771,21 @@ export function getAllSermonSlugs() {
   return sermons.map((s) => s.slug)
 }
 
+export function getPublicSermonBySlug(slug: string) {
+  return publicSermons.find((s) => s.slug === slug) ?? null
+}
+
+export function getAllPublicSermonSlugs() {
+  return publicSermons.map((s) => s.slug)
+}
+
 export function getSeriesById(id: string | undefined) {
   if (!id) return null
   return sermonSeries.find((s) => s.id === id) ?? null
 }
 
 export function getCurrentSeries() {
-  const withSeries = sermons
+  const withSeries = publicSermons
     .filter((s) => s.seriesId)
     .slice()
     .sort((a, b) => b.dateIso.localeCompare(a.dateIso))
@@ -780,7 +794,14 @@ export function getCurrentSeries() {
 }
 
 export function getSermonsBySeries(seriesId: string) {
-  return sermons
+  return publicSermons
+    .filter((s) => s.seriesId === seriesId)
+    .slice()
+    .sort((a, b) => b.dateIso.localeCompare(a.dateIso))
+}
+
+export function getPublicSermonsBySeries(seriesId: string) {
+  return publicSermons
     .filter((s) => s.seriesId === seriesId)
     .slice()
     .sort((a, b) => b.dateIso.localeCompare(a.dateIso))
