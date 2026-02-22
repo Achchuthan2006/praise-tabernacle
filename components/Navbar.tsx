@@ -725,7 +725,16 @@ export default function Navbar() {
   const activeHref = useMemo(() => {
     if (!normalizedPathname) return "/"
     if (normalizedPathname === "/") return "/"
-    const match = activeHrefs.find((href) => href !== "/" && normalizedPathname.startsWith(href))
+    const aliasedPath =
+      normalizedPathname === "/care" || normalizedPathname.startsWith("/care/")
+        ? "/care"
+        : normalizedPathname === "/testimonies" || normalizedPathname.startsWith("/testimonies/")
+          ? "/blog"
+          : normalizedPathname
+
+    if (activeHrefs.includes(aliasedPath)) return aliasedPath
+
+    const match = activeHrefs.find((href) => href !== "/" && aliasedPath.startsWith(`${href}/`))
     return match ?? "/"
   }, [activeHrefs, normalizedPathname])
 
