@@ -4,12 +4,9 @@ import { useEffect, useState } from "react"
 
 import Lang from "@/components/language/Lang"
 import { useLanguage } from "@/components/language/LanguageProvider"
-import { parseWeeklyTimeText } from "@/lib/serviceTimes"
-import { siteConfig } from "@/lib/site"
-
 const TIME_ZONE = "America/Toronto"
-const DEFAULT_DURATION_MINUTES = 105
-const PRELIVE_MINUTES = 10
+const LIVE_WINDOW_START_MINUTES = 9 * 60
+const LIVE_WINDOW_END_MINUTES = 12 * 60 + 30
 
 const dowByShort: Record<string, 0 | 1 | 2 | 3 | 4 | 5 | 6> = {
   Sun: 0,
@@ -44,19 +41,9 @@ function isLiveNow(now = new Date()) {
   const zoned = getZonedParts(now)
   if (!zoned) return false
 
+  if (zoned.dayOfWeek !== 0) return false
   const currentMinutes = zoned.hour24 * 60 + zoned.minute
-
-  for (const service of siteConfig.serviceTimes) {
-    const parsed = parseWeeklyTimeText(service.time)
-    if (!parsed) continue
-    if (parsed.dayOfWeek !== zoned.dayOfWeek) continue
-    const start = parsed.hour24 * 60 + parsed.minute
-    const windowStart = start - PRELIVE_MINUTES
-    const windowEnd = start + DEFAULT_DURATION_MINUTES
-    if (currentMinutes >= windowStart && currentMinutes <= windowEnd) return true
-  }
-
-  return false
+  return currentMinutes >= LIVE_WINDOW_START_MINUTES && currentMinutes <= LIVE_WINDOW_END_MINUTES
 }
 
 export default function LiveServiceIndicator({ className }: { className?: string }) {
@@ -70,7 +57,16 @@ export default function LiveServiceIndicator({ className }: { className?: string
     return () => window.clearInterval(id)
   }, [])
 
-  if (!live) return null
+  if (!live) {
+    return (
+      <span
+        className="inline-flex min-h-9 items-center rounded-full border border-white/20 bg-white/10 px-2.5 py-1 text-[11px] font-semibold text-white/85"
+        aria-label={language === "ta" ? "மீள்பார்வு" : "Watch replay"}
+      >
+        <Lang en="WATCH REPLAY" ta="மீள்பார்வு" taClassName="font-tamil" />
+      </span>
+    )
+  }
 
   return (
     <span className={["live-indicator", className ?? ""].join(" ").trim()} aria-label={language === "ta" ? "நேரலை" : "Live"}>
