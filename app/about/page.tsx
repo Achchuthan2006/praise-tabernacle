@@ -78,16 +78,28 @@ export default function AboutPage() {
                   </p>
                   <div className="mt-6 grid gap-3 sm:grid-cols-2">
                     {[
-                      { en: "Bible-centred teaching", ta: "வேதத்தை மையமாகக் கொண்ட போதனை" },
-                      { en: "Heartfelt worship", ta: "மனத்தார்ந்த ஆராதனை" },
-                      { en: "Prayer & care", ta: "ஜெபம் & பராமரிப்பு" },
-                      { en: "Family & community", ta: "குடும்பம் & சமூகமாம்" },
+                      {
+                        en: "Bible-centred teaching",
+                        ta: "வேதத்தை மையமாகக் கொண்ட போதனை",
+                        icon: "B",
+                      },
+                      { en: "Heartfelt worship", ta: "மனத்தார்ந்த ஆராதனை", icon: "W" },
+                      { en: "Prayer & care", ta: "ஜெபம் & பராமரிப்பு", icon: "P" },
+                      { en: "Family & community", ta: "குடும்பம் & சமூகமாம்", icon: "F" },
                     ].map((item) => (
                       <div
                         key={item.en}
-                        className="rounded-2xl border border-churchBlue/10 bg-churchBlueSoft px-5 py-4 text-sm font-semibold text-churchBlue"
+                        className="rounded-2xl border border-churchBlue/10 border-l-4 border-l-[#7B2FBE] bg-churchBlueSoft px-4 py-4 text-sm font-semibold text-churchBlue"
                       >
-                        <Lang en={item.en} ta={item.ta} taClassName="font-tamil" />
+                        <div className="flex items-center gap-3">
+                          <span
+                            className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-[#7B2FBE]/15 text-xs font-bold text-[#7B2FBE]"
+                            aria-hidden="true"
+                          >
+                            {item.icon}
+                          </span>
+                          <Lang en={item.en} ta={item.ta} taClassName="font-tamil" />
+                        </div>
                       </div>
                     ))}
                   </div>
@@ -382,3 +394,4 @@ function ExpectRow({
     </div>
   )
 }
+
