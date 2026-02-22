@@ -40,7 +40,7 @@ function StatCard({
             <Lang en={titleEn} ta={titleTa} taClassName="font-tamil" />
           </div>
           <div className="mt-3 tracking-tight">
-            <CountUp value={value} className="text-5xl leading-none text-churchBlue" />
+            <CountUp value={value} className="text-[3rem] leading-none text-churchBlue sm:text-[3.25rem]" />
           </div>
           <div className="mt-3 text-sm leading-relaxed text-churchBlue/70 sm:text-base">
             <Lang en={detailEn} ta={detailTa} taClassName="font-tamil" />
@@ -97,7 +97,7 @@ export default function ImpactStatsSection() {
                 <div className="section-divider" aria-hidden="true" />
               </div>
 
-              <div className="mt-8 grid grid-cols-1 gap-6 min-[420px]:grid-cols-2 lg:grid-cols-4">
+              <div className="mt-8 grid grid-cols-2 gap-6 md:grid-cols-4">
                 <StatCard
                   titleEn="People served"
                   titleTa="சேவை பெற்றவர்கள்"
