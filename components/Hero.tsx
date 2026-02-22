@@ -178,7 +178,7 @@ export default function Hero() {
           <Reveal delay={1}>
             <h1
               className={[
-                "hero-stage-title hero-title-anim mx-auto mt-6 max-w-[18ch] text-balance text-3xl leading-tight sm:mt-8 sm:text-4xl md:text-5xl lg:text-6xl",
+                "hero-stage-title hero-title-anim mx-auto mt-6 max-w-[16ch] text-balance text-2xl leading-tight sm:mt-8 sm:max-w-[18ch] sm:text-4xl md:text-5xl lg:text-6xl",
                 language === "ta" ? "font-tamil" : "",
               ].join(" ")}
             >
