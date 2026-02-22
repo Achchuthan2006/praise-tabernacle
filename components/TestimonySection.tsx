@@ -164,7 +164,7 @@ function Card({
                   />
                 ) : (
                   <span className="text-xs font-semibold text-churchBlue/70" aria-hidden="true">
-                    {t.name ? initials(t.name) : "âœ“"}
+                    {t.name ? initials(t.name) : "✓"}
                   </span>
                 )}
               </div>
@@ -266,8 +266,8 @@ export default function TestimonySection() {
               </div>
               <p className="mt-3 max-w-2xl text-sm text-churchBlue/70 sm:text-base">
                 <Lang
-                  en="Watch and read real stories of Godâ€™s work â€” and filter by category."
-                  ta="à®¤à¯‡à®µà®©à¯ à®šà¯†à®¯à¯à®¤ à®•à®¾à®°à®¿à®¯à®™à¯à®•à®³à¯ˆà®ªà¯ à®ªà®¾à®°à¯à®™à¯à®•à®³à¯/à®ªà®Ÿà®¿à®•à¯à®•à®µà¯à®®à¯ â€” à®¤à®²à¯ˆà®ªà¯à®ªà¯ à®…à®Ÿà®¿à®ªà¯à®ªà®Ÿà¯ˆà®¯à®¿à®²à¯ à®¤à¯‡à®°à¯à®µà¯ à®šà¯†à®¯à¯à®¯à¯à®™à¯à®•à®³à¯."
+                  en="Watch and read real stories of God's work — and filter by category."
+                  ta="தேவன் செய்த காரியங்களைப் பாருங்கள்/படிக்கவும் — தலைப்பு அடிப்படையில் தேர்வு செய்யுங்கள்."
                   taClassName="font-tamil"
                 />
               </p>
@@ -276,10 +276,10 @@ export default function TestimonySection() {
             <div className="flex flex-col gap-2 sm:items-end">
               <div className="flex flex-wrap gap-2">
                 <button type="button" className="btn btn-sm btn-secondary" onClick={() => scrollByCards(-1)} aria-label="Scroll left">
-                  â†
+                  ←
                 </button>
                 <button type="button" className="btn btn-sm btn-secondary" onClick={() => scrollByCards(1)} aria-label="Scroll right">
-                  â†’
+                  →
                 </button>
                 <Link href="/testimonies" className="btn btn-sm btn-secondary">
                   <Lang en="View all" ta="à®…à®©à¯ˆà®¤à¯à®¤à¯à®®à¯" taClassName="font-tamil" />

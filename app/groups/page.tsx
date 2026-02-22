@@ -1,4 +1,4 @@
-import type { Metadata } from "next"
+﻿import type { Metadata } from "next"
 import Link from "next/link"
 
 import SmallGroupFinder from "@/components/SmallGroupFinder"
@@ -40,7 +40,7 @@ export default function GroupsPage() {
                   </div>
                   <div className="flex flex-col gap-2 sm:flex-row">
                     <Link
-                      href={`/contact?message=${encodeURIComponent("Hi! I’d like help finding a small group that fits my schedule.")}`}
+                      href={`/contact?message=${encodeURIComponent("Hi! I'd like help finding a small group that fits my schedule.")}`}
                       className="btn btn-md btn-primary"
                     >
                       Request a group

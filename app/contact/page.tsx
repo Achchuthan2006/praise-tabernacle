@@ -12,7 +12,7 @@ import { siteConfig } from "@/lib/site"
 
 export const metadata: Metadata = pageMetadata({
   title: "Contact",
-  description: "Contact Praise Tabernacle â€” service times, location, and a simple message form.",
+  description: "Contact Praise Tabernacle — service times, location, and a simple message form.",
   path: "/contact",
 })
 

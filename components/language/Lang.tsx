@@ -1,6 +1,13 @@
 "use client"
 
 import type { ReactNode } from "react"
+import { fixMojibakeText } from "@/lib/text"
+
+function normalizeNode(value: ReactNode): ReactNode {
+  if (typeof value === "string") return fixMojibakeText(value)
+  if (Array.isArray(value)) return value.map((v) => normalizeNode(v))
+  return value
+}
 
 export default function Lang({
   en,
@@ -16,10 +23,10 @@ export default function Lang({
   return (
     <>
       <span data-lang="en" lang="en" className={enClassName}>
-        {en}
+        {normalizeNode(en)}
       </span>
       <span data-lang="ta" lang="ta" className={taClassName ?? "font-tamil"}>
-        {ta}
+        {normalizeNode(ta)}
       </span>
     </>
   )

@@ -453,7 +453,7 @@ function buildMenuLayout(menu: NavMenuItem): MenuLayout {
 
 const navPreviews: Record<string, NavPreview> = {
   "/bookings": {
-    bodyEn: "Request building rental or meeting room reservations. Weâ€™ll confirm availability and details.",
+    bodyEn: "Request building rental or meeting room reservations. We'll confirm availability and details.",
     bodyTa: "à®•à®Ÿà¯à®Ÿà®¿à®Ÿ à®µà®¾à®Ÿà®•à¯ˆ à®…à®²à¯à®²à®¤à¯ à®•à¯‚à®Ÿà¯à®Ÿ à®…à®±à¯ˆ à®®à¯à®©à¯à®ªà®¤à®¿à®µà¯ à®•à¯‹à®°à¯à®™à¯à®•à®³à¯. à®•à®¿à®Ÿà¯ˆà®ªà¯à®ªà¯ à®®à®±à¯à®±à¯à®®à¯ à®µà®¿à®µà®°à®™à¯à®•à®³à¯ˆ à®‰à®±à¯à®¤à®¿à®ªà¯à®ªà®Ÿà¯à®¤à¯à®¤ à®ªà®¤à®¿à®²à¯ à®…à®³à®¿à®ªà¯à®ªà¯‹à®®à¯.",
     ctaEn: "Request booking",
     ctaTa: "à®®à¯à®©à¯à®ªà®¤à®¿à®µà¯ à®•à¯‹à®°à¯à®™à¯à®•à®³à¯",

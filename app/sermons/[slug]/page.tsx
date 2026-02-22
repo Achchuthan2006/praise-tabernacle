@@ -27,7 +27,7 @@ export async function generateMetadata({
   if (!sermon) return { title: "Sermon" }
   return pageMetadata({
     title: sermon.title,
-    description: `Sermon from ${sermon.dateIso}${sermon.speaker ? ` â€¢ ${sermon.speaker}` : ""}`,
+    description: `Sermon from ${sermon.dateIso}${sermon.speaker ? ` • ${sermon.speaker}` : ""}`,
     path: `/sermons/${sermon.slug}`,
     openGraphType: "video.other",
     image: `/sermons/${sermon.slug}/opengraph-image`,
@@ -84,8 +84,8 @@ export default async function SermonDetailPage({
         titleTa={sermon.language === "ta" ? "\u0baa\u0bbf\u0bb0\u0b9a\u0b99\u0bcd\u0b95\u0bae\u0bcd" : ""}
         descriptionEn={[
           sermon.dateIso,
-          sermon.speaker ? `â€¢ ${sermon.speaker}` : "",
-          series ? `â€¢ ${series.title}` : "",
+          sermon.speaker ? `• ${sermon.speaker}` : "",
+          series ? `• ${series.title}` : "",
         ]
           .filter(Boolean)
           .join(" ")}

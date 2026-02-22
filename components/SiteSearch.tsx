@@ -259,7 +259,7 @@ export default function SiteSearch({ initialQuery, sermons, series, events, blog
                     <div className="card-content p-6">
                       <div className="text-xs font-semibold tracking-wide text-churchBlue/60">
                         {formatDateIso(sermon.dateIso)}
-                        {seriesTitle ? ` â€¢ ${seriesTitle}` : ""}
+                        {seriesTitle ? ` • ${seriesTitle}` : ""}
                       </div>
                       <h4 className="mt-2 text-lg font-semibold tracking-tight text-churchBlue">
                         <Link href={`/sermons/${sermon.slug}`} className="focus-ring rounded-lg">
