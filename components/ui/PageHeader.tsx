@@ -13,7 +13,7 @@ export default function PageHeader({
 }) {
   return (
     <section className="relative border-b border-churchBlue/10 bg-white">
-      <Container className="py-12">
+      <Container className="pt-12 pb-8">
         <div className="section-kicker">Praise Tabernacle</div>
         <h1 className="section-heading">
           <span data-lang="en" lang="en">
