@@ -1,4 +1,4 @@
-"use client"
+﻿"use client"
 
 import Link from "next/link"
 import { usePathname } from "next/navigation"
@@ -391,10 +391,10 @@ function buildMenuLayout(menu: NavMenuItem): MenuLayout {
   })
 
   const quickLinks: QuickLink[] = [
-    { href: "/watch", labelEn: "Watch", labelTa: "பார்க்க", icon: "watch" },
-    { href: "/sermons", labelEn: "Sermons", labelTa: "பிரசங்கங்கள்", icon: "sermons" },
-    { href: "/prayer", labelEn: "Prayer", labelTa: "ஜெபம்", icon: "prayer" },
-    { href: "/give", labelEn: "Give", labelTa: "கொடுங்கள்", icon: "give" },
+    { href: "/watch", labelEn: "Watch", labelTa: "à®ªà®¾à®°à¯à®•à¯à®•", icon: "watch" },
+    { href: "/sermons", labelEn: "Sermons", labelTa: "à®ªà®¿à®°à®šà®™à¯à®•à®™à¯à®•à®³à¯", icon: "sermons" },
+    { href: "/prayer", labelEn: "Prayer", labelTa: "à®œà¯†à®ªà®®à¯", icon: "prayer" },
+    { href: "/give", labelEn: "Give", labelTa: "à®•à¯Šà®Ÿà¯à®™à¯à®•à®³à¯", icon: "give" },
   ]
 
   let columns: [MenuGroup[], MenuGroup[]] = [[], []]
@@ -402,22 +402,22 @@ function buildMenuLayout(menu: NavMenuItem): MenuLayout {
   if (menu.id === "ourChurch") {
     columns = [
       [
-        group("Start here", "தொடக்கம்", ["/im-new", "/visit", "/about"]),
+        group("Start here", "à®¤à¯Šà®Ÿà®•à¯à®•à®®à¯", ["/im-new", "/visit", "/about"]),
       ],
       [
-        group("Leadership & worship", "தலைமை & ஆராதனை", ["/pastor", "/communion"]),
+        group("Leadership & worship", "à®¤à®²à¯ˆà®®à¯ˆ & à®†à®°à®¾à®¤à®©à¯ˆ", ["/pastor", "/communion"]),
       ],
     ]
   } else if (menu.id === "ministries") {
     columns = [
       [
-        group("Explore", "பார்க்க", ["/ministries"]),
-        group("Next generation", "அடுத்த தலைமுறை", ["/ministries/kids", "/ministries/youth"]),
-        group("Care & outreach", "அக்கறை & சேவை", ["/ministries/prayer-care", "/ministries/outreach"]),
+        group("Explore", "à®ªà®¾à®°à¯à®•à¯à®•", ["/ministries"]),
+        group("Next generation", "à®…à®Ÿà¯à®¤à¯à®¤ à®¤à®²à¯ˆà®®à¯à®±à¯ˆ", ["/ministries/kids", "/ministries/youth"]),
+        group("Care & outreach", "à®…à®•à¯à®•à®±à¯ˆ & à®šà¯‡à®µà¯ˆ", ["/ministries/prayer-care", "/ministries/outreach"]),
       ],
       [
-        group("Community", "சமூகம்", ["/ministries/mens", "/ministries/womens"]),
-        group("Missions & growth", "மிஷன் & வளர்ச்சி", ["/ministries/missions", "/ministries/membership"]),
+        group("Community", "à®šà®®à¯‚à®•à®®à¯", ["/ministries/mens", "/ministries/womens"]),
+        group("Missions & growth", "à®®à®¿à®·à®©à¯ & à®µà®³à®°à¯à®šà¯à®šà®¿", ["/ministries/missions", "/ministries/membership"]),
       ],
     ]
   } else if (menu.id === "resources") {
@@ -434,12 +434,12 @@ function buildMenuLayout(menu: NavMenuItem): MenuLayout {
     // getInvolved
     columns = [
       [
-        group("Connect", "இணைப்பு", ["/events", "/calendar", "/groups"]),
-        group("Prayer & care", "ஜெபம் & அக்கறை", ["/prayer", "/membership"]),
+        group("Connect", "à®‡à®£à¯ˆà®ªà¯à®ªà¯", ["/events", "/calendar", "/groups"]),
+        group("Prayer & care", "à®œà¯†à®ªà®®à¯ & à®…à®•à¯à®•à®±à¯ˆ", ["/prayer", "/membership"]),
       ],
       [
-        group("Serve", "சேவை", ["/serve", "/missions"]),
-        group("Support", "ஆதரவு", ["/partnership", "/give"]),
+        group("Serve", "à®šà¯‡à®µà¯ˆ", ["/serve", "/missions"]),
+        group("Support", "à®†à®¤à®°à®µà¯", ["/partnership", "/give"]),
       ],
     ]
   }
@@ -453,142 +453,142 @@ function buildMenuLayout(menu: NavMenuItem): MenuLayout {
 
 const navPreviews: Record<string, NavPreview> = {
   "/bookings": {
-    bodyEn: "Request building rental or meeting room reservations. We’ll confirm availability and details.",
-    bodyTa: "கட்டிட வாடகை அல்லது கூட்ட அறை முன்பதிவு கோருங்கள். கிடைப்பு மற்றும் விவரங்களை உறுதிப்படுத்த பதில் அளிப்போம்.",
+    bodyEn: "Request building rental or meeting room reservations. Weâ€™ll confirm availability and details.",
+    bodyTa: "à®•à®Ÿà¯à®Ÿà®¿à®Ÿ à®µà®¾à®Ÿà®•à¯ˆ à®…à®²à¯à®²à®¤à¯ à®•à¯‚à®Ÿà¯à®Ÿ à®…à®±à¯ˆ à®®à¯à®©à¯à®ªà®¤à®¿à®µà¯ à®•à¯‹à®°à¯à®™à¯à®•à®³à¯. à®•à®¿à®Ÿà¯ˆà®ªà¯à®ªà¯ à®®à®±à¯à®±à¯à®®à¯ à®µà®¿à®µà®°à®™à¯à®•à®³à¯ˆ à®‰à®±à¯à®¤à®¿à®ªà¯à®ªà®Ÿà¯à®¤à¯à®¤ à®ªà®¤à®¿à®²à¯ à®…à®³à®¿à®ªà¯à®ªà¯‹à®®à¯.",
     ctaEn: "Request booking",
-    ctaTa: "முன்பதிவு கோருங்கள்",
+    ctaTa: "à®®à¯à®©à¯à®ªà®¤à®¿à®µà¯ à®•à¯‹à®°à¯à®™à¯à®•à®³à¯",
   },
   "/visit": {
     bodyEn: "What to expect, where to park, and how to plan your first Sunday.",
-    bodyTa: "என்ன எதிர்பார்க்கலாம், பார்க்கிங், மற்றும் முதல் ஞாயிறை திட்டமிட உதவி.",
+    bodyTa: "à®Žà®©à¯à®© à®Žà®¤à®¿à®°à¯à®ªà®¾à®°à¯à®•à¯à®•à®²à®¾à®®à¯, à®ªà®¾à®°à¯à®•à¯à®•à®¿à®™à¯, à®®à®±à¯à®±à¯à®®à¯ à®®à¯à®¤à®²à¯ à®žà®¾à®¯à®¿à®±à¯ˆ à®¤à®¿à®Ÿà¯à®Ÿà®®à®¿à®Ÿ à®‰à®¤à®µà®¿.",
     ctaEn: "Plan your visit",
-    ctaTa: "வருகையை திட்டமிடுங்கள்",
+    ctaTa: "à®µà®°à¯à®•à¯ˆà®¯à¯ˆ à®¤à®¿à®Ÿà¯à®Ÿà®®à®¿à®Ÿà¯à®™à¯à®•à®³à¯",
   },
   "/im-new": {
     bodyEn: "A guided first-time visitor journey with virtual tour, FAQs, and next steps.",
-    bodyTa: "முதல் முறை வருகையாளர்களுக்கான வழிகாட்டி: சுற்றுப்பார்வை, கேள்விகள் & பதில்கள், அடுத்த படிகள்.",
+    bodyTa: "à®®à¯à®¤à®²à¯ à®®à¯à®±à¯ˆ à®µà®°à¯à®•à¯ˆà®¯à®¾à®³à®°à¯à®•à®³à¯à®•à¯à®•à®¾à®© à®µà®´à®¿à®•à®¾à®Ÿà¯à®Ÿà®¿: à®šà¯à®±à¯à®±à¯à®ªà¯à®ªà®¾à®°à¯à®µà¯ˆ, à®•à¯‡à®³à¯à®µà®¿à®•à®³à¯ & à®ªà®¤à®¿à®²à¯à®•à®³à¯, à®…à®Ÿà¯à®¤à¯à®¤ à®ªà®Ÿà®¿à®•à®³à¯.",
     ctaEn: "I'm New",
-    ctaTa: "நான் புதிது",
+    ctaTa: "à®¨à®¾à®©à¯ à®ªà¯à®¤à®¿à®¤à¯",
   },
   "/about": {
     bodyEn: "Who we are, why we exist, and what our church family is like.",
-    bodyTa: "நாம் யார், ஏன் இருக்கிறோம், மற்றும் எங்கள் சபை குடும்பம் எப்படி என்பதைக் காணலாம்.",
+    bodyTa: "à®¨à®¾à®®à¯ à®¯à®¾à®°à¯, à®à®©à¯ à®‡à®°à¯à®•à¯à®•à®¿à®±à¯‹à®®à¯, à®®à®±à¯à®±à¯à®®à¯ à®Žà®™à¯à®•à®³à¯ à®šà®ªà¯ˆ à®•à¯à®Ÿà¯à®®à¯à®ªà®®à¯ à®Žà®ªà¯à®ªà®Ÿà®¿ à®Žà®©à¯à®ªà®¤à¯ˆà®•à¯ à®•à®¾à®£à®²à®¾à®®à¯.",
     ctaEn: "Read about us",
-    ctaTa: "எங்களைப் பற்றி",
+    ctaTa: "à®Žà®™à¯à®•à®³à¯ˆà®ªà¯ à®ªà®±à¯à®±à®¿",
   },
   "/pastor": {
     bodyEn: "Meet our pastor, ministry focus, and how to connect for care and prayer.",
-    bodyTa: "போதகரை சந்திக்கவும், சேவையின் கவனம், மற்றும் அக்கறை/ஜெபத்திற்கு தொடர்பு கொள்ளவும்.",
+    bodyTa: "à®ªà¯‹à®¤à®•à®°à¯ˆ à®šà®¨à¯à®¤à®¿à®•à¯à®•à®µà¯à®®à¯, à®šà¯‡à®µà¯ˆà®¯à®¿à®©à¯ à®•à®µà®©à®®à¯, à®®à®±à¯à®±à¯à®®à¯ à®…à®•à¯à®•à®±à¯ˆ/à®œà¯†à®ªà®¤à¯à®¤à®¿à®±à¯à®•à¯ à®¤à¯Šà®Ÿà®°à¯à®ªà¯ à®•à¯Šà®³à¯à®³à®µà¯à®®à¯.",
     ctaEn: "Meet the pastor",
-    ctaTa: "போதகரை சந்திக்க",
+    ctaTa: "à®ªà¯‹à®¤à®•à®°à¯ˆ à®šà®¨à¯à®¤à®¿à®•à¯à®•",
   },
   "/communion": {
     bodyEn: "Communion service messages and replays.",
-    bodyTa: "திருவிருந்து ஆராதனை தொடர்பான செய்திகள் மற்றும் பதிவுகள்.",
+    bodyTa: "à®¤à®¿à®°à¯à®µà®¿à®°à¯à®¨à¯à®¤à¯ à®†à®°à®¾à®¤à®©à¯ˆ à®¤à¯Šà®Ÿà®°à¯à®ªà®¾à®© à®šà¯†à®¯à¯à®¤à®¿à®•à®³à¯ à®®à®±à¯à®±à¯à®®à¯ à®ªà®¤à®¿à®µà¯à®•à®³à¯.",
     ctaEn: "Communion service",
-    ctaTa: "திருவிருந்து ஆராதனை",
+    ctaTa: "à®¤à®¿à®°à¯à®µà®¿à®°à¯à®¨à¯à®¤à¯ à®†à®°à®¾à®¤à®©à¯ˆ",
   },
   "/ministries": {
     bodyEn: "Browse ministries and find a place to belong, serve, and grow.",
-    bodyTa: "சேவைகளைப் பார்த்து, சேர்ந்திட, சேவை செய்ய, வளர இடத்தை கண்டுபிடிக்கவும்.",
+    bodyTa: "à®šà¯‡à®µà¯ˆà®•à®³à¯ˆà®ªà¯ à®ªà®¾à®°à¯à®¤à¯à®¤à¯, à®šà¯‡à®°à¯à®¨à¯à®¤à®¿à®Ÿ, à®šà¯‡à®µà¯ˆ à®šà¯†à®¯à¯à®¯, à®µà®³à®° à®‡à®Ÿà®¤à¯à®¤à¯ˆ à®•à®£à¯à®Ÿà¯à®ªà®¿à®Ÿà®¿à®•à¯à®•à®µà¯à®®à¯.",
     ctaEn: "View all ministries",
-    ctaTa: "அனைத்து சேவைகள்",
+    ctaTa: "à®…à®©à¯ˆà®¤à¯à®¤à¯ à®šà¯‡à®µà¯ˆà®•à®³à¯",
   },
   "/ministries/kids": {
     bodyEn: "A safe, joyful place for children to learn the Bible and grow.",
-    bodyTa: "குழந்தைகள் வேதம் கற்றுக் கொண்டு வளர பாதுகாப்பான மகிழ்ச்சியான இடம்.",
+    bodyTa: "à®•à¯à®´à®¨à¯à®¤à¯ˆà®•à®³à¯ à®µà¯‡à®¤à®®à¯ à®•à®±à¯à®±à¯à®•à¯ à®•à¯Šà®£à¯à®Ÿà¯ à®µà®³à®° à®ªà®¾à®¤à¯à®•à®¾à®ªà¯à®ªà®¾à®© à®®à®•à®¿à®´à¯à®šà¯à®šà®¿à®¯à®¾à®© à®‡à®Ÿà®®à¯.",
     ctaEn: "Kids ministry",
-    ctaTa: "குழந்தைகள் சேவை",
+    ctaTa: "à®•à¯à®´à®¨à¯à®¤à¯ˆà®•à®³à¯ à®šà¯‡à®µà¯ˆ",
   },
   "/ministries/youth": {
     bodyEn: "Youth community for students to grow in faith, friendship, and Scripture.",
-    bodyTa: "இளைஞர்கள் விசுவாசம், நட்பு, வேதத்தில் வளர ஒரு சமூக இடம்.",
+    bodyTa: "à®‡à®³à¯ˆà®žà®°à¯à®•à®³à¯ à®µà®¿à®šà¯à®µà®¾à®šà®®à¯, à®¨à®Ÿà¯à®ªà¯, à®µà¯‡à®¤à®¤à¯à®¤à®¿à®²à¯ à®µà®³à®° à®’à®°à¯ à®šà®®à¯‚à®• à®‡à®Ÿà®®à¯.",
     ctaEn: "Youth ministry",
-    ctaTa: "இளைஞர் சேவை",
+    ctaTa: "à®‡à®³à¯ˆà®žà®°à¯ à®šà¯‡à®µà¯ˆ",
   },
   "/ministries/prayer-care": {
     bodyEn: "Prayer support and gentle care for anyone who needs encouragement.",
-    bodyTa: "உற்சாகம் தேவைப்படுபவர்களுக்கு ஜெப ஆதரவும் அக்கறையும்.",
+    bodyTa: "à®‰à®±à¯à®šà®¾à®•à®®à¯ à®¤à¯‡à®µà¯ˆà®ªà¯à®ªà®Ÿà¯à®ªà®µà®°à¯à®•à®³à¯à®•à¯à®•à¯ à®œà¯†à®ª à®†à®¤à®°à®µà¯à®®à¯ à®…à®•à¯à®•à®±à¯ˆà®¯à¯à®®à¯.",
     ctaEn: "Prayer & care",
-    ctaTa: "ஜெபம் & அக்கறை",
+    ctaTa: "à®œà¯†à®ªà®®à¯ & à®…à®•à¯à®•à®±à¯ˆ",
   },
   "/ministries/outreach": {
     bodyEn: "Serve Mississauga with practical help, visits, and community support.",
-    bodyTa: "நடைமுறை உதவி, சந்திப்பு, சமூக ஆதரவுடன் Mississauga-வை சேவிக்கவும்.",
+    bodyTa: "à®¨à®Ÿà¯ˆà®®à¯à®±à¯ˆ à®‰à®¤à®µà®¿, à®šà®¨à¯à®¤à®¿à®ªà¯à®ªà¯, à®šà®®à¯‚à®• à®†à®¤à®°à®µà¯à®Ÿà®©à¯ Mississauga-à®µà¯ˆ à®šà¯‡à®µà®¿à®•à¯à®•à®µà¯à®®à¯.",
     ctaEn: "Outreach",
-    ctaTa: "சமூக சேவை",
+    ctaTa: "à®šà®®à¯‚à®• à®šà¯‡à®µà¯ˆ",
   },
   "/ministries/mens": {
     bodyEn: "Brotherhood, prayer, and practical discipleship for men.",
-    bodyTa: "ஆண்களுக்கு சகோதரத்துவம், ஜெபம், மற்றும் நடைமுறை சீடத்துவம்.",
+    bodyTa: "à®†à®£à¯à®•à®³à¯à®•à¯à®•à¯ à®šà®•à¯‹à®¤à®°à®¤à¯à®¤à¯à®µà®®à¯, à®œà¯†à®ªà®®à¯, à®®à®±à¯à®±à¯à®®à¯ à®¨à®Ÿà¯ˆà®®à¯à®±à¯ˆ à®šà¯€à®Ÿà®¤à¯à®¤à¯à®µà®®à¯.",
     ctaEn: "Men's ministry",
-    ctaTa: "ஆண்கள் சேவை",
+    ctaTa: "à®†à®£à¯à®•à®³à¯ à®šà¯‡à®µà¯ˆ",
   },
   "/ministries/womens": {
     bodyEn: "Monthly prayer and encouragement for women.",
-    bodyTa: "பெண்களுக்கான மாத ஜெபமும் உற்சாகமும்.",
+    bodyTa: "à®ªà¯†à®£à¯à®•à®³à¯à®•à¯à®•à®¾à®© à®®à®¾à®¤ à®œà¯†à®ªà®®à¯à®®à¯ à®‰à®±à¯à®šà®¾à®•à®®à¯à®®à¯.",
     ctaEn: "Women's prayer",
-    ctaTa: "பெண்கள் ஜெபம்",
+    ctaTa: "à®ªà¯†à®£à¯à®•à®³à¯ à®œà¯†à®ªà®®à¯",
   },
   "/ministries/missions": {
     bodyEn: "Local and global missions through prayer, giving, and service.",
-    bodyTa: "ஜெபம், கொடை, சேவை மூலம் உள்ளூர் மற்றும் உலக மிஷன்.",
+    bodyTa: "à®œà¯†à®ªà®®à¯, à®•à¯Šà®Ÿà¯ˆ, à®šà¯‡à®µà¯ˆ à®®à¯‚à®²à®®à¯ à®‰à®³à¯à®³à¯‚à®°à¯ à®®à®±à¯à®±à¯à®®à¯ à®‰à®²à®• à®®à®¿à®·à®©à¯.",
     ctaEn: "Missions",
-    ctaTa: "மிஷன்",
+    ctaTa: "à®®à®¿à®·à®©à¯",
   },
   "/ministries/membership": {
     bodyEn: "Learn our story and take a next step into church life through membership.",
-    bodyTa: "எங்கள் கதையை அறிந்து, உறுப்பினர் மூலம் சபை வாழ்க்கையில் அடுத்த படி எடுக்கவும்.",
+    bodyTa: "à®Žà®™à¯à®•à®³à¯ à®•à®¤à¯ˆà®¯à¯ˆ à®…à®±à®¿à®¨à¯à®¤à¯, à®‰à®±à¯à®ªà¯à®ªà®¿à®©à®°à¯ à®®à¯‚à®²à®®à¯ à®šà®ªà¯ˆ à®µà®¾à®´à¯à®•à¯à®•à¯ˆà®¯à®¿à®²à¯ à®…à®Ÿà¯à®¤à¯à®¤ à®ªà®Ÿà®¿ à®Žà®Ÿà¯à®•à¯à®•à®µà¯à®®à¯.",
     ctaEn: "Membership class",
-    ctaTa: "உறுப்பினர் வகுப்பு",
+    ctaTa: "à®‰à®±à¯à®ªà¯à®ªà®¿à®©à®°à¯ à®µà®•à¯à®ªà¯à®ªà¯",
   },
   "/events": {
     bodyEn: "Upcoming events, recurring gatherings, and past highlights.",
-    bodyTa: "வரவிருக்கும் நிகழ்வுகள், தொடரும் கூடுகைகள், மற்றும் கடந்த சிறப்புகள்.",
+    bodyTa: "à®µà®°à®µà®¿à®°à¯à®•à¯à®•à¯à®®à¯ à®¨à®¿à®•à®´à¯à®µà¯à®•à®³à¯, à®¤à¯Šà®Ÿà®°à¯à®®à¯ à®•à¯‚à®Ÿà¯à®•à¯ˆà®•à®³à¯, à®®à®±à¯à®±à¯à®®à¯ à®•à®Ÿà®¨à¯à®¤ à®šà®¿à®±à®ªà¯à®ªà¯à®•à®³à¯.",
     ctaEn: "View events",
-    ctaTa: "நிகழ்வுகள்",
+    ctaTa: "à®¨à®¿à®•à®´à¯à®µà¯à®•à®³à¯",
   },
   "/calendar": {
     bodyEn: "Browse events by date and subscribe via iCal/Google Calendar.",
-    bodyTa: "தேதியின்படி நிகழ்வுகளை பார்க்கவும்; iCal/Google Calendar மூலம் subscribe செய்யவும்.",
+    bodyTa: "à®¤à¯‡à®¤à®¿à®¯à®¿à®©à¯à®ªà®Ÿà®¿ à®¨à®¿à®•à®´à¯à®µà¯à®•à®³à¯ˆ à®ªà®¾à®°à¯à®•à¯à®•à®µà¯à®®à¯; iCal/Google Calendar à®®à¯‚à®²à®®à¯ subscribe à®šà¯†à®¯à¯à®¯à®µà¯à®®à¯.",
     ctaEn: "Open calendar",
-    ctaTa: "நாட்காட்டி",
+    ctaTa: "à®¨à®¾à®Ÿà¯à®•à®¾à®Ÿà¯à®Ÿà®¿",
   },
   "/groups": {
     bodyEn: "Find a small group to connect, pray, and grow together.",
-    bodyTa: "இணைய, ஜெபிக்க, ஒன்றாக வளர ஒரு சிறு குழுவை கண்டுபிடிக்கவும்.",
+    bodyTa: "à®‡à®£à¯ˆà®¯, à®œà¯†à®ªà®¿à®•à¯à®•, à®’à®©à¯à®±à®¾à®• à®µà®³à®° à®’à®°à¯ à®šà®¿à®±à¯ à®•à¯à®´à¯à®µà¯ˆ à®•à®£à¯à®Ÿà¯à®ªà®¿à®Ÿà®¿à®•à¯à®•à®µà¯à®®à¯.",
     ctaEn: "Find a group",
-    ctaTa: "குழு தேடு",
+    ctaTa: "à®•à¯à®´à¯ à®¤à¯‡à®Ÿà¯",
   },
   "/serve": {
     bodyEn: "Volunteer opportunities: welcome, worship/tech, kids, outreach, and more.",
-    bodyTa: "தன்னார்வ வாய்ப்புகள்: வரவேற்பு, ஆராதனை/டெக், குழந்தைகள், சமூக சேவை, மேலும் பல.",
+    bodyTa: "à®¤à®©à¯à®©à®¾à®°à¯à®µ à®µà®¾à®¯à¯à®ªà¯à®ªà¯à®•à®³à¯: à®µà®°à®µà¯‡à®±à¯à®ªà¯, à®†à®°à®¾à®¤à®©à¯ˆ/à®Ÿà¯†à®•à¯, à®•à¯à®´à®¨à¯à®¤à¯ˆà®•à®³à¯, à®šà®®à¯‚à®• à®šà¯‡à®µà¯ˆ, à®®à¯‡à®²à¯à®®à¯ à®ªà®².",
     ctaEn: "Serve",
-    ctaTa: "சேவை",
+    ctaTa: "à®šà¯‡à®µà¯ˆ",
   },
   "/membership": {
     bodyEn: "Membership process, what the class covers, and how to get started.",
-    bodyTa: "உறுப்பினர் நடைமுறை, வகுப்பு உள்ளடக்கம், மற்றும் தொடங்குவது எப்படி.",
+    bodyTa: "à®‰à®±à¯à®ªà¯à®ªà®¿à®©à®°à¯ à®¨à®Ÿà¯ˆà®®à¯à®±à¯ˆ, à®µà®•à¯à®ªà¯à®ªà¯ à®‰à®³à¯à®³à®Ÿà®•à¯à®•à®®à¯, à®®à®±à¯à®±à¯à®®à¯ à®¤à¯Šà®Ÿà®™à¯à®•à¯à®µà®¤à¯ à®Žà®ªà¯à®ªà®Ÿà®¿.",
     ctaEn: "Membership",
-    ctaTa: "உறுப்பினர்",
+    ctaTa: "à®‰à®±à¯à®ªà¯à®ªà®¿à®©à®°à¯",
   },
   "/missions": {
     bodyEn: "Mission partners and how to pray, give, and serve with us.",
-    bodyTa: "மிஷன் கூட்டாளிகள் மற்றும் எங்களுடன் ஜெபிக்க/கொடைக்க/சேவை செய்ய வழிகள்.",
+    bodyTa: "à®®à®¿à®·à®©à¯ à®•à¯‚à®Ÿà¯à®Ÿà®¾à®³à®¿à®•à®³à¯ à®®à®±à¯à®±à¯à®®à¯ à®Žà®™à¯à®•à®³à¯à®Ÿà®©à¯ à®œà¯†à®ªà®¿à®•à¯à®•/à®•à¯Šà®Ÿà¯ˆà®•à¯à®•/à®šà¯‡à®µà¯ˆ à®šà¯†à®¯à¯à®¯ à®µà®´à®¿à®•à®³à¯.",
     ctaEn: "Missions",
-    ctaTa: "மிஷன்",
+    ctaTa: "à®®à®¿à®·à®©à¯",
   },
   "/partnership": {
     bodyEn: "Partnership tiers that connect giving to clear ministry outcomes.",
-    bodyTa: "கொடை மூலம் தெளிவான சேவை விளைவுகளுடன் இணைக்கும் கூட்டாண்மை திட்டங்கள்.",
+    bodyTa: "à®•à¯Šà®Ÿà¯ˆ à®®à¯‚à®²à®®à¯ à®¤à¯†à®³à®¿à®µà®¾à®© à®šà¯‡à®µà¯ˆ à®µà®¿à®³à¯ˆà®µà¯à®•à®³à¯à®Ÿà®©à¯ à®‡à®£à¯ˆà®•à¯à®•à¯à®®à¯ à®•à¯‚à®Ÿà¯à®Ÿà®¾à®£à¯à®®à¯ˆ à®¤à®¿à®Ÿà¯à®Ÿà®™à¯à®•à®³à¯.",
     ctaEn: "Partnership",
-    ctaTa: "கூட்டாண்மை",
+    ctaTa: "à®•à¯‚à®Ÿà¯à®Ÿà®¾à®£à¯à®®à¯ˆ",
   },
   "/give": {
     bodyEn: "Give as an act of worship and support the mission of the church.",
-    bodyTa: "ஆராதனையின் ஒரு பகுதியாக கொடுத்து, சபையின் பணியை ஆதரிக்கவும்.",
+    bodyTa: "à®†à®°à®¾à®¤à®©à¯ˆà®¯à®¿à®©à¯ à®’à®°à¯ à®ªà®•à¯à®¤à®¿à®¯à®¾à®• à®•à¯Šà®Ÿà¯à®¤à¯à®¤à¯, à®šà®ªà¯ˆà®¯à®¿à®©à¯ à®ªà®£à®¿à®¯à¯ˆ à®†à®¤à®°à®¿à®•à¯à®•à®µà¯à®®à¯.",
     ctaEn: "Give",
-    ctaTa: "கொடுங்கள்",
+    ctaTa: "à®•à¯Šà®Ÿà¯à®™à¯à®•à®³à¯",
   },
 }
 
@@ -599,10 +599,10 @@ export default function Navbar() {
   const [hydrated, setHydrated] = useState(false)
   const safePathname = hydrated ? pathname : ""
   // Keep SSR/client markup stable even if the language preference differs at hydration time.
-  const searchLabel = "Search / தேடல்"
-  const mobileMenuOpenLabel = "Open menu / மெனுவை திற"
-  const mobileMenuCloseLabel = "Close menu / மெனுவை மூடு"
-  const offeringsDialogLabel = "Tithes and offerings / தசமபாகமும் காணிக்கைகளும்"
+  const searchLabel = "Search / à®¤à¯‡à®Ÿà®²à¯"
+  const mobileMenuOpenLabel = "Open menu / à®®à¯†à®©à¯à®µà¯ˆ à®¤à®¿à®±"
+  const mobileMenuCloseLabel = "Close menu / à®®à¯†à®©à¯à®µà¯ˆ à®®à¯‚à®Ÿà¯"
+  const offeringsDialogLabel = "Tithes and offerings / à®¤à®šà®®à®ªà®¾à®•à®®à¯à®®à¯ à®•à®¾à®£à®¿à®•à¯à®•à¯ˆà®•à®³à¯à®®à¯"
   const [openMenu, setOpenMenu] = useState<NavMenuItem["id"] | null>(null)
   const [offeringsOpen, setOfferingsOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
@@ -1068,7 +1068,7 @@ export default function Navbar() {
 
                         <div className="border-t border-churchBlue/10 bg-churchBlueSoft p-4 lg:border-l lg:border-t-0">
                           <div className="text-xs font-semibold tracking-wide text-churchBlue/60">
-                            {language === "ta" ? "முன்னோட்டம்" : "Preview"}
+                            {language === "ta" ? "à®®à¯à®©à¯à®©à¯‹à®Ÿà¯à®Ÿà®®à¯" : "Preview"}
                           </div>
                           <div className="mt-2 text-sm font-semibold text-churchBlue">
                             {(() => {
@@ -1086,7 +1086,7 @@ export default function Navbar() {
                             {(() => {
                               const preview = navPreviews[menuPreviewHref]
                               if (!preview)
-                                return language === "ta" ? "தொடர்ந்து பார்க்க கிளிக் செய்யுங்கள்." : "Click to explore this page."
+                                return language === "ta" ? "à®¤à¯Šà®Ÿà®°à¯à®¨à¯à®¤à¯ à®ªà®¾à®°à¯à®•à¯à®• à®•à®¿à®³à®¿à®•à¯ à®šà¯†à®¯à¯à®¯à¯à®™à¯à®•à®³à¯." : "Click to explore this page."
                               return language === "ta" ? preview.bodyTa : preview.bodyEn
                             })()}
                           </p>
@@ -1098,14 +1098,14 @@ export default function Navbar() {
                             >
                               {(() => {
                                 const preview = navPreviews[menuPreviewHref]
-                                if (!preview) return language === "ta" ? "திறக்க" : "Open"
-                                return language === "ta" ? preview.ctaTa ?? "திறக்க" : preview.ctaEn ?? "Open"
+                                if (!preview) return language === "ta" ? "à®¤à®¿à®±à®•à¯à®•" : "Open"
+                                return language === "ta" ? preview.ctaTa ?? "à®¤à®¿à®±à®•à¯à®•" : preview.ctaEn ?? "Open"
                               })()}
                             </Link>
 
                             <div className="rounded-xl border border-churchBlue/10 bg-white/70 p-3">
                               <div className="text-[11px] font-semibold tracking-wide text-churchBlue/60">
-                                {language === "ta" ? "விரைவு இணைப்புகள்" : "Quick links"}
+                                {language === "ta" ? "à®µà®¿à®°à¯ˆà®µà¯ à®‡à®£à¯ˆà®ªà¯à®ªà¯à®•à®³à¯" : "Quick links"}
                               </div>
                               <div className="mt-2 grid gap-2">
                                 {buildMenuLayout(item).quickLinks.map((q) => (
@@ -1186,11 +1186,11 @@ export default function Navbar() {
               >
                 <div className="p-5">
                   <div className="text-sm font-semibold text-churchBlue">
-                    {language === "ta" ? "தசமபாகமும் கொடைகளும்" : "Tithes & Offerings"}
+                    {language === "ta" ? "à®¤à®šà®®à®ªà®¾à®•à®®à¯à®®à¯ à®•à¯Šà®Ÿà¯ˆà®•à®³à¯à®®à¯" : "Tithes & Offerings"}
                   </div>
                   <p className={["mt-2 text-sm leading-relaxed text-churchBlue/75", language === "ta" ? "font-tamil" : ""].join(" ")}>
                     {language === "ta"
-                      ? "தேவன் கொடுத்ததற்கான நன்றி, விசுவாசம், மற்றும் அன்பின் அடையாளமாக நாம் கொடைக்கிறோம்."
+                      ? "à®¤à¯‡à®µà®©à¯ à®•à¯Šà®Ÿà¯à®¤à¯à®¤à®¤à®±à¯à®•à®¾à®© à®¨à®©à¯à®±à®¿, à®µà®¿à®šà¯à®µà®¾à®šà®®à¯, à®®à®±à¯à®±à¯à®®à¯ à®…à®©à¯à®ªà®¿à®©à¯ à®…à®Ÿà¯ˆà®¯à®¾à®³à®®à®¾à®• à®¨à®¾à®®à¯ à®•à¯Šà®Ÿà¯ˆà®•à¯à®•à®¿à®±à¯‹à®®à¯."
                       : "We give as an act of worship, gratitude, and faithfulness."}
                   </p>
 
@@ -1208,14 +1208,14 @@ export default function Navbar() {
 
                   <div className="mt-5 grid gap-2 sm:grid-cols-2">
                     <Link href="/give" className="btn btn-sm btn-offerings w-full" onClick={() => setOfferingsOpen(false)}>
-                      {language === "ta" ? "கொடுங்கள்" : "Give"}
+                      {language === "ta" ? "à®•à¯Šà®Ÿà¯à®™à¯à®•à®³à¯" : "Give"}
                     </Link>
                     <Link
                       href="/contact"
                       className="btn btn-sm btn-secondary w-full"
                       onClick={() => setOfferingsOpen(false)}
                     >
-                      {language === "ta" ? "உதவி" : "Need help?"}
+                      {language === "ta" ? "à®‰à®¤à®µà®¿" : "Need help?"}
                     </Link>
                   </div>
                 </div>
@@ -1299,116 +1299,144 @@ export default function Navbar() {
 
       {renderMobileMenu ? (
         <div
-          id="mobile-nav"
           className={[
-            "border-t border-churchBlue/10 bg-white md:hidden overflow-hidden overscroll-contain",
-            "transform-gpu transition-[max-height,opacity,transform] duration-200 ease-out",
-            open
-              ? "max-h-[calc(100dvh-5.5rem)] opacity-100 translate-y-0 visible pointer-events-auto"
-              : "max-h-0 opacity-0 -translate-y-2 invisible pointer-events-none",
+            "fixed inset-0 z-[70] md:hidden",
+            "transition-opacity duration-200 ease-out",
+            open ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none",
           ].join(" ")}
           aria-hidden={!open}
         >
-          <div className="max-h-[calc(100dvh-5.5rem)] overflow-y-auto">
-            <Container className="py-4">
-              <div className="flex flex-col gap-2">
-              <div className="grid gap-2 px-2">
-                <Link href="/care" onClick={() => setOpen(false)} className="btn btn-md btn-primary w-full">
-                  {t(ui.cta.requestCare, language)}
-                </Link>
-                <Link href="/give" onClick={() => setOpen(false)} className="btn btn-md btn-offerings w-full">
-                  {language === "ta" ? "தசமபாகமும் கொடைகளும்" : "Tithes & Offerings"}
-                </Link>
-                <Link href="/search" onClick={() => setOpen(false)} className="btn btn-md btn-secondary w-full">
-                  {language === "ta" ? "தேடல்" : "Search"}
-                </Link>
+          <button
+            type="button"
+            aria-label={mobileMenuCloseLabel}
+            className="absolute inset-0 bg-churchBlue/50 backdrop-blur-[1px]"
+            onClick={() => setOpen(false)}
+          />
+          <div
+            id="mobile-nav"
+            className={[
+              "absolute right-0 top-0 h-dvh w-[min(94vw,26rem)] border-l border-churchBlue/10 bg-white shadow-[0_24px_80px_rgb(15_23_42_/_0.35)]",
+              "transform-gpu transition-transform duration-200 ease-out",
+              open ? "translate-x-0" : "translate-x-full",
+            ].join(" ")}
+          >
+            <div className="flex h-full flex-col">
+              <div className="sticky top-0 z-10 border-b border-churchBlue/10 bg-white/95 px-4 py-3 backdrop-blur">
+                <div className="flex items-center justify-between">
+                  <span className="text-sm font-semibold text-churchBlue">Menu</span>
+                  <button
+                    type="button"
+                    className="focus-ring inline-flex h-10 w-10 items-center justify-center rounded-xl border border-churchBlue/15 bg-churchBlueSoft text-churchBlue"
+                    onClick={() => setOpen(false)}
+                    aria-label={mobileMenuCloseLabel}
+                  >
+                    <span aria-hidden="true" className="text-lg leading-none">
+                      {"\u00D7"}
+                    </span>
+                  </button>
+                </div>
               </div>
 
-              {navItems.map((item) => {
-                if (item.type === "link") {
-                  const isActive = item.href === activeHref
-                  return (
-                    <Link
-                      key={item.href}
-                      href={item.href}
-                      onClick={() => setOpen(false)}
-                      className={[
-                        "focus-ring block rounded-xl border border-transparent px-4 py-3 text-sm transition",
-                        isActive
-                          ? "bg-churchBlueSoft text-churchBlue border-stagePurple/25 shadow-[0_0_0_1px_rgb(var(--stage-purple)_/_0.14),0_10px_24px_rgb(var(--stage-purple)_/_0.12)]"
-                          : "text-churchBlue/80 hover:bg-churchBlueSoft hover:text-churchBlue",
-                      ].join(" ")}
-                    >
-                      <div className="flex items-center justify-between">
-                        <span>{t(ui.nav[item.key], language)}</span>
-                        <span className="text-churchBlue/60" aria-hidden="true">
-                          {"\u203A"}
-                        </span>
-                      </div>
-                    </Link>
-                  )
-                }
+              <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain px-2 py-3">
+                <div className="grid gap-2 px-2">
+                  <Link href="/care" onClick={() => setOpen(false)} className="btn btn-md btn-primary w-full">
+                    {t(ui.cta.requestCare, language)}
+                  </Link>
+                  <Link href="/give" onClick={() => setOpen(false)} className="btn btn-md btn-offerings w-full">
+                    {language === "ta" ? "à®¤à®šà®®à®ªà®¾à®•à®®à¯à®®à¯ à®•à¯Šà®Ÿà¯ˆà®•à®³à¯à®®à¯" : "Tithes & Offerings"}
+                  </Link>
+                  <Link href="/search" onClick={() => setOpen(false)} className="btn btn-md btn-secondary w-full">
+                    {language === "ta" ? "à®¤à¯‡à®Ÿà®²à¯" : "Search"}
+                  </Link>
+                </div>
 
-                const isExpanded = Boolean(mobileSections[item.id])
-                const label = (() => {
-                  if (item.id === "ourChurch") return t(ui.navGroups.ourChurch, language)
-                  if (item.id === "getInvolved") return t(ui.navGroups.getInvolved, language)
-                  if (item.id === "resources") return language === "ta" ? "Resources" : "Resources"
-                  return t(ui.nav.ministries, language)
-                })()
+                <div className="mt-3 flex flex-col gap-2">
+                  {navItems.map((item) => {
+                    if (item.type === "link") {
+                      const isActive = item.href === activeHref
+                      return (
+                        <Link
+                          key={item.href}
+                          href={item.href}
+                          onClick={() => setOpen(false)}
+                          className={[
+                            "focus-ring block rounded-xl border border-transparent px-4 py-3 text-sm transition",
+                            isActive
+                              ? "bg-churchBlueSoft text-churchBlue border-stagePurple/25 shadow-[0_0_0_1px_rgb(var(--stage-purple)_/_0.14),0_10px_24px_rgb(var(--stage-purple)_/_0.12)]"
+                              : "text-churchBlue/80 hover:bg-churchBlueSoft hover:text-churchBlue",
+                          ].join(" ")}
+                        >
+                          <div className="flex items-center justify-between">
+                            <span>{t(ui.nav[item.key], language)}</span>
+                            <span className="text-churchBlue/60" aria-hidden="true">
+                              {"\u203A"}
+                            </span>
+                          </div>
+                        </Link>
+                      )
+                    }
 
-                return (
-                  <div key={item.id} className="px-2">
-                    <button
-                      type="button"
-                      className="focus-ring flex min-h-11 w-full items-center justify-between rounded-xl px-4 py-3 text-sm font-semibold text-churchBlue hover:bg-churchBlueSoft"
-                      aria-expanded={isExpanded}
-                      onClick={() =>
-                        setMobileSections((v) => ({ ...v, [item.id]: !Boolean(v[item.id]) }))
-                      }
-                    >
-                      <span className={language === "ta" ? "font-tamil" : undefined}>{label}</span>
-                      <span className="text-xs text-churchBlue/70" aria-hidden="true">
-                        {isExpanded ? "\u2212" : "+"}
-                      </span>
-                    </button>
-                    {isExpanded ? (
-                      <div className="mt-1 space-y-1">
-                        {buildMenuLayout(item).flatItems.map((sub) => {
-                          const isActive = sub.href === activeHref
-                          return (
-                            <Link
-                              key={sub.href}
-                              href={sub.href}
-                              onClick={() => setOpen(false)}
-                              className={[
-                                "focus-ring block rounded-xl border border-transparent px-4 py-3 text-sm transition",
-                                isActive
-                                  ? "bg-churchBlueSoft text-churchBlue border-stagePurple/25 shadow-[0_0_0_1px_rgb(var(--stage-purple)_/_0.14),0_10px_24px_rgb(var(--stage-purple)_/_0.12)]"
-                                  : "text-churchBlue/80 hover:bg-churchBlueSoft hover:text-churchBlue",
-                              ].join(" ")}
-                            >
-                              <div className="flex items-center justify-between">
-                                <span className="flex items-center gap-2">
-                                  <span className="grid h-8 w-8 place-items-center rounded-xl bg-churchBlueSoft text-churchBlue/85">
-                                    <MenuIcon name={menuIconForHref(sub.href)} />
-                                  </span>
-                                  <span>{t(ui.nav[sub.key], language)}</span>
-                                </span>
-                                <span className="text-churchBlue/60" aria-hidden="true">
-                                  {"\u203A"}
-                                </span>
-                              </div>
-                            </Link>
-                          )
-                        })}
+                    const isExpanded = Boolean(mobileSections[item.id])
+                    const label = (() => {
+                      if (item.id === "ourChurch") return t(ui.navGroups.ourChurch, language)
+                      if (item.id === "getInvolved") return t(ui.navGroups.getInvolved, language)
+                      if (item.id === "resources") return language === "ta" ? "Resources" : "Resources"
+                      return t(ui.nav.ministries, language)
+                    })()
+
+                    return (
+                      <div key={item.id} className="px-2">
+                        <button
+                          type="button"
+                          className="focus-ring flex min-h-11 w-full items-center justify-between rounded-xl px-4 py-3 text-sm font-semibold text-churchBlue hover:bg-churchBlueSoft"
+                          aria-expanded={isExpanded}
+                          onClick={() =>
+                            setMobileSections((v) => ({ ...v, [item.id]: !Boolean(v[item.id]) }))
+                          }
+                        >
+                          <span className={language === "ta" ? "font-tamil" : undefined}>{label}</span>
+                          <span className="text-xs text-churchBlue/70" aria-hidden="true">
+                            {isExpanded ? "\u2212" : "+"}
+                          </span>
+                        </button>
+                        {isExpanded ? (
+                          <div className="mt-1 space-y-1">
+                            {buildMenuLayout(item).flatItems.map((sub) => {
+                              const isActive = sub.href === activeHref
+                              return (
+                                <Link
+                                  key={sub.href}
+                                  href={sub.href}
+                                  onClick={() => setOpen(false)}
+                                  className={[
+                                    "focus-ring block rounded-xl border border-transparent px-4 py-3 text-sm transition",
+                                    isActive
+                                      ? "bg-churchBlueSoft text-churchBlue border-stagePurple/25 shadow-[0_0_0_1px_rgb(var(--stage-purple)_/_0.14),0_10px_24px_rgb(var(--stage-purple)_/_0.12)]"
+                                      : "text-churchBlue/80 hover:bg-churchBlueSoft hover:text-churchBlue",
+                                  ].join(" ")}
+                                >
+                                  <div className="flex items-center justify-between">
+                                    <span className="flex items-center gap-2">
+                                      <span className="grid h-8 w-8 place-items-center rounded-xl bg-churchBlueSoft text-churchBlue/85">
+                                        <MenuIcon name={menuIconForHref(sub.href)} />
+                                      </span>
+                                      <span>{t(ui.nav[sub.key], language)}</span>
+                                    </span>
+                                    <span className="text-churchBlue/60" aria-hidden="true">
+                                      {"\u203A"}
+                                    </span>
+                                  </div>
+                                </Link>
+                              )
+                            })}
+                          </div>
+                        ) : null}
                       </div>
-                    ) : null}
-                  </div>
-                )
-              })}
+                    )
+                  })}
+                </div>
               </div>
-            </Container>
+            </div>
           </div>
         </div>
       ) : null}
