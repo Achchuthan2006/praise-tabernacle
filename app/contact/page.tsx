@@ -31,8 +31,8 @@ export default function ContactPage() {
       />
 
       <Container className="section-padding">
-        <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:items-start">
-          <div className="lg:col-span-5">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:items-start">
+          <div>
             <div className="mx-auto max-w-xl lg:mx-0">
               <Reveal>
                 <section className="border-y border-churchBlue/10 py-8">
@@ -111,7 +111,7 @@ export default function ContactPage() {
             </div>
           </div>
 
-          <div className="lg:col-span-7">
+          <div>
             <div className="mx-auto max-w-2xl lg:mx-0">
               <Reveal>
                 <ContactMessageForm />
