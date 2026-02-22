@@ -65,7 +65,7 @@ export default async function SocialMediaSection() {
             </p>
           </Reveal>
 
-          <div className="mt-8 flex flex-col gap-8 md:flex-row md:items-start">
+          <div className="mt-8 flex flex-col md:flex-row gap-6 md:items-start">
             <Reveal className="w-full md:w-5/12">
               <div className="rounded-3xl border border-churchBlue/10 bg-white p-6 shadow-glow">
                 <div className="text-sm font-semibold text-churchBlue/70">
