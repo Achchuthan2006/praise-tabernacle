@@ -2569,6 +2569,16 @@
     }
   }
 
+  @media (max-width: 768px) {
+    .care-cards {
+      flex-direction: column;
+    }
+
+    .care-card {
+      width: 100%;
+    }
+  }
+
   .hero-title-anim {
     animation: hero-slide-up-fade 900ms ease-out both;
   }

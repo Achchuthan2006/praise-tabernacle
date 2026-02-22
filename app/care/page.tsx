@@ -29,8 +29,8 @@ export default function CarePage() {
       <section className="bg-white">
         <Container className="section-padding">
           <div className="mx-auto max-w-5xl">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <Reveal>
+            <div className="care-cards flex flex-col md:flex-row gap-6">
+              <Reveal className="care-card w-full md:flex-1">
                 <div className="rounded-3xl border border-churchBlue/10 bg-white p-7 shadow-glow">
                   <div className="section-kicker">
                     <Lang en="Prayer" ta="ஜெபம்" taClassName="font-tamil" />
@@ -56,7 +56,7 @@ export default function CarePage() {
                 </div>
               </Reveal>
 
-              <Reveal delay={1}>
+              <Reveal delay={1} className="care-card w-full md:flex-1">
                 <div className="rounded-3xl border border-churchBlue/10 bg-white p-7 shadow-glow">
                   <div className="section-kicker">
                     <Lang en="Pastoral care" ta="மேய்ப்பர் அக்கறை" taClassName="font-tamil" />
@@ -82,7 +82,7 @@ export default function CarePage() {
                 </div>
               </Reveal>
 
-              <Reveal delay={2}>
+              <Reveal delay={2} className="care-card w-full md:flex-1">
                 <div className="rounded-3xl border border-churchBlue/10 bg-white p-7 shadow-glow">
                   <div className="section-kicker">
                     <Lang en="Counseling" ta="ஆலோசனை" taClassName="font-tamil" />
