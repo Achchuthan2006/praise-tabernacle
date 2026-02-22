@@ -124,8 +124,8 @@ export default function SmallGroupFinder({ groups }: { groups: SmallGroup[] }) {
   return (
     <div>
       <div className="rounded-3xl border border-churchBlue/10 bg-white p-6 shadow-glow">
-        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
-          <label className="block md:col-span-2 lg:col-span-2">
+        <div className="grid gap-4">
+          <label className="block">
             <div className="float-field">
               <input
                 className="float-input"
@@ -137,6 +137,7 @@ export default function SmallGroupFinder({ groups }: { groups: SmallGroup[] }) {
             </div>
           </label>
 
+          <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-6">
           <label className="block">
             <span className="text-sm font-medium text-churchBlue">Where</span>
             <select
@@ -217,7 +218,7 @@ export default function SmallGroupFinder({ groups }: { groups: SmallGroup[] }) {
             </select>
           </label>
 
-          <label className="block md:col-span-2 lg:col-span-2">
+          <label className="block">
             <span className="text-sm font-medium text-churchBlue">Interest</span>
             <select
               value={interest}
@@ -232,6 +233,7 @@ export default function SmallGroupFinder({ groups }: { groups: SmallGroup[] }) {
               ))}
             </select>
           </label>
+          </div>
         </div>
 
         <div className="mt-5 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
