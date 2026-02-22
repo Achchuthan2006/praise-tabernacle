@@ -29,7 +29,7 @@ export default function CarePage() {
       <section className="bg-white">
         <Container className="section-padding">
           <div className="mx-auto max-w-5xl">
-            <div className="grid gap-6 md:grid-cols-3">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <Reveal>
                 <div className="rounded-3xl border border-churchBlue/10 bg-white p-7 shadow-glow">
                   <div className="section-kicker">
