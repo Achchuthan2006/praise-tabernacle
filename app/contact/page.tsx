@@ -26,7 +26,7 @@ export default function ContactPage() {
       <PageHeader
         titleEn="Contact"
         titleTa="à®¤à¯Šà®Ÿà®°à¯à®ªà¯"
-        descriptionEn="Weâ€™d love to hear from you. Ask a question, request prayer, or plan your visit."
+        descriptionEn="We'd love to hear from you. Ask a question, request prayer, or plan your visit."
         descriptionTa="à®‰à®™à¯à®•à®³à®¿à®Ÿà®®à®¿à®°à¯à®¨à¯à®¤à¯ à®•à¯‡à®Ÿà¯à®• à®µà®¿à®°à¯à®®à¯à®ªà¯à®•à®¿à®±à¯‹à®®à¯. à®•à¯‡à®³à¯à®µà®¿à®•à®³à¯ à®•à¯‡à®³à¯à®™à¯à®•à®³à¯, à®œà¯†à®ªà®®à¯ à®µà¯‡à®£à¯à®Ÿà¯à®™à¯à®•à®³à¯, à®…à®²à¯à®²à®¤à¯ à®µà®°à¯à®•à¯ˆà®¯à¯ˆ à®¤à®¿à®Ÿà¯à®Ÿà®®à®¿à®Ÿà¯à®™à¯à®•à®³à¯."
       />
 
