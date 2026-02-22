@@ -52,7 +52,7 @@ export default function MissionsPage() {
                 </p>
               </div>
 
-              <div className="mt-10 grid gap-10 lg:grid-cols-2">
+              <div className="mt-10 grid grid-cols-1 gap-6 md:grid-cols-2">
                 <div>
                   <div className="section-kicker">
                     <Lang en="Local" ta="உள்ளூர்" taClassName="font-tamil" />
@@ -115,7 +115,7 @@ export default function MissionsPage() {
                 <h3 className="section-heading mt-2">
                   <Lang en="Current mission projects" ta="தற்போதைய மிஷன் திட்டங்கள்" taClassName="font-tamil" />
                 </h3>
-                <div className="mt-6 grid gap-5 lg:grid-cols-2">
+                <div className="mt-6 grid grid-cols-1 gap-6 md:grid-cols-2">
                   {missionProjects.map((project) => (
                     <div key={project.id} className="rounded-2xl border border-churchBlue/10 bg-churchBlueSoft p-5">
                       <div className="text-sm font-semibold text-churchBlue">
@@ -152,7 +152,7 @@ export default function MissionsPage() {
                 <h3 className="section-heading mt-2">
                   <Lang en="Partner missionaries" ta="மிஷனரி கூட்டாளிகள்" taClassName="font-tamil" />
                 </h3>
-                <div className="mt-6 grid gap-5 lg:grid-cols-2">
+                <div className="mt-6 grid grid-cols-1 gap-6 md:grid-cols-2">
                   {partnerMissionaries.map((m) => (
                     <div key={m.id} className="rounded-2xl border border-churchBlue/10 bg-churchBlueSoft p-5">
                       <div className="text-sm font-semibold text-churchBlue">{m.name}</div>
@@ -174,7 +174,7 @@ export default function MissionsPage() {
                 <h3 className="section-heading mt-2">
                   <Lang en="Community initiatives" ta="சமூக முயற்சிகள்" taClassName="font-tamil" />
                 </h3>
-                <div className="mt-6 grid gap-5 lg:grid-cols-2">
+                <div className="mt-6 grid grid-cols-1 gap-6 md:grid-cols-2">
                   {outreachInitiatives.map((initiative) => (
                     <div key={initiative.id} className="rounded-2xl border border-churchBlue/10 bg-churchBlueSoft p-5">
                       <div className="text-sm font-semibold text-churchBlue">

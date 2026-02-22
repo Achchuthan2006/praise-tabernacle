@@ -45,8 +45,8 @@ export default function MissionsShowcaseSection() {
             </div>
           </Reveal>
 
-          <div className="mt-10 grid grid-cols-1 gap-6 xl:grid-cols-12 xl:items-start">
-            <Reveal className="w-full xl:col-span-6">
+          <div className="mt-10 grid grid-cols-1 gap-6 md:grid-cols-2">
+            <Reveal className="w-full">
               <div className="rounded-3xl border border-churchBlue/10 bg-white p-7 shadow-glow">
                 <div className="text-sm font-semibold text-churchBlue/70">
                   <Lang en="Current projects" ta="தற்போதைய திட்டங்கள்" taClassName="font-tamil" />
@@ -89,7 +89,7 @@ export default function MissionsShowcaseSection() {
               </div>
             </Reveal>
 
-            <div className="grid grid-cols-1 gap-6 w-full xl:col-span-6">
+            <div className="grid w-full grid-cols-1 gap-6">
               <Reveal delay={1} className="w-full">
                 <div className="rounded-3xl border border-churchBlue/10 bg-white p-7 shadow-glow">
                   <div className="text-sm font-semibold text-churchBlue/70">
