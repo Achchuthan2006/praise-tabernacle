@@ -164,7 +164,7 @@ export default function GetInvolvedSection() {
             </div>
           </Reveal>
 
-          <div className="mt-10 grid grid-cols-1 gap-4 md:grid-cols-3">
+          <div className="mt-10 grid grid-cols-1 gap-6 md:grid-cols-3">
             {pathways.map((p, idx) => (
               <Reveal key={p.href} delay={idx === 0 ? 0 : idx === 1 ? 1 : 2} className="w-full min-w-0">
                 {(() => {
