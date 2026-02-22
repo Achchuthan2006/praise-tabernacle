@@ -392,6 +392,9 @@
   .navbar {
     backdrop-filter: blur(14px);
     -webkit-backdrop-filter: blur(14px);
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
     background: linear-gradient(
       to right,
       rgb(15 23 42 / 0.92),
