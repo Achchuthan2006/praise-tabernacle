@@ -51,6 +51,13 @@ function getDetailHref(t: Testimonial) {
   return t.youtubeVideoId ? `/testimonies/${t.slug}?play=1` : `/testimonies/${t.slug}`
 }
 
+function formatTestimonyDate(dateIso?: string) {
+  if (!dateIso) return ""
+  const date = new Date(dateIso)
+  if (Number.isNaN(date.getTime())) return dateIso
+  return date.toLocaleDateString("en-CA", { year: "numeric", month: "long", day: "numeric" })
+}
+
 function Card({
   t,
   delay,
@@ -106,7 +113,9 @@ function Card({
               )
             })}
             {t.dateIso ? (
-              <span className="text-xs font-semibold tracking-wide text-churchBlue/55">{t.dateIso}</span>
+              <span className="text-xs font-semibold tracking-wide text-churchBlue/55">
+                {formatTestimonyDate(t.dateIso)}
+              </span>
             ) : null}
           </div>
 
