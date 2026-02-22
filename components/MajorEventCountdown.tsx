@@ -123,19 +123,19 @@ export default function MajorEventCountdown() {
             </div>
           </div>
 
-          <div className="mt-6 flex flex-wrap gap-3">
-            <Link href={`/events/${event.slug}`} className="btn btn-md btn-primary">
+          <div className="mt-6 grid grid-cols-1 gap-2 sm:grid-cols-2">
+            <Link href={`/events/${event.slug}`} className="btn btn-md btn-primary w-full">
               <Lang en="View event details" ta="à®¨à®¿à®•à®´à¯à®µà¯ à®µà®¿à®µà®°à®™à¯à®•à®³à¯" taClassName="font-tamil" />
             </Link>
-            <a href={`/events/${event.slug}/calendar`} className="btn btn-md btn-secondary">
+            <a href={`/events/${event.slug}/calendar`} className="btn btn-md btn-secondary w-full">
               <Lang en="Download iCal (.ics)" ta="iCal (.ics) à®ªà®¤à®¿à®µà®¿à®±à®•à¯à®•à®µà¯à®®à¯" taClassName="font-tamil" />
             </a>
             {calendarLinks ? (
               <>
-                <a href={calendarLinks.google} target="_blank" rel="noreferrer" className="btn btn-md btn-secondary">
+                <a href={calendarLinks.google} target="_blank" rel="noreferrer" className="btn btn-md btn-secondary w-full">
                   <Lang en="Add to Google Calendar" ta="Google Calendar-à®²à¯ à®šà¯‡à®°à¯" taClassName="font-tamil" />
                 </a>
-                <a href={calendarLinks.outlook} target="_blank" rel="noreferrer" className="btn btn-md btn-secondary">
+                <a href={calendarLinks.outlook} target="_blank" rel="noreferrer" className="btn btn-md btn-secondary w-full">
                   <Lang en="Add to Outlook" ta="Outlook-à®²à¯ à®šà¯‡à®°à¯" taClassName="font-tamil" />
                 </a>
               </>
