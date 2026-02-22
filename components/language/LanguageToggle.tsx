@@ -5,7 +5,7 @@ import type { Language } from "@/lib/i18n"
 
 const options: Array<{ value: Language; label: string }> = [
   { value: "en", label: "EN" },
-  { value: "ta", label: "\u0ba4\u0bae\u0bbf\u0bb4\u0bcd" }, // தமிழ்
+  { value: "ta", label: "\u0ba4\u0bae\u0bbf\u0bb4\u0bcd" }, // ?????
 ]
 
 export default function LanguageToggle() {
@@ -13,9 +13,9 @@ export default function LanguageToggle() {
 
   return (
     <div
-      className="language-toggle inline-flex items-center rounded-full border border-churchBlue/15 bg-churchBlueSoft p-1.5 text-sm text-churchBlue"
+      className="language-toggle inline-flex items-center overflow-hidden rounded-full border border-white/35 bg-white/10 p-1 text-sm text-white backdrop-blur-sm"
       role="group"
-      aria-label={language === "ta" ? "மொழி" : "Language"}
+      aria-label={language === "ta" ? "????" : "Language"}
     >
       {options.map((opt) => {
         const active = opt.value === language
@@ -27,8 +27,8 @@ export default function LanguageToggle() {
             className={[
               "min-h-11 rounded-full px-3 py-2 transition-colors",
               active
-                ? "bg-churchBlue text-white shadow-sm"
-                : "text-churchBlue/70 hover:text-churchBlue hover:bg-white",
+                ? "bg-white text-churchBlue shadow-sm"
+                : "text-white/85 hover:bg-white/15 hover:text-white",
             ].join(" ")}
             aria-pressed={active}
           >
