@@ -231,50 +231,55 @@ export default function SermonArchive({
         </div>
 
         <div className="mt-8 space-y-3 lg:hidden">
-          <label className="block">
-            <div className="float-field">
-              <input
-                className="float-input"
-                value={query}
-                onChange={(e) => setQuery(e.target.value)}
-                placeholder="Search sermons..."
+          <div className="flex flex-col sm:flex-row gap-2 flex-wrap">
+            <label className="block w-full sm:min-w-[240px] sm:flex-1">
+              <div className="float-field">
+                <input
+                  className="float-input"
+                  value={query}
+                  onChange={(e) => setQuery(e.target.value)}
+                  placeholder="Search sermons..."
+                />
+                <span className="float-label">Search</span>
+              </div>
+            </label>
+
+            <div className="w-full sm:basis-[calc(50%-0.25rem)] sm:grow">
+              <Filter
+                label="Series"
+                value={selectedSeries}
+                onChange={setSelectedSeries}
+                options={seriesIds.map((id) => ({ value: id, label: seriesById.get(id)?.title ?? id }))}
               />
-              <span className="float-label">Search</span>
             </div>
-          </label>
-
-          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-            <Filter
-              label="Series"
-              value={selectedSeries}
-              onChange={setSelectedSeries}
-              options={seriesIds.map((id) => ({ value: id, label: seriesById.get(id)?.title ?? id }))}
-            />
-            <Filter
-              label="Topic"
-              value={selectedTopic}
-              onChange={setSelectedTopic}
-              options={topics.map((t) => ({ value: t, label: t }))}
-            />
-          </div>
-
-          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-            <Filter
-              label="Speaker"
-              value={selectedSpeaker}
-              onChange={setSelectedSpeaker}
-              options={speakers.map((s) => ({ value: s, label: s }))}
-            />
-            <Filter
-              label="Language"
-              value={selectedLanguage}
-              onChange={setSelectedLanguage}
-              options={[
-                { value: "en", label: "English" },
-                { value: "ta", label: "Tamil" },
-                { value: "mixed", label: "Tamil + English" },
-              ]}
-            />
+            <div className="w-full sm:basis-[calc(50%-0.25rem)] sm:grow">
+              <Filter
+                label="Speaker"
+                value={selectedSpeaker}
+                onChange={setSelectedSpeaker}
+                options={speakers.map((s) => ({ value: s, label: s }))}
+              />
+            </div>
+            <div className="w-full sm:basis-[calc(50%-0.25rem)] sm:grow">
+              <Filter
+                label="Topic"
+                value={selectedTopic}
+                onChange={setSelectedTopic}
+                options={topics.map((t) => ({ value: t, label: t }))}
+              />
+            </div>
+            <div className="w-full sm:basis-[calc(50%-0.25rem)] sm:grow">
+              <Filter
+                label="Language"
+                value={selectedLanguage}
+                onChange={setSelectedLanguage}
+                options={[
+                  { value: "en", label: "English" },
+                  { value: "ta", label: "Tamil" },
+                  { value: "mixed", label: "Tamil + English" },
+                ]}
+              />
+            </div>
           </div>
 
           <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
