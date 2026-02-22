@@ -243,7 +243,7 @@ export default function SermonArchive({
             </div>
           </label>
 
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
             <Filter
               label="Series"
               value={selectedSeries}
@@ -258,7 +258,7 @@ export default function SermonArchive({
             />
           </div>
 
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
             <Filter
               label="Speaker"
               value={selectedSpeaker}
@@ -277,7 +277,7 @@ export default function SermonArchive({
             />
           </div>
 
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
             <label className="block">
               <span className="text-sm font-medium text-churchBlue">From</span>
               <input
