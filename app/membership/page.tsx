@@ -62,10 +62,26 @@ export default function MembershipPage() {
                       bodyEn: "Take your next step with prayer and guidance.",
                       bodyTa: "ஜெபமும் வழிகாட்டலுடனும் அடுத்த படியை எடுக்கவும்.",
                     },
-                  ].map((step) => (
-                    <div key={step.titleEn} className="rounded-2xl border border-churchBlue/10 bg-churchBlueSoft p-5">
-                      <div className="text-sm font-semibold text-churchBlue">
-                        <Lang en={step.titleEn} ta={step.titleTa} taClassName="font-tamil" />
+                  ].map((step, idx, steps) => (
+                    <div key={step.titleEn} className="relative rounded-2xl border border-churchBlue/10 bg-churchBlueSoft p-5">
+                      {idx < steps.length - 1 ? (
+                        <span
+                          aria-hidden="true"
+                          className="pointer-events-none absolute -right-3 top-1/2 hidden -translate-y-1/2 text-churchBlue/35 sm:inline"
+                        >
+                          &rarr;
+                        </span>
+                      ) : null}
+                      <div className="flex items-center gap-3">
+                        <span
+                          className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-[#F5A623] text-sm font-bold text-white"
+                          aria-hidden="true"
+                        >
+                          {idx + 1}
+                        </span>
+                        <div className="text-sm font-semibold text-churchBlue">
+                          <Lang en={step.titleEn} ta={step.titleTa} taClassName="font-tamil" />
+                        </div>
                       </div>
                       <div className="mt-2 text-sm text-churchBlue/75">
                         <Lang en={step.bodyEn} ta={step.bodyTa} taClassName="font-tamil" />
@@ -134,3 +150,4 @@ export default function MembershipPage() {
     </>
   )
 }
+
