@@ -1,17 +1,12 @@
 "use client"
 
 import Link from "next/link"
-import { useMemo, useState } from "react"
+import { useEffect, useMemo, useRef, useState, type ReactNode } from "react"
 
 import { useLanguage } from "@/components/language/LanguageProvider"
-import Reveal from "@/components/ui/Reveal"
 import type { BlogCategory, BlogPost } from "@/lib/blog"
 import { blogCategoryLabels } from "@/lib/blog"
 import { formatIsoDate } from "@/lib/dates"
-
-function delayForIndex(idx: number): 0 | 1 | 2 | 3 {
-  return (idx % 4) as 0 | 1 | 2 | 3
-}
 
 function uniq(values: Array<string | undefined>) {
   const set = new Set(values.filter(Boolean) as string[])
@@ -125,8 +120,8 @@ export default function BlogArchive({ posts }: { posts: BlogPost[] }) {
       </div>
 
       <div className="blog-grid mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {filtered.map((post, idx) => (
-          <Reveal key={post.slug} delay={delayForIndex(idx)}>
+        {filtered.map((post) => (
+          <BlogEntryReveal key={post.slug}>
             <article className="card">
               <div className="card-content">
               <div className="flex flex-wrap items-center gap-2">
@@ -158,7 +153,7 @@ export default function BlogArchive({ posts }: { posts: BlogPost[] }) {
               </div>
               </div>
             </article>
-          </Reveal>
+          </BlogEntryReveal>
         ))}
       </div>
 
@@ -176,6 +171,49 @@ export default function BlogArchive({ posts }: { posts: BlogPost[] }) {
           </div>
         </div>
       ) : null}
+    </div>
+  )
+}
+
+function BlogEntryReveal({ children }: { children: ReactNode }) {
+  const ref = useRef<HTMLDivElement | null>(null)
+  const [visible, setVisible] = useState(false)
+
+  useEffect(() => {
+    const el = ref.current
+    if (!el) return
+
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    if (prefersReducedMotion) {
+      setVisible(true)
+      return
+    }
+
+    const rect = el.getBoundingClientRect()
+    const inView = rect.top < window.innerHeight * 0.92 && rect.bottom > 0
+    if (inView) {
+      setVisible(true)
+      return
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const entry = entries[0]
+        if (entry?.isIntersecting) {
+          setVisible(true)
+          observer.disconnect()
+        }
+      },
+      { threshold: 0.2, rootMargin: "0px 0px -8% 0px" },
+    )
+
+    observer.observe(el)
+    return () => observer.disconnect()
+  }, [])
+
+  return (
+    <div ref={ref} className="blog-entry-reveal" data-visible={visible ? "true" : "false"}>
+      {children}
     </div>
   )
 }

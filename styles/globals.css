@@ -2240,6 +2240,20 @@
     transform: translateY(0);
   }
 
+  .blog-entry-reveal {
+    opacity: 0;
+    transform: translateY(14px);
+    transition:
+      opacity 0.35s ease-out,
+      transform 0.35s ease-out;
+    will-change: opacity, transform;
+  }
+
+  .blog-entry-reveal[data-visible="true"] {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
   .give-page .fade-in-section {
     transform: translateY(16px);
     transition:
@@ -2876,6 +2890,12 @@
     .give-page .reveal-3 {
       transition: none;
       transition-delay: 0ms;
+      opacity: 1;
+      transform: none;
+    }
+
+    .blog-entry-reveal {
+      transition: none;
       opacity: 1;
       transform: none;
     }
