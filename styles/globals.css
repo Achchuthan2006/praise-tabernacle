@@ -1454,6 +1454,25 @@
     transform: scale(1.06);
   }
 
+  @keyframes verse-float {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-6px);
+    }
+  }
+
+  .verse-card {
+    animation: verse-float 4s ease-in-out infinite;
+    will-change: transform;
+  }
+
+  .verse-card:nth-child(even) {
+    animation-delay: 1.2s;
+  }
+
   .votd-verse-card {
     position: relative;
     overflow: hidden;
@@ -1482,6 +1501,13 @@
     box-shadow:
       0 18px 40px rgb(var(--primary-navy) / 0.10),
       0 0 26px rgb(var(--stage-purple) / 0.10);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .verse-card {
+      animation: none;
+      transform: none;
+    }
   }
 
   .section-divider {

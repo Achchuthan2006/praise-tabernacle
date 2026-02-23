@@ -47,7 +47,7 @@ export default function VerseOfTheDay({
             <>
               <div className="mt-8 sm:hidden">
                 <Reveal>
-                  <div className="votd-image-card group overflow-hidden rounded-3xl border border-churchBlue/10 bg-white shadow-glow">
+                  <div className="votd-image-card verse-card group overflow-hidden rounded-3xl border border-churchBlue/10 bg-white shadow-glow">
                     <div className="relative aspect-[16/9] w-full">
                       <div className="votd-image-sheen" aria-hidden="true" />
                       <Image
@@ -65,7 +65,7 @@ export default function VerseOfTheDay({
               <div className="mt-8 hidden gap-4 sm:grid sm:grid-cols-2">
                 {imageSrcs.map((src, idx) => (
                   <Reveal key={src} delay={(idx % 4) as 0 | 1 | 2 | 3}>
-                    <div className="votd-image-card group overflow-hidden rounded-3xl border border-churchBlue/10 bg-white shadow-glow">
+                    <div className="votd-image-card verse-card group overflow-hidden rounded-3xl border border-churchBlue/10 bg-white shadow-glow">
                       <div className="relative aspect-[16/9] w-full">
                         <div className="votd-image-sheen" aria-hidden="true" />
                         <Image
