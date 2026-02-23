@@ -111,7 +111,7 @@ export default function MajorEventCountdown() {
                 <div key={item.label} className="countdown-item">
                   <div
                     key={`${item.label}-${hydrated && parts ? item.value : "placeholder"}`}
-                    className="countdown-number"
+                    className="countdown-number countdown-tick"
                     suppressHydrationWarning
                   >
                     {hydrated && parts ? item.value : "—"}
