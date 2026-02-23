@@ -492,28 +492,30 @@
     justify-content: center;
   }
 
-  /* Navbar wrapper around the logo (logo stays unchanged; environment glows). */
+  /* Navbar wrapper around the logo (clean capsule for contrast on gradient header). */
   .navbar-logo-wrap {
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
-    padding: 0.25rem 0.75rem;
-    border-radius: 9999px;
-    background: radial-gradient(
-      circle at 0% 0%,
-      rgb(var(--ptc-orange-rgb) / 0.25),
-      transparent 55%
-    );
+    padding: 0.375rem 1rem;
+    border-radius: 40px;
+    background: #0D1B3E;
+    border: 1.5px solid rgb(var(--ptc-orange-rgb) / 0.40);
     box-shadow:
-      0 0 20px rgb(var(--ptc-orange-rgb) / 0.34),
-      0 0 40px rgb(var(--ptc-blue-rgb) / 0.18);
-    transition: box-shadow 220ms ease, background-color 220ms ease;
+      0 8px 18px rgb(var(--ptc-bg-dark-rgb) / 0.22),
+      inset 0 1px 0 rgb(255 255 255 / 0.06);
+    transition:
+      box-shadow 220ms ease,
+      background-color 220ms ease,
+      border-color 220ms ease;
   }
 
   .navbar-logo-wrap:hover {
+    background: #121A35;
+    border-color: rgb(var(--ptc-orange-rgb) / 0.58);
     box-shadow:
-      0 0 26px rgb(var(--ptc-orange-rgb) / 0.48),
-      0 0 60px rgb(var(--ptc-purple-rgb) / 0.28);
+      0 12px 24px rgb(var(--ptc-bg-dark-rgb) / 0.30),
+      0 0 0 1px rgb(var(--ptc-orange-rgb) / 0.16);
   }
 
   .navbar-logo-wrap .logo-icon {
@@ -529,16 +531,12 @@
   }
 
   .nav-logo-glow {
-    filter:
-      drop-shadow(0 0 18px rgb(var(--ptc-purple-rgb) / 0.22))
-      drop-shadow(0 0 32px rgb(var(--ptc-blue-rgb) / 0.14));
-    transition: filter 300ms ease;
+    filter: drop-shadow(0 2px 8px rgb(0 0 0 / 0.18));
+    transition: filter 220ms ease;
   }
 
   .nav-logo-glow:hover {
-    filter:
-      drop-shadow(0 0 22px rgb(var(--ptc-orange-rgb) / 0.30))
-      drop-shadow(0 0 40px rgb(var(--ptc-purple-rgb) / 0.22));
+    filter: drop-shadow(0 4px 12px rgb(0 0 0 / 0.24));
   }
 
   .footer-logo-glow {
