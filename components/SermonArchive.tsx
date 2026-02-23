@@ -44,6 +44,32 @@ function formatDate(dateIso: string) {
   return formatIsoDate(dateIso, "en-CA", { year: "numeric", month: "short", day: "2-digit" })
 }
 
+function deriveYouTubeVideoId(sermon: Sermon) {
+  const direct = (sermon.youtubeVideoId ?? "").trim()
+  if (direct) return direct
+
+  const url = (sermon.platforms?.youtubeUrl ?? "").trim()
+  if (!url) return ""
+
+  try {
+    const parsed = new URL(url)
+    if (parsed.hostname.includes("youtu.be")) {
+      return parsed.pathname.replace(/^\//, "").split("/")[0] ?? ""
+    }
+    if (parsed.hostname.includes("youtube.com")) {
+      const fromQuery = parsed.searchParams.get("v")
+      if (fromQuery) return fromQuery
+      const parts = parsed.pathname.split("/")
+      const embedIdx = parts.findIndex((p) => p === "embed" || p === "shorts" || p === "live")
+      if (embedIdx >= 0 && parts[embedIdx + 1]) return parts[embedIdx + 1]
+    }
+  } catch {
+    return ""
+  }
+
+  return ""
+}
+
 export default function SermonArchive({
   sermons,
   series,
@@ -518,16 +544,17 @@ function SermonCard({
   sermon: Sermon
   seriesById: Map<string, SermonSeries>
 }) {
+  const youtubeVideoId = deriveYouTubeVideoId(sermon)
   const seriesTitle = sermon.seriesId ? seriesById.get(sermon.seriesId)?.title : null
   const seriesCoverSrc = sermon.seriesId ? seriesById.get(sermon.seriesId)?.coverImageSrc : null
-  const detailHref = sermon.youtubeVideoId ? `/sermons/${sermon.slug}?play=1` : `/sermons/${sermon.slug}`
+  const detailHref = youtubeVideoId ? `/sermons/${sermon.slug}?play=1` : `/sermons/${sermon.slug}`
   const thumbSrc =
     sermon.thumbnailImageSrc ||
-    (sermon.youtubeVideoId ? `https://i.ytimg.com/vi/${sermon.youtubeVideoId}/hqdefault.jpg` : "") ||
+    (youtubeVideoId ? `https://img.youtube.com/vi/${youtubeVideoId}/mqdefault.jpg` : "") ||
     seriesCoverSrc ||
     "/event-teaching.svg"
   const hasMedia = Boolean(
-    sermon.youtubeVideoId ||
+    youtubeVideoId ||
       sermon.platforms?.spotifyEpisodeUrl ||
       sermon.platforms?.applePodcastsUrl ||
       sermon.platforms?.youtubeMusicUrl ||
@@ -553,7 +580,7 @@ function SermonCard({
               className="h-full w-full object-cover"
               quality={85}
             />
-            {sermon.youtubeVideoId ? (
+            {youtubeVideoId ? (
               <div
                 aria-hidden="true"
                 className="pointer-events-none absolute inset-0 z-20 grid place-items-center opacity-100 transition-opacity duration-300 group-hover:opacity-100 group-focus-visible:opacity-100"
@@ -624,14 +651,14 @@ function SermonCard({
 
         <div className="mt-6 grid gap-2">
           <Link href={detailHref} className="btn btn-sm btn-primary w-full">
-            {sermon.youtubeVideoId ? "Watch on site" : "View sermon"}
+            {youtubeVideoId ? "Watch on site" : "View sermon"}
           </Link>
 
           {hasMedia ? (
             <div className="grid gap-2 sm:grid-cols-2">
-              {sermon.youtubeVideoId ? (
+              {youtubeVideoId ? (
                 <a
-                  href={`https://www.youtube.com/watch?v=${sermon.youtubeVideoId}`}
+                  href={`https://www.youtube.com/watch?v=${youtubeVideoId}`}
                   target="_blank"
                   rel="noreferrer"
                   className="btn btn-sm btn-secondary w-full"
