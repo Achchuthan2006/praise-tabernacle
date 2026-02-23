@@ -4,33 +4,33 @@
 
 @layer base {
   :root {
-    /* Praise Tabernacle - Clean palette (logo orange is the hero color). */
-    --ptc-orange: #F59E0B;
-    --ptc-orange-soft: #FBBF24;
-    --ptc-purple: #7C3AED;
-    --ptc-indigo: #4C1D95;
-    --ptc-blue: #2563EB;
-    --ptc-bg-dark: #020617;
-    --ptc-bg-soft: #0B1020;
-    --ptc-text-main: #F9FAFB;
-    --ptc-text-muted: #9CA3AF;
+    /* Praise Tabernacle - stage-inspired palette from church lighting + logo. */
+    --ptc-orange: #F5A623;
+    --ptc-orange-soft: #E8962A;
+    --ptc-purple: #4B1FA0;
+    --ptc-indigo: #121A35;
+    --ptc-blue: #1E4FA8;
+    --ptc-bg-dark: #0D1B3E;
+    --ptc-bg-soft: #121A35;
+    --ptc-text-main: #F5F5F5;
+    --ptc-text-muted: #B8C0D4;
 
     /* Same palette as RGB triples for Tailwind + alpha-friendly use. */
-    --ptc-orange-rgb: 245 158 11;
-    --ptc-orange-soft-rgb: 251 191 36;
-    --ptc-purple-rgb: 124 58 237;
-    --ptc-indigo-rgb: 76 29 149;
-    --ptc-blue-rgb: 37 99 235;
-    --ptc-bg-dark-rgb: 2 6 23;
-    --ptc-bg-soft-rgb: 11 16 32;
-    --ptc-text-main-rgb: 249 250 251;
-    --ptc-text-muted-rgb: 156 163 175;
+    --ptc-orange-rgb: 245 166 35;
+    --ptc-orange-soft-rgb: 232 150 42;
+    --ptc-purple-rgb: 75 31 160;
+    --ptc-indigo-rgb: 18 26 53;
+    --ptc-blue-rgb: 30 79 168;
+    --ptc-bg-dark-rgb: 13 27 62;
+    --ptc-bg-soft-rgb: 18 26 53;
+    --ptc-text-main-rgb: 245 245 245;
+    --ptc-text-muted-rgb: 184 192 212;
 
     /* Role tokens used across the UI. */
     --color-primary: var(--ptc-orange);
     --color-primary-rgb: var(--ptc-orange-rgb);
-    --color-primary-hover: #E38F07;
-    --color-primary-hover-rgb: 227 143 7;
+    --color-primary-hover: #D98A1A;
+    --color-primary-hover-rgb: 217 138 26;
 
     --color-secondary: var(--ptc-orange-soft);
     --color-secondary-rgb: var(--ptc-orange-soft-rgb);
@@ -45,14 +45,14 @@
     --color-bg-dark-alt-rgb: var(--ptc-bg-soft-rgb);
 
     /* Keep light surface for readability across content sections. */
-    --color-bg-surface: #FCFAF7;
-    --color-bg-surface-rgb: 252 250 247;
+    --color-bg-surface: #FEFCF8;
+    --color-bg-surface-rgb: 254 252 248;
 
-    --color-text-main: #1D1A22;
-    --color-text-main-rgb: 29 26 34;
+    --color-text-main: #172344;
+    --color-text-main-rgb: 23 35 68;
 
-    --color-text-muted: #5D5668;
-    --color-text-muted-rgb: 93 86 104;
+    --color-text-muted: #5C6684;
+    --color-text-muted-rgb: 92 102 132;
 
     --color-text-inverse: var(--ptc-text-main);
     --color-text-inverse-rgb: var(--ptc-text-main-rgb);
@@ -60,15 +60,17 @@
     /* Extra from logo (dark brown) for occasional use (borders/illustration accents). */
     --color-logo-brown: #803408;
     --color-logo-brown-rgb: 128 52 8;
+    --color-logo-red: #C0392B;
+    --color-logo-red-rgb: 192 57 43;
 
     /* Compatibility tokens used by Tailwind + existing component CSS */
     --primary-navy: var(--color-bg-dark-rgb);
-    --primary-purple: var(--color-bg-dark-alt-rgb);
+    --primary-purple: var(--ptc-purple-rgb);
     --primary-teal: var(--color-accent-rgb);
     --primary-royal: var(--ptc-indigo-rgb);
 
     --accent-gold: var(--color-secondary-rgb);
-    --accent-purple-light: var(--ptc-indigo-rgb);
+    --accent-purple-light: var(--ptc-purple-rgb);
     --accent-blue-bright: var(--ptc-blue-rgb);
 
     --stage-purple: var(--color-accent-rgb);
@@ -77,14 +79,14 @@
     /* Neutrals */
     --white: var(--color-text-inverse-rgb);
     --off-white: var(--color-bg-surface-rgb);
-    --light-gray: 243 238 231; /* #F3EEE7 */
+    --light-gray: 253 247 238; /* #FDF7EE */
     --medium-gray: var(--color-text-muted-rgb);
     --dark-gray: 59 55 73; /* #3B3749 */
     --charcoal: 18 16 24; /* #121018 */
 
     /* Burgundy Accent */
-    --burgundy: 127 29 29; /* #7F1D1D */
-    --burgundy-light: 153 27 27; /* #991B1B */
+    --burgundy: var(--color-logo-red-rgb); /* #C0392B */
+    --burgundy-light: 223 88 78; /* lighter red accent */
 
     /* Gradients */
     --gradient-stage: linear-gradient(
@@ -2409,15 +2411,15 @@
     inset: 0;
     z-index: -3;
     background: linear-gradient(
-      -45deg,
-      rgb(var(--ptc-indigo-rgb)),
-      rgb(var(--ptc-purple-rgb)),
-      rgb(var(--ptc-blue-rgb)),
-      #0f172a
+      -40deg,
+      rgb(var(--ptc-bg-dark-rgb)) 0%,
+      rgb(var(--ptc-bg-soft-rgb)) 34%,
+      rgb(var(--ptc-purple-rgb)) 66%,
+      rgb(var(--ptc-orange-rgb)) 100%
     );
     background-size: 300% 300%;
     animation: gradientShift 18s ease infinite;
-    opacity: 0.9;
+    opacity: 0.94;
   }
 
   @keyframes gradientShift {
@@ -2456,8 +2458,9 @@
     right: -50%;
     bottom: -50%;
     background:
-      radial-gradient(circle at 30% 50%, rgb(var(--ptc-purple-rgb) / 0.16) 0%, transparent 42%),
-      radial-gradient(circle at 70% 40%, rgb(var(--ptc-blue-rgb) / 0.14) 0%, transparent 44%);
+      radial-gradient(circle at 24% 50%, rgb(var(--ptc-blue-rgb) / 0.20) 0%, transparent 46%),
+      radial-gradient(circle at 76% 38%, rgb(var(--ptc-orange-rgb) / 0.18) 0%, transparent 48%),
+      radial-gradient(circle at 56% 68%, rgb(var(--ptc-purple-rgb) / 0.16) 0%, transparent 44%);
     opacity: 0.55;
     z-index: -1;
     animation: light-move 15s ease-in-out infinite;
@@ -2507,9 +2510,9 @@
     z-index: -1;
     background: linear-gradient(
       180deg,
-      rgb(2 6 23 / 0.72) 0%,
-      rgb(2 6 23 / 0.38) 45%,
-      rgb(2 6 23 / 0.10) 100%
+      rgb(var(--ptc-bg-dark-rgb) / 0.78) 0%,
+      rgb(var(--ptc-bg-dark-rgb) / 0.42) 46%,
+      rgb(var(--ptc-bg-dark-rgb) / 0.14) 100%
     );
   }
 
@@ -2520,13 +2523,13 @@
     pointer-events: none;
     background: linear-gradient(
       -45deg,
-      rgb(var(--color-bg-dark-rgb)),
-      rgb(var(--color-bg-dark-alt-rgb)),
-      rgb(var(--color-accent-rgb)),
-      rgb(var(--color-primary-rgb))
+      rgb(var(--ptc-bg-dark-rgb)),
+      rgb(var(--ptc-bg-soft-rgb)),
+      rgb(var(--ptc-purple-rgb)),
+      rgb(var(--ptc-orange-rgb))
     );
     background-size: 400% 400%;
-    opacity: 0.10;
+    opacity: 0.14;
     mix-blend-mode: screen;
     animation: none;
   }
@@ -2558,9 +2561,9 @@
     .hero-stage-overlay {
       background: linear-gradient(
         180deg,
-        rgb(2 6 23 / 0.88) 0%,
-        rgb(2 6 23 / 0.66) 52%,
-        rgb(2 6 23 / 0.46) 100%
+        rgb(var(--ptc-bg-dark-rgb) / 0.9) 0%,
+        rgb(var(--ptc-bg-dark-rgb) / 0.68) 52%,
+        rgb(var(--ptc-bg-dark-rgb) / 0.48) 100%
       );
     }
 

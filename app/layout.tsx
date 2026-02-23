@@ -1,4 +1,4 @@
-import type { Metadata } from "next"
+import type { Metadata, Viewport } from "next"
 import { cookies } from "next/headers"
 import Script from "next/script"
 import type { ReactNode } from "react"
@@ -57,7 +57,10 @@ export const metadata: Metadata = {
     follow: true,
   },
   manifest: "/manifest.webmanifest",
-  themeColor: "#0B1024",
+}
+
+export const viewport: Viewport = {
+  themeColor: "#121A35",
 }
 
 export default async function RootLayout({
