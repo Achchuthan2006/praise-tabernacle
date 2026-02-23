@@ -7,6 +7,7 @@ const ScrollProgress = dynamic(() => import("@/components/ScrollProgress"), { ss
 const CookieConsent = dynamic(() => import("@/components/CookieConsent"), { ssr: false })
 const Analytics = dynamic(() => import("@/components/Analytics"), { ssr: false })
 const ServiceWorkerRegister = dynamic(() => import("@/components/ServiceWorkerRegister"), { ssr: false })
+const SectionEntranceObserver = dynamic(() => import("@/components/SectionEntranceObserver"), { ssr: false })
 
 export default function ClientEnhancements() {
   return (
@@ -16,6 +17,7 @@ export default function ClientEnhancements() {
       <CookieConsent />
       <Analytics />
       <ServiceWorkerRegister />
+      <SectionEntranceObserver />
     </>
   )
 }
