@@ -2,6 +2,7 @@ import type { Metadata } from "next"
 import Link from "next/link"
 
 import Lang from "@/components/language/Lang"
+import CountUp from "@/components/ui/CountUp"
 import Container from "@/components/ui/Container"
 import PageHeader from "@/components/ui/PageHeader"
 import Reveal from "@/components/ui/Reveal"
@@ -19,10 +20,6 @@ function formatMonth(monthIso: string) {
   if (!y || !m) return monthIso
   const d = new Date(Date.UTC(y, m - 1, 1))
   return new Intl.DateTimeFormat("en-CA", { year: "numeric", month: "long" }).format(d)
-}
-
-function formatNumber(value: number) {
-  return new Intl.NumberFormat("en-CA").format(value)
 }
 
 export default function ImpactPage() {
@@ -134,8 +131,7 @@ function MetricRow({
       <div className="text-sm font-semibold text-churchBlue/80">
         <Lang en={labelEn} ta={labelTa} taClassName="font-tamil" />
       </div>
-      <div className="text-lg font-semibold text-churchBlue">{formatNumber(value)}</div>
+      <CountUp value={value} durationMs={1500} locale="en-CA" className="text-lg font-semibold text-churchBlue" />
     </div>
   )
 }
-
