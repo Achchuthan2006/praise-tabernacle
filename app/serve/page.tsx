@@ -42,14 +42,17 @@ export default function ServePage() {
                     taClassName="font-tamil"
                   />
                 </p>
-                <div className="mt-6 flex flex-col gap-3 sm:flex-row">
-                  <Link href="/serve/apply" className="btn btn-md btn-primary">
+                <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center">
+                  <Link
+                    href="/serve/apply"
+                    className="btn btn-md btn-primary w-full sm:w-auto shadow-[0_14px_30px_rgba(245,166,35,0.30)]"
+                  >
                     <Lang en="Apply to serve" ta="சேவைக்கு விண்ணப்பிக்கவும்" taClassName="font-tamil" />
                   </Link>
-                  <Link href="/learn/community-safety" className="btn btn-md btn-secondary">
+                  <Link href="/learn/community-safety" className="btn btn-md btn-secondary w-full sm:w-auto">
                     <Lang en="Safety policies" ta="பாதுகாப்பு கொள்கைகள்" taClassName="font-tamil" />
                   </Link>
-                  <Link href="/contact" className="btn btn-md btn-secondary">
+                  <Link href="/contact" className="btn btn-md btn-secondary w-full sm:w-auto">
                     <Lang en="Ask a question" ta="கேள்வி கேளுங்கள்" taClassName="font-tamil" />
                   </Link>
                 </div>
@@ -198,4 +201,3 @@ export default function ServePage() {
     </>
   )
 }
-
