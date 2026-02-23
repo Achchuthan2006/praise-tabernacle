@@ -67,7 +67,7 @@ export default function GivePage() {
         descriptionTa="சபையை ஆதரிப்பதற்காக நன்றி. கீழே உள்ள கொடை வழிகளைப் பாருங்கள்."
       />
 
-      <section className="bg-white">
+      <section className="bg-white give-page">
         <Container className="section-padding">
           <div className="mx-auto max-w-3xl">
             <Reveal>
