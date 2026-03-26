@@ -168,6 +168,20 @@ export default function VolunteerApplicationForm({
           {copy.body}
         </p>
 
+        {status === "success" || status === "error" ? (
+          <div
+            className={[
+              "mt-6 rounded-2xl border p-4 text-sm",
+              status === "success"
+                ? "border-emerald-200 bg-emerald-50 text-emerald-800"
+                : "border-red-200 bg-red-50 text-red-700",
+            ].join(" ")}
+            role={status === "error" ? "alert" : "status"}
+          >
+            <span className={language === "ta" ? "font-tamil" : undefined}>{copy.note}</span>
+          </div>
+        ) : null}
+
         <form className="mt-8 grid gap-5 border-t border-churchBlue/10 pt-8" onSubmit={onSubmit}>
           <label className="sr-only" aria-hidden="true">
             Honey
@@ -412,4 +426,3 @@ export default function VolunteerApplicationForm({
     </div>
   )
 }
-

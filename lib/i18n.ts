@@ -1,5 +1,7 @@
 export type Language = "en" | "ta"
 
+import { fixMojibakeText } from "@/lib/text"
+
 export const DEFAULT_LANGUAGE: Language = "en"
 export const LANGUAGE_STORAGE_KEY = "pt_lang"
 
@@ -12,10 +14,10 @@ export const ui = {
     home: { en: "Home", ta: "முகப்பு" },
     imNew: { en: "I'm New", ta: "நான் புதிது" },
     visit: { en: "Visit", ta: "வருகை" },
-    about: { en: "About", ta: "எங்களைப் பற்றி" },
+    about: { en: "About", ta: "எங்களைப்பற்றி" },
     pastor: { en: "Pastor", ta: "போதகர்" },
     sermons: { en: "Sermons", ta: "பிரசங்கங்கள்" },
-    bibleStudies: { en: "Bible Studies", ta: "Bible Studies" },
+    bibleStudies: { en: "Bible Studies", ta: "வேதாகமப் பாடங்கள்" },
     bible: { en: "Bible", ta: "வேதாகமம்" },
     promises: { en: "Promises", ta: "வாக்குத்தத்தங்கள்" },
     magazine: { en: "Magazine", ta: "இதழ்" },
@@ -25,7 +27,7 @@ export const ui = {
     events: { en: "Events", ta: "நிகழ்வுகள்" },
     calendar: { en: "Calendar", ta: "நாட்காட்டி" },
     ministries: { en: "Ministries", ta: "சேவைகள்" },
-    care: { en: "Request Care", ta: "அக்கறை" },
+    care: { en: "Request Care", ta: "அக்கறை வேண்டுகோள்" },
     prayer: { en: "Prayer", ta: "ஜெபம்" },
     groups: { en: "Small Groups", ta: "சிறு குழுக்கள்" },
     serve: { en: "Serve", ta: "சேவை" },
@@ -36,14 +38,14 @@ export const ui = {
     ministriesAll: { en: "All Ministries", ta: "அனைத்து சேவைகள்" },
     ministriesKids: { en: "Kids", ta: "குழந்தைகள்" },
     ministriesYouth: { en: "Youth", ta: "இளைஞர்கள்" },
-    ministriesPrayerCare: { en: "Prayer & Care", ta: "ஜெபம் & அக்கறை" },
+    ministriesPrayerCare: { en: "Prayer & Care", ta: "ஜெபம் மற்றும் அக்கறை" },
     ministriesOutreach: { en: "Outreach", ta: "சமூக சேவை" },
     ministriesMen: { en: "Men", ta: "ஆண்கள்" },
     ministriesWomen: { en: "Women", ta: "பெண்கள்" },
-    ministriesMissions: { en: "Missions", ta: "மிஷன்" },
+    ministriesMissions: { en: "Missions", ta: "மிஷன்கள்" },
     ministriesMembership: { en: "Membership Class", ta: "உறுப்பினர் வகுப்பு" },
-    give: { en: "Give", ta: "கொடுங்கள்" },
-    blog: { en: "Blog", ta: "செய்திகள்" },
+    give: { en: "Give", ta: "கொடுக்க" },
+    blog: { en: "Blog", ta: "வலைப்பதிவு" },
     devotionals: { en: "Devotionals", ta: "தியானங்கள்" },
     contact: { en: "Contact", ta: "தொடர்பு" },
   },
@@ -52,21 +54,15 @@ export const ui = {
     getInvolved: { en: "Get Involved", ta: "ஈடுபடுங்கள்" },
   },
   cta: {
-    watchOnline: {
-      en: "Watch Online",
-      ta: "ஆன்லைனில் பாருங்கள்",
-    },
-    planVisit: {
-      en: "Plan Your Visit",
-      ta: "வருகையை திட்டமிடுங்கள்",
-    },
+    watchOnline: { en: "Watch Online", ta: "ஆன்லைனில் பாருங்கள்" },
+    planVisit: { en: "Plan Your Visit", ta: "உங்கள் வருகையை திட்டமிடுங்கள்" },
     requestPrayer: { en: "Request Prayer", ta: "ஜெப வேண்டுகோள்" },
     requestCare: { en: "Request Care", ta: "அக்கறை வேண்டுகோள்" },
-    offerings: { en: "Offerings", ta: "கொடைகள்" },
+    offerings: { en: "Offerings", ta: "காணிக்கைகள்" },
   },
 } as const
 
 export function t<T extends { en: string; ta: string }>(value: T | null | undefined, lang: Language): string {
   if (!value) return ""
-  return value[lang] ?? value.en ?? ""
+  return fixMojibakeText(value[lang] ?? value.en ?? "")
 }

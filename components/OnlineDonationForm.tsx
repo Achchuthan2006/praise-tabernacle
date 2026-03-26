@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react"
 
 import type { GivingCategory } from "@/lib/giving"
+import { getGivingProviderCta, getGivingProviderLabel } from "@/lib/givingProvider"
 import { siteConfig } from "@/lib/site"
 
 function withQueryParams(href: string, params: Record<string, string>) {
@@ -15,7 +16,9 @@ function withQueryParams(href: string, params: Record<string, string>) {
       if (!v) continue
       u.searchParams.set(k, v)
     }
-    return raw.startsWith("http://") || raw.startsWith("https://") ? u.toString() : `${u.pathname}${u.search}${u.hash}`
+    return raw.startsWith("http://") || raw.startsWith("https://")
+      ? u.toString()
+      : `${u.pathname}${u.search}${u.hash}`
   } catch {
     return raw
   }
@@ -31,12 +34,16 @@ export default function OnlineDonationForm({
   onlineGivingUrl,
   recurringGivingUrl,
   categories,
+  processorName,
 }: {
   onlineGivingUrl: string
   recurringGivingUrl: string
   categories: GivingCategory[]
+  processorName?: string
 }) {
   const defaultCategoryId = categories[0]?.id ?? "tithes"
+  const providerLabel = getGivingProviderLabel(processorName, onlineGivingUrl)
+  const providerCta = getGivingProviderCta(processorName, onlineGivingUrl)
   const [categoryId, setCategoryId] = useState<string>(defaultCategoryId)
   const [frequency, setFrequency] = useState<Frequency>("once")
   const [presetAmount, setPresetAmount] = useState<number | null>(100)
@@ -47,8 +54,7 @@ export default function OnlineDonationForm({
     const raw = customAmount.trim()
     if (raw) {
       const n = Number(raw)
-      if (!Number.isFinite(n)) return null
-      if (n <= 0) return null
+      if (!Number.isFinite(n) || n <= 0) return null
       return Math.round(n * 100) / 100
     }
     return presetAmount
@@ -107,7 +113,7 @@ export default function OnlineDonationForm({
             </select>
             {frequency !== "once" && !recurringGivingUrl ? (
               <div className="mt-2 text-xs text-churchBlue/60">
-                Recurring link not set yet — using the main giving link for now.
+                Recurring giving is not configured separately yet, so this will use the main giving link.
               </div>
             ) : null}
           </label>
@@ -169,12 +175,12 @@ export default function OnlineDonationForm({
         />
       </fieldset>
 
-      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+      <div className="flex flex-col gap-3 border-t border-churchBlue/10 pt-6 sm:flex-row sm:items-center sm:justify-between">
         <div className="text-xs font-semibold text-churchBlue/60">
-          {onlineGivingUrl ? (
-            <>You’ll continue to a secure giving page to complete payment.</>
+          {processorName ? (
+            <>You&apos;ll continue to {providerLabel} to complete payment securely.</>
           ) : (
-            <>Online giving is not configured yet.</>
+            <>You&apos;ll continue to the secure giving page to complete payment.</>
           )}
         </div>
 
@@ -183,20 +189,10 @@ export default function OnlineDonationForm({
             Back
           </a>
           <button type="submit" className="btn btn-sm btn-primary" disabled={!canContinue}>
-            Continue to secure giving
+            {providerCta}
           </button>
         </div>
       </div>
-
-      {resolvedUrl && isHttpHref(resolvedUrl) ? (
-        <div className="rounded-2xl border border-churchBlue/10 bg-churchBlueSoft p-4 text-xs text-churchBlue/70">
-          <div className="font-semibold text-churchBlue/80">Preview link</div>
-          <a href={resolvedUrl} target="_blank" rel="noreferrer" className="mt-1 block break-all underline underline-offset-2">
-            {resolvedUrl}
-          </a>
-        </div>
-      ) : null}
     </form>
   )
 }
-

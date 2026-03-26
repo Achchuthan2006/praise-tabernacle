@@ -1,12 +1,11 @@
 import type { Metadata } from "next"
-
 import Image from "next/image"
 import Link from "next/link"
 import Script from "next/script"
 
+import Lang from "@/components/language/Lang"
 import Container from "@/components/ui/Container"
 import PageHeader from "@/components/ui/PageHeader"
-import Reveal from "@/components/ui/Reveal"
 import { bibleStudies } from "@/lib/bibleStudies"
 import { pageMetadata } from "@/lib/seo"
 import { siteConfig } from "@/lib/site"
@@ -25,7 +24,7 @@ export default function BibleStudiesPage() {
     itemListElement: bibleStudies.slice(0, 50).map((study, idx) => ({
       "@type": "ListItem",
       position: idx + 1,
-      name: study.title,
+      name: study.titleEn,
       url: `${siteConfig.siteUrl}/bible-studies/${study.slug}`,
     })),
   }
@@ -45,30 +44,30 @@ export default function BibleStudiesPage() {
 
       <PageHeader
         titleEn="Bible Studies"
-        titleTa="Bible Studies"
+        titleTa="வேதாகமப் படிப்புகள்"
         descriptionEn="Teaching sessions to help you grow in the Word."
-        descriptionTa=""
+        descriptionTa="வேத வார்த்தையில் வளர உதவும் போதனைகள்."
       />
 
       <section className="bg-white">
         <Container className="pb-16 sm:pb-20">
           <div className="mx-auto max-w-6xl">
             <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-              {sorted.map((study, idx) => {
+              {sorted.map((study) => {
                 const thumb = `https://i.ytimg.com/vi/${study.youtubeVideoId}/hqdefault.jpg`
                 return (
-                  <Reveal key={study.slug} delay={(idx % 4) as 0 | 1 | 2 | 3}>
+                  <div key={study.slug}>
                     <article className="card">
                       <div className="card-image">
                         <Link
                           href={`/bible-studies/${study.slug}?play=1`}
                           className="group block focus-ring"
-                          aria-label={`Open Bible study: ${study.title}`}
+                          aria-label={`Open Bible study: ${study.titleEn}`}
                         >
                           <div className="relative aspect-video w-full bg-churchBlueSoft">
                             <Image
                               src={thumb}
-                              alt={study.title}
+                              alt={study.titleEn}
                               width={1200}
                               height={675}
                               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
@@ -95,19 +94,29 @@ export default function BibleStudiesPage() {
                         ) : null}
                         <h3 className="mt-2 text-lg font-semibold tracking-tight text-churchBlue">
                           <Link href={`/bible-studies/${study.slug}?play=1`} className="focus-ring rounded-lg">
-                            {study.title}
+                            <Lang en={study.titleEn} ta={study.titleTa} taClassName="font-tamil" />
                           </Link>
                         </h3>
                         {study.speaker ? <div className="mt-1 text-sm text-churchBlue/70">{study.speaker}</div> : null}
 
-                        {study.topics?.length ? (
+                        {study.descriptionEn || study.descriptionTa ? (
+                          <p className="mt-3 text-sm leading-relaxed text-churchBlue/75 sm:text-base">
+                            <Lang en={study.descriptionEn ?? ""} ta={study.descriptionTa ?? ""} taClassName="font-tamil" />
+                          </p>
+                        ) : null}
+
+                        {study.topicsEn?.length || study.topicsTa?.length ? (
                           <div className="mt-4 flex flex-wrap gap-2">
-                            {study.topics.slice(0, 5).map((topic) => (
+                            {(study.topicsEn ?? []).slice(0, 5).map((topic, index) => (
                               <span
-                                key={`${study.slug}-${topic}`}
+                                key={`${study.slug}-${topic}-${index}`}
                                 className="rounded-full border border-churchBlue/10 bg-white px-3 py-1 text-xs font-semibold text-churchBlue/80"
                               >
-                                {topic}
+                                <Lang
+                                  en={topic}
+                                  ta={study.topicsTa?.[index] ?? topic}
+                                  taClassName="font-tamil"
+                                />
                               </span>
                             ))}
                           </div>
@@ -115,7 +124,7 @@ export default function BibleStudiesPage() {
 
                         <div className="mt-6 grid gap-2">
                           <Link href={`/bible-studies/${study.slug}?play=1`} className="btn btn-sm btn-primary w-full">
-                            Watch on site
+                            <Lang en="Watch on site" ta="இங்கே பார்க்க" taClassName="font-tamil" />
                           </Link>
                           <a
                             href={`https://www.youtube.com/watch?v=${study.youtubeVideoId}`}
@@ -123,12 +132,12 @@ export default function BibleStudiesPage() {
                             rel="noreferrer"
                             className="btn btn-sm btn-secondary w-full"
                           >
-                            Watch on YouTube
+                            <Lang en="Watch on YouTube" ta="யூடியூபில் பார்க்க" taClassName="font-tamil" />
                           </a>
                         </div>
                       </div>
                     </article>
-                  </Reveal>
+                  </div>
                 )
               })}
             </div>

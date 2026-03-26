@@ -6,6 +6,7 @@ import { notFound } from "next/navigation"
 
 import YouTubeLiteEmbed from "@/components/lazy/YouTubeLiteEmbedLazy"
 import ShareButtons from "@/components/ShareButtons"
+import Breadcrumbs from "@/components/ui/Breadcrumbs"
 import Container from "@/components/ui/Container"
 import PageHeader from "@/components/ui/PageHeader"
 import Reveal from "@/components/ui/Reveal"
@@ -20,7 +21,7 @@ export function generateStaticParams() {
 export async function generateMetadata({
   params,
 }: {
-  params: { slug: string } | Promise<{ slug: string }>
+  params: Promise<{ slug: string }>
 }): Promise<Metadata> {
   const resolvedParams = await params
   const sermon = getPublicSermonBySlug(resolvedParams.slug)
@@ -38,8 +39,8 @@ export default async function SermonDetailPage({
   params,
   searchParams,
 }: {
-  params: { slug: string } | Promise<{ slug: string }>
-  searchParams?: { play?: string } | Promise<{ play?: string }>
+  params: Promise<{ slug: string }>
+  searchParams?: Promise<{ play?: string }>
 }) {
   const resolvedParams = await params
   const resolvedSearchParams = searchParams ? await searchParams : undefined
@@ -95,6 +96,15 @@ export default async function SermonDetailPage({
       <section className="bg-white">
         <Container className="pb-16 sm:pb-20">
           <div className="mx-auto max-w-5xl">
+            <Breadcrumbs
+              className="mb-6"
+              items={[
+                { href: "/", labelEn: "Home", labelTa: "முகப்பு" },
+                { href: "/sermons", labelEn: "Sermons", labelTa: "பிரசங்கங்கள்" },
+                ...(series ? [{ labelEn: series.title, labelTa: "தொடர்" }] : []),
+                { labelEn: sermon.title, labelTa: sermon.language === "ta" ? "பிரசங்கம்" : sermon.title },
+              ]}
+            />
             <Reveal>
               <div className="card">
                 <div className="card-content p-6 sm:p-8">

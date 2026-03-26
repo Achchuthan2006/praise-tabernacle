@@ -18,19 +18,9 @@ function PathwayIcon({ icon }: { icon: "people" | "church" | "handshake" }) {
   if (icon === "church") {
     return (
       <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" className="h-7 w-7">
-        <path
-          d="M12 3v3m0 0 4 2.6V21H8V8.6L12 6Z"
-          stroke="currentColor"
-          strokeWidth="1.8"
-          strokeLinejoin="round"
-        />
+        <path d="M12 3v3m0 0 4 2.6V21H8V8.6L12 6Z" stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round" />
         <path d="M6 21h12" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
-        <path
-          d="M10.2 13.2h3.6m-3.6 3.3h3.6"
-          stroke="currentColor"
-          strokeWidth="1.8"
-          strokeLinecap="round"
-        />
+        <path d="M10.2 13.2h3.6m-3.6 3.3h3.6" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
       </svg>
     )
   }
@@ -50,23 +40,14 @@ function PathwayIcon({ icon }: { icon: "people" | "church" | "handshake" }) {
           strokeWidth="1.8"
           strokeLinejoin="round"
         />
-        <path
-          d="M9.1 13.1l2.1 2.1a1.6 1.6 0 0 0 2.2 0l1.6-1.6"
-          stroke="currentColor"
-          strokeWidth="1.8"
-          strokeLinecap="round"
-        />
+        <path d="M9.1 13.1l2.1 2.1a1.6 1.6 0 0 0 2.2 0l1.6-1.6" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
       </svg>
     )
   }
 
   return (
     <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" className="h-7 w-7">
-      <path
-        d="M16.5 11a3.5 3.5 0 1 0-3.5-3.5A3.5 3.5 0 0 0 16.5 11Z"
-        stroke="currentColor"
-        strokeWidth="1.8"
-      />
+      <path d="M16.5 11a3.5 3.5 0 1 0-3.5-3.5A3.5 3.5 0 0 0 16.5 11Z" stroke="currentColor" strokeWidth="1.8" />
       <path d="M7.5 11a3 3 0 1 0-3-3 3 3 0 0 0 3 3Z" stroke="currentColor" strokeWidth="1.8" />
       <path
         d="M21 20v-1.2a4.6 4.6 0 0 0-4.6-4.6h-1.7a4.6 4.6 0 0 0-4.6 4.6V20"
@@ -101,7 +82,7 @@ const pathways: Pathway[] = [
     descriptionTa: "தமிழ் மற்றும் ஆங்கிலத்தில் வளர, சேவை செய்ய, மற்றும் உறவுகளை கட்டியெழுப்ப இடம் காணுங்கள்.",
     href: "/ministries",
     ctaEn: "Explore Ministries",
-    ctaTa: "ஊழியங்களை பார்க்கவும்",
+    ctaTa: "ஊழியங்களை பாருங்கள்",
   },
   {
     titleEn: "Serve at Church",
@@ -117,17 +98,17 @@ const pathways: Pathway[] = [
 const pathwayMeta = {
   "/visit": {
     detailEn: "Weekly worship • Prayer • Teaching",
-    detailTa: "\u0bb5\u0bbe\u0bb0\u0bae\u0bcd \u0bb5\u0bb4\u0bbf\u0baa\u0bbe\u0b9f\u0bc1 \u2022 \u0b9c\u0bc6\u0baa\u0bae\u0bcd \u2022 \u0baa\u0bcb\u0ba4\u0ba9\u0bc8",
+    detailTa: "வாரம் வழிபாடு • ஜெபம் • போதனை",
     accent: "family",
   },
   "/ministries": {
     detailEn: "Serve with teams that fit your gifts",
-    detailTa: "\u0b89\u0b99\u0bcd\u0b95\u0bb3\u0bcd \u0bb5\u0bb0\u0b99\u0bcd\u0b95\u0bb3\u0bc1\u0b95\u0bcd\u0b95\u0bbe\u0ba9 \u0b95\u0bc1\u0bb4\u0bc1\u0b95\u0bcd\u0b95\u0bb3\u0bcd",
+    detailTa: "உங்கள் வரங்களுக்கு ஏற்ற குழுக்கள்",
     accent: "community",
   },
   "/contact": {
     detailEn: "Welcome • Media • Worship • Outreach",
-    detailTa: "\u0bb5\u0bb0\u0bb5\u0bc7\u0bb1\u0bcd\u0baa\u0bc1 \u2022 \u0b8a\u0b9f\u0b95\u0bae\u0bcd \u2022 \u0b86\u0bb0\u0bbe\u0ba4\u0ba9\u0bc8 \u2022 \u0b9a\u0bc7\u0bb5\u0bc8",
+    detailTa: "வரவேற்பு • ஊடகம் • ஆராதனை • சேவை",
     accent: "prayer",
   },
 } as const
@@ -142,70 +123,77 @@ function getPathwayMeta(href: string) {
 
 export default function GetInvolvedSection() {
   return (
-    <section className="bg-white">
+    <section className="section-soft-stage">
       <Container className="section-padding">
-        <div className="mx-auto max-w-5xl">
+        <div className="mx-auto max-w-6xl">
           <Reveal>
-            <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
-              <div>
-                <div className="section-kicker">
-                  <Lang en="Get involved" ta="ஈடுபடுங்கள்" />
+            <div className="premium-surface p-8 md:p-10">
+              <div className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
+                <div className="max-w-2xl">
+                  <div className="section-kicker">
+                    <Lang en="Get involved" ta="ஈடுபடுங்கள்" taClassName="font-tamil" />
+                  </div>
+                  <h2 className="section-heading">
+                    <Lang en="Let's connect" ta="இணைவோம்" taClassName="font-tamil" />
+                  </h2>
+                  <p className="section-lead mt-4">
+                    <Lang
+                      en="Three simple pathways to help you move from visiting to belonging, serving, and growing."
+                      ta="வருகையிலிருந்து சேர்ந்திருக்கும் நிலைக்கும், சேவைக்கும், வளர்ச்சிக்கும் செல்ல மூன்று எளிய வழிகள்."
+                      taClassName="font-tamil"
+                    />
+                  </p>
                 </div>
-                <h2 className="section-heading">
-                  <Lang en="Let's connect" ta="இணைவோம்" />
-                </h2>
-                <p className="mt-3 text-sm leading-relaxed text-churchBlue/70 sm:text-base">
-                  <Lang
-                    en="Three simple pathways to take your next step."
-                    ta="அடுத்த படியை எடுக்க மூன்று எளிய வழிகள்."
-                  />
-                </p>
+
+                <div className="rounded-[28px] border border-churchBlue/10 bg-white/90 px-5 py-4 shadow-[0_18px_36px_rgb(18_27_62_/_0.07)]">
+                  <div className="section-kicker">
+                    <Lang en="Next step" ta="அடுத்த படி" taClassName="font-tamil" />
+                  </div>
+                  <p className="mt-2 max-w-xs text-sm leading-relaxed text-churchBlue/72">
+                    <Lang
+                      en="Start with a visit, find your people, and discover where God is inviting you to serve."
+                      ta="ஒரு வருகையுடன் தொடங்குங்கள், உங்கள் மக்களை கண்டுபிடியுங்கள், தேவன் உங்களை எந்த சேவைக்கு அழைக்கிறார் என்பதை அறியுங்கள்."
+                      taClassName="font-tamil"
+                    />
+                  </p>
+                </div>
+              </div>
+
+              <div className="mt-10 grid grid-cols-1 gap-6 md:grid-cols-3">
+                {pathways.map((p, idx) => {
+                  const meta = getPathwayMeta(p.href)
+                  return (
+                    <Reveal key={p.href} delay={idx === 0 ? 0 : idx === 1 ? 1 : 2} className="w-full min-w-0">
+                      <article className="card card-accent-left h-full w-full min-w-0" data-accent={meta.accent}>
+                        <div className="card-content p-7">
+                          <div className="mb-4 inline-grid h-12 w-12 place-items-center rounded-2xl border border-churchBlue/10 bg-churchBlueSoft text-churchBlue/80 shadow-glow">
+                            <PathwayIcon icon={p.href === "/ministries" ? "people" : p.href === "/contact" ? "handshake" : "church"} />
+                          </div>
+                          <h3 className="text-lg font-semibold tracking-tight text-churchBlue">
+                            <Lang en={p.titleEn} ta={p.titleTa} taClassName="font-tamil" />
+                          </h3>
+                          {meta.detailEn ? (
+                            <div className="mt-1 text-xs font-semibold tracking-wide text-churchBlue/55">
+                              <Lang en={meta.detailEn} ta={meta.detailTa} taClassName="font-tamil" />
+                            </div>
+                          ) : null}
+                          <div className="mt-3 h-0.5 w-12 rounded-full bg-churchGold/80" aria-hidden="true" />
+                          <p className="mt-4 text-sm leading-relaxed text-churchBlue/75 sm:text-base">
+                            <Lang en={p.descriptionEn} ta={p.descriptionTa} taClassName="font-tamil" />
+                          </p>
+                          <div className="mt-7">
+                            <Link href={p.href} className={["btn btn-md w-full", idx === 0 ? "btn-primary" : "btn-secondary"].join(" ")}>
+                              <Lang en={p.ctaEn} ta={p.ctaTa} taClassName="font-tamil" />
+                            </Link>
+                          </div>
+                        </div>
+                      </article>
+                    </Reveal>
+                  )
+                })}
               </div>
             </div>
           </Reveal>
-
-          <div className="mt-10 grid grid-cols-1 gap-6 md:grid-cols-3">
-            {pathways.map((p, idx) => (
-              <Reveal key={p.href} delay={idx === 0 ? 0 : idx === 1 ? 1 : 2} className="w-full min-w-0">
-                {(() => {
-                  const meta = getPathwayMeta(p.href)
-                  return (
-                    <article className="card card-accent-left h-full w-full min-w-0" data-accent={meta.accent}>
-                  <div className="card-content p-7">
-                    <div className="mb-4 inline-grid h-12 w-12 place-items-center rounded-2xl border border-churchBlue/10 bg-churchBlueSoft text-churchBlue/80 shadow-glow">
-                      <PathwayIcon
-                        icon={p.href === "/ministries" ? "people" : p.href === "/contact" ? "handshake" : "church"}
-                      />
-                    </div>
-                    <h3 className="text-lg font-semibold tracking-tight text-churchBlue">
-                      <Lang en={p.titleEn} ta={p.titleTa} />
-                    </h3>
-                    {meta.detailEn ? (
-                      <div className="mt-1 text-xs font-semibold tracking-wide text-churchBlue/55">
-                        <Lang en={meta.detailEn} ta={meta.detailTa} taClassName="font-tamil" />
-                      </div>
-                    ) : null}
-                    <div className="mt-3 h-0.5 w-12 rounded-full bg-churchGold/80" aria-hidden="true" />
-                    <p className="mt-4 text-sm leading-relaxed text-churchBlue/75 sm:text-base">
-                      <Lang en={p.descriptionEn} ta={p.descriptionTa} />
-                    </p>
-                    <div className="mt-7">
-                      <Link
-                        href={p.href}
-                        className={["btn btn-md w-full", idx === 0 ? "btn-primary" : "btn-secondary"].join(
-                          " ",
-                        )}
-                      >
-                        <Lang en={p.ctaEn} ta={p.ctaTa} />
-                      </Link>
-                    </div>
-                  </div>
-                    </article>
-                  )
-                })()}
-              </Reveal>
-            ))}
-          </div>
         </div>
       </Container>
     </section>

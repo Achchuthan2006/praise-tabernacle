@@ -36,8 +36,15 @@ export function proxy(request: NextRequest) {
     const url = request.nextUrl.clone()
     url.pathname = `/${segments.slice(1).join("/")}`
     if (url.pathname === "/") url.pathname = "/"
+    const requestHeaders = new Headers(request.headers)
+    requestHeaders.set("x-pt-route-lang", lang)
+    requestHeaders.set("x-pt-route-lang-locked", "1")
 
-    const response = NextResponse.rewrite(url)
+    const response = NextResponse.rewrite(url, {
+      request: {
+        headers: requestHeaders,
+      },
+    })
     response.cookies.set(LANGUAGE_COOKIE, lang, {
       path: "/",
       maxAge: ONE_YEAR_SECONDS,

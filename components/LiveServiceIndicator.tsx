@@ -1,9 +1,12 @@
 "use client"
 
+import Link from "next/link"
 import { useEffect, useState } from "react"
 
 import Lang from "@/components/language/Lang"
 import { useLanguage } from "@/components/language/LanguageProvider"
+import { siteConfig } from "@/lib/site"
+
 const TIME_ZONE = "America/Toronto"
 const LIVE_WINDOW_START_MINUTES = 9 * 60
 const LIVE_WINDOW_END_MINUTES = 12 * 60 + 30
@@ -59,17 +62,26 @@ export default function LiveServiceIndicator({ className }: { className?: string
 
   if (!live) {
     return (
-      <span
-        className="inline-flex min-h-9 items-center rounded-full border border-white/20 bg-white/10 px-2.5 py-1 text-[11px] font-semibold text-white/85"
+      <Link
+        href={siteConfig.topBar.watchLatestHref || "/watch"}
+        className={[
+          "focus-ring inline-flex min-h-9 items-center rounded-full border border-white/20 bg-white/10 px-2.5 py-1 text-[11px] font-semibold text-white/85 transition-colors hover:bg-white/15",
+          className ?? "",
+        ]
+          .join(" ")
+          .trim()}
         aria-label={language === "ta" ? "மீள்பார்வு" : "Watch replay"}
       >
         <Lang en="WATCH REPLAY" ta="மீள்பார்வு" taClassName="font-tamil" />
-      </span>
+      </Link>
     )
   }
 
   return (
-    <span className={["live-indicator", className ?? ""].join(" ").trim()} aria-label={language === "ta" ? "நேரலை" : "Live"}>
+    <span
+      className={["live-indicator", className ?? ""].join(" ").trim()}
+      aria-label={language === "ta" ? "நேரலை" : "Live"}
+    >
       <span className="live-dot" aria-hidden="true" />
       <span className="text-[11px] font-extrabold tracking-wide">
         <Lang en="LIVE" ta="LIVE" taClassName="font-tamil" />

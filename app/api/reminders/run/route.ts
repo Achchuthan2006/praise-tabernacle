@@ -57,7 +57,7 @@ export async function POST(request: Request) {
       minute: "2-digit",
     }).format(start)
 
-    const subject = `Reminder: ${event.title} • ${when}`
+    const subject = `Reminder: ${event.title} " ${when}`
     const text =
       `Hi ${r.name},\n\n` +
       `Reminder for: ${event.title}\n` +

@@ -95,7 +95,7 @@ export default function MinistryRegistrationForm({
     body:
       language === "ta"
         ? `${ministryNameTa} \u0ba8\u0bbf\u0b95\u0bb4\u0bcd\u0bb5\u0bc1\u0b95\u0bb3\u0bbf\u0bb2\u0bcd \u0b9a\u0bc7\u0bb0 \u0b95\u0bc2\u0b9f\u0bcd\u0b9f\u0bae\u0bcd \u0b95\u0bcb\u0bb0\u0bcd\u0ba4\u0bcd\u0ba4\u0bbf\u0bb1\u0bcd\u0b95\u0bbe\u0b95 \u0b87\u0ba4\u0ba8\u0bcd\u0ba4\u0ba4\u0bbf\u0ba9\u0bcd \u0bb5\u0bbf\u0bb5\u0bb0\u0b99\u0bcd\u0b95\u0bb3\u0bc8 \u0b85\u0ba9\u0bc1\u0baa\u0bb5\u0bbf\u0b95\u0bcd\u0b95\u0bb5\u0bc1\u0bae\u0bcd.`
-        : `Share your details and we’ll help you connect to ${ministryNameEn}.`,
+        : `Share your details and we'll help you connect to ${ministryNameEn}.`,
     parentName: language === "ta" ? "\u0baa\u0bc6\u0bb1\u0bcd\u0bb1\u0bcb\u0bb0\u0bcd/\u0b95\u0bbe\u0bb5\u0bb2\u0bb0\u0bcd \u0baa\u0bc6\u0baf\u0bb0\u0bcd" : "Parent/Guardian name",
     studentName: language === "ta" ? "\u0bae\u0bbe\u0ba3\u0bb5\u0bb0\u0bcd \u0baa\u0bc6\u0baf\u0bb0\u0bcd" : "Student name",
     email: language === "ta" ? "\u0bae\u0bbf\u0ba9\u0bcd\u0ba9\u0b9e\u0bcd\u0b9a\u0bb2\u0bcd" : "Email",
@@ -123,16 +123,39 @@ export default function MinistryRegistrationForm({
         : status === "error"
           ? language === "ta"
             ? "\u0b87\u0baa\u0bcd\u0baa\u0bcb\u0ba4\u0bc1 \u0b85\u0ba9\u0bc1\u0baa\u0bcd\u0baa \u0bae\u0bc1\u0b9f\u0bbf\u0baf\u0bb5\u0bbf\u0bb2\u0bcd\u0bb2\u0bc8. \u0bae\u0bbf\u0ba9\u0bcd\u0ba9\u0b9e\u0bcd\u0b9a\u0bb2\u0bcd \u0b85\u0ba9\u0bc1\u0baa\u0bcd\u0baa\u0bc1\u0b99\u0bcd\u0b95\u0bb3\u0bcd:"
-            : "Couldn’t send right now. Please email us:"
+            : "Couldn't send right now. Please email us:"
           : language === "ta"
             ? "\u0baa\u0bc6\u0bb1\u0bcd\u0bb1\u0bcb\u0bb0\u0bcd/\u0b95\u0bbe\u0bb5\u0bb2\u0bb0\u0bcd \u0bb5\u0bbf\u0bb5\u0bb0\u0b99\u0bcd\u0b95\u0bb3\u0bc8 \u0ba8\u0bbf\u0bb0\u0baa\u0bcd\u0baa\u0bc1\u0b99\u0bcd\u0b95\u0bb3\u0bcd; \u0ba8\u0bbe\u0b99\u0bcd\u0b95\u0bb3\u0bcd \u0bb5\u0bbf\u0bb0\u0bb5\u0bc7\u0bb1\u0bcd\u0baa\u0bc1 \u0baa\u0ba4\u0bbf\u0bb2\u0bc8 \u0ba4\u0bb0\u0bc1\u0bb5\u0bcb\u0bae\u0bcd."
-            : "Share your details and we’ll follow up soon.",
+            : "Share your details and we'll follow up soon.",
   }
 
   return (
     <div className="rounded-3xl border border-churchBlue/10 bg-white p-6 shadow-glow sm:p-8">
       <h2 className="text-xl font-semibold tracking-tight text-churchBlue">{copy.heading}</h2>
       <p className="mt-3 text-sm leading-relaxed text-churchBlue/70 sm:text-base">{copy.body}</p>
+
+      {status === "success" || status === "error" ? (
+        <div
+          className={[
+            "mt-6 rounded-2xl border p-4 text-sm",
+            status === "success"
+              ? "border-emerald-200 bg-emerald-50 text-emerald-800"
+              : "border-red-200 bg-red-50 text-red-700",
+          ].join(" ")}
+          role={status === "error" ? "alert" : "status"}
+        >
+          {status === "error" ? (
+            <>
+              {copy.note}{" "}
+              <a href={`mailto:${siteConfig.email}`} className="underline underline-offset-2">
+                {siteConfig.email}
+              </a>
+            </>
+          ) : (
+            copy.note
+          )}
+        </div>
+      ) : null}
 
       <form className="mt-8 grid gap-5" onSubmit={onSubmit} aria-describedby={`${formId}-note`}>
         <label className="sr-only" aria-hidden="true">

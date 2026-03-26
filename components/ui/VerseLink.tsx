@@ -1,8 +1,7 @@
 import type { ComponentPropsWithoutRef } from "react"
 
-export function bibleDotComSearchHref(query: string, version?: string) {
-  const href = `https://www.bible.com/search/bible?q=${encodeURIComponent(query)}`
-  return version ? `${href}&version=${encodeURIComponent(version)}` : href
+export function bibleGatewayPassageHref(query: string, version = "NKJV") {
+  return `https://www.biblegateway.com/passage/?search=${encodeURIComponent(query)}&version=${encodeURIComponent(version)}`
 }
 
 export default function VerseLink({
@@ -22,7 +21,7 @@ export default function VerseLink({
 }) {
   return (
     <a
-      href={href ?? bibleDotComSearchHref(query, version)}
+      href={href ?? bibleGatewayPassageHref(query, version)}
       target="_blank"
       rel="noreferrer"
       className={[

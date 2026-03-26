@@ -123,7 +123,7 @@ export default function NextLivestreamCountdown({
     <div className="rounded-3xl border border-churchBlue/10 bg-white p-4 shadow-glow">
       <div className="flex items-center justify-between gap-3">
         <div className="text-[11px] font-semibold tracking-wide text-churchBlue/60">Next livestream begins in</div>
-        <div className="text-[10px] text-churchBlue/60">Starts: {startsLabel || "—"}</div>
+        <div className="text-[10px] text-churchBlue/60">Starts: {startsLabel || ""}</div>
       </div>
       <div className="mt-3 grid grid-cols-4 gap-1.5 text-center">
         <div className="rounded-2xl border border-churchBlue/10 bg-churchBlueSoft px-2 py-2">

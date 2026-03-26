@@ -6,8 +6,8 @@ import Lang from "@/components/language/Lang"
 import Container from "@/components/ui/Container"
 import PageHeader from "@/components/ui/PageHeader"
 import Reveal from "@/components/ui/Reveal"
-import { pageMetadata } from "@/lib/seo"
 import { getDailyPromiseForDate, PROMISES_TIMEZONE, promiseVideos } from "@/lib/promises"
+import { pageMetadata } from "@/lib/seo"
 
 export const metadata: Metadata = pageMetadata({
   title: "Promises",
@@ -15,7 +15,7 @@ export const metadata: Metadata = pageMetadata({
   path: "/promises",
 })
 
-export const revalidate = 60 * 60
+export const revalidate = 3600
 
 function thumbFor(videoId?: string) {
   const id = (videoId ?? "").trim()
@@ -26,13 +26,14 @@ function thumbFor(videoId?: string) {
 export default function PromisesPage() {
   const daily = getDailyPromiseForDate(new Date(), PROMISES_TIMEZONE)
   const items = promiseVideos.slice()
+
   return (
     <>
       <PageHeader
         titleEn="Promises"
         titleTa="வாக்குத்தத்தங்கள்"
         descriptionEn="Promise of the Month and Promise of the Year — with a short verse and message."
-        descriptionTa="மாதத்தின் வாக்குத்தத்தமும் ஆண்டின் வாக்குத்தத்தமும் — வசனம் மற்றும் செய்தியுடன்."
+        descriptionTa="மாதத்தின் வாக்குத்தத்தமும் ஆண்டின் வாக்குத்தத்தமும் — வசனமும் செய்தியுடனும்."
       />
 
       <section className="bg-white">
@@ -53,15 +54,12 @@ export default function PromisesPage() {
                         <Lang en={`Rotates daily • ${daily.isoDate}`} ta={`தினமும் மாறும் • ${daily.isoDate}`} taClassName="font-tamil" />
                       </p>
                     </div>
+
                     <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
                       <Link href="/promises/daily?play=1" className="btn btn-sm btn-primary">
                         <Lang en="Watch on site" ta="இங்கே பார்க்க" taClassName="font-tamil" />
                       </Link>
-                      <a
-                        href={daily.promise.graphicSrc ?? "/verse-1.webp"}
-                        download
-                        className="btn btn-sm btn-secondary"
-                      >
+                      <a href={daily.promise.graphicSrc ?? "/verse-1.webp"} download className="btn btn-sm btn-secondary">
                         <Lang en="Download graphic" ta="படத்தை பதிவிறக்கம்" taClassName="font-tamil" />
                       </a>
                     </div>
@@ -69,7 +67,7 @@ export default function PromisesPage() {
 
                   <div className="mt-5 rounded-2xl border border-churchBlue/10 bg-white p-4">
                     <div className="text-xs font-semibold tracking-wide text-churchBlue/60">
-                      <Lang en="Promise verse" ta="à®µà®¾à®•à¯à®•à¯à®¤à¯à®¤à®¤à¯à®¤ à®µà®šà®©à®®à¯" taClassName="font-tamil" />
+                      <Lang en="Promise verse" ta="வாக்குத்தத்த வசனம்" taClassName="font-tamil" />
                     </div>
                     <div className="mt-2 text-sm font-semibold text-churchBlue">
                       <Lang en={daily.promise.verseRefEn} ta={daily.promise.verseRefTa} taClassName="font-tamil" />
@@ -87,6 +85,7 @@ export default function PromisesPage() {
                 const href = `/promises/${p.kind}?play=1`
                 const thumb = thumbFor(p.youtubeVideoId)
                 const graphicSrc = (p.graphicSrc ?? "").trim()
+
                 return (
                   <Reveal key={p.kind} delay={(idx % 4) as 0 | 1 | 2 | 3}>
                     <article className="card">
@@ -150,7 +149,7 @@ export default function PromisesPage() {
                               <Lang en="Watch on YouTube" ta="YouTube-ல் பார்க்க" taClassName="font-tamil" />
                             </a>
                           ) : (
-                            <span className="btn btn-sm btn-secondary w-full opacity-60 cursor-not-allowed" aria-disabled="true">
+                            <span className="btn btn-sm btn-secondary w-full cursor-not-allowed opacity-60" aria-disabled="true">
                               <Lang en="YouTube link coming soon" ta="YouTube இணைப்பு விரைவில்" taClassName="font-tamil" />
                             </span>
                           )}

@@ -16,8 +16,10 @@ export default function NewsletterSignupForm({
   className?: string
 }) {
   const [email, setEmail] = useState("")
+  const [honey, setHoney] = useState("")
   const [touched, setTouched] = useState(false)
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle")
+  const [successState, setSuccessState] = useState<"pending_confirmation" | "already_confirmed" | null>(null)
 
   const emailOk = /^\S+@\S+\.\S+$/.test(email.trim())
   const showInvalid = touched && !emailOk && status !== "loading" && status !== "success"
@@ -27,16 +29,18 @@ export default function NewsletterSignupForm({
     setTouched(true)
     if (!emailOk) return
     setStatus("loading")
+    setSuccessState(null)
     try {
       const res = await fetch("/api/newsletter", {
         method: "POST",
         headers: await csrfHeaders({ "content-type": "application/json" }),
-        body: JSON.stringify({ email, honey: "" }),
+        body: JSON.stringify({ email, honey }),
       })
       if (!res.ok) throw new Error("bad_response")
-      const json = (await res.json()) as { ok?: boolean }
+      const json = (await res.json()) as { ok?: boolean; status?: "pending_confirmation" | "already_confirmed" }
       if (!json.ok) throw new Error("not_ok")
       setEmail("")
+      setSuccessState(json.status ?? "pending_confirmation")
       setStatus("success")
     } catch {
       setStatus("error")
@@ -75,7 +79,14 @@ export default function NewsletterSignupForm({
       aria-describedby={noteId}
       onSubmit={onSubmit}
     >
+      <label className="sr-only" aria-hidden="true">
+        Honey
+        <input tabIndex={-1} autoComplete="off" value={honey} onChange={(e) => setHoney(e.target.value)} />
+      </label>
       <label className="block">
+        {variant === "footer" ? (
+          <span className="mb-1 block text-xs font-semibold text-white/85">Email</span>
+        ) : null}
         <span className="sr-only">Email</span>
         <div className={["float-field", variant === "footer" ? "float-field-invert" : ""].join(" ")}>
           <input
@@ -110,8 +121,16 @@ export default function NewsletterSignupForm({
       >
         {status === "loading" ? <span className="btn-spinner" aria-hidden="true" /> : null}
         <Lang
-          en={status === "success" ? "Subscribed" : status === "loading" ? "Subscribing..." : "Subscribe"}
-          ta={status === "loading" ? "சேர்க்கிறது..." : "சேருங்கள்"}
+          en={
+            status === "success"
+              ? successState === "already_confirmed"
+                ? "Already subscribed"
+                : "Check your email"
+              : status === "loading"
+                ? "Subscribing..."
+                : "Subscribe"
+          }
+          ta={status === "loading" ? "சேர்க்கிறது..." : status === "success" ? "மின்னஞ்சலை பார்க்கவும்" : "சேருங்கள்"}
           taClassName="font-tamil"
         />
       </button>
@@ -130,12 +149,24 @@ export default function NewsletterSignupForm({
         {showInvalid ? (
           <Lang en="Please enter a valid email address." ta="தயவுசெய்து சரியான மின்னஞ்சலை உள்ளிடுங்கள்." taClassName="font-tamil" />
         ) : status === "success" ? (
-          <Lang en="You're subscribed. Thank you!" ta="நன்றி! நீங்கள் சேர்க்கப்பட்டீர்கள்." taClassName="font-tamil" />
+          <Lang
+            en={
+              successState === "already_confirmed"
+                ? "This email is already confirmed for newsletter updates."
+                : "Check your inbox and confirm your signup to finish subscribing."
+            }
+            ta={
+              successState === "already_confirmed"
+                ? "இந்த மின்னஞ்சல் முகவரி ஏற்கனவே செய்திமடலுக்கு உறுதிப்படுத்தப்பட்டுள்ளது."
+                : "சந்தாவை முடிக்க உங்கள் மின்னஞ்சலை திறந்து உறுதிப்படுத்தவும்."
+            }
+            taClassName="font-tamil"
+          />
         ) : status === "error" ? (
           <>
             <Lang
-              en="Couldn't submit right now. Please email "
-              ta="இப்போது சமர்ப்பிக்க முடியவில்லை. தயவு செய்து மின்னஞ்சல் செய்யவும்: "
+              en="Couldn't send the confirmation email right now. Please email "
+              ta="உறுதிப்படுத்தல் மின்னஞ்சலை இப்போது அனுப்ப முடியவில்லை. தயவுசெய்து மின்னஞ்சல் செய்யவும்: "
               taClassName="font-tamil"
             />
             <a
@@ -148,8 +179,8 @@ export default function NewsletterSignupForm({
           </>
         ) : (
           <Lang
-            en="No spam. Just church updates."
-            ta="ஸ்பாம் இல்லை. சபை புதுப்பிப்புகள் மட்டும்."
+            en="Confirm by email to finish subscribing."
+            ta="சந்தாவை முடிக்க மின்னஞ்சல் மூலம் உறுதிப்படுத்தவும்."
             taClassName="font-tamil"
           />
         )}

@@ -20,9 +20,9 @@ export const givingCategories: GivingCategory[] = [
     id: "tithes",
     accent: "tithes",
     titleEn: "Tithes & offerings",
-    titleTa: "தசமபாகமும் கொடைகளும்",
+    titleTa: "தசமபாகமும் காணிக்கைகளும்",
     descriptionEn: "Support weekly ministry, worship gatherings, and church operations.",
-    descriptionTa: "வாராந்திர சேவைகள், ஆராதனை, மற்றும் சபை பணிக்கான ஆதரவு.",
+    descriptionTa: "வாராந்திர சேவைகள், ஆராதனை கூட்டங்கள், மற்றும் சபை பணிகளுக்கான ஆதரவு.",
   },
   {
     id: "missions",
@@ -30,7 +30,7 @@ export const givingCategories: GivingCategory[] = [
     titleEn: "Missions",
     titleTa: "மிஷன்",
     descriptionEn: "Local and global outreach, partner ministries, and community care.",
-    descriptionTa: "உள்ளூர்/உலக மிஷன், கூட்டாளி சேவைகள், சமூக அக்கறை.",
+    descriptionTa: "உள்ளூர் மற்றும் உலக மிஷன், கூட்டாளி சேவைகள், மற்றும் சமூக அக்கறை.",
   },
   {
     id: "building",
@@ -38,7 +38,7 @@ export const givingCategories: GivingCategory[] = [
     titleEn: "Building fund",
     titleTa: "கட்டிட நிதி",
     descriptionEn: "Facilities, upgrades, and future space needs.",
-    descriptionTa: "வசதிகள், மேம்பாடுகள், எதிர்கால இடத் தேவைகள்.",
+    descriptionTa: "வசதிகள், மேம்பாடுகள், மற்றும் எதிர்கால இடத் தேவைகள்.",
   },
   {
     id: "projects",
@@ -46,7 +46,7 @@ export const givingCategories: GivingCategory[] = [
     titleEn: "Special projects",
     titleTa: "சிறப்பு திட்டங்கள்",
     descriptionEn: "Time-bound needs such as events, media, or outreach campaigns.",
-    descriptionTa: "நிகழ்வுகள், மீடியா, வெளிய்சேவை போன்ற காலவரையறை தேவைகள்.",
+    descriptionTa: "நிகழ்வுகள், மீடியா, அல்லது வெளிச்சேவை முயற்சிகள் போன்ற காலவரையறை தேவைகள்.",
   },
 ]
 

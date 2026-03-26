@@ -14,7 +14,7 @@ import { siteConfig } from "@/lib/site"
 export async function generateMetadata({
   params,
 }: {
-  params: { slug: string } | Promise<{ slug: string }>
+  params: Promise<{ slug: string }>
 }): Promise<Metadata> {
   const resolvedParams = await params
   const book = getStoreItemBySlug(resolvedParams.slug)
@@ -30,7 +30,7 @@ export async function generateMetadata({
 export default async function BookDetailPage({
   params,
 }: {
-  params: { slug: string } | Promise<{ slug: string }>
+  params: Promise<{ slug: string }>
 }) {
   const resolvedParams = await params
   const book = getStoreItemBySlug(resolvedParams.slug)

@@ -9,94 +9,166 @@ import { pageMetadata } from "@/lib/seo"
 
 export const metadata: Metadata = pageMetadata({
   title: "Our Beliefs",
-  description: "A clear overview of what we believe at Praise Tabernacle.",
+  description: "A full statement of faith and practice for Praise Tabernacle.",
   path: "/about/beliefs",
 })
 
-type Bullet = { en: string; ta: string }
-type Article = { titleEn: string; titleTa: string; bullets: Bullet[]; references?: string }
+type Section = {
+  titleEn: string
+  titleTa: string
+  paragraphsEn: string[]
+  paragraphsTa?: string[]
+}
+
+const beliefSections: Section[] = [
+  {
+    titleEn: "1. The Triune God - The Trinity",
+    titleTa: "1. திரியேக தேவன் - திரித்துவம்",
+    paragraphsEn: [
+      "We believe that the one and only true God is Spirit. We believe in the deity of the Father: self-existent, infinite, eternal, unchangeable in His being; perfect in holiness, love, justice, goodness, wisdom, and truth; omnipotent, omniscient, and omnipresent; Creator and Sustainer of all things, visible and invisible; both immanent and transcendent to creation; one in substance and co-equal in power and glory with the Son and with the Holy Spirit.",
+      "We believe in the deity of the Lord Jesus Christ, the Son of God, and in His eternal generation from the Father; in His incarnation by which He was conceived by the Holy Spirit and born of the Virgin Mary, thus uniting the divine and human natures in their completeness into the unique person of the Lord Jesus Christ; in His sinless life and miraculous works; in His vicarious death to make atonement for the sins of the world; in His bodily resurrection and ascension to the right hand of the Father; in His sovereign power and Lordship; in His present mediatorial ministry as the believer's Advocate; and in His imminent, personal, and visible coming in power and glory.",
+      "We believe in the deity of the Holy Spirit, the third person of the Trinity, proceeding from the Father and sent by the Son; that He is of one substance, majesty, and glory with the Father and the Son, very and eternally God; and that His office and work is to reprove the world of sin, of righteousness, and of judgment; to regenerate such as repent of their sins and believe on the Lord Jesus Christ; and to endue them with power.",
+    ],
+  },
+  {
+    titleEn: "2. The Bible",
+    titleTa: "2. வேதாகமம்",
+    paragraphsEn: [
+      "We believe the Bible to be the Word of God, in 66 books, 39 in the Old Testament and 27 in the New Testament.",
+      "We believe that, as such, it is inerrant in the manuscripts as originally given, and is the unchanging authority in all matters of faith and practice.",
+    ],
+  },
+  {
+    titleEn: "3. Man",
+    titleTa: "3. மனிதன்",
+    paragraphsEn: [
+      "His creation: by an act of God Himself, not by evolution. As such, man was created in the image of God.",
+      "His fall: deluded by Satan, man voluntarily disobeyed the positive command of God. The entire human race was corrupted, leaving man without the will or the power to turn to God by himself, destined to remain in his sin forever.",
+      "His redemption: only as man accepts the voluntary offering that Jesus made of Himself on the cross at Calvary as a perfect sacrifice for sin. Jesus bore sin's curse and tasted death for every person.",
+    ],
+  },
+  {
+    titleEn: "4. Salvation",
+    titleTa: "4. இரட்சிப்பு",
+    paragraphsEn: [
+      "All people are guilty before God. We are commanded to repent. This means that we should confess and forsake sin.",
+      "Faith must accompany repentance and is the means whereby a person fully believes the promises of God and rests upon the complete atoning work of Jesus Christ.",
+      "Justification takes place whereby the sinner's standing before God is changed; whilst regeneration at the same time changes the sinner's nature before God.",
+    ],
+  },
+  {
+    titleEn: "5. The Spirit-Filled Life",
+    titleTa: "5. ஆவியினால் நிரம்பிய வாழ்க்கை",
+    paragraphsEn: [
+      "A life that is victorious over the power of sin, the world, the flesh, and the devil is provided for each believer through the death and resurrection of the Lord Jesus Christ.",
+      "He promises to baptize, immerse, or fill us with His Holy Spirit. We are commanded in Ephesians 5:18 to be filled with the Spirit and in Romans 12:1 to present our bodies.",
+      "Available for the believer's personal life and character is the fruit of the Spirit, and for spiritual warfare, witness, and worship are the gifts of the Spirit.",
+    ],
+  },
+  {
+    titleEn: "6. Resurrection and Glorification",
+    titleTa: "6. உயிர்த்தெழுதல் மற்றும் மகிமைப்படுதல்",
+    paragraphsEn: [
+      "We believe in the bodily resurrection of the Lord Jesus Christ, and that because He lives, we too shall live.",
+      "The Scriptures teach that at the return of the Lord Jesus, the bodies of the righteous dead will be raised, and the living believers will be caught up with them to meet the Lord in the air.",
+      "All will then have literal, spiritual, and immortal bodies like Christ's own glorious body.",
+    ],
+  },
+  {
+    titleEn: "7. The Second Coming of the Lord Jesus Christ",
+    titleTa: "7. கர்த்தராகிய இயேசு கிறிஸ்துவின் இரண்டாம் வருகை",
+    paragraphsEn: [
+      "Although actual detailed interpretations differ, the hope of the church is the personal, bodily, and visible return of the Lord Jesus Christ, who will descend from heaven in order to institute His total rule and kingdom on a new earth and new heavens.",
+      "Although believers have been judged as sinners and forgiven at the cross of Christ, they will appear before the judgment seat of Christ to be judged for their deeds and to receive rewards for service.",
+      "Every unsaved person will appear at the judgment of the great white throne. There is no second chance.",
+    ],
+  },
+]
+
+const practiceSections: Section[] = [
+  {
+    titleEn: "1. Baptism by Immersion",
+    titleTa: "1. முழுகும் ஞானஸ்நானம்",
+    paragraphsEn: [
+      "Baptism by immersion for believers was introduced by the Lord Jesus Himself as the evidence a believer gives to the church, the world, and the devil that he or she is committed to Jesus.",
+      "It is also a wonderful symbol of the believer's past life being buried, and a new life rising in its place.",
+    ],
+  },
+  {
+    titleEn: "2. Breaking of Bread",
+    titleTa: "2. அப்பம் உடைத்தல்",
+    paragraphsEn: [
+      "Communion, or the Lord's Table, was introduced by the Lord Jesus to His disciples with the command that they do this as often as they ate the bread and drank the cup to remember His death and sacrifice.",
+    ],
+  },
+  {
+    titleEn: "3. Healing and the Laying on of Hands",
+    titleTa: "3. சுகமளித்தல் மற்றும் கைகளை வைத்துப் ஜெபித்தல்",
+    paragraphsEn: [
+      "Healing and the laying on of hands are provided for not only by example when Jesus sent His disciples out, but more specifically for the church in James chapter 5 where anointing with oil is indicated at the same time as the laying on of the elders' hands.",
+      "We believe that the atonement provided for physical as well as spiritual healing.",
+    ],
+  },
+  {
+    titleEn: "4. The Lord's Day",
+    titleTa: "4. கர்த்தருடைய நாள்",
+    paragraphsEn: [
+      "The first day of the week, Sunday, is to be set aside as a day of worship, praise, and service for the Lord as we remember the first day of resurrection.",
+    ],
+  },
+  {
+    titleEn: "5. Giving",
+    titleTa: "5. கொடையளித்தல்",
+    paragraphsEn: [
+      "The Christian ought to lay aside each week as God has prospered him or her, so that the Lord's work may be supported through the tithes and offerings of His people.",
+    ],
+  },
+  {
+    titleEn: "6. Dedication of Children and Parents",
+    titleTa: "6. குழந்தைகள் மற்றும் பெற்றோர் அர்ப்பணிப்பு",
+    paragraphsEn: [
+      "Dedication of children and their parents replaces infant baptism for us who practice baptism by immersion.",
+    ],
+  },
+  {
+    titleEn: "7. Conduct",
+    titleTa: "7. நடத்தை",
+    paragraphsEn: [
+      "It is inconsistent for a believer to injure the body with drugs, tobacco, or alcohol, or to engage in illicit sexual relationships.",
+      "The believer must live a clean and upright life in a careless world.",
+    ],
+  },
+]
+
+function StatementSection({ section, soft = false }: { section: Section; soft?: boolean }) {
+  return (
+    <div className={["rounded-2xl border border-churchBlue/10 p-6", soft ? "bg-churchBlueSoft" : "bg-white"].join(" ")}>
+      <h3 className="text-lg font-semibold tracking-tight text-churchBlue sm:text-xl">
+        <Lang en={section.titleEn} ta={section.titleTa} taClassName="font-tamil" />
+      </h3>
+      <div className="mt-4 space-y-4 text-sm leading-relaxed text-churchBlue/75 sm:text-base">
+        {section.paragraphsEn.map((paragraph, index) => (
+          <p key={`${section.titleEn}-${index}`}>
+            <Lang
+              en={paragraph}
+              ta={section.paragraphsTa?.[index] ?? paragraph}
+              taClassName="font-tamil"
+            />
+          </p>
+        ))}
+      </div>
+    </div>
+  )
+}
 
 export default function BeliefsPage() {
-  const articles: Article[] = [
-    {
-      titleEn: "1. God - Father, Son, and Holy Spirit",
-      titleTa: "1. தேவன் - பிதா, குமாரன், பரிசுத்த ஆவியானவர்",
-      bullets: [
-        { en: "One God in three Persons", ta: "மூன்று நபர்களில் ஒரே தேவன்" },
-        { en: "God is holy, loving, and faithful", ta: "தேவன் பரிசுத்தரும் அன்பும் விசுவாசமும் உள்ளவர்" },
-      ],
-      references: "Matthew 28:19; 2 Corinthians 13:14",
-    },
-    {
-      titleEn: "2. The Bible",
-      titleTa: "2. வேதாகமம்",
-      bullets: [
-        { en: "The Bible is God's Word and our authority for faith and life", ta: "வேதாகமம் தேவனுடைய வார்த்தை; விசுவாசமும் வாழ்க்கையும் சார்ந்த அதிகாரம்" },
-        { en: "We seek to understand and obey Scripture with humility", ta: "தாழ்மையுடன் வேதத்தை புரிந்து கீழ்ப்படிந்து நடக்க விரும்புகிறோம்" },
-      ],
-      references: "2 Timothy 3:16-17",
-    },
-    {
-      titleEn: "3. Jesus Christ",
-      titleTa: "3. இயேசு கிறிஸ்து",
-      bullets: [
-        { en: "Fully God and fully man", ta: "முழுமையாக தேவனும் முழுமையாக மனிதனும்" },
-        { en: "His death and resurrection bring salvation and hope", ta: "அவரின் மரணமும் உயிர்த்தெழுதலும் இரட்சிப்பையும் நம்பிக்கையையும் தருகிறது" },
-      ],
-      references: "John 1:1-14; 1 Corinthians 15:3-4",
-    },
-    {
-      titleEn: "4. Salvation",
-      titleTa: "4. இரட்சிப்பு",
-      bullets: [
-        { en: "Salvation is by grace through faith in Jesus Christ", ta: "இயேசு கிறிஸ்துவில் விசுவாசம் மூலம் கிருபையால் இரட்சிப்பு" },
-        { en: "We respond with repentance, trust, and a new life", ta: "மனந்திரும்புதல், நம்பிக்கை, புதிய வாழ்க்கை ஆகியவற்றால் பதிலளிக்கிறோம்" },
-      ],
-      references: "Ephesians 2:8-9; Romans 10:9-10",
-    },
-    {
-      titleEn: "5. The Holy Spirit",
-      titleTa: "5. பரிசுத்த ஆவியானவர்",
-      bullets: [
-        { en: "The Holy Spirit helps us follow Jesus and grow in holiness", ta: "இயேசுவை பின்பற்றவும் பரிசுத்தத்தில் வளரவும் பரிசுத்த ஆவியானவர் உதவுகிறார்" },
-        { en: "The Spirit produces fruit and equips believers to serve", ta: "ஆவியானவர் கனியை உண்டாக்கி விசுவாசிகளை சேவைக்காக ஆயத்தப்படுத்துகிறார்" },
-      ],
-      references: "Galatians 5:22-23; 1 Corinthians 12",
-    },
-    {
-      titleEn: "6. The Church",
-      titleTa: "6. சபை",
-      bullets: [
-        { en: "The church is a family of believers centred on Jesus", ta: "இயேசுவை மையமாகக் கொண்ட விசுவாசிகளின் குடும்பம் தான் சபை" },
-        { en: "We gather for worship, the Word, prayer, and community", ta: "ஆராதனை, வார்த்தை, ஜெபம், சமூக உறவு ஆகியவற்றிற்காக கூடுகிறோம்" },
-      ],
-      references: "Acts 2:42-47",
-    },
-    {
-      titleEn: "7. The Return of Christ",
-      titleTa: "7. கிறிஸ்துவின் திரும்ப வருதல்",
-      bullets: [
-        { en: "Jesus will return and make all things new", ta: "இயேசு திரும்ப வந்து அனைத்தையும் புதிதாக்குவார்" },
-        { en: "We live with hope, readiness, and faithfulness", ta: "நம்பிக்கை, தயார் நிலை, விசுவாசம் ஆகியவற்றுடன் வாழ்கிறோம்" },
-      ],
-      references: "1 Thessalonians 4:16-18; Revelation 21:1-5",
-    },
-  ]
-
-  const practices: Bullet[] = [
-    { en: "Baptism for believers", ta: "விசுவாசிகளுக்கான ஞானஸ்நானம்" },
-    { en: "Communion (Lord's Table)", ta: "திருவிருந்து (கர்த்தரின் பந்தி)" },
-    { en: "Prayer gatherings and intercession", ta: "ஜெப கூடுகைகள் மற்றும் விண்ணப்ப ஜெபம்" },
-    { en: "Generous giving and caring for people", ta: "தாராள கொடை மற்றும் அக்கறையுடன் சேவை" },
-  ]
-
   return (
     <>
       <PageHeader
         titleEn="Our Beliefs"
-        titleTa="நம்பிக்கைகள்"
-        descriptionEn="Articles of faith and practice - a clear summary of what we believe."
-        descriptionTa="நம்பிக்கை மற்றும் நடைமுறை - எங்கள் விசுவாசத்தின் தெளிவான சுருக்கம்."
+        titleTa="எங்கள் நம்பிக்கைகள்"
+        descriptionEn="Our full statement of faith and expressions of faith in practice."
+        descriptionTa="எங்கள் முழுமையான விசுவாச அறிக்கையும் நடைமுறையில் அதன் வெளிப்பாடுகளும்."
       />
 
       <section className="bg-white">
@@ -108,54 +180,47 @@ export default function BeliefsPage() {
                   <Lang en="Faith" ta="விசுவாசம்" taClassName="font-tamil" />
                 </div>
                 <h2 className="section-heading mt-2">
-                  <Lang en="A simple statement" ta="ஒரு எளிய அறிக்கை" taClassName="font-tamil" />
+                  <Lang en="Statement of faith" ta="விசுவாச அறிக்கை" taClassName="font-tamil" />
                 </h2>
                 <p className="mt-3 text-sm leading-relaxed text-churchBlue/75 sm:text-base">
                   <Lang
-                    en="These statements are intended to be clear and helpful. If you have a question, contact us and we will gladly talk with you."
-                    ta="இவை தெளிவாகவும் பயனுள்ளதாகவும் இருக்கவே எழுதப்பட்டவை. உங்களுக்கு கேள்வி இருந்தால் தொடர்பு கொள்ளுங்கள்; நாங்கள் மகிழ்ச்சியுடன் பேசுவோம்."
+                    en="These are the church beliefs you shared with us, now organized for clear reading on the site."
+                    ta="நீங்கள் எங்களுடன் பகிர்ந்த சபை நம்பிக்கைகள் இவை; தளத்தில் தெளிவாகப் படிக்கும்படி ஒழுங்குபடுத்தப்பட்டுள்ளன."
                     taClassName="font-tamil"
                   />
                 </p>
 
                 <div className="mt-8 space-y-6">
-                  {articles.map((article) => (
-                    <div key={article.titleEn} className="rounded-2xl border border-churchBlue/10 bg-white p-6">
-                      <h3 className="text-lg font-semibold tracking-tight text-churchBlue sm:text-xl">
-                        <Lang en={article.titleEn} ta={article.titleTa} taClassName="font-tamil" />
-                      </h3>
-                      <ul className="mt-4 list-disc space-y-2 pl-5 text-sm text-churchBlue/75 sm:text-base">
-                        {article.bullets.map((b) => (
-                          <li key={b.en}>
-                            <Lang en={b.en} ta={b.ta} taClassName="font-tamil" />
-                          </li>
-                        ))}
-                      </ul>
-                      {article.references ? (
-                        <div className="mt-4 text-xs font-semibold tracking-wide text-churchBlue/60">
-                          <Lang en="References:" ta="வேத இடங்கள்:" taClassName="font-tamil" /> {article.references}
-                        </div>
-                      ) : null}
-                    </div>
+                  {beliefSections.map((section, index) => (
+                    <StatementSection key={section.titleEn} section={section} soft={index % 2 === 1} />
                   ))}
                 </div>
 
                 <div className="mt-10 border-t border-churchBlue/10 pt-8">
-                  <h3 className="text-lg font-semibold tracking-tight text-churchBlue sm:text-xl">
-                    <Lang en="Expressions of faith in practice" ta="நடைமுறையில் விசுவாசம்" taClassName="font-tamil" />
-                  </h3>
-                  <ul className="mt-4 list-disc space-y-2 pl-5 text-sm text-churchBlue/75 sm:text-base">
-                    {practices.map((p) => (
-                      <li key={p.en}>
-                        <Lang en={p.en} ta={p.ta} taClassName="font-tamil" />
-                      </li>
+                  <div className="section-kicker">
+                    <Lang en="Practice" ta="நடைமுறை" taClassName="font-tamil" />
+                  </div>
+                  <h2 className="section-heading mt-2">
+                    <Lang en="Expressions of faith in practice" ta="நடைமுறையில் விசுவாசத்தின் வெளிப்பாடுகள்" taClassName="font-tamil" />
+                  </h2>
+                  <div className="mt-6 space-y-6">
+                    {practiceSections.map((section, index) => (
+                      <StatementSection key={section.titleEn} section={section} soft={index % 2 === 0} />
                     ))}
-                  </ul>
+                  </div>
+                </div>
+
+                <div className="mt-10 rounded-2xl border border-amber-200 bg-amber-50 p-5 text-sm text-churchBlue/80">
+                  <Lang
+                    en="Note: the English statement above reflects the exact belief content you provided. Tamil translation can be added next if you want us to localize this page fully."
+                    ta="குறிப்பு: மேலுள்ள ஆங்கில அறிக்கை நீங்கள் வழங்கிய விசுவாச உள்ளடக்கத்தையே பிரதிபலிக்கிறது. விரும்பினால் அடுத்ததாக இந்தப் பக்கத்திற்கு முழு தமிழ் மொழிபெயர்ப்பையும் சேர்க்கலாம்."
+                    taClassName="font-tamil"
+                  />
                 </div>
 
                 <div className="mt-8 flex flex-col gap-3 sm:flex-row">
                   <Link href="/about/denomination" className="btn btn-md btn-secondary">
-                    <Lang en="Denomination & oversight" ta="மத இணைப்பு & கண்காணிப்பு" taClassName="font-tamil" />
+                    <Lang en="Denomination & oversight" ta="மத இணைப்பு மற்றும் கண்காணிப்பு" taClassName="font-tamil" />
                   </Link>
                   <Link href="/contact" className="btn btn-md btn-primary">
                     <Lang en="Ask a question" ta="கேள்வி கேளுங்கள்" taClassName="font-tamil" />
@@ -169,4 +234,3 @@ export default function BeliefsPage() {
     </>
   )
 }
-

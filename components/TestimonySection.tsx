@@ -1,10 +1,11 @@
-﻿"use client"
+"use client"
 
 import Image from "next/image"
 import Link from "next/link"
 import { useEffect, useMemo, useRef, useState } from "react"
 
 import Lang from "@/components/language/Lang"
+import { useLanguage } from "@/components/language/LanguageProvider"
 import Container from "@/components/ui/Container"
 import Reveal from "@/components/ui/Reveal"
 import type { Testimonial, TestimonyCategory } from "@/lib/testimonials"
@@ -14,13 +15,13 @@ import { siteConfig } from "@/lib/site"
 type CategoryOption = { id: "all" | TestimonyCategory; labelEn: string; labelTa: string }
 
 const categories: CategoryOption[] = [
-  { id: "all", labelEn: "All", labelTa: "à®…à®©à¯ˆà®¤à¯à®¤à¯" },
-  { id: "healing", labelEn: "Healing", labelTa: "à®šà¯à®•à®®à®Ÿà¯ˆà®¤à®²à¯" },
-  { id: "financial", labelEn: "Financial", labelTa: "à®¨à®¿à®¤à®¿" },
-  { id: "family", labelEn: "Family", labelTa: "à®•à¯à®Ÿà¯à®®à¯à®ªà®®à¯" },
-  { id: "deliverance", labelEn: "Deliverance", labelTa: "à®µà®¿à®Ÿà¯à®¤à®²à¯ˆ" },
-  { id: "salvation", labelEn: "Salvation", labelTa: "à®°à®Ÿà¯à®šà®¿à®ªà¯à®ªà¯" },
-  { id: "guidance", labelEn: "Guidance", labelTa: "à®µà®´à®¿à®•à®¾à®Ÿà¯à®Ÿà¯à®¤à®²à¯" },
+  { id: "all", labelEn: "All", labelTa: "அனைத்தும்" },
+  { id: "healing", labelEn: "Healing", labelTa: "சுகமடைதல்" },
+  { id: "financial", labelEn: "Financial", labelTa: "நிதி" },
+  { id: "family", labelEn: "Family", labelTa: "குடும்பம்" },
+  { id: "deliverance", labelEn: "Deliverance", labelTa: "விடுதலை" },
+  { id: "salvation", labelEn: "Salvation", labelTa: "இரட்சிப்பு" },
+  { id: "guidance", labelEn: "Guidance", labelTa: "வழிகாட்டுதல்" },
 ]
 
 function categoryLabel(id: TestimonyCategory) {
@@ -35,11 +36,7 @@ function thumbFor(videoId?: string) {
 }
 
 function initials(name: string) {
-  const parts = name
-    .trim()
-    .split(/\s+/g)
-    .filter(Boolean)
-    .slice(0, 2)
+  const parts = name.trim().split(/\s+/g).filter(Boolean).slice(0, 2)
   return parts.map((p) => p[0]?.toUpperCase() ?? "").join("")
 }
 
@@ -71,13 +68,13 @@ function Card({
 
   return (
     <Reveal delay={delay} className="h-full">
-      <article className="card overflow-hidden h-full">
+      <article className="card h-full overflow-hidden">
         <div className="card-image">
           <Link href={href} className="group relative block focus-ring" aria-label={t.titleEn}>
             <div className="relative aspect-video w-full overflow-hidden bg-churchBlueSoft">
               <Image
                 src={thumb}
-                alt={t.titleEn}
+                alt={`${t.titleEn} testimony`}
                 fill
                 sizes="(max-width: 768px) 80vw, (max-width: 1200px) 40vw, 360px"
                 className="object-cover"
@@ -124,7 +121,7 @@ function Card({
           </h3>
 
           {t.quote ? (
-            <p className="mt-3 text-sm leading-relaxed text-churchBlue/75 line-clamp-3">
+            <p className="mt-3 line-clamp-3 text-sm leading-relaxed text-churchBlue/75">
               &ldquo;{t.quote}&rdquo;
             </p>
           ) : null}
@@ -133,17 +130,17 @@ function Card({
             <div className="mt-4 grid gap-2 sm:grid-cols-2">
               <div className="rounded-2xl border border-churchBlue/10 bg-white p-3">
                 <div className="text-xs font-semibold tracking-wide text-churchBlue/60">
-                  <Lang en="Before" ta="à®®à¯à®©à¯à®ªà¯" taClassName="font-tamil" />
+                  <Lang en="Before" ta="முன்பு" taClassName="font-tamil" />
                 </div>
-                <div className="mt-1 text-sm text-churchBlue/75 line-clamp-2">
+                <div className="mt-1 line-clamp-2 text-sm text-churchBlue/75">
                   <Lang en={t.beforeEn ?? ""} ta={t.beforeTa ?? t.beforeEn ?? ""} taClassName="font-tamil" />
                 </div>
               </div>
               <div className="rounded-2xl border border-churchBlue/10 bg-churchBlueSoft p-3">
                 <div className="text-xs font-semibold tracking-wide text-churchBlue/60">
-                  <Lang en="After" ta="à®ªà®¿à®±à®•à¯" taClassName="font-tamil" />
+                  <Lang en="After" ta="பிறகு" taClassName="font-tamil" />
                 </div>
-                <div className="mt-1 text-sm text-churchBlue/75 line-clamp-2">
+                <div className="mt-1 line-clamp-2 text-sm text-churchBlue/75">
                   <Lang en={t.afterEn ?? ""} ta={t.afterTa ?? t.afterEn ?? ""} taClassName="font-tamil" />
                 </div>
               </div>
@@ -156,7 +153,7 @@ function Card({
                 {t.photoSrc ? (
                   <Image
                     src={t.photoSrc}
-                    alt={showLabel(t) || "Testimonial"}
+                    alt={showLabel(t) ? `${showLabel(t)} portrait` : "Testimony portrait"}
                     width={80}
                     height={80}
                     sizes="40px"
@@ -179,7 +176,7 @@ function Card({
 
           <div className="mt-6">
             <Link href={href} className="btn btn-sm btn-primary w-full">
-              <Lang en={hasVideo ? "Watch video" : "Read story"} ta={hasVideo ? "à®µà¯€à®Ÿà®¿à®¯à¯‹ à®ªà®¾à®°à¯à®•à¯à®•" : "à®šà®¾à®Ÿà¯à®šà®¿"} taClassName="font-tamil" />
+              <Lang en={hasVideo ? "Watch video" : "Read story"} ta={hasVideo ? "வீடியோ பார்க்க" : "கதை படிக்க"} taClassName="font-tamil" />
             </Link>
           </div>
         </div>
@@ -189,6 +186,7 @@ function Card({
 }
 
 export default function TestimonySection() {
+  const { language } = useLanguage()
   const mailto = `mailto:${siteConfig.email}?subject=${encodeURIComponent("Testimony")}`
   const all = useMemo(() => listTestimonialsNewestFirst(), [])
   const [selected, setSelected] = useState<CategoryOption["id"]>("all")
@@ -253,21 +251,21 @@ export default function TestimonySection() {
   return (
     <section className="bg-churchBlueSoft">
       <Container className="section-padding">
-        <div className="rounded-3xl border border-churchBlue/10 bg-white p-8 shadow-glow md:p-12 fade-up">
+        <div className="fade-up rounded-3xl border border-churchBlue/10 bg-white p-8 shadow-glow md:p-12">
           <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
             <div>
               <div className="section-kicker">
-                <Lang en="Community" ta="à®šà®®à¯‚à®•à®®à¯" taClassName="font-tamil" />
+                <Lang en="Community" ta="சமூகம்" taClassName="font-tamil" />
               </div>
               <div className="mt-3">
                 <h2 className="section-heading">
-                  <Lang en="Testimonies" ta="à®šà®¾à®Ÿà¯à®šà®¿à®•à®³à¯" taClassName="font-tamil" />
+                  <Lang en="Testimonies" ta="சாட்சிகள்" taClassName="font-tamil" />
                 </h2>
               </div>
               <p className="mt-3 max-w-2xl text-sm text-churchBlue/70 sm:text-base">
                 <Lang
-                  en="Watch and read real stories of God's work — and filter by category."
-                  ta="தேவன் செய்த காரியங்களைப் பாருங்கள்/படிக்கவும் — தலைப்பு அடிப்படையில் தேர்வு செய்யுங்கள்."
+                  en="Watch and read real stories of God's work and filter them by category."
+                  ta="தேவன் செய்த உண்மையான செயல்களின் கதைகளைப் பாருங்கள், படியுங்கள், மற்றும் தலைப்பின்படி தேர்ந்தெடுக்குங்கள்."
                   taClassName="font-tamil"
                 />
               </p>
@@ -275,17 +273,17 @@ export default function TestimonySection() {
 
             <div className="flex flex-col gap-2 sm:items-end">
               <div className="flex flex-wrap gap-2">
-                <button type="button" className="btn btn-sm btn-secondary" onClick={() => scrollByCards(-1)} aria-label="Scroll left">
+                <button type="button" className="btn btn-sm btn-secondary" onClick={() => scrollByCards(-1)} aria-label={language === "ta" ? "இடப்புறம் நகர்த்து" : "Scroll left"}>
                   ←
                 </button>
-                <button type="button" className="btn btn-sm btn-secondary" onClick={() => scrollByCards(1)} aria-label="Scroll right">
+                <button type="button" className="btn btn-sm btn-secondary" onClick={() => scrollByCards(1)} aria-label={language === "ta" ? "வலப்புறம் நகர்த்து" : "Scroll right"}>
                   →
                 </button>
                 <Link href="/testimonies" className="btn btn-sm btn-secondary">
-                  <Lang en="View all" ta="à®…à®©à¯ˆà®¤à¯à®¤à¯à®®à¯" taClassName="font-tamil" />
+                  <Lang en="View all" ta="அனைத்தையும் பார்க்க" taClassName="font-tamil" />
                 </Link>
                 <a href={mailto} className="btn btn-sm btn-secondary">
-                  <Lang en="Share a story" ta="à®šà®¾à®Ÿà¯à®šà®¿ à®ªà®•à®¿à®°" taClassName="font-tamil" />
+                  <Lang en="Share a story" ta="ஒரு சாட்சியை பகிருங்கள்" taClassName="font-tamil" />
                 </a>
               </div>
             </div>
@@ -319,14 +317,14 @@ export default function TestimonySection() {
           <div className="mt-8">
             <div
               ref={scrollerRef}
-              className="no-scrollbar flex gap-4 overflow-x-auto pb-2 pr-1 scroll-smooth snap-x snap-mandatory"
-              aria-label="Testimonies carousel"
+              className="no-scrollbar flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-smooth pb-2 pr-1"
+              aria-label={language === "ta" ? "சாட்சிகள் சுழற்சி" : "Testimonies carousel"}
             >
               {filtered.map((t, idx) => (
                 <div
                   key={t.slug}
                   data-testimony-slide
-                  className="w-[85vw] shrink-0 snap-start sm:w-[340px] md:w-[380px]"
+                  className="w-[85vw] shrink-0 snap-start sm:w-[340px] md:w-[calc((100%-1rem)/2)] lg:w-[380px]"
                 >
                   <Card t={t} delay={(idx % 4) as 0 | 1 | 2 | 3} />
                 </div>
@@ -342,7 +340,7 @@ export default function TestimonySection() {
                     <button
                       key={`${t.slug}-dot`}
                       type="button"
-                      aria-label={`Go to testimony ${idx + 1}`}
+                      aria-label={language === "ta" ? `${idx + 1}வது சாட்சிக்கு செல்ல` : `Go to testimony ${idx + 1}`}
                       onClick={() => scrollToIndex(idx)}
                       className={[
                         "h-2.5 w-2.5 rounded-full border border-churchBlue/20 transition",
@@ -357,7 +355,7 @@ export default function TestimonySection() {
               <div className="mt-6 rounded-2xl border border-churchBlue/10 bg-churchBlueSoft p-5 text-sm text-churchBlue/75">
                 <Lang
                   en="No testimonies in this category yet. Check back soon."
-                  ta="à®‡à®¨à¯à®¤ à®¤à®²à¯ˆà®ªà¯à®ªà®¿à®²à¯ à®‡à®©à¯à®©à¯à®®à¯ à®šà®¾à®Ÿà¯à®šà®¿à®•à®³à¯ à®‡à®²à¯à®²à¯ˆ. à®µà®¿à®°à¯ˆà®µà®¿à®²à¯ à®ªà¯à®¤à¯à®ªà¯à®ªà®¿à®•à¯à®•à®ªà¯à®ªà®Ÿà¯à®®à¯."
+                  ta="இந்த தலைப்பில் இன்னும் சாட்சிகள் இல்லை. விரைவில் மீண்டும் பாருங்கள்."
                   taClassName="font-tamil"
                 />
               </div>

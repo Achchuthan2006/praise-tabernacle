@@ -73,7 +73,7 @@ export default function NewVisitorJourney() {
                   <div className="relative aspect-[16/9] w-full">
                     <Image
                       src={tourImage}
-                      alt="Church interior"
+                      alt="Interior view of the Praise Tabernacle worship space"
                       fill
                       sizes="(min-width: 1024px) 560px, 100vw"
                       className="object-cover"

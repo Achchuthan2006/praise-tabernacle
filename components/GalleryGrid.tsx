@@ -28,6 +28,17 @@ export default function GalleryGrid({
   const [loaded, setLoaded] = useState<Record<number, boolean>>({})
   const [activeIndex, setActiveIndex] = useState<number | null>(null)
   const touchStartRef = useRef<{ x: number; y: number } | null>(null)
+  const lastTriggerRef = useRef<HTMLButtonElement | null>(null)
+  const closeButtonRef = useRef<HTMLButtonElement | null>(null)
+
+  useEffect(() => {
+    if (activeIndex === null) {
+      lastTriggerRef.current?.focus()
+      return
+    }
+
+    closeButtonRef.current?.focus()
+  }, [activeIndex])
 
   useEffect(() => {
     if (activeIndex === null) return
@@ -52,7 +63,10 @@ export default function GalleryGrid({
             <button
               type="button"
               className="card focus-ring text-left"
-              onClick={() => setActiveIndex(idx)}
+              onClick={(event) => {
+                lastTriggerRef.current = event.currentTarget
+                setActiveIndex(idx)
+              }}
               aria-label={
                 language === "ta"
                   ? `புகைப்படத்தைத் திற: ${idx + 1}`
@@ -128,6 +142,7 @@ export default function GalleryGrid({
                   {language === "ta" ? "அடுத்தது" : "Next"}
                 </button>
                 <button
+                  ref={closeButtonRef}
                   type="button"
                   className="btn btn-sm btn-secondary-invert !rounded-xl"
                   onClick={() => setActiveIndex(null)}

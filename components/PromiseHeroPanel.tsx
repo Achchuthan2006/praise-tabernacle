@@ -95,7 +95,7 @@ function DailyPromiseTile({
   const verseRefEn = promise?.verseRefEn ?? ""
   const verseRefTa = promise?.verseRefTa ?? ""
   const descriptionEn = promise?.descriptionEn ?? "A daily promise verse with a short devotional."
-  const descriptionTa = promise?.descriptionTa ?? "தினசரி வாக்குத்தத்த வசனம் மற்றும் குறுந் தியானம்."
+  const descriptionTa = promise?.descriptionTa ?? "தினசரி வாக்குத்தத்த வசனமும் குறும் தியானமும்."
 
   return (
     <article className="promise-card group relative overflow-hidden rounded-2xl border border-white/15 bg-white/10 p-5 shadow-[0_18px_48px_rgba(0,0,0,0.18)] backdrop-blur">

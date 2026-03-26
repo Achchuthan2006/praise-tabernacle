@@ -39,7 +39,7 @@ export default function VerseOfTheDay({
               <p className="mt-1 text-sm text-churchBlue/70">{subtitle}</p>
             </div>
             <p className="text-xs text-churchBlue/60">
-              Short excerpt only. Read the full verse on Bible.com (English) and TamilChristianSongs.in (Tamil).
+              Short excerpt only. Read the full verse on BibleGateway (English) and TamilChristianSongs.in (Tamil).
             </p>
           </div>
 
@@ -52,7 +52,7 @@ export default function VerseOfTheDay({
                       <div className="votd-image-sheen" aria-hidden="true" />
                       <Image
                         src={imageSrcs[0]}
-                        alt="Verse of the Day featured background image"
+                        alt={`${title} featured artwork`}
                         fill
                         sizes="100vw"
                         className="votd-image object-cover"
@@ -70,7 +70,7 @@ export default function VerseOfTheDay({
                         <div className="votd-image-sheen" aria-hidden="true" />
                         <Image
                           src={src}
-                          alt="Verse of the Day background image"
+                          alt={`${title} artwork ${idx + 1}`}
                           fill
                           sizes="(min-width: 1024px) 520px, (min-width: 640px) 50vw, 100vw"
                           className="votd-image object-cover"
@@ -105,7 +105,7 @@ export default function VerseOfTheDay({
                     aria-label={
                       v.tamil
                         ? `தமிழ் வசனத்தைத் திற: ${v.reference} (TamilChristianSongs.in)`
-                        : `Open ${v.reference} on Bible.com`
+                        : `Open ${v.reference} on BibleGateway`
                     }
                     title={v.tamil ? "தமிழில் திற (TamilChristianSongs.in)" : "Open on Bible.com"}
                   />
@@ -145,7 +145,7 @@ const defaultVerses: [Verse, Verse] = [
     reference: "John 3:16 (NIV)",
     query: "John 3:16",
     version: "NIV",
-    href: "https://www.bible.com/search/bible?q=John%203%3A16&version=NIV",
+    href: "https://www.biblegateway.com/passage/?search=John%203%3A16&version=NIV",
     ctaLabel: "Read Full Verse (English)",
   },
   {

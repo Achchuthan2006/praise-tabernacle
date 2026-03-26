@@ -89,8 +89,6 @@ const navItems: Array<NavItem> = [
       { type: "link", href: "/photos", key: "photos" },
     ],
   },
-  { type: "link", href: "/give", key: "give" },
-  { type: "link", href: "/contact", key: "contact" },
 ]
 
 type NavPreview = {
@@ -391,10 +389,10 @@ function buildMenuLayout(menu: NavMenuItem): MenuLayout {
   })
 
   const quickLinks: QuickLink[] = [
-    { href: "/watch", labelEn: "Watch", labelTa: "à®ªà®¾à®°à¯à®•à¯à®•", icon: "watch" },
-    { href: "/sermons", labelEn: "Sermons", labelTa: "à®ªà®¿à®°à®šà®™à¯à®•à®™à¯à®•à®³à¯", icon: "sermons" },
-    { href: "/prayer", labelEn: "Prayer", labelTa: "à®œà¯†à®ªà®®à¯", icon: "prayer" },
-    { href: "/give", labelEn: "Give", labelTa: "à®•à¯Šà®Ÿà¯à®™à¯à®•à®³à¯", icon: "give" },
+    { href: "/watch", labelEn: "Watch", labelTa: "பாருங்கள்", icon: "watch" },
+    { href: "/sermons", labelEn: "Sermons", labelTa: "பிரசங்கங்கள்", icon: "sermons" },
+    { href: "/prayer", labelEn: "Prayer", labelTa: "ஜெபம்", icon: "prayer" },
+    { href: "/give", labelEn: "Give", labelTa: "கொடுக்க", icon: "give" },
   ]
 
   let columns: [MenuGroup[], MenuGroup[]] = [[], []]
@@ -402,44 +400,44 @@ function buildMenuLayout(menu: NavMenuItem): MenuLayout {
   if (menu.id === "ourChurch") {
     columns = [
       [
-        group("Start here", "à®¤à¯Šà®Ÿà®•à¯à®•à®®à¯", ["/im-new", "/visit", "/about"]),
+        group("Start here", "தொடக்கம்", ["/im-new", "/visit", "/about"]),
       ],
       [
-        group("Leadership & worship", "à®¤à®²à¯ˆà®®à¯ˆ & à®†à®°à®¾à®¤à®©à¯ˆ", ["/pastor", "/communion"]),
+        group("Leadership & worship", "தலைமை மற்றும் ஆராதனை", ["/pastor", "/communion"]),
       ],
     ]
   } else if (menu.id === "ministries") {
     columns = [
       [
-        group("Explore", "à®ªà®¾à®°à¯à®•à¯à®•", ["/ministries"]),
-        group("Next generation", "à®…à®Ÿà¯à®¤à¯à®¤ à®¤à®²à¯ˆà®®à¯à®±à¯ˆ", ["/ministries/kids", "/ministries/youth"]),
-        group("Care & outreach", "à®…à®•à¯à®•à®±à¯ˆ & à®šà¯‡à®µà¯ˆ", ["/ministries/prayer-care", "/ministries/outreach"]),
+        group("Explore", "பாருங்கள்", ["/ministries"]),
+        group("Next generation", "அடுத்த தலைமுறை", ["/ministries/kids", "/ministries/youth"]),
+        group("Care & outreach", "அக்கறை மற்றும் சேவை", ["/ministries/prayer-care", "/ministries/outreach"]),
       ],
       [
-        group("Community", "à®šà®®à¯‚à®•à®®à¯", ["/ministries/mens", "/ministries/womens"]),
-        group("Missions & growth", "à®®à®¿à®·à®©à¯ & à®µà®³à®°à¯à®šà¯à®šà®¿", ["/ministries/missions", "/ministries/membership"]),
+        group("Community", "சமூகம்", ["/ministries/mens", "/ministries/womens"]),
+        group("Missions & growth", "மிஷன் மற்றும் வளர்ச்சி", ["/ministries/missions", "/ministries/membership"]),
       ],
     ]
   } else if (menu.id === "resources") {
     columns = [
       [
-        group("Watch & read", "Watch & read", ["/sermons", "/blog", "/devotionals"]),
-        group("Bible tools", "Bible tools", ["/bible-studies", "/bible", "/promises"]),
+        group("Watch & read", "பாருங்கள் மற்றும் வாசியுங்கள்", ["/sermons", "/blog", "/devotionals"]),
+        group("Bible tools", "வேதாகம வளங்கள்", ["/bible-studies", "/bible", "/promises"]),
       ],
       [
-        group("Library", "Library", ["/magazine", "/bookstore", "/photos"]),
+        group("Library", "நூலகம்", ["/magazine", "/bookstore", "/photos"]),
       ],
     ]
   } else {
     // getInvolved
     columns = [
       [
-        group("Connect", "à®‡à®£à¯ˆà®ªà¯à®ªà¯", ["/events", "/calendar", "/groups"]),
-        group("Prayer & care", "à®œà¯†à®ªà®®à¯ & à®…à®•à¯à®•à®±à¯ˆ", ["/prayer", "/membership"]),
+        group("Connect", "இணைப்பு", ["/events", "/calendar", "/groups"]),
+        group("Prayer & care", "ஜெபம் மற்றும் அக்கறை", ["/prayer", "/membership"]),
       ],
       [
-        group("Serve", "à®šà¯‡à®µà¯ˆ", ["/serve", "/missions"]),
-        group("Support", "à®†à®¤à®°à®µà¯", ["/partnership", "/give"]),
+        group("Serve", "சேவை", ["/serve", "/missions"]),
+        group("Support", "ஆதரவு", ["/partnership", "/give"]),
       ],
     ]
   }
@@ -454,141 +452,141 @@ function buildMenuLayout(menu: NavMenuItem): MenuLayout {
 const navPreviews: Record<string, NavPreview> = {
   "/bookings": {
     bodyEn: "Request building rental or meeting room reservations. We'll confirm availability and details.",
-    bodyTa: "à®•à®Ÿà¯à®Ÿà®¿à®Ÿ à®µà®¾à®Ÿà®•à¯ˆ à®…à®²à¯à®²à®¤à¯ à®•à¯‚à®Ÿà¯à®Ÿ à®…à®±à¯ˆ à®®à¯à®©à¯à®ªà®¤à®¿à®µà¯ à®•à¯‹à®°à¯à®™à¯à®•à®³à¯. à®•à®¿à®Ÿà¯ˆà®ªà¯à®ªà¯ à®®à®±à¯à®±à¯à®®à¯ à®µà®¿à®µà®°à®™à¯à®•à®³à¯ˆ à®‰à®±à¯à®¤à®¿à®ªà¯à®ªà®Ÿà¯à®¤à¯à®¤ à®ªà®¤à®¿à®²à¯ à®…à®³à®¿à®ªà¯à®ªà¯‹à®®à¯.",
+    bodyTa: "கட்டிட வாடகை அல்லது கூட்ட அறை முன்பதிவை கோருங்கள். கிடைப்பும் விவரங்களையும் நாங்கள் உறுதிப்படுத்துவோம்.",
     ctaEn: "Request booking",
-    ctaTa: "à®®à¯à®©à¯à®ªà®¤à®¿à®µà¯ à®•à¯‹à®°à¯à®™à¯à®•à®³à¯",
+    ctaTa: "முன்பதிவு கோருங்கள்",
   },
   "/visit": {
     bodyEn: "What to expect, where to park, and how to plan your first Sunday.",
-    bodyTa: "à®Žà®©à¯à®© à®Žà®¤à®¿à®°à¯à®ªà®¾à®°à¯à®•à¯à®•à®²à®¾à®®à¯, à®ªà®¾à®°à¯à®•à¯à®•à®¿à®™à¯, à®®à®±à¯à®±à¯à®®à¯ à®®à¯à®¤à®²à¯ à®žà®¾à®¯à®¿à®±à¯ˆ à®¤à®¿à®Ÿà¯à®Ÿà®®à®¿à®Ÿ à®‰à®¤à®µà®¿.",
+    bodyTa: "எதை எதிர்பார்க்கலாம், எங்கு வாகனம் நிறுத்தலாம், முதல் ஞாயிற்றுக்கிழமையை எப்படி திட்டமிடலாம் என்பதைக் காணுங்கள்.",
     ctaEn: "Plan your visit",
-    ctaTa: "à®µà®°à¯à®•à¯ˆà®¯à¯ˆ à®¤à®¿à®Ÿà¯à®Ÿà®®à®¿à®Ÿà¯à®™à¯à®•à®³à¯",
+    ctaTa: "வருகையை திட்டமிடுங்கள்",
   },
   "/im-new": {
     bodyEn: "A guided first-time visitor journey with virtual tour, FAQs, and next steps.",
-    bodyTa: "à®®à¯à®¤à®²à¯ à®®à¯à®±à¯ˆ à®µà®°à¯à®•à¯ˆà®¯à®¾à®³à®°à¯à®•à®³à¯à®•à¯à®•à®¾à®© à®µà®´à®¿à®•à®¾à®Ÿà¯à®Ÿà®¿: à®šà¯à®±à¯à®±à¯à®ªà¯à®ªà®¾à®°à¯à®µà¯ˆ, à®•à¯‡à®³à¯à®µà®¿à®•à®³à¯ & à®ªà®¤à®¿à®²à¯à®•à®³à¯, à®…à®Ÿà¯à®¤à¯à®¤ à®ªà®Ÿà®¿à®•à®³à¯.",
+    bodyTa: "முதல் முறை வருபவர்களுக்கான வழிகாட்டி, பொதுக் கேள்விகள், மற்றும் அடுத்த படிகளை இங்கே காணலாம்.",
     ctaEn: "I'm New",
-    ctaTa: "à®¨à®¾à®©à¯ à®ªà¯à®¤à®¿à®¤à¯",
+    ctaTa: "நான் புதிது",
   },
   "/about": {
     bodyEn: "Who we are, why we exist, and what our church family is like.",
-    bodyTa: "à®¨à®¾à®®à¯ à®¯à®¾à®°à¯, à®à®©à¯ à®‡à®°à¯à®•à¯à®•à®¿à®±à¯‹à®®à¯, à®®à®±à¯à®±à¯à®®à¯ à®Žà®™à¯à®•à®³à¯ à®šà®ªà¯ˆ à®•à¯à®Ÿà¯à®®à¯à®ªà®®à¯ à®Žà®ªà¯à®ªà®Ÿà®¿ à®Žà®©à¯à®ªà®¤à¯ˆà®•à¯ à®•à®¾à®£à®²à®¾à®®à¯.",
+    bodyTa: "நாம் யார், ஏன் இருக்கிறோம், எங்கள் சபைக் குடும்பம் எப்படி உள்ளது என்பதைக் அறியுங்கள்.",
     ctaEn: "Read about us",
-    ctaTa: "à®Žà®™à¯à®•à®³à¯ˆà®ªà¯ à®ªà®±à¯à®±à®¿",
+    ctaTa: "எங்களைப்பற்றி",
   },
   "/pastor": {
     bodyEn: "Meet our pastor, ministry focus, and how to connect for care and prayer.",
-    bodyTa: "à®ªà¯‹à®¤à®•à®°à¯ˆ à®šà®¨à¯à®¤à®¿à®•à¯à®•à®µà¯à®®à¯, à®šà¯‡à®µà¯ˆà®¯à®¿à®©à¯ à®•à®µà®©à®®à¯, à®®à®±à¯à®±à¯à®®à¯ à®…à®•à¯à®•à®±à¯ˆ/à®œà¯†à®ªà®¤à¯à®¤à®¿à®±à¯à®•à¯ à®¤à¯Šà®Ÿà®°à¯à®ªà¯ à®•à¯Šà®³à¯à®³à®µà¯à®®à¯.",
+    bodyTa: "எங்கள் போதகரை அறிந்து, சேவை நோக்கம் மற்றும் ஜெபம் அல்லது அக்கறைக்காக எப்படி தொடர்பு கொள்வது என்பதைப் பாருங்கள்.",
     ctaEn: "Meet the pastor",
-    ctaTa: "à®ªà¯‹à®¤à®•à®°à¯ˆ à®šà®¨à¯à®¤à®¿à®•à¯à®•",
+    ctaTa: "போதகரை அறியுங்கள்",
   },
   "/communion": {
     bodyEn: "Communion service messages and replays.",
-    bodyTa: "à®¤à®¿à®°à¯à®µà®¿à®°à¯à®¨à¯à®¤à¯ à®†à®°à®¾à®¤à®©à¯ˆ à®¤à¯Šà®Ÿà®°à¯à®ªà®¾à®© à®šà¯†à®¯à¯à®¤à®¿à®•à®³à¯ à®®à®±à¯à®±à¯à®®à¯ à®ªà®¤à®¿à®µà¯à®•à®³à¯.",
+    bodyTa: "திருவிருந்து ஆராதனையின் செய்திகள் மற்றும் மறுபார்வைகளை காணுங்கள்.",
     ctaEn: "Communion service",
-    ctaTa: "à®¤à®¿à®°à¯à®µà®¿à®°à¯à®¨à¯à®¤à¯ à®†à®°à®¾à®¤à®©à¯ˆ",
+    ctaTa: "திருவிருந்து",
   },
   "/ministries": {
     bodyEn: "Browse ministries and find a place to belong, serve, and grow.",
-    bodyTa: "à®šà¯‡à®µà¯ˆà®•à®³à¯ˆà®ªà¯ à®ªà®¾à®°à¯à®¤à¯à®¤à¯, à®šà¯‡à®°à¯à®¨à¯à®¤à®¿à®Ÿ, à®šà¯‡à®µà¯ˆ à®šà¯†à®¯à¯à®¯, à®µà®³à®° à®‡à®Ÿà®¤à¯à®¤à¯ˆ à®•à®£à¯à®Ÿà¯à®ªà®¿à®Ÿà®¿à®•à¯à®•à®µà¯à®®à¯.",
+    bodyTa: "சேவைகளைப் பாருங்கள்; இணைந்து, சேவை செய்து, வளர ஏற்ற இடத்தை கண்டுபிடியுங்கள்.",
     ctaEn: "View all ministries",
-    ctaTa: "à®…à®©à¯ˆà®¤à¯à®¤à¯ à®šà¯‡à®µà¯ˆà®•à®³à¯",
+    ctaTa: "அனைத்து சேவைகள்",
   },
   "/ministries/kids": {
     bodyEn: "A safe, joyful place for children to learn the Bible and grow.",
-    bodyTa: "à®•à¯à®´à®¨à¯à®¤à¯ˆà®•à®³à¯ à®µà¯‡à®¤à®®à¯ à®•à®±à¯à®±à¯à®•à¯ à®•à¯Šà®£à¯à®Ÿà¯ à®µà®³à®° à®ªà®¾à®¤à¯à®•à®¾à®ªà¯à®ªà®¾à®© à®®à®•à®¿à®´à¯à®šà¯à®šà®¿à®¯à®¾à®© à®‡à®Ÿà®®à¯.",
+    bodyTa: "குழந்தைகள் வேதாகமத்தை கற்று மகிழ்ச்சியாக வளர ஒரு பாதுகாப்பான இடம்.",
     ctaEn: "Kids ministry",
-    ctaTa: "à®•à¯à®´à®¨à¯à®¤à¯ˆà®•à®³à¯ à®šà¯‡à®µà¯ˆ",
+    ctaTa: "குழந்தைகள் சேவை",
   },
   "/ministries/youth": {
     bodyEn: "Youth community for students to grow in faith, friendship, and Scripture.",
-    bodyTa: "à®‡à®³à¯ˆà®žà®°à¯à®•à®³à¯ à®µà®¿à®šà¯à®µà®¾à®šà®®à¯, à®¨à®Ÿà¯à®ªà¯, à®µà¯‡à®¤à®¤à¯à®¤à®¿à®²à¯ à®µà®³à®° à®’à®°à¯ à®šà®®à¯‚à®• à®‡à®Ÿà®®à¯.",
+    bodyTa: "இளைஞர்கள் விசுவாசம், நட்பு, மற்றும் வேதாகமத்தில் வளர ஒரு சமூக இடம்.",
     ctaEn: "Youth ministry",
-    ctaTa: "à®‡à®³à¯ˆà®žà®°à¯ à®šà¯‡à®µà¯ˆ",
+    ctaTa: "இளைஞர் சேவை",
   },
   "/ministries/prayer-care": {
     bodyEn: "Prayer support and gentle care for anyone who needs encouragement.",
-    bodyTa: "à®‰à®±à¯à®šà®¾à®•à®®à¯ à®¤à¯‡à®µà¯ˆà®ªà¯à®ªà®Ÿà¯à®ªà®µà®°à¯à®•à®³à¯à®•à¯à®•à¯ à®œà¯†à®ª à®†à®¤à®°à®µà¯à®®à¯ à®…à®•à¯à®•à®±à¯ˆà®¯à¯à®®à¯.",
+    bodyTa: "உற்சாகம் தேவைப்படுபவர்களுக்கு ஜெப ஆதரவும் அன்பான அக்கறையும்.",
     ctaEn: "Prayer & care",
-    ctaTa: "à®œà¯†à®ªà®®à¯ & à®…à®•à¯à®•à®±à¯ˆ",
+    ctaTa: "ஜெபம் மற்றும் அக்கறை",
   },
   "/ministries/outreach": {
     bodyEn: "Serve Mississauga with practical help, visits, and community support.",
-    bodyTa: "à®¨à®Ÿà¯ˆà®®à¯à®±à¯ˆ à®‰à®¤à®µà®¿, à®šà®¨à¯à®¤à®¿à®ªà¯à®ªà¯, à®šà®®à¯‚à®• à®†à®¤à®°à®µà¯à®Ÿà®©à¯ Mississauga-à®µà¯ˆ à®šà¯‡à®µà®¿à®•à¯à®•à®µà¯à®®à¯.",
+    bodyTa: "நடைமுறை உதவி, சந்திப்பு, மற்றும் சமூக ஆதரவின் மூலம் மிசிசாகாவை சேவியுங்கள்.",
     ctaEn: "Outreach",
-    ctaTa: "à®šà®®à¯‚à®• à®šà¯‡à®µà¯ˆ",
+    ctaTa: "சமூக சேவை",
   },
   "/ministries/mens": {
     bodyEn: "Brotherhood, prayer, and practical discipleship for men.",
-    bodyTa: "à®†à®£à¯à®•à®³à¯à®•à¯à®•à¯ à®šà®•à¯‹à®¤à®°à®¤à¯à®¤à¯à®µà®®à¯, à®œà¯†à®ªà®®à¯, à®®à®±à¯à®±à¯à®®à¯ à®¨à®Ÿà¯ˆà®®à¯à®±à¯ˆ à®šà¯€à®Ÿà®¤à¯à®¤à¯à®µà®®à¯.",
+    bodyTa: "ஆண்களுக்கான சகோதரத்துவம், ஜெபம், மற்றும் நடைமுறை சீடத்துவம்.",
     ctaEn: "Men's ministry",
-    ctaTa: "à®†à®£à¯à®•à®³à¯ à®šà¯‡à®µà¯ˆ",
+    ctaTa: "ஆண்கள் சேவை",
   },
   "/ministries/womens": {
     bodyEn: "Monthly prayer and encouragement for women.",
-    bodyTa: "à®ªà¯†à®£à¯à®•à®³à¯à®•à¯à®•à®¾à®© à®®à®¾à®¤ à®œà¯†à®ªà®®à¯à®®à¯ à®‰à®±à¯à®šà®¾à®•à®®à¯à®®à¯.",
+    bodyTa: "பெண்களுக்கான மாதாந்திர ஜெபமும் உற்சாகமும்.",
     ctaEn: "Women's prayer",
-    ctaTa: "à®ªà¯†à®£à¯à®•à®³à¯ à®œà¯†à®ªà®®à¯",
+    ctaTa: "பெண்கள் ஜெபம்",
   },
   "/ministries/missions": {
     bodyEn: "Local and global missions through prayer, giving, and service.",
-    bodyTa: "à®œà¯†à®ªà®®à¯, à®•à¯Šà®Ÿà¯ˆ, à®šà¯‡à®µà¯ˆ à®®à¯‚à®²à®®à¯ à®‰à®³à¯à®³à¯‚à®°à¯ à®®à®±à¯à®±à¯à®®à¯ à®‰à®²à®• à®®à®¿à®·à®©à¯.",
+    bodyTa: "ஜெபம், கொடை, மற்றும் சேவையின் மூலம் உள்ளூர் மற்றும் உலக மிஷனை ஆதரியுங்கள்.",
     ctaEn: "Missions",
-    ctaTa: "à®®à®¿à®·à®©à¯",
+    ctaTa: "மிஷன்",
   },
   "/ministries/membership": {
     bodyEn: "Learn our story and take a next step into church life through membership.",
-    bodyTa: "à®Žà®™à¯à®•à®³à¯ à®•à®¤à¯ˆà®¯à¯ˆ à®…à®±à®¿à®¨à¯à®¤à¯, à®‰à®±à¯à®ªà¯à®ªà®¿à®©à®°à¯ à®®à¯‚à®²à®®à¯ à®šà®ªà¯ˆ à®µà®¾à®´à¯à®•à¯à®•à¯ˆà®¯à®¿à®²à¯ à®…à®Ÿà¯à®¤à¯à®¤ à®ªà®Ÿà®¿ à®Žà®Ÿà¯à®•à¯à®•à®µà¯à®®à¯.",
+    bodyTa: "எங்கள் கதையை அறிந்து, உறுப்பினர் வழியாக சபை வாழ்க்கையில் அடுத்த படியை எடுக்கவும்.",
     ctaEn: "Membership class",
-    ctaTa: "à®‰à®±à¯à®ªà¯à®ªà®¿à®©à®°à¯ à®µà®•à¯à®ªà¯à®ªà¯",
+    ctaTa: "உறுப்பினர் வகுப்பு",
   },
   "/events": {
     bodyEn: "Upcoming events, recurring gatherings, and past highlights.",
-    bodyTa: "à®µà®°à®µà®¿à®°à¯à®•à¯à®•à¯à®®à¯ à®¨à®¿à®•à®´à¯à®µà¯à®•à®³à¯, à®¤à¯Šà®Ÿà®°à¯à®®à¯ à®•à¯‚à®Ÿà¯à®•à¯ˆà®•à®³à¯, à®®à®±à¯à®±à¯à®®à¯ à®•à®Ÿà®¨à¯à®¤ à®šà®¿à®±à®ªà¯à®ªà¯à®•à®³à¯.",
+    bodyTa: "வரவிருக்கும் நிகழ்வுகள், தொடரும் கூடுகைகள், மற்றும் கடந்த சிறப்புகளைப் பாருங்கள்.",
     ctaEn: "View events",
-    ctaTa: "à®¨à®¿à®•à®´à¯à®µà¯à®•à®³à¯",
+    ctaTa: "நிகழ்வுகள்",
   },
   "/calendar": {
     bodyEn: "Browse events by date and subscribe via iCal/Google Calendar.",
-    bodyTa: "à®¤à¯‡à®¤à®¿à®¯à®¿à®©à¯à®ªà®Ÿà®¿ à®¨à®¿à®•à®´à¯à®µà¯à®•à®³à¯ˆ à®ªà®¾à®°à¯à®•à¯à®•à®µà¯à®®à¯; iCal/Google Calendar à®®à¯‚à®²à®®à¯ subscribe à®šà¯†à®¯à¯à®¯à®µà¯à®®à¯.",
+    bodyTa: "தேதிப்படி நிகழ்வுகளைப் பாருங்கள்; iCal அல்லது Google Calendar மூலம் இணைக்கவும்.",
     ctaEn: "Open calendar",
-    ctaTa: "à®¨à®¾à®Ÿà¯à®•à®¾à®Ÿà¯à®Ÿà®¿",
+    ctaTa: "நாட்காட்டி",
   },
   "/groups": {
     bodyEn: "Find a small group to connect, pray, and grow together.",
-    bodyTa: "à®‡à®£à¯ˆà®¯, à®œà¯†à®ªà®¿à®•à¯à®•, à®’à®©à¯à®±à®¾à®• à®µà®³à®° à®’à®°à¯ à®šà®¿à®±à¯ à®•à¯à®´à¯à®µà¯ˆ à®•à®£à¯à®Ÿà¯à®ªà®¿à®Ÿà®¿à®•à¯à®•à®µà¯à®®à¯.",
+    bodyTa: "இணைந்து, ஜெபித்து, ஒன்றாக வளர ஒரு சிறு குழுவைத் தேர்ந்தெடுக்கவும்.",
     ctaEn: "Find a group",
-    ctaTa: "à®•à¯à®´à¯ à®¤à¯‡à®Ÿà¯",
+    ctaTa: "குழுவைத் தேடுங்கள்",
   },
   "/serve": {
     bodyEn: "Volunteer opportunities: welcome, worship/tech, kids, outreach, and more.",
-    bodyTa: "à®¤à®©à¯à®©à®¾à®°à¯à®µ à®µà®¾à®¯à¯à®ªà¯à®ªà¯à®•à®³à¯: à®µà®°à®µà¯‡à®±à¯à®ªà¯, à®†à®°à®¾à®¤à®©à¯ˆ/à®Ÿà¯†à®•à¯, à®•à¯à®´à®¨à¯à®¤à¯ˆà®•à®³à¯, à®šà®®à¯‚à®• à®šà¯‡à®µà¯ˆ, à®®à¯‡à®²à¯à®®à¯ à®ªà®².",
+    bodyTa: "வரவேற்பு, ஆராதனை/டெக், குழந்தைகள், சமூக சேவை போன்ற தன்னார்வ வாய்ப்புகளைப் பாருங்கள்.",
     ctaEn: "Serve",
-    ctaTa: "à®šà¯‡à®µà¯ˆ",
+    ctaTa: "சேவை",
   },
   "/membership": {
     bodyEn: "Membership process, what the class covers, and how to get started.",
-    bodyTa: "à®‰à®±à¯à®ªà¯à®ªà®¿à®©à®°à¯ à®¨à®Ÿà¯ˆà®®à¯à®±à¯ˆ, à®µà®•à¯à®ªà¯à®ªà¯ à®‰à®³à¯à®³à®Ÿà®•à¯à®•à®®à¯, à®®à®±à¯à®±à¯à®®à¯ à®¤à¯Šà®Ÿà®™à¯à®•à¯à®µà®¤à¯ à®Žà®ªà¯à®ªà®Ÿà®¿.",
+    bodyTa: "உறுப்பினர் நடைமுறை, வகுப்பில் என்ன கற்பிக்கப்படுகிறது, எப்படி தொடங்கலாம் என்பதைக் காணுங்கள்.",
     ctaEn: "Membership",
-    ctaTa: "à®‰à®±à¯à®ªà¯à®ªà®¿à®©à®°à¯",
+    ctaTa: "உறுப்பினர்",
   },
   "/missions": {
     bodyEn: "Mission partners and how to pray, give, and serve with us.",
-    bodyTa: "à®®à®¿à®·à®©à¯ à®•à¯‚à®Ÿà¯à®Ÿà®¾à®³à®¿à®•à®³à¯ à®®à®±à¯à®±à¯à®®à¯ à®Žà®™à¯à®•à®³à¯à®Ÿà®©à¯ à®œà¯†à®ªà®¿à®•à¯à®•/à®•à¯Šà®Ÿà¯ˆà®•à¯à®•/à®šà¯‡à®µà¯ˆ à®šà¯†à®¯à¯à®¯ à®µà®´à®¿à®•à®³à¯.",
+    bodyTa: "எங்கள் மிஷன் துணையாளர்களுடன் ஜெபிக்க, கொடுக்க, மற்றும் சேவை செய்யும் வழிகளை அறியுங்கள்.",
     ctaEn: "Missions",
-    ctaTa: "à®®à®¿à®·à®©à¯",
+    ctaTa: "மிஷன்",
   },
   "/partnership": {
     bodyEn: "Partnership tiers that connect giving to clear ministry outcomes.",
-    bodyTa: "à®•à¯Šà®Ÿà¯ˆ à®®à¯‚à®²à®®à¯ à®¤à¯†à®³à®¿à®µà®¾à®© à®šà¯‡à®µà¯ˆ à®µà®¿à®³à¯ˆà®µà¯à®•à®³à¯à®Ÿà®©à¯ à®‡à®£à¯ˆà®•à¯à®•à¯à®®à¯ à®•à¯‚à®Ÿà¯à®Ÿà®¾à®£à¯à®®à¯ˆ à®¤à®¿à®Ÿà¯à®Ÿà®™à¯à®•à®³à¯.",
+    bodyTa: "கொடையை தெளிவான சேவை விளைவுகளுடன் இணைக்கும் கூட்டாண்மை திட்டங்களைப் பாருங்கள்.",
     ctaEn: "Partnership",
-    ctaTa: "à®•à¯‚à®Ÿà¯à®Ÿà®¾à®£à¯à®®à¯ˆ",
+    ctaTa: "கூட்டாண்மை",
   },
   "/give": {
     bodyEn: "Give as an act of worship and support the mission of the church.",
-    bodyTa: "à®†à®°à®¾à®¤à®©à¯ˆà®¯à®¿à®©à¯ à®’à®°à¯ à®ªà®•à¯à®¤à®¿à®¯à®¾à®• à®•à¯Šà®Ÿà¯à®¤à¯à®¤à¯, à®šà®ªà¯ˆà®¯à®¿à®©à¯ à®ªà®£à®¿à®¯à¯ˆ à®†à®¤à®°à®¿à®•à¯à®•à®µà¯à®®à¯.",
+    bodyTa: "ஆராதனையின் ஒரு பகுதியாக கொடுத்து, சபையின் பணியை ஆதரியுங்கள்.",
     ctaEn: "Give",
-    ctaTa: "à®•à¯Šà®Ÿà¯à®™à¯à®•à®³à¯",
+    ctaTa: "கொடுக்க",
   },
 }
 
@@ -600,9 +598,13 @@ export default function Navbar() {
   const safePathname = hydrated ? pathname : ""
   // Keep SSR/client markup stable even if the language preference differs at hydration time.
   const searchLabel = "Search"
-  const mobileMenuOpenLabel = "Open menu / à®®à¯†à®©à¯à®µà¯ˆ à®¤à®¿à®±"
-  const mobileMenuCloseLabel = "Close menu / à®®à¯†à®©à¯à®µà¯ˆ à®®à¯‚à®Ÿà¯"
-  const offeringsDialogLabel = "Tithes and offerings / à®¤à®šà®®à®ªà®¾à®•à®®à¯à®®à¯ à®•à®¾à®£à®¿à®•à¯à®•à¯ˆà®•à®³à¯à®®à¯"
+  const mobileMenuOpenLabel = "Open menu / பட்டியலை திற"
+  const mobileMenuCloseLabel = "Close menu / பட்டியலை மூடு"
+  const offeringsDialogLabel = "Tithes and offerings / தசமபாகமும் காணிக்கைகளும்"
+  const careCtaEn = "Request Care"
+  const careCtaTa = "அக்கறை கோருங்கள்"
+  const offeringsCtaEn = "Tithes & Offerings"
+  const offeringsCtaTa = "தசமபாகமும் காணிக்கைகளும்"
   const [openMenu, setOpenMenu] = useState<NavMenuItem["id"] | null>(null)
   const [offeringsOpen, setOfferingsOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
@@ -748,6 +750,8 @@ export default function Navbar() {
 
   const activeDesktopKey = useMemo(() => {
     if (offeringsOpen) return "offerings"
+    if (activeHref === "/care") return "care"
+    if (activeHref === "/give") return "offerings"
     for (const item of navItems) {
       if (item.type === "link") {
         if (item.href === activeHref) return item.href
@@ -849,8 +853,6 @@ export default function Navbar() {
   }, [menuPreviewHref, openMenu])
 
   useEffect(() => {
-    if (typeof window === "undefined") return
-
     const onScroll = () => {
       if (scrollRafRef.current) return
       scrollRafRef.current = window.requestAnimationFrame(() => {
@@ -867,57 +869,47 @@ export default function Navbar() {
       if (scrollRafRef.current) cancelAnimationFrame(scrollRafRef.current)
       scrollRafRef.current = null
     }
-  }, [open, openMenu, offeringsOpen])
+  }, [])
 
   return (
     <header
-      suppressHydrationWarning
       className={[
         "navbar sticky top-0 z-50",
         scrolled ? "scrolled" : "",
       ].join(" ")}
     >
-      <Container className="flex items-center justify-between gap-3 py-3 xl:gap-4 xl:py-4">
+      <Container
+        className={[
+          "flex items-center justify-between gap-3 py-2.5 lg:grid lg:grid-cols-[auto,minmax(0,1fr),auto] lg:items-center lg:py-3",
+          language === "ta" ? "lg:gap-5 xl:gap-6" : "lg:gap-8 xl:gap-10",
+        ].join(" ")}
+      >
         <Link
           href="/"
-          className="group flex items-center gap-3 focus-ring rounded-lg"
+          className="group flex items-center gap-3 focus-ring rounded-lg lg:justify-self-start"
           onClick={() => setOpen(false)}
           aria-label={`${siteConfig.nameEn} - ${siteConfig.nameTa}`}
         >
-          <div className="navbar-logo-wrap logo-container nav-logo-glow shrink-0" suppressHydrationWarning>
+          <div className="logo-container shrink-0">
             <BrandLogo className="h-auto w-full object-contain" priority />
           </div>
           <span className="sr-only">{siteConfig.nameEn}</span>
         </Link>
 
-         <nav
-           className={[
-             "hidden flex-1 items-center justify-end gap-1 xl:flex xl:gap-2",
-           ].join(" ")}
-           aria-label="Primary navigation"
-         >
+        <nav className="hidden min-w-0 flex-1 items-center lg:flex" aria-label="Primary navigation">
           <div
-            className="relative flex items-center gap-0.5 xl:gap-1"
+            className={[
+              "relative flex min-w-0 flex-1 items-center justify-start gap-1 pl-2 pr-2",
+              language === "ta"
+                ? "lg:gap-1 lg:pl-2 lg:pr-1 xl:gap-1.5 xl:pl-2"
+                : "lg:gap-1.5 lg:pl-3 lg:pr-2 xl:gap-2 xl:pl-4",
+            ].join(" ")}
             ref={desktopNavRef}
             onMouseLeave={() => {
               setHoveredKey(null)
               setOfferingsOpen(false)
             }}
           >
-              <div
-                aria-hidden="true"
-                className={[
-                  "pointer-events-none absolute -bottom-1 h-[6px] rounded-full blur-[0.2px]",
-                  "bg-[linear-gradient(90deg,rgb(var(--primary-purple)),rgb(var(--primary-teal)))]",
-                  "shadow-[0_6px_18px_rgb(var(--accent-purple-light)_/_0.55)]",
-                  "transition-[transform,width,opacity] duration-300 ease-out",
-                  indicator.visible ? "opacity-100" : "opacity-0",
-                ].join(" ")}
-                style={{
-                  width: `${Math.max(0, indicator.width - 12)}px`,
-                  transform: `translateX(${indicator.left + 6}px)`,
-                }}
-              />
             {navItems.map((item) => {
               if (item.type === "link") {
                 const isActive = item.href === activeHref
@@ -937,8 +929,8 @@ export default function Navbar() {
                     <Lang
                       en={labelEn}
                       ta={labelTa}
-                      enClassName="text-[13px] whitespace-nowrap"
-                      taClassName="font-tamil text-[13px] whitespace-nowrap"
+                      enClassName="whitespace-nowrap text-[13px]"
+                      taClassName="font-tamil whitespace-nowrap text-[11px] xl:text-[11.5px]"
                     />
                   </NavLink>
                 )
@@ -954,7 +946,7 @@ export default function Navbar() {
               const labelTa = (() => {
                 if (item.id === "ourChurch") return t(ui.navGroups.ourChurch, "ta")
                 if (item.id === "getInvolved") return t(ui.navGroups.getInvolved, "ta")
-                if (item.id === "resources") return "Resources"
+                if (item.id === "resources") return "வளங்கள்"
                 return t(ui.nav.ministries, "ta")
               })()
 
@@ -968,7 +960,7 @@ export default function Navbar() {
                   <button
                     type="button"
                     className={[
-                      "nav-link focus-ring inline-flex whitespace-nowrap items-center gap-1 rounded-full px-2.5 py-2 text-[13px] font-medium",
+                      "nav-link focus-ring inline-flex items-center gap-1 whitespace-nowrap rounded-full px-2.5 py-2 text-[13px] font-medium lg:px-3 xl:px-3.5",
                       isActive || openMenu === item.id ? "active" : "",
                     ].join(" ")}
                     aria-expanded={openMenu === item.id}
@@ -982,8 +974,8 @@ export default function Navbar() {
                     <Lang
                       en={labelEn}
                       ta={labelTa}
-                      enClassName="text-[13px] whitespace-nowrap"
-                      taClassName="font-tamil text-[13px] whitespace-nowrap"
+                      enClassName="whitespace-nowrap text-[13px]"
+                      taClassName="font-tamil whitespace-nowrap text-[11px] xl:text-[11.5px]"
                     />
                     <span
                       className={[
@@ -1081,7 +1073,7 @@ export default function Navbar() {
 
                         <div className="border-t border-churchBlue/10 bg-churchBlueSoft p-4 lg:border-l lg:border-t-0">
                           <div className="text-xs font-semibold tracking-wide text-churchBlue/60">
-                            {language === "ta" ? "à®®à¯à®©à¯à®©à¯‹à®Ÿà¯à®Ÿà®®à¯" : "Preview"}
+                            {language === "ta" ? "முன்னோட்டம்" : "Preview"}
                           </div>
                           <div className="mt-2 text-sm font-semibold text-churchBlue">
                             {(() => {
@@ -1099,7 +1091,7 @@ export default function Navbar() {
                             {(() => {
                               const preview = navPreviews[menuPreviewHref]
                               if (!preview)
-                                return language === "ta" ? "à®¤à¯Šà®Ÿà®°à¯à®¨à¯à®¤à¯ à®ªà®¾à®°à¯à®•à¯à®• à®•à®¿à®³à®¿à®•à¯ à®šà¯†à®¯à¯à®¯à¯à®™à¯à®•à®³à¯." : "Click to explore this page."
+                                return language === "ta" ? "இந்தப் பக்கத்தை பார்க்க கிளிக் செய்யுங்கள்." : "Click to explore this page."
                               return language === "ta" ? preview.bodyTa : preview.bodyEn
                             })()}
                           </p>
@@ -1111,14 +1103,14 @@ export default function Navbar() {
                             >
                               {(() => {
                                 const preview = navPreviews[menuPreviewHref]
-                                if (!preview) return language === "ta" ? "à®¤à®¿à®±à®•à¯à®•" : "Open"
-                                return language === "ta" ? preview.ctaTa ?? "à®¤à®¿à®±à®•à¯à®•" : preview.ctaEn ?? "Open"
+                                if (!preview) return language === "ta" ? "திற" : "Open"
+                                return language === "ta" ? preview.ctaTa ?? "திற" : preview.ctaEn ?? "Open"
                               })()}
                             </Link>
 
                             <div className="rounded-xl border border-churchBlue/10 bg-white/70 p-3">
                               <div className="text-[11px] font-semibold tracking-wide text-churchBlue/60">
-                                {language === "ta" ? "à®µà®¿à®°à¯ˆà®µà¯ à®‡à®£à¯ˆà®ªà¯à®ªà¯à®•à®³à¯" : "Quick links"}
+                                {language === "ta" ? "விரைவு இணைப்புகள்" : "Quick links"}
                               </div>
                               <div className="mt-2 grid gap-2">
                                 {buildMenuLayout(item).quickLinks.map((q) => (
@@ -1152,19 +1144,25 @@ export default function Navbar() {
             })}
           </div>
 
+        </nav>
+
+        <div className="navbar-actions hidden shrink-0 items-center lg:flex lg:justify-self-end">
           <Link
             href="/care"
             className={[
-              "btn btn-sm btn-primary whitespace-nowrap",
+              "btn btn-sm btn-primary whitespace-nowrap !h-11 !min-h-11",
+              language === "ta" ? "px-4 xl:px-[1.05rem]" : "px-5",
+              "nav-cta",
               careActive ? "ring-2 ring-white/80 ring-offset-2 ring-offset-transparent" : "",
             ].join(" ")}
+            data-navkey="care"
+            onPointerEnter={() => setHoveredKey("care")}
+            onFocus={() => setHoveredKey("care")}
+            title="Request Care / அக்கறை கோருங்கள்"
+            aria-label="Request Care / அக்கறை கோருங்கள்"
             aria-current={careActive ? "page" : undefined}
           >
-            <Lang
-              en={t(ui.cta.requestCare, "en")}
-              ta={t(ui.cta.requestCare, "ta")}
-              taClassName="font-tamil"
-            />
+            <Lang en={careCtaEn} ta={careCtaTa} taClassName="font-tamil" />
           </Link>
 
           <div
@@ -1180,18 +1178,22 @@ export default function Navbar() {
             <Link
               href="/give"
               className={[
-                "btn btn-sm btn-offerings whitespace-nowrap",
+                "btn btn-sm btn-offerings whitespace-nowrap !h-11 !min-h-11",
+                language === "ta" ? "px-4 xl:px-[1.05rem]" : "px-5",
+                "nav-cta",
                 offeringsActive ? "ring-2 ring-white/80 ring-offset-2 ring-offset-transparent" : "",
               ].join(" ")}
               data-navkey="offerings"
               onPointerEnter={() => setHoveredKey("offerings")}
               onFocus={() => setHoveredKey("offerings")}
               onClick={() => setOfferingsOpen((v) => !v)}
+              title="Tithes & Offerings / தசமபாகமும் காணிக்கைகளும்"
+              aria-label="Tithes & Offerings / தசமபாகமும் காணிக்கைகளும்"
               aria-haspopup="dialog"
               aria-expanded={offeringsOpen}
               aria-current={offeringsActive ? "page" : undefined}
             >
-              <Lang en={t(ui.cta.offerings, "en")} ta={t(ui.cta.offerings, "ta")} taClassName="font-tamil" />
+              <Lang en={offeringsCtaEn} ta={offeringsCtaTa} taClassName="font-tamil" />
             </Link>
 
             {renderOfferings ? (
@@ -1210,11 +1212,11 @@ export default function Navbar() {
               >
                 <div className="p-5">
                   <div className="text-sm font-semibold text-churchBlue">
-                    {language === "ta" ? "à®¤à®šà®®à®ªà®¾à®•à®®à¯à®®à¯ à®•à¯Šà®Ÿà¯ˆà®•à®³à¯à®®à¯" : "Tithes & Offerings"}
+                    {language === "ta" ? "தசமபாகமும் காணிக்கைகளும்" : "Tithes & Offerings"}
                   </div>
                   <p className={["mt-2 text-sm leading-relaxed text-churchBlue/75", language === "ta" ? "font-tamil" : ""].join(" ")}>
                     {language === "ta"
-                      ? "à®¤à¯‡à®µà®©à¯ à®•à¯Šà®Ÿà¯à®¤à¯à®¤à®¤à®±à¯à®•à®¾à®© à®¨à®©à¯à®±à®¿, à®µà®¿à®šà¯à®µà®¾à®šà®®à¯, à®®à®±à¯à®±à¯à®®à¯ à®…à®©à¯à®ªà®¿à®©à¯ à®…à®Ÿà¯ˆà®¯à®¾à®³à®®à®¾à®• à®¨à®¾à®®à¯ à®•à¯Šà®Ÿà¯ˆà®•à¯à®•à®¿à®±à¯‹à®®à¯."
+                      ? "நன்றியுணர்வு, விசுவாசம், மற்றும் அன்பின் வெளிப்பாடாக நாம் கொடுக்கிறோம்."
                       : "We give as an act of worship, gratitude, and faithfulness."}
                   </p>
 
@@ -1232,14 +1234,14 @@ export default function Navbar() {
 
                   <div className="mt-5 grid gap-2 sm:grid-cols-2">
                     <Link href="/give" className="btn btn-sm btn-offerings w-full" onClick={() => setOfferingsOpen(false)}>
-                      {language === "ta" ? "à®•à¯Šà®Ÿà¯à®™à¯à®•à®³à¯" : "Give"}
+                      {language === "ta" ? "கொடுக்க" : "Give"}
                     </Link>
                     <Link
                       href="/contact"
                       className="btn btn-sm btn-secondary w-full"
                       onClick={() => setOfferingsOpen(false)}
                     >
-                      {language === "ta" ? "à®‰à®¤à®µà®¿" : "Need help?"}
+                      {language === "ta" ? "உதவி வேண்டுமா?" : "Need help?"}
                     </Link>
                   </div>
                 </div>
@@ -1251,7 +1253,7 @@ export default function Navbar() {
 
           <Link
             href="/search"
-            className="group focus-ring inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-white/15 bg-white/10 text-white transition-[transform,background-color,box-shadow] hover:bg-white/15 hover:shadow-[0_14px_40px_rgb(0_0_0_/_0.22)] active:scale-95"
+            className="header-search-button group focus-ring inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-churchBlue/12 bg-white text-churchBlue transition-[transform,background-color,box-shadow,border-color] active:scale-95"
             aria-label={searchLabel}
             onClick={() => {
               setOfferingsOpen(false)
@@ -1281,13 +1283,13 @@ export default function Navbar() {
               />
             </svg>
           </Link>
-        </nav>
+        </div>
 
-        <div className="flex items-center gap-2 xl:hidden">
+        <div className="flex items-center gap-2 lg:hidden">
           <LanguageToggle />
           <button
             type="button"
-            className="focus-ring inline-flex h-11 w-11 items-center justify-center rounded-xl border border-white/15 bg-white/10 text-white transition-colors hover:bg-white/15"
+            className="focus-ring inline-flex min-h-11 items-center gap-3 rounded-xl border border-churchBlue/15 bg-white px-3 text-churchBlue transition-colors hover:bg-churchBlueSoft"
             aria-label={open ? mobileMenuCloseLabel : mobileMenuOpenLabel}
             aria-expanded={open}
             aria-controls="mobile-nav"
@@ -1296,22 +1298,25 @@ export default function Navbar() {
             <span className="sr-only">
               {open ? mobileMenuCloseLabel : mobileMenuOpenLabel}
             </span>
+            <span className="text-sm font-semibold text-churchBlue">
+              {language === "ta" ? "பட்டியல்" : "Menu"}
+            </span>
             <div className="grid gap-1.5">
               <span
                 className={[
-                  "h-0.5 w-5 rounded bg-white transition",
+                  "h-0.5 w-5 rounded bg-churchBlue transition",
                   open ? "translate-y-2 rotate-45" : "",
                 ].join(" ")}
               />
               <span
                 className={[
-                  "h-0.5 w-5 rounded bg-white transition",
+                  "h-0.5 w-5 rounded bg-churchBlue transition",
                   open ? "opacity-0" : "opacity-100",
                 ].join(" ")}
               />
               <span
                 className={[
-                  "h-0.5 w-5 rounded bg-white transition",
+                  "h-0.5 w-5 rounded bg-churchBlue transition",
                   open ? "-translate-y-2 -rotate-45" : "",
                 ].join(" ")}
               />
@@ -1323,7 +1328,7 @@ export default function Navbar() {
       {renderMobileMenu ? (
         <div
           className={[
-            "fixed inset-0 z-[70] xl:hidden",
+            "fixed inset-0 z-[70] lg:hidden",
             "transition-opacity duration-200 ease-out",
             open ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none",
           ].join(" ")}
@@ -1346,7 +1351,7 @@ export default function Navbar() {
             <div className="flex h-full flex-col">
               <div className="sticky top-0 z-10 border-b border-white/15 bg-white/5 px-4 py-3 backdrop-blur">
                 <div className="flex items-center justify-between">
-                  <span className="text-sm font-semibold text-white">Menu</span>
+                  <span className="text-sm font-semibold text-white">{language === "ta" ? "பட்டியல்" : "Menu"}</span>
                   <button
                     type="button"
                     className="focus-ring inline-flex h-10 w-10 items-center justify-center rounded-xl border border-white/20 bg-white/10 text-white"
@@ -1363,13 +1368,13 @@ export default function Navbar() {
               <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain px-2 py-3">
                 <div className="grid gap-2 px-2">
                   <Link href="/care" onClick={() => setOpen(false)} className="btn btn-md btn-primary w-full">
-                    {t(ui.cta.requestCare, language)}
+                    {language === "ta" ? "அக்கறை கோருங்கள்" : "Request Care"}
                   </Link>
                   <Link href="/give" onClick={() => setOpen(false)} className="btn btn-md btn-offerings w-full">
-                    {language === "ta" ? "à®¤à®šà®®à®ªà®¾à®•à®®à¯à®®à¯ à®•à¯Šà®Ÿà¯ˆà®•à®³à¯à®®à¯" : "Tithes & Offerings"}
+                    {language === "ta" ? "தசமபாகமும் காணிக்கைகளும்" : "Tithes & Offerings"}
                   </Link>
                   <Link href="/search" onClick={() => setOpen(false)} className="btn btn-md btn-secondary w-full">
-                    {language === "ta" ? "à®¤à¯‡à®Ÿà®²à¯" : "Search"}
+                    {language === "ta" ? "தேடல்" : "Search"}
                   </Link>
                 </div>
 
@@ -1403,7 +1408,7 @@ export default function Navbar() {
                     const label = (() => {
                       if (item.id === "ourChurch") return t(ui.navGroups.ourChurch, language)
                       if (item.id === "getInvolved") return t(ui.navGroups.getInvolved, language)
-                      if (item.id === "resources") return language === "ta" ? "Resources" : "Resources"
+                      if (item.id === "resources") return language === "ta" ? "வளங்கள்" : "Resources"
                       return t(ui.nav.ministries, language)
                     })()
 
@@ -1494,7 +1499,7 @@ function NavLink({
       aria-label={ariaLabel}
       title={title}
       className={[
-        "nav-link focus-ring relative whitespace-nowrap rounded-full px-2.5 py-2 text-[13px] font-medium",
+        "nav-link focus-ring relative whitespace-nowrap rounded-full px-3 py-2 text-sm font-medium",
         active ? "active" : "",
       ].join(" ")}
       aria-current={active ? "page" : undefined}

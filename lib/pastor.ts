@@ -20,48 +20,48 @@ export type PastorProfile = {
   familyEn?: string
   familyTa?: string
   contactEmail: string
+  introVideoId?: string
 }
 
-// Update these details with verified info + photos (and permission for any personal/family details).
 export const pastorProfile: PastorProfile = {
   nameEn: "Pastor Mano Tharmalingam",
   nameTa: "போதகர் மனோ தர்மலிங்கம்",
   roleEn: "Senior Pastor",
-  roleTa: "முதன்மை ஆசாரியர்",
-  // Add a photo at /public/photos/pastor/pastor-mano.jpg when ready.
-  photoSrc: "/photos/pastor/pastor-mano.jpg",
+  roleTa: "முதன்மை போதகர்",
+  photoSrc: "/Pastor%20Mano.jpg",
   photoFallbackSrc: "/photos/pastor/pastor-placeholder.svg",
   bioEn: [
-    "Pastor Mano serves our church family with a calm, respectful, and Christ-centred heart.",
-    "He is passionate about prayer, clear Bible teaching, and helping families take practical next steps in faith.",
-    "Whether you are new to church or returning after a long time, you are welcome here.",
+    "Pastor Mano serves Praise Tabernacle with a calm, prayerful, and Christ-centred heart.",
+    "His ministry emphasises clear Bible teaching, pastoral care, and helping Tamil and English families take practical next steps in faith.",
+    "Whether you are exploring church for the first time or returning after many years, his desire is to help people feel welcomed, grounded, and encouraged in Jesus.",
   ],
   bioTa: [
-    "போதகர் மனோ எங்கள் சபைக் குடும்பத்தை அமைதி, மரியாதை, மற்றும் கிறிஸ்துவை மையமாகக் கொண்ட அன்புடன் சேவிக்கிறார்.",
-    "ஜெபம், தெளிவான வேதாகம போதனை, மற்றும் குடும்பங்கள் விசுவாசத்தில் நடைமுறை அடுத்த படிகளை எடுக்க உதவுவது இவரது ஆர்வம்.",
-    "நீங்கள் சபைக்கு புதிதாக இருந்தாலும் அல்லது நீண்ட இடைவெளிக்குப் பிறகு திரும்ப வந்தவராக இருந்தாலும், நீங்கள் இங்கே வரவேற்கப்படுகிறீர்கள்.",
+    "போதகர் மனோ துதியின் கூடார சபையை அமைதியான, ஜெபமுள்ள, கிறிஸ்துவை மையமாகக் கொண்ட இதயத்துடன் சேவிக்கிறார்.",
+    "அவருடைய ஊழியம் தெளிவான வேதாகம போதனை, மேய்ப்புப் பராமரிப்பு, மற்றும் தமிழ், ஆங்கில குடும்பங்கள் விசுவாசத்தில் நடைமுறை அடுத்த படிகளை எடுக்க உதவுவதில் கவனம் செலுத்துகிறது.",
+    "சபைக்கு முதன்முறையாக வருபவர்களாக இருந்தாலும் அல்லது பல ஆண்டுகள் கழித்து திரும்பி வருபவர்களாக இருந்தாலும், அனைவரும் இயேசுவில் வரவேற்கப்பட்டு, நிலைநிறுத்தப்பட்டு, ஊக்கப்படவேண்டும் என்பதே அவரின் விருப்பம்.",
   ],
   ministryFocusEn: [
     "Bible-based preaching and discipleship",
     "Prayer and pastoral care",
-    "Serving Tamil & English families across generations",
-    "Helping newcomers feel at home",
+    "Serving Tamil and English families across generations",
+    "Helping newcomers feel at home in church life",
   ],
   ministryFocusTa: [
-    "வேதாகம அடிப்படையிலான போதனை மற்றும் சீடத்துவம்",
-    "ஜெபம் மற்றும் மேய்ப்பர் அக்கறை",
-    "பல தலைமுறைகளில் தமிழ் & ஆங்கில குடும்பங்களுக்கு சேவை",
-    "புதியவர்களை குடும்பமாக இணைத்தல்",
+    "வேதாகம அடிப்படையிலான பிரசங்கமும் சீடத்துவமும்",
+    "ஜெபமும் மேய்ப்புப் பராமரிப்பும்",
+    "பல தலைமுறைகளில் தமிழ் மற்றும் ஆங்கில குடும்பங்களுக்கு சேவை செய்வது",
+    "புதியவர்கள் சபை வாழ்வில் வீட்டிலிருக்கிறதுபோல் உணர உதவுவது",
   ],
-  educationEn: ["Add verified education (seminary / degree / training)"],
-  educationTa: ["சரிபார்க்கப்பட்ட கல்வி (சேமினரி / பட்டம் / பயிற்சி) விவரங்களைச் சேர்க்கவும்"],
-  credentialsEn: ["Add ordination details", "Add ministry history (years, roles, churches)"],
-  credentialsTa: ["அபிஷேகம்/அங்கீகாரம் விவரங்களைச் சேர்க்கவும்", "சேவை வரலாறு (ஆண்டுகள், பொறுப்புகள்) சேர்க்கவும்"],
-  yearsOfServiceEn: "Add years of service (ex: Serving since 2015)",
-  yearsOfServiceTa: "சேவை ஆண்டுகள் (உதா: 2015 முதல் சேவை) சேர்க்கவும்",
-  officeHoursEn: "",
-  officeHoursTa: "",
-  familyEn: "Optional: Add a short family note (with permission).",
-  familyTa: "விருப்பம்: குடும்பக் குறிப்பைச் சேர்க்கவும் (அனுமதியுடன்).",
+  educationEn: [],
+  educationTa: [],
+  credentialsEn: [],
+  credentialsTa: [],
+  yearsOfServiceEn: "",
+  yearsOfServiceTa: "",
+  officeHoursEn: "Please contact the church office to arrange a pastoral appointment.",
+  officeHoursTa: "மேய்ப்பருடன் சந்திப்பு ஏற்பாடு செய்ய சபை அலுவலகத்தைத் தொடர்புகொள்ளுங்கள்.",
+  familyEn: "",
+  familyTa: "",
   contactEmail: "pastormano@praisetabernacle.org",
+  introVideoId: "",
 }

@@ -37,7 +37,7 @@ export default async function OpenGraphImage({ params }: { params: { slug: strin
       >
         <div style={{ display: "flex", flexDirection: "column", gap: 18 }}>
           <div style={{ fontSize: 20, letterSpacing: 2, textTransform: "uppercase", color: "#2a3b69", opacity: 0.7 }}>
-            {siteConfig.nameEn} • Sermon
+            {siteConfig.nameEn} " Sermon
           </div>
           <div style={{ fontSize: 54, fontWeight: 800, lineHeight: 1.1, color: "#1f2b4d" }}>
             {sermon.title}
@@ -50,7 +50,7 @@ export default async function OpenGraphImage({ params }: { params: { slug: strin
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end" }}>
           <div style={{ fontSize: 20, color: "#1f2b4d", opacity: 0.75 }}>
             {sermon.dateIso}
-            {sermon.speaker ? ` • ${sermon.speaker}` : ""}
+            {sermon.speaker ? ` " ${sermon.speaker}` : ""}
           </div>
           <div style={{ fontSize: 20, color: "#1f2b4d", opacity: 0.75 }}>{siteConfig.locationShort}</div>
         </div>

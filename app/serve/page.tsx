@@ -2,11 +2,12 @@ import type { Metadata } from "next"
 import Link from "next/link"
 
 import Lang from "@/components/language/Lang"
+import ServeEmailLink from "@/components/ServeEmailLink"
 import Container from "@/components/ui/Container"
 import PageHeader from "@/components/ui/PageHeader"
 import Reveal from "@/components/ui/Reveal"
-import { serveOpportunities, volunteerTrainingEvents } from "@/lib/serve"
 import { pageMetadata } from "@/lib/seo"
+import { serveOpportunities, volunteerTrainingEvents } from "@/lib/serve"
 
 export const metadata: Metadata = pageMetadata({
   title: "Serve",
@@ -121,12 +122,12 @@ export default function ServePage() {
                 <Reveal key={s.id} delay={idx === 0 ? 0 : idx === 1 ? 1 : 2}>
                   <div className="rounded-3xl border border-churchBlue/10 bg-white p-7 shadow-glow">
                     <div className="flex flex-wrap items-center gap-2">
-                      {s.tags.slice(0, 3).map((t) => (
+                      {s.tags.slice(0, 3).map((tag) => (
                         <span
-                          key={t}
+                          key={tag}
                           className="rounded-full border border-churchBlue/10 bg-churchBlueSoft px-3 py-1 text-xs font-semibold text-churchBlue/80"
                         >
-                          {t}
+                          {tag}
                         </span>
                       ))}
                     </div>
@@ -184,12 +185,12 @@ export default function ServePage() {
                       <Link href={`/serve/apply?opportunity=${encodeURIComponent(s.id)}`} className="btn btn-md btn-primary w-full">
                         <Lang en="Apply online" ta="ஆன்லைனில் விண்ணப்பிக்கவும்" taClassName="font-tamil" />
                       </Link>
-                      <a
-                        href={`mailto:${s.contactEmail}?subject=${encodeURIComponent(`Serve: ${s.titleEn}`)}`}
+                      <ServeEmailLink
+                        email={s.contactEmail}
+                        titleEn={s.titleEn}
+                        titleTa={s.titleTa}
                         className="btn btn-md btn-secondary w-full"
-                      >
-                        <Lang en="Email to serve" ta="மின்னஞ்சல்" taClassName="font-tamil" />
-                      </a>
+                      />
                     </div>
                   </div>
                 </Reveal>

@@ -162,6 +162,20 @@ export default function BookingRequestForm({
           {copy.body}
         </p>
 
+        {status === "success" || status === "error" ? (
+          <div
+            className={[
+              "mt-6 rounded-2xl border p-4 text-sm",
+              status === "success"
+                ? "border-emerald-200 bg-emerald-50 text-emerald-800"
+                : "border-red-200 bg-red-50 text-red-700",
+            ].join(" ")}
+            role={status === "error" ? "alert" : "status"}
+          >
+            {status === "success" ? copy.success : copy.error}
+          </div>
+        ) : null}
+
         <form
           className="mt-8 grid gap-5 border-t border-churchBlue/10 pt-8"
           onSubmit={onSubmit}
@@ -368,4 +382,3 @@ export default function BookingRequestForm({
     </div>
   )
 }
-

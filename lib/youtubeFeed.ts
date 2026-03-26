@@ -14,6 +14,11 @@ function decodeXml(value: string) {
     .replace(/&#39;/g, "'")
 }
 
+function normalizeTitle(value: string) {
+  // Fix known typo from upstream title data.
+  return value.replace(/\b20216\b/g, "2026")
+}
+
 function firstMatch(text: string, re: RegExp) {
   const m = re.exec(text)
   return m?.[1] ?? ""
@@ -48,7 +53,7 @@ export async function fetchYouTubePlaylistFeed(
       const href = firstMatch(entry, /<link[^>]+rel="alternate"[^>]+href="([^"]+)"/)
       const publishedAt = firstMatch(entry, /<published>([^<]+)<\/published>/)
 
-      const title = decodeXml(titleRaw.trim())
+      const title = normalizeTitle(decodeXml(titleRaw.trim()))
       const finalUrl = href || (videoId ? `https://www.youtube.com/watch?v=${videoId}` : "")
 
       if (!finalUrl || !title) continue
@@ -61,4 +66,3 @@ export async function fetchYouTubePlaylistFeed(
     return null
   }
 }
-

@@ -125,11 +125,11 @@ function formatTime(date: Date) {
 function whenText(event: Event) {
   if (isOneOffEvent(event) && event.startAtLocal) {
     const start = toLocalDate(event.startAtLocal)
-    return `${formatDate(start)} • ${formatTime(start)}`
+    return `${formatDate(start)} " ${formatTime(start)}`
   }
   if (event.recurrence) {
     const next = nextOccurrenceLocal(event.recurrence)
-    return `Next: ${formatDate(next)} • ${formatTime(next)}`
+    return `Next: ${formatDate(next)} " ${formatTime(next)}`
   }
   return ""
 }
@@ -148,11 +148,11 @@ export default function EventCard({ event }: { event: Event }) {
       <div className="event-image-wrapper relative h-40 sm:h-44">
         <Image
           src={imageSrc}
-          alt=""
+          alt={`Event image for ${event.title}`}
           fill
           sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
           className="event-image object-cover object-center"
-          priority={event.isMajor}
+          quality={72}
         />
       </div>
       <div className="card-content p-5">
@@ -162,7 +162,7 @@ export default function EventCard({ event }: { event: Event }) {
               <span className="text-sm font-semibold text-churchBlue">
                 {isOneOffEvent(event) && event.startAtLocal
                   ? formatDate(toLocalDate(event.startAtLocal))
-                  : "•"}
+                  : ""}
               </span>
             </div>
             <div className="leading-tight">

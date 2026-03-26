@@ -1,4 +1,4 @@
-﻿import type { Metadata } from "next"
+import type { Metadata } from "next"
 import Link from "next/link"
 
 import ContactMessageForm from "@/components/ContactMessageForm"
@@ -12,7 +12,7 @@ import { siteConfig } from "@/lib/site"
 
 export const metadata: Metadata = pageMetadata({
   title: "Contact",
-  description: "Contact Praise Tabernacle — service times, location, and a simple message form.",
+  description: "Contact Praise Tabernacle - service times, location, and a simple message form.",
   path: "/contact",
 })
 
@@ -25,9 +25,9 @@ export default function ContactPage() {
     <>
       <PageHeader
         titleEn="Contact"
-        titleTa="à®¤à¯Šà®Ÿà®°à¯à®ªà¯"
+        titleTa="தொடர்பு"
         descriptionEn="We'd love to hear from you. Ask a question, request prayer, or plan your visit."
-        descriptionTa="à®‰à®™à¯à®•à®³à®¿à®Ÿà®®à®¿à®°à¯à®¨à¯à®¤à¯ à®•à¯‡à®Ÿà¯à®• à®µà®¿à®°à¯à®®à¯à®ªà¯à®•à®¿à®±à¯‹à®®à¯. à®•à¯‡à®³à¯à®µà®¿à®•à®³à¯ à®•à¯‡à®³à¯à®™à¯à®•à®³à¯, à®œà¯†à®ªà®®à¯ à®µà¯‡à®£à¯à®Ÿà¯à®™à¯à®•à®³à¯, à®…à®²à¯à®²à®¤à¯ à®µà®°à¯à®•à¯ˆà®¯à¯ˆ à®¤à®¿à®Ÿà¯à®Ÿà®®à®¿à®Ÿà¯à®™à¯à®•à®³à¯."
+        descriptionTa="உங்களிடமிருந்து கேட்க எங்களுக்கு மகிழ்ச்சி. கேள்வி கேளுங்கள், ஜெபம் கோருங்கள், அல்லது உங்கள் வருகையை திட்டமிடுங்கள்."
       />
 
       <Container className="section-padding">
@@ -39,7 +39,7 @@ export default function ContactPage() {
           <Reveal delay={1}>
             <section className="border-y border-churchBlue/10 py-8">
               <h2 className="text-xl font-semibold tracking-tight text-churchBlue">
-                <Lang en="Location" ta="à®‡à®Ÿà®®à¯" taClassName="font-tamil" />
+                <Lang en="Location" ta="இடம்" taClassName="font-tamil" />
               </h2>
               <div className="mt-5 space-y-1 text-sm leading-relaxed text-churchBlue/75 sm:text-base">
                 {siteConfig.addressLines.map((line) => (
@@ -53,10 +53,10 @@ export default function ContactPage() {
                   target="_blank"
                   rel="noreferrer"
                 >
-                  <Lang en="Get directions" ta="à®µà®´à®¿à®®à¯à®±à¯ˆà®•à®³à¯ à®ªà¯†à®±à¯à®™à¯à®•à®³à¯" taClassName="font-tamil" />
+                  <Lang en="Get directions" ta="வழிமுறைகளை பெறுங்கள்" taClassName="font-tamil" />
                 </a>
                 <Link href="/visit" className="btn btn-md btn-secondary w-full sm:w-auto">
-                  <Lang en="Plan your visit" ta="à®µà®°à¯à®•à¯ˆà®¯à¯ˆ à®¤à®¿à®Ÿà¯à®Ÿà®®à®¿à®Ÿà¯à®™à¯à®•à®³à¯" taClassName="font-tamil" />
+                  <Lang en="Plan your visit" ta="உங்கள் வருகையை திட்டமிடுங்கள்" taClassName="font-tamil" />
                 </Link>
               </div>
 
@@ -74,7 +74,7 @@ export default function ContactPage() {
           <Reveal delay={2}>
             <section className="border-b border-churchBlue/10 py-8">
               <h3 className="text-sm font-semibold tracking-tight text-churchBlue">
-                <Lang en="Service Times" ta="à®†à®°à®¾à®¤à®©à¯ˆ à®¨à¯‡à®°à®™à¯à®•à®³à¯" taClassName="font-tamil" />
+                <Lang en="Service Times" ta="ஆராதனை நேரங்கள்" taClassName="font-tamil" />
               </h3>
               <ul className="mt-5 space-y-3 text-sm text-churchBlue/75 sm:text-base">
                 {siteConfig.serviceTimes.map((s) => (
@@ -94,7 +94,7 @@ export default function ContactPage() {
           <Reveal delay={3}>
             <section className="py-8">
               <h3 className="text-sm font-semibold tracking-tight text-churchBlue">
-                <Lang en="Contact" ta="à®¤à¯Šà®Ÿà®°à¯à®ªà¯" taClassName="font-tamil" />
+                <Lang en="Contact" ta="தொடர்பு" taClassName="font-tamil" />
               </h3>
               <div className="mt-5 space-y-2 text-sm sm:text-base">
                 <a
@@ -103,7 +103,12 @@ export default function ContactPage() {
                 >
                   {siteConfig.email}
                 </a>
-                <div className="text-churchBlue/75">{siteConfig.phone}</div>
+                <a
+                  className="focus-ring block text-churchBlue/75 transition-colors hover:text-churchBlue"
+                  href={`tel:+${siteConfig.whatsapp.phoneE164Digits}`}
+                >
+                  {siteConfig.phone}
+                </a>
               </div>
             </section>
           </Reveal>
@@ -112,4 +117,3 @@ export default function ContactPage() {
     </>
   )
 }
-

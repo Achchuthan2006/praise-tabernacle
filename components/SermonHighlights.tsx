@@ -5,6 +5,7 @@ import Link from "next/link"
 import { useEffect, useRef, useState } from "react"
 
 import Lang from "@/components/language/Lang"
+import { useLanguage } from "@/components/language/LanguageProvider"
 import Tilt from "@/components/ui/Tilt"
 import Container from "@/components/ui/Container"
 import Reveal from "@/components/ui/Reveal"
@@ -50,6 +51,7 @@ function buildTopicLinks(limit: number) {
 }
 
 export default function SermonHighlights() {
+  const { language } = useLanguage()
   const highlights = siteConfig.sermonHighlights
   const topics = buildTopicLinks(10)
 
@@ -127,7 +129,7 @@ export default function SermonHighlights() {
   return (
     <section className="border-t border-churchBlue/10 bg-white">
       <Container className="section-padding">
-        <div className="mx-auto max-w-6xl">
+        <div className="content-shell-wide">
           <Reveal>
             <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
               <div>
@@ -168,7 +170,7 @@ export default function SermonHighlights() {
                   type="button"
                   className="btn btn-sm btn-secondary"
                   onClick={() => scrollByCard(-1)}
-                  aria-label="Previous sermon"
+                  aria-label={language === "ta" ? "முந்தைய பிரசங்கம்" : "Previous sermon"}
                 >
                   ←
                 </button>
@@ -176,7 +178,7 @@ export default function SermonHighlights() {
                   type="button"
                   className="btn btn-sm btn-secondary"
                   onClick={() => scrollByCard(1)}
-                  aria-label="Next sermon"
+                  aria-label={language === "ta" ? "அடுத்த பிரசங்கம்" : "Next sermon"}
                 >
                   →
                 </button>
@@ -186,7 +188,7 @@ export default function SermonHighlights() {
             <div
               ref={scrollerRef}
               className="mt-4 flex gap-4 overflow-x-auto pb-2 pr-1 scroll-smooth snap-x snap-mandatory"
-              aria-label="Sermon highlights carousel"
+              aria-label={language === "ta" ? "பிரசங்க சிறப்பம்சங்கள் சுழற்சி" : "Sermon highlights carousel"}
             >
               {items.map((item, idx) => {
                 const languageLabel =
@@ -199,11 +201,11 @@ export default function SermonHighlights() {
                 return (
                   <div key={`${item.key}-mobile`} data-sermon-slide className="w-[86vw] max-w-[26rem] shrink-0 snap-start">
                     <Tilt>
-                      <article className="card overflow-hidden">
+                      <article className="card overflow-hidden transition-[transform,box-shadow] duration-300 hover:-translate-y-1 hover:shadow-[0_22px_48px_rgb(var(--stage-blue)_/_0.16)]">
                         <Link
                           href={item.href.startsWith("/sermons/") ? `${item.href}?play=1` : item.href}
                           className="group relative block focus-ring"
-                          aria-label={`Play sermon: ${item.title}`}
+                          aria-label={language === "ta" ? `பிரசங்கத்தை இயக்கவும்: ${item.title}` : `Play sermon: ${item.title}`}
                         >
                           <div className="aspect-video w-full overflow-hidden bg-churchBlueSoft">
                             <Image
@@ -213,7 +215,7 @@ export default function SermonHighlights() {
                               height={450}
                               sizes="86vw"
                               className="h-full w-full object-cover"
-                              quality={85}
+                              quality={72}
                             />
                           </div>
                           <div
@@ -244,7 +246,7 @@ export default function SermonHighlights() {
                               href={item.href.startsWith("/sermons/") ? `${item.href}?play=1` : item.href}
                               className="btn btn-sm btn-primary w-full"
                             >
-                              <Lang en="Watch" ta="à®ªà®¾à®°à¯à®™à¯à®•à®³à¯" taClassName="font-tamil" />
+                              <Lang en="Watch" ta="பாருங்கள்" taClassName="font-tamil" />
                             </Link>
                           </div>
                         </div>
@@ -260,7 +262,7 @@ export default function SermonHighlights() {
                 <button
                   key={`${item.key}-dot`}
                   type="button"
-                  aria-label={`Go to sermon ${idx + 1}`}
+                  aria-label={language === "ta" ? `${idx + 1}வது பிரசங்கத்திற்குச் செல்ல` : `Go to sermon ${idx + 1}`}
                   onClick={() => scrollToIndex(idx)}
                   className={[
                     "h-2.5 w-2.5 rounded-full border border-churchBlue/20 transition",
@@ -283,11 +285,11 @@ export default function SermonHighlights() {
               return (
                 <Reveal key={`${item.key}-desktop`} delay={delayForIndex(idx)}>
                   <Tilt>
-                    <article className="card overflow-hidden">
+                    <article className="card overflow-hidden transition-[transform,box-shadow] duration-300 hover:-translate-y-1 hover:shadow-[0_22px_48px_rgb(var(--stage-blue)_/_0.16)]">
                     <Link
                       href={item.href.startsWith("/sermons/") ? `${item.href}?play=1` : item.href}
                       className="group relative block focus-ring"
-                      aria-label={`Play sermon: ${item.title}`}
+                      aria-label={language === "ta" ? `பிரசங்கத்தை இயக்கவும்: ${item.title}` : `Play sermon: ${item.title}`}
                     >
                       <div className="aspect-video w-full overflow-hidden bg-churchBlueSoft">
                         <Image
@@ -297,7 +299,7 @@ export default function SermonHighlights() {
                           height={450}
                           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
                           className="h-full w-full object-cover"
-                          quality={85}
+                          quality={72}
                         />
                       </div>
                       <div
@@ -377,7 +379,7 @@ export default function SermonHighlights() {
                     key={series.id}
                     href={`/sermons?series=${encodeURIComponent(series.id)}`}
                     className="card group min-h-[60px] overflow-hidden focus-ring"
-                    aria-label={`Open series: ${series.title}`}
+                    aria-label={language === "ta" ? `தொடரைத் திறக்கவும்: ${series.title}` : `Open series: ${series.title}`}
                   >
                     <div className="relative aspect-video w-full bg-white">
                       {series.coverImageSrc ? (
@@ -387,6 +389,7 @@ export default function SermonHighlights() {
                           width={900}
                           height={506}
                           className="h-full w-full object-cover"
+                          quality={72}
                         />
                       ) : (
                         <div className="h-full w-full bg-gradient-to-r from-churchBlueSoft to-white" />

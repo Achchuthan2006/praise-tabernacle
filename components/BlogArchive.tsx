@@ -1,5 +1,6 @@
 "use client"
 
+import Image from "next/image"
 import Link from "next/link"
 import { useEffect, useMemo, useRef, useState, type ReactNode } from "react"
 
@@ -26,12 +27,12 @@ export default function BlogArchive({ posts }: { posts: BlogPost[] }) {
   const locale = language === "ta" ? "ta-IN" : "en-CA"
 
   const categoryTa: Record<BlogCategory, string> = {
-    announcements: "அறிவிப்புகள்",
-    devotionals: "தியானங்கள்",
+    "pastors-message": "பாஸ்டரின் மாதச் செய்தி",
+    "event-recaps": "நிகழ்வு சுருக்கங்கள்",
     testimonies: "சாட்சிகள்",
-    events: "நிகழ்வுகள்",
-    teachings: "போதனைகள்",
-    "community-news": "சமூக செய்திகள்",
+    "bible-study-notes": "வேதாகமப் பயில் குறிப்புகள்",
+    "community-news": "சமூகச் செய்திகள்",
+    announcements: "அறிவிப்புகள்",
   }
 
   const [query, setQuery] = useState("")
@@ -72,30 +73,30 @@ export default function BlogArchive({ posts }: { posts: BlogPost[] }) {
           <h2 className="section-heading">{language === "ta" ? "சமீபத்திய பதிவுகள்" : "Latest posts"}</h2>
           <p className="mt-1 text-sm text-churchBlue/70">
             {language === "ta"
-              ? "அறிவிப்புகள், தியானங்கள், சாட்சிகள், நிகழ்வுகள், போதனைகள், சமூக செய்திகள்."
-              : "Announcements, devotionals, testimonies, events, teachings, and community news."}
+              ? "பாஸ்டரின் மாதச் செய்தி, நிகழ்வு சுருக்கங்கள், சாட்சிகள், வேதாகமப் பயில் குறிப்புகள், மற்றும் சமூகச் செய்திகள்."
+              : "Pastor's monthly message, event recaps, testimonies, Bible study notes, and community news."}
           </p>
         </div>
       </div>
 
-        <div className="mt-8 grid gap-3 lg:grid-cols-12">
-          <div className="lg:col-span-6">
-            <label className="block">
-              <div className="float-field">
-                <input
-                  className="float-input"
-                  value={query}
-                  onChange={(e) => setQuery(e.target.value)}
-                  placeholder={language === "ta" ? "செய்திகளை தேடுங்கள்…" : "Search blog posts…"}
-                />
-                <span className={["float-label", language === "ta" ? "font-tamil" : ""].join(" ")}>
-                  {language === "ta" ? "தேடல்" : "Search"}
-                </span>
-              </div>
-            </label>
-          </div>
+      <div className="mt-8 grid gap-3 lg:grid-cols-12">
+        <div className="lg:col-span-6">
+          <label className="block">
+            <div className="float-field">
+              <input
+                className="float-input"
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                placeholder={language === "ta" ? "பதிவுகளைத் தேடுங்கள்..." : "Search blog posts..."}
+              />
+              <span className={["float-label", language === "ta" ? "font-tamil" : ""].join(" ")}>
+                {language === "ta" ? "தேடல்" : "Search"}
+              </span>
+            </div>
+          </label>
+        </div>
 
-          <div className="grid gap-3 sm:grid-cols-2 lg:col-span-6 lg:grid-cols-2">
+        <div className="grid gap-3 sm:grid-cols-2 lg:col-span-6 lg:grid-cols-2">
           <Filter
             label={language === "ta" ? "வகை" : "Category"}
             value={selectedCategory}
@@ -119,38 +120,49 @@ export default function BlogArchive({ posts }: { posts: BlogPost[] }) {
         </div>
       </div>
 
-      <div className="blog-grid mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="blog-grid mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {filtered.map((post) => (
           <BlogEntryReveal key={post.slug}>
             <article className="card">
-              <div className="card-content">
-              <div className="flex flex-wrap items-center gap-2">
-                <span className="rounded-full border border-churchBlue/10 bg-churchBlueSoft px-3 py-1 text-xs font-semibold text-churchBlue/80">
-                  {language === "ta" ? categoryTa[post.category] ?? blogCategoryLabels[post.category] : blogCategoryLabels[post.category]}
-                </span>
-                <span className="text-xs text-churchBlue/60">
-                  {formatDate(post.dateIso, locale)} •{" "}
-                  {language === "ta"
-                    ? `${post.readTimeMinutes} நிமிடம் வாசிப்பு`
-                    : `${post.readTimeMinutes} min read`}
-                </span>
-              </div>
-              <h3 className="mt-4 text-xl font-semibold tracking-tight text-churchBlue">
-                <Link href={`/blog/${post.slug}`} className="focus-ring rounded-lg">
-                  {post.title}
-                </Link>
-              </h3>
-              {post.authorName ? (
-                <div className="mt-1 text-sm text-churchBlue/70">{post.authorName}</div>
+              {post.coverImageSrc ? (
+                <div className="card-image">
+                  <Link href={`/blog/${post.slug}`} className="focus-ring block" aria-label={`Open post: ${post.title}`}>
+                    <div className="relative aspect-[16/9] w-full bg-churchBlueSoft">
+                      <Image
+                        src={post.coverImageSrc}
+                        alt={post.title}
+                        fill
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                        className="object-cover"
+                      />
+                    </div>
+                  </Link>
+                </div>
               ) : null}
-              <p className="mt-4 text-sm leading-relaxed text-churchBlue/75 sm:text-base">
-                {post.excerpt}
-              </p>
-              <div className="mt-6">
-                <Link href={`/blog/${post.slug}`} className="btn btn-sm btn-primary w-full">
-                  {language === "ta" ? "பதிவை படிக்கவும்" : "Read post"}
-                </Link>
-              </div>
+              <div className="card-content">
+                <div className="flex flex-wrap items-center gap-2">
+                  <span className="rounded-full border border-churchBlue/10 bg-churchBlueSoft px-3 py-1 text-xs font-semibold text-churchBlue/80">
+                    {language === "ta"
+                      ? categoryTa[post.category] ?? blogCategoryLabels[post.category]
+                      : blogCategoryLabels[post.category]}
+                  </span>
+                  <span className="text-xs text-churchBlue/60">
+                    {formatDate(post.dateIso, locale)} •{" "}
+                    {language === "ta" ? `${post.readTimeMinutes} நிமிடம் வாசிப்பு` : `${post.readTimeMinutes} min read`}
+                  </span>
+                </div>
+                <h3 className="mt-4 text-xl font-semibold tracking-tight text-churchBlue">
+                  <Link href={`/blog/${post.slug}`} className="focus-ring rounded-lg">
+                    {post.title}
+                  </Link>
+                </h3>
+                {post.authorName ? <div className="mt-1 text-sm text-churchBlue/70">{post.authorName}</div> : null}
+                <p className="mt-4 text-sm leading-relaxed text-churchBlue/75 sm:text-base">{post.excerpt}</p>
+                <div className="mt-6">
+                  <Link href={`/blog/${post.slug}`} className="btn btn-sm btn-primary w-full">
+                    {language === "ta" ? "பதிவை படிக்கவும்" : "Read post"}
+                  </Link>
+                </div>
               </div>
             </article>
           </BlogEntryReveal>
@@ -165,7 +177,7 @@ export default function BlogArchive({ posts }: { posts: BlogPost[] }) {
             </div>
             <p className="mt-2 text-sm text-churchBlue/70">
               {language === "ta"
-                ? "வடிகட்டிகளை நீக்கி அல்லது வேறு சொல் தேடுங்கள்."
+                ? "வடிகட்டிகளை நீக்கி அல்லது வேறு சொல்லைத் தேடுங்கள்."
                 : "Try clearing filters or searching a different keyword."}
             </p>
           </div>
@@ -177,7 +189,7 @@ export default function BlogArchive({ posts }: { posts: BlogPost[] }) {
 
 function BlogEntryReveal({ children }: { children: ReactNode }) {
   const ref = useRef<HTMLDivElement | null>(null)
-  const [visible, setVisible] = useState(false)
+  const [visible, setVisible] = useState(true)
 
   useEffect(() => {
     const el = ref.current
@@ -196,6 +208,8 @@ function BlogEntryReveal({ children }: { children: ReactNode }) {
       return
     }
 
+    setVisible(false)
+
     const observer = new IntersectionObserver(
       (entries) => {
         const entry = entries[0]
@@ -212,7 +226,11 @@ function BlogEntryReveal({ children }: { children: ReactNode }) {
   }, [])
 
   return (
-    <div ref={ref} className="blog-entry-reveal" data-visible={visible ? "true" : "false"}>
+    <div
+      ref={ref}
+      className="blog-entry-reveal"
+      data-visible={visible ? "true" : "false"}
+    >
       {children}
     </div>
   )
@@ -235,7 +253,7 @@ function Filter({
     <label className="block">
       <span className="text-sm font-medium text-churchBlue">{label}</span>
       <select
-        className="mt-2 h-11 w-full rounded-xl border border-churchBlue/15 bg-white px-3 text-sm text-churchBlue focus-ring"
+        className="mt-2 h-11 w-full rounded-xl border border-churchBlue/15 bg-white px-3 text-sm font-semibold text-churchBlue focus-ring"
         value={value}
         onChange={(e) => onChange(e.target.value)}
       >

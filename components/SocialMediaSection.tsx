@@ -25,6 +25,7 @@ function formatDateLabel(iso: string) {
 
 export default async function SocialMediaSection() {
   const subscribeUrl = youtubeSubscribeUrl()
+  const hasInstagram = Boolean(siteConfig.instagramUrl)
 
   let liveFeed: SocialPost[] | null = null
   const uploadsPlaylistId = (siteConfig.youtubeUploadsPlaylistId ?? "").trim()
@@ -40,39 +41,43 @@ export default async function SocialMediaSection() {
           href: v.url,
           dateLabel: formatDateLabel(v.publishedAt) || "Latest",
         })),
-        ...socialFeed.filter((p) => p.platform !== "YouTube"),
+        ...socialFeed.filter((p) => p.platform !== "YouTube" && (p.platform !== "Instagram" || hasInstagram)),
       ]
     }
   }
 
+  const visibleFeed = (liveFeed ?? socialFeed).filter(
+    (item) => item.platform !== "Instagram" || hasInstagram,
+  )
+
   return (
     <section className="relative bg-white">
       <Container className="section-padding">
-        <div className="mx-auto max-w-6xl">
+        <div className="content-shell-wide">
           <Reveal>
             <div className="section-kicker">
               <Lang en="Social" ta="சமூக ஊடகம்" taClassName="font-tamil" />
             </div>
             <h2 className="section-heading mt-2">
-              <Lang en="Church life this week" ta="இந்த வாரம் எங்கள் வாழ்க்கை" taClassName="font-tamil" />
+              <Lang en="Church life this week" ta="இந்த வாரம் சபை வாழ்க்கை" taClassName="font-tamil" />
             </h2>
             <p className="mt-3 max-w-2xl text-sm text-churchBlue/70 sm:text-base">
               <Lang
                 en="Follow along for highlights, announcements, and stories from our community."
-                ta="சிறப்பு நிகழ்வுகள், அறிவிப்புகள், சமூகக் கதைகள் - அனைத்தும் இங்கே."
+                ta="எங்கள் சமூகத்தின் சிறப்பம்சங்கள், அறிவிப்புகள், மற்றும் கதைகளைத் தொடர்ந்து பாருங்கள்."
                 taClassName="font-tamil"
               />
             </p>
           </Reveal>
 
-          <div className="mt-8 flex flex-col md:flex-row gap-6 md:items-start">
+          <div className="mt-8 flex flex-col gap-6 md:flex-row md:items-start">
             <Reveal className="w-full md:w-5/12">
               <div className="rounded-3xl border border-churchBlue/10 bg-white p-6 shadow-glow">
                 <div className="text-sm font-semibold text-churchBlue/70">
                   <Lang en="Live feed" ta="நேரலை புதுப்பிப்புகள்" taClassName="font-tamil" />
                 </div>
                 <div className="mt-4 space-y-5">
-                  {(liveFeed ?? socialFeed).map((item) => (
+                  {visibleFeed.map((item) => (
                     <a
                       key={item.id}
                       href={item.href}
@@ -94,14 +99,14 @@ export default async function SocialMediaSection() {
                     <p className="mt-2 text-sm text-churchBlue/70">
                       <Lang
                         en="Subscribe for new sermons and livestreams."
-                        ta="புதிய பிரசங்கங்களுக்காக YouTube-ல் subscribe செய்யுங்கள்."
+                        ta="புதிய பிரசங்கங்களும் நேரலைகளும் கிடைக்க YouTube-ல் சந்தா செய்யுங்கள்."
                         taClassName="font-tamil"
                       />
                     </p>
                     <div className="mt-3 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
                       <YouTubeSubscribeWidget channelUrl={siteConfig.youtubeChannelUrl} />
                       <a href={subscribeUrl} target="_blank" rel="noreferrer" className="btn btn-sm btn-primary">
-                        <Lang en="Subscribe" ta="Subscribe" taClassName="font-tamil" />
+                        <Lang en="Subscribe" ta="சந்தா" taClassName="font-tamil" />
                       </a>
                     </div>
                   </div>
@@ -114,38 +119,68 @@ export default async function SocialMediaSection() {
                 <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
                   <div>
                     <div className="text-sm font-semibold text-churchBlue/70">
-                      <Lang en="Instagram wall" ta="Instagram சுவர்படங்கள்" taClassName="font-tamil" />
+                      <Lang en="Instagram wall" ta="Instagram சுவர் படங்கள்" taClassName="font-tamil" />
                     </div>
                     <h3 className="mt-1 text-lg font-semibold text-churchBlue">
-                      <Lang en="Moments from church life" ta="எங்கள் வாழ்க்கைத் தருணங்கள்" taClassName="font-tamil" />
+                      <Lang en="Moments from church life" ta="சபை வாழ்க்கையின் தருணங்கள்" taClassName="font-tamil" />
                     </h3>
                   </div>
-                  {siteConfig.instagramUrl ? (
+                  {hasInstagram ? (
                     <a href={siteConfig.instagramUrl} target="_blank" rel="noreferrer" className="btn btn-sm btn-secondary">
-                      <Lang en="Open Instagram" ta="Instagram திற" taClassName="font-tamil" />
+                      <Lang en="Open Instagram" ta="Instagram-ஐ திறக்க" taClassName="font-tamil" />
                     </a>
-                  ) : null}
+                  ) : (
+                    <div className="rounded-full border border-churchBlue/10 bg-churchBlueSoft px-4 py-2 text-xs font-semibold text-churchBlue/75">
+                      <Lang en="Instagram ready to connect" ta="Instagram இணைக்க தயாராக உள்ளது" taClassName="font-tamil" />
+                    </div>
+                  )}
                 </div>
 
+                {!hasInstagram ? (
+                  <div className="mt-4 rounded-2xl border border-dashed border-churchBlue/15 bg-churchBlueSoft/60 p-4 text-sm text-churchBlue/75">
+                    <Lang
+                      en="Instagram support is already built in. Add `NEXT_PUBLIC_INSTAGRAM_URL` and the footer link, social CTA, and wall links will all turn on."
+                      ta="Instagram ஆதரவு ஏற்கனவே அமைக்கப்பட்டுள்ளது. `NEXT_PUBLIC_INSTAGRAM_URL` சேர்த்தவுடன் footer link, social CTA, மற்றும் wall links அனைத்தும் இயங்கும்."
+                      taClassName="font-tamil"
+                    />
+                  </div>
+                ) : null}
+
                 <div className="mt-5 grid grid-cols-2 gap-3 md:grid-cols-3">
-                  {instagramWallImages.map((img) => (
-                    <a
-                      key={img.id}
-                      href={siteConfig.instagramUrl || undefined}
-                      target={siteConfig.instagramUrl ? "_blank" : undefined}
-                      rel={siteConfig.instagramUrl ? "noreferrer" : undefined}
-                      className="relative aspect-square overflow-hidden rounded-2xl border border-churchBlue/10 block"
-                      aria-label={siteConfig.instagramUrl ? `Open Instagram: ${img.alt}` : img.alt}
-                    >
-                      <Image
-                        src={img.src}
-                        alt={img.alt}
-                        fill
-                        sizes="(min-width: 1024px) 200px, 33vw"
-                        className="object-cover"
-                      />
-                    </a>
-                  ))}
+                  {instagramWallImages.map((img) =>
+                    hasInstagram ? (
+                      <a
+                        key={img.id}
+                        href={siteConfig.instagramUrl}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="relative block aspect-square overflow-hidden rounded-2xl border border-churchBlue/10"
+                        aria-label={`Open Instagram: ${img.alt}`}
+                      >
+                        <Image
+                          src={img.src}
+                          alt={img.alt}
+                          fill
+                          sizes="(min-width: 1024px) 200px, 33vw"
+                          className="object-cover"
+                        />
+                      </a>
+                    ) : (
+                      <div
+                        key={img.id}
+                        className="relative block aspect-square overflow-hidden rounded-2xl border border-churchBlue/10"
+                        aria-label={img.alt}
+                      >
+                        <Image
+                          src={img.src}
+                          alt={img.alt}
+                          fill
+                          sizes="(min-width: 1024px) 200px, 33vw"
+                          className="object-cover"
+                        />
+                      </div>
+                    ),
+                  )}
                 </div>
               </div>
             </Reveal>

@@ -19,7 +19,7 @@ export async function GET(_req: Request, { params }: { params: Promise<{ id: str
 
   const ics = buildIcsEvent({
     uid: `service-${entry.id}@${new URL(siteConfig.siteUrl).hostname}`,
-    title: `${entry.labelEn} — ${siteConfig.nameEn}`,
+    title: `${entry.labelEn}  ${siteConfig.nameEn}`,
     description: "Service time reminder.",
     location,
     startLocal,

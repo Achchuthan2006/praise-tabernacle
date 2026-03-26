@@ -3,7 +3,7 @@ import Link from "next/link"
 import Container from "@/components/ui/Container"
 
 const NKJV_GATEWAY_HREF =
-  "https://www.biblegateway.com/versions/New-King-James-Version-NKJV-Bible/"
+  "https://www.biblegateway.com/passage/?search=Genesis%201&version=NKJV"
 
 export default function ReadBibleNKJV() {
   return (
@@ -19,7 +19,7 @@ export default function ReadBibleNKJV() {
           </div>
 
           <p className="mt-6 max-w-3xl text-sm text-churchBlue/75 sm:text-base">
-            Read the New King James Version (NKJV) online. We link to BibleGateway for the full NKJV text.
+            Read the New King James Version (NKJV) online. We link directly to BibleGateway passages for the full NKJV text.
           </p>
 
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">

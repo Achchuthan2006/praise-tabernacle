@@ -39,8 +39,9 @@ export function generateStaticParams() {
   return getAllEventSlugs().map((slug) => ({ slug }))
 }
 
-export function generateMetadata({ params }: { params: { slug: string } }): Metadata {
-  const event = getEventBySlug(params.slug)
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params
+  const event = getEventBySlug(slug)
   if (!event) return { title: "Event" }
   return pageMetadata({
     title: event.title,
@@ -50,8 +51,9 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
   })
 }
 
-export default async function EventDetailPage({ params }: { params: { slug: string } }) {
-  const event = getEventBySlug(params.slug)
+export default async function EventDetailPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params
+  const event = getEventBySlug(slug)
   if (!event) notFound()
 
   const reservedSeats = event.capacity ? await getReservedSeats(event.slug) : 0

@@ -38,7 +38,7 @@ export async function GET(
       >
         <div style={{ display: "flex", flexDirection: "column", gap: 18 }}>
           <div style={{ fontSize: 20, letterSpacing: 2, textTransform: "uppercase", color: "#2a3b69", opacity: 0.7 }}>
-            {siteConfig.nameEn} • Share
+            {siteConfig.nameEn} " Share
           </div>
           <div style={{ fontSize: 56, fontWeight: 900, lineHeight: 1.12, color: "#1f2b4d" }}>
             {quote}

@@ -5,13 +5,12 @@ import Link from "next/link"
 import Lang from "@/components/language/Lang"
 import Container from "@/components/ui/Container"
 import PageHeader from "@/components/ui/PageHeader"
-import Reveal from "@/components/ui/Reveal"
 import { bibleStudies } from "@/lib/bibleStudies"
 import { pageMetadata } from "@/lib/seo"
 import { TAMIL_BIBLE_INDEX_HREF } from "@/lib/tamilBible"
 
 const NKJV_GATEWAY_HREF =
-  "https://www.biblegateway.com/versions/New-King-James-Version-NKJV-Bible/"
+  "https://www.biblegateway.com/passage/?search=Genesis%201&version=NKJV"
 
 export const metadata: Metadata = pageMetadata({
   title: "Bible (NKJV)",
@@ -26,7 +25,7 @@ export default function BiblePage() {
         titleEn="Read the Bible"
         titleTa="வேதாகமம்"
         descriptionEn="NKJV (BibleGateway) + Bible studies"
-        descriptionTa="NKJV (BibleGateway) + Bible studies"
+        descriptionTa="NKJV (BibleGateway) மற்றும் வேதாகமப் படிப்புகள்"
       />
 
       <section className="bg-white">
@@ -39,11 +38,11 @@ export default function BiblePage() {
                   <a href={NKJV_GATEWAY_HREF} target="_blank" rel="noreferrer" className="underline underline-offset-2">
                     BibleGateway (NKJV)
                   </a>
-                  . Tamil is shown via an embedded external page (and can always be opened in a new tab) from{" "}
+                  . Tamil is available through{" "}
                   <a href={TAMIL_BIBLE_INDEX_HREF} target="_blank" rel="noreferrer" className="underline underline-offset-2">
                     TamilChristianSongs.in
                   </a>
-                  .
+                  , and you can always open it in a new tab.
                 </>
               }
               ta={
@@ -52,7 +51,7 @@ export default function BiblePage() {
                   <a href={NKJV_GATEWAY_HREF} target="_blank" rel="noreferrer" className="underline underline-offset-2">
                     BibleGateway
                   </a>{" "}
-                  மூலமாக படிக்கலாம். தமிழ் வசனங்களுக்கு{" "}
+                  மூலம் படிக்கலாம். தமிழ் வேதாகமத்தை{" "}
                   <a
                     href={TAMIL_BIBLE_INDEX_HREF}
                     target="_blank"
@@ -61,7 +60,7 @@ export default function BiblePage() {
                   >
                     TamilChristianSongs.in
                   </a>{" "}
-                  பயன்படுத்தவும்.
+                  மூலம் திறந்து படிக்கலாம்.
                 </>
               }
               taClassName="font-tamil"
@@ -84,31 +83,41 @@ export default function BiblePage() {
           <div className="mx-auto max-w-6xl">
             <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
               <div>
-                <div className="section-kicker">Watch</div>
-                <h2 className="section-heading">Bible Studies</h2>
-                <p className="mt-1 text-sm text-churchBlue/70">Watch Bible study teachings right here on our website.</p>
+                <div className="section-kicker">
+                  <Lang en="Watch" ta="பாருங்கள்" taClassName="font-tamil" />
+                </div>
+                <h2 className="section-heading">
+                  <Lang en="Bible Studies" ta="வேதாகமப் படிப்புகள்" taClassName="font-tamil" />
+                </h2>
+                <p className="mt-1 text-sm text-churchBlue/70">
+                  <Lang
+                    en="Watch Bible study teachings right here on our website."
+                    ta="வேதாகமப் படிப்பு போதனைகளை எங்கள் இணையதளத்திலேயே பாருங்கள்."
+                    taClassName="font-tamil"
+                  />
+                </p>
               </div>
               <Link href="/bible-studies" className="btn btn-sm btn-secondary">
-                View Bible studies page
+                <Lang en="View Bible studies page" ta="வேதாகமப் படிப்பு பக்கத்தைத் திற" taClassName="font-tamil" />
               </Link>
             </div>
 
             <div className="mt-8 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-              {bibleStudies.map((study, idx) => {
+              {bibleStudies.map((study) => {
                 const thumb = `https://i.ytimg.com/vi/${study.youtubeVideoId}/hqdefault.jpg`
                 return (
-                  <Reveal key={study.slug} delay={(idx % 4) as 0 | 1 | 2 | 3}>
+                  <div key={study.slug}>
                     <article className="card">
                       <div className="card-image">
                         <Link
                           href={`/bible-studies/${study.slug}?play=1`}
                           className="group block focus-ring"
-                          aria-label={`Open Bible study: ${study.title}`}
+                          aria-label={`Open Bible study: ${study.titleEn}`}
                         >
                           <div className="relative aspect-video w-full bg-churchBlueSoft">
                             <Image
                               src={thumb}
-                              alt={study.title}
+                              alt={study.titleEn}
                               width={1200}
                               height={675}
                               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
@@ -135,13 +144,19 @@ export default function BiblePage() {
                         ) : null}
                         <h3 className="mt-2 text-lg font-semibold tracking-tight text-churchBlue">
                           <Link href={`/bible-studies/${study.slug}?play=1`} className="focus-ring rounded-lg">
-                            {study.title}
+                            <Lang en={study.titleEn} ta={study.titleTa} taClassName="font-tamil" />
                           </Link>
                         </h3>
 
+                        {study.descriptionEn || study.descriptionTa ? (
+                          <p className="mt-3 text-sm leading-relaxed text-churchBlue/75 sm:text-base">
+                            <Lang en={study.descriptionEn ?? ""} ta={study.descriptionTa ?? ""} taClassName="font-tamil" />
+                          </p>
+                        ) : null}
+
                         <div className="mt-6 grid gap-2">
                           <Link href={`/bible-studies/${study.slug}?play=1`} className="btn btn-sm btn-primary w-full">
-                            Watch on site
+                            <Lang en="Watch on site" ta="இங்கே பார்க்க" taClassName="font-tamil" />
                           </Link>
                           <a
                             href={`https://www.youtube.com/watch?v=${study.youtubeVideoId}`}
@@ -149,12 +164,12 @@ export default function BiblePage() {
                             rel="noreferrer"
                             className="btn btn-sm btn-secondary w-full"
                           >
-                            Watch on YouTube
+                            <Lang en="Watch on YouTube" ta="யூடியூபில் பார்க்க" taClassName="font-tamil" />
                           </a>
                         </div>
                       </div>
                     </article>
-                  </Reveal>
+                  </div>
                 )
               })}
             </div>

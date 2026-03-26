@@ -5,6 +5,7 @@ import { notFound } from "next/navigation"
 
 import YouTubeLiteEmbed from "@/components/lazy/YouTubeLiteEmbedLazy"
 import Lang from "@/components/language/Lang"
+import ShareButtons from "@/components/ShareButtons"
 import Container from "@/components/ui/Container"
 import PageHeader from "@/components/ui/PageHeader"
 import Reveal from "@/components/ui/Reveal"
@@ -19,7 +20,7 @@ export function generateStaticParams() {
 export async function generateMetadata({
   params,
 }: {
-  params: { slug: string } | Promise<{ slug: string }>
+  params: Promise<{ slug: string }>
 }): Promise<Metadata> {
   const resolvedParams = await params
   const t = getTestimonialBySlug(resolvedParams.slug)
@@ -38,8 +39,8 @@ export default async function TestimonyDetailPage({
   params,
   searchParams,
 }: {
-  params: { slug: string } | Promise<{ slug: string }>
-  searchParams?: { play?: string } | Promise<{ play?: string }>
+  params: Promise<{ slug: string }>
+  searchParams?: Promise<{ play?: string }>
 }) {
   const resolvedParams = await params
   const resolvedSearchParams = searchParams ? await searchParams : undefined
@@ -51,6 +52,7 @@ export default async function TestimonyDetailPage({
   const videoId = (t.youtubeVideoId ?? "").trim()
   const graphicSrc = (t.graphicSrc ?? "").trim()
   const mailto = `mailto:${siteConfig.email}?subject=${encodeURIComponent(`Testimony: ${t.titleEn}`)}`
+  const shareUrl = `${siteConfig.siteUrl}/testimonies/${t.slug}`
 
   return (
     <>
@@ -58,7 +60,7 @@ export default async function TestimonyDetailPage({
         titleEn={t.titleEn}
         titleTa={t.titleTa}
         descriptionEn={t.quote ?? "Testimony"}
-        descriptionTa={t.quote ? "" : "சாட்சி"}
+        descriptionTa={t.quote ?? "சாட்சி"}
       />
 
       <section className="bg-white">
@@ -83,12 +85,12 @@ export default async function TestimonyDetailPage({
                   ) : (
                     <div className="rounded-3xl border border-churchBlue/10 bg-churchBlueSoft p-6">
                       <div className="text-sm font-semibold text-churchBlue">
-                        <Lang en="Video coming soon" ta="வீடியோ விரைவில்" taClassName="font-tamil" />
+                        <Lang en="Video coming soon" ta="வீடியோ விரைவில் வரும்" taClassName="font-tamil" />
                       </div>
                       <p className="mt-2 text-sm text-churchBlue/70">
                         <Lang
                           en="This testimony will have a short video soon."
-                          ta="இந்த சாட்சிக்கான குறுந் வீடியோ விரைவில் சேர்க்கப்படும்."
+                          ta="இந்த சாட்சிக்கான குறும் வீடியோ விரைவில் சேர்க்கப்படும்."
                           taClassName="font-tamil"
                         />
                       </p>
@@ -123,7 +125,7 @@ export default async function TestimonyDetailPage({
                   <Reveal delay={2}>
                     <div className="mt-8 rounded-3xl border border-churchBlue/10 bg-white p-6 shadow-glow">
                       <div className="text-xs font-semibold tracking-wide text-churchBlue/60">
-                        <Lang en="Story" ta="சாட்சி" taClassName="font-tamil" />
+                        <Lang en="Story" ta="கதை" taClassName="font-tamil" />
                       </div>
                       <div className="mt-3 whitespace-pre-wrap text-sm leading-relaxed text-churchBlue/75 sm:text-base">
                         <Lang en={t.storyEn ?? ""} ta={t.storyTa ?? t.storyEn ?? ""} taClassName="font-tamil" />
@@ -136,7 +138,7 @@ export default async function TestimonyDetailPage({
                   <Reveal delay={3}>
                     <div className="mt-8 rounded-3xl border border-churchBlue/10 bg-white p-6 shadow-glow" id="transcript">
                       <div className="text-xs font-semibold tracking-wide text-churchBlue/60">
-                        <Lang en="Transcript" ta="உரை" taClassName="font-tamil" />
+                        <Lang en="Transcript" ta="உரைநகல்" taClassName="font-tamil" />
                       </div>
                       <div className="mt-3 whitespace-pre-wrap text-sm leading-relaxed text-churchBlue/75 sm:text-base">
                         <Lang en={t.transcriptText} ta={t.transcriptText} taClassName="font-tamil" />
@@ -153,10 +155,10 @@ export default async function TestimonyDetailPage({
                   </div>
                   <div className="mt-4 grid gap-2">
                     <Link href="/testimonies" className="btn btn-sm btn-secondary w-full">
-                      <Lang en="Back to testimonies" ta="சாட்சிகள்" taClassName="font-tamil" />
+                      <Lang en="Back to testimonies" ta="சாட்சிகளுக்கு திரும்ப" taClassName="font-tamil" />
                     </Link>
                     <a href={mailto} className="btn btn-sm btn-secondary w-full">
-                      <Lang en="Share your testimony" ta="உங்கள் சாட்சி" taClassName="font-tamil" />
+                      <Lang en="Share your testimony" ta="உங்கள் சாட்சியை பகிருங்கள்" taClassName="font-tamil" />
                     </a>
                     {videoId ? (
                       <a
@@ -165,12 +167,12 @@ export default async function TestimonyDetailPage({
                         rel="noreferrer"
                         className="btn btn-sm btn-secondary w-full"
                       >
-                        <Lang en="Watch on YouTube" ta="YouTube" taClassName="font-tamil" />
+                        <Lang en="Watch on YouTube" ta="YouTube-ல் பார்க்க" taClassName="font-tamil" />
                       </a>
                     ) : null}
                     {graphicSrc ? (
                       <a href={graphicSrc} download className="btn btn-sm btn-primary w-full">
-                        <Lang en="Download graphic" ta="படத்தை பதிவிறக்கம்" taClassName="font-tamil" />
+                        <Lang en="Download graphic" ta="படத்தை பதிவிறக்கம் செய்ய" taClassName="font-tamil" />
                       </a>
                     ) : null}
                   </div>
@@ -180,7 +182,7 @@ export default async function TestimonyDetailPage({
                       <div className="relative aspect-[4/3] w-full bg-churchBlueSoft">
                         <Image
                           src={graphicSrc}
-                          alt="Testimony graphic"
+                          alt={`${t.titleEn} testimony graphic`}
                           fill
                           sizes="(max-width: 1024px) 100vw, 360px"
                           className="object-cover"
@@ -188,6 +190,10 @@ export default async function TestimonyDetailPage({
                       </div>
                     </div>
                   ) : null}
+
+                  <div className="mt-5">
+                    <ShareButtons title={t.titleEn} url={shareUrl} />
+                  </div>
                 </div>
               </div>
             </div>
@@ -197,4 +203,3 @@ export default async function TestimonyDetailPage({
     </>
   )
 }
-

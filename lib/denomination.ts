@@ -10,40 +10,40 @@ export const denominationDetails: DenominationDetail[] = [
     titleEn: "Our affiliation",
     titleTa: "எங்கள் இணைப்பு",
     bodyEn:
-      "Praise Tabernacle is an evangelical Christian church. We affirm the authority of Scripture and the centrality of Jesus Christ in worship and life.",
+      "Praise Tabernacle is an evangelical Christian church. We affirm the authority of Scripture, salvation through Jesus Christ, and Spirit-led Christian living.",
     bodyTa:
-      "Praise Tabernacle ஒரு சுவிசேஷ (எவாஞ்சலிக்கல்) கிறிஸ்தவ சபை. வேதாகமத்தின் அதிகாரத்தையும், ஆராதனை மற்றும் வாழ்க்கையின் மையமாக இயேசு கிரிஸ்துவைவும் நாம் உறுதியாக பிடித்திருக்கிறோம்.",
+      "Praise Tabernacle ஒரு எவாஞ்சலிக்கல் கிறிஸ்தவ சபை. வேதாகமத்தின் அதிகாரத்தையும், இயேசு கிறிஸ்துவின் மூலம் இரட்சிப்பையும், பரிசுத்த ஆவியால் வழிநடத்தப்படும் கிறிஸ்தவ வாழ்வையும் உறுதியாகப் பிடித்திருக்கிறோம்.",
   },
   {
-    titleEn: "Accountability & leadership",
-    titleTa: "பொறுப்புணர்வு & தலைமை",
+    titleEn: "Bible-based and Jesus-centred",
+    titleTa: "வேதாகம அடிப்படையும் இயேசு மையமும்",
     bodyEn:
-      "We value accountability and spiritual oversight. Our leaders serve the church with integrity, prayer, and care for people.",
+      "Our teaching, worship, and ministry are shaped by the Bible. We seek to keep Jesus Christ at the centre of our preaching, discipleship, and church life.",
     bodyTa:
-      "பொறுப்புணர்வையும் ஆவிக்குரிய கண்காணிப்பையும் நாம் மதிக்கிறோம். எங்கள் தலைவர்கள் நேர்மை, ஜெபம், மற்றும் அக்கறையுடன் சபையை சேவிக்கிறார்கள்.",
+      "எங்கள் போதனை, ஆராதனை, மற்றும் ஊழியம் அனைத்தும் வேதாகமத்தை அடிப்படையாகக் கொண்டவை. எங்கள் பிரசங்கம், சீடத்துவம், மற்றும் சபை வாழ்வின் மையத்தில் இயேசு கிறிஸ்து இருப்பதை நாடுகிறோம்.",
   },
   {
-    titleEn: "What we believe",
-    titleTa: "நாங்கள் நம்புவது",
+    titleEn: "Leadership and accountability",
+    titleTa: "தலைமை மற்றும் பொறுப்புணர்வு",
     bodyEn:
-      "Our beliefs are rooted in historic Christian teaching and the Bible. Read our full doctrinal summary on the Beliefs page.",
+      "We value accountable spiritual leadership. Pastoral care, ministry decisions, and church direction are handled with prayer, integrity, and a commitment to serving people well.",
     bodyTa:
-      "எங்கள் நம்பிக்கைகள் வரலாற்றுச் சிறப்பு கொண்ட கிறிஸ்தவ கற்பித்தலும் வேதாகமமும் அடிப்படையாகக் கொண்டவை. முழு நம்பிக்கை அறிக்கைக்காக 'Beliefs' பக்கத்தைப் பார்க்கவும்.",
+      "ஆவிக்குரிய பொறுப்புணர்வுடன் செயல்படும் தலைமையை நாங்கள் மதிக்கிறோம். மேய்ப்புப் பராமரிப்பு, ஊழியத் தீர்மானங்கள், மற்றும் சபை திசை அனைத்தும் ஜெபத்துடனும் நேர்மையுடனும் மக்களை நன்றாக சேவிக்க வேண்டும் என்ற எண்ணத்துடனும் நடத்தப்படுகின்றன.",
   },
   {
-    titleEn: "Governance & stewardship",
-    titleTa: "நிர்வாகம் & பண நிர்வாகம்",
+    titleEn: "Historic Christian faith",
+    titleTa: "வரலாற்றுச் கிறிஸ்தவ விசுவாசம்",
     bodyEn:
-      "We aim to lead the church with integrity, transparency, and wise stewardship. If you'd like more details about leadership structure, decision-making, or financial practices, please contact us.",
+      "Our beliefs align with historic Christian teaching concerning God, the Bible, Jesus Christ, salvation, the Holy Spirit, the church, and the return of Christ.",
     bodyTa:
-      "நேர்மை, தெளிவு, மற்றும் நல்ல பண நிர்வாகத்துடன் சபையை வழிநடத்த முயற்சிக்கிறோம். தலைமை அமைப்பு, தீர்மான நடைமுறை, அல்லது நிதி நடைமுறைகள் குறித்து மேலும் அறிய விரும்பினால் தயவு செய்து எங்களை தொடர்பு கொள்ளுங்கள்.",
+      "தேவன், வேதாகமம், இயேசு கிறிஸ்து, இரட்சிப்பு, பரிசுத்த ஆவி, சபை, மற்றும் கிறிஸ்துவின் திரும்பி வருதல் ஆகியவற்றைச் சார்ந்த வரலாற்றுச் கிறிஸ்தவ போதனைகளோடு எங்கள் விசுவாசம் ஒத்திருக்கிறது.",
   },
   {
-    titleEn: "Safeguards & care",
-    titleTa: "பாதுகாப்பு & அக்கறை",
+    titleEn: "Care, safety, and stewardship",
+    titleTa: "அக்கறை, பாதுகாப்பு, மற்றும் நற்பரிபாலனம்",
     bodyEn:
-      "We are committed to a respectful, safe environment for children, youth, and families. See our Community Safety page for practical guidelines.",
+      "We want church life to be safe, respectful, and trustworthy for children, youth, adults, and families. We also seek to handle resources with integrity and good stewardship.",
     bodyTa:
-      "குழந்தைகள், இளையோர், மற்றும் குடும்பங்களுக்காக மரியாதைமிக்க மற்றும் பாதுகாப்பான சூழலை வழங்க உறுதியாக இருக்கிறோம். நடைமுறை வழிகாட்டுதல்களுக்காக 'Community Safety' பக்கத்தைப் பார்க்கவும்.",
+      "குழந்தைகள், இளைஞர்கள், பெரியவர்கள், மற்றும் குடும்பங்கள் அனைவருக்கும் சபை வாழ்வு பாதுகாப்பானதும் மரியாதைமிக்கதும் நம்பகமானதும் இருக்க வேண்டும் என்று நாங்கள் விரும்புகிறோம். அதேபோல், சபையின் வளங்களை நேர்மையுடனும் நற்பரிபாலனத்துடனும் நடத்த முயல்கிறோம்.",
   },
 ]

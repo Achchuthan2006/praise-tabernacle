@@ -37,29 +37,18 @@ const LanguageContext = createContext<LanguageContextValue | null>(null)
 export function LanguageProvider({
   children,
   initialLanguage,
+  lockToInitialLanguage = false,
 }: {
   children: React.ReactNode
   initialLanguage?: Language
+  lockToInitialLanguage?: boolean
 }) {
-  const [language, setLanguageState] = useState<Language>(() => {
-    // Keep SSR + first client render aligned by honoring `initialLanguage`.
-    // If we have an `initialLanguage`, use it for the very first client render too,
-    // then reconcile to any saved preference after hydration.
-    if (initialLanguage) return initialLanguage
-    if (typeof window === "undefined") return DEFAULT_LANGUAGE
+  const [language, setLanguageState] = useState<Language>(initialLanguage ?? DEFAULT_LANGUAGE)
 
-    try {
-      const stored = window.localStorage.getItem(LANGUAGE_STORAGE_KEY)
-      if (stored && isLanguage(stored)) return stored
-    } catch {
-      // Ignore storage issues (private mode / blocked storage).
-    }
-
-    const cookieLang = readCookieLanguage()
-    if (cookieLang) return cookieLang
-
-    return initialLanguage ?? inferBrowserLanguage()
-  })
+  useEffect(() => {
+    if (!initialLanguage) return
+    setLanguageState((current) => (current === initialLanguage ? current : initialLanguage))
+  }, [initialLanguage])
 
   useEffect(() => {
     const root = document.documentElement
@@ -69,6 +58,7 @@ export function LanguageProvider({
   }, [language])
 
   useEffect(() => {
+    if (lockToInitialLanguage) return
     // After hydration, reconcile with any stronger client preference.
     // This avoids hydration mismatches while still respecting saved choices.
     const cookieLang = readCookieLanguage()
@@ -86,7 +76,17 @@ export function LanguageProvider({
     if (desired && desired !== language) {
       setLanguageState(desired)
     }
-  }, [language])
+  }, [language, lockToInitialLanguage])
+
+  useEffect(() => {
+    if (!lockToInitialLanguage || !initialLanguage) return
+    try {
+      window.localStorage.setItem(LANGUAGE_STORAGE_KEY, initialLanguage)
+    } catch {
+      // Ignore storage issues.
+    }
+    writeLanguageCookie(initialLanguage)
+  }, [initialLanguage, lockToInitialLanguage])
 
   const setLanguage = (lang: Language) => {
     setLanguageState(lang)

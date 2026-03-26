@@ -1,6 +1,7 @@
 import Image from "next/image"
 
 import { siteConfig } from "@/lib/site"
+import { fixMojibakeText } from "@/lib/text"
 
 export default function BrandLogo({
   variant = "default",
@@ -24,7 +25,7 @@ export default function BrandLogo({
       <span data-lang="en" lang="en">
         <Image
           src={siteConfig.branding.logoEnSrc}
-          alt={siteConfig.nameEn}
+          alt={fixMojibakeText(siteConfig.nameEn)}
           width={520}
           height={240}
           priority={priority}
@@ -34,7 +35,7 @@ export default function BrandLogo({
       <span data-lang="ta" lang="ta">
         <Image
           src={siteConfig.branding.logoTaSrc}
-          alt={siteConfig.nameTa}
+          alt={fixMojibakeText(siteConfig.nameTa)}
           width={520}
           height={240}
           priority={priority}

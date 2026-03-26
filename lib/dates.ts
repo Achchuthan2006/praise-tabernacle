@@ -18,3 +18,9 @@ export function formatIsoDate(
   if (Number.isNaN(date.getTime())) return dateIso
   return new Intl.DateTimeFormat(locale, { ...options, timeZone: "UTC" }).format(date)
 }
+
+export function formatMonthIso(monthIso: string, locale = "en-CA") {
+  const raw = String(monthIso ?? "").trim()
+  if (!/^\d{4}-\d{2}$/.test(raw)) return monthIso
+  return formatIsoDate(`${raw}-01`, locale, { year: "numeric", month: "long" })
+}

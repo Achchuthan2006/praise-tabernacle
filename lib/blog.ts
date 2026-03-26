@@ -1,10 +1,10 @@
 export type BlogCategory =
-  | "announcements"
-  | "devotionals"
+  | "pastors-message"
+  | "event-recaps"
   | "testimonies"
-  | "events"
-  | "teachings"
   | "community-news"
+  | "bible-study-notes"
+  | "announcements"
 
 export type BlogLanguage = "en" | "ta"
 
@@ -19,42 +19,124 @@ export type BlogPost = {
   language?: BlogLanguage
   title: string
   excerpt: string
-  dateIso: string // YYYY-MM-DD
+  dateIso: string
   category: BlogCategory
   readTimeMinutes: number
   authorName?: string
   coverImageSrc?: string
   tags?: string[]
-  content: string[] // paragraph blocks
+  content: string[]
   galleryImageSrcs?: string[]
   attachments?: BlogAttachment[]
 }
 
+function defaultCoverImageForCategory(category: BlogCategory) {
+  switch (category) {
+    case "pastors-message":
+      return "/sermons/series-welcome.svg"
+    case "event-recaps":
+      return "/event-community.svg"
+    case "testimonies":
+      return "/event-family.svg"
+    case "community-news":
+      return "/event-family.svg"
+    case "bible-study-notes":
+      return "/event-teaching.svg"
+    case "announcements":
+      return "/event-holiday.svg"
+    default:
+      return "/hero-photo-placeholder.svg"
+  }
+}
+
 export const blogCategoryLabels: Record<BlogCategory, string> = {
+  "pastors-message": "Pastor's Monthly Message",
+  "event-recaps": "Event Recaps",
   announcements: "Announcements",
-  devotionals: "Devotionals",
   testimonies: "Testimonies",
-  events: "Events",
-  teachings: "Teachings",
+  "bible-study-notes": "Bible Study Notes",
   "community-news": "Community News",
 }
 
-// Seed posts (replace with real content / CMS later).
-export const blogPosts: BlogPost[] = [
+const rawBlogPosts: BlogPost[] = [
+  {
+    slug: "easter-prep-week-2026",
+    title: "Preparing Our Hearts for Easter Week",
+    excerpt:
+      "A short pastoral note on prayer, repentance, and inviting others as we approach Easter services together.",
+    dateIso: "2026-03-18",
+    category: "pastors-message",
+    readTimeMinutes: 4,
+    authorName: "Pastor Mano",
+    tags: ["Easter", "Prayer", "Invitation"],
+    content: [
+      "As we approach Easter week, let us slow down and remember the cross with gratitude and reverence.",
+      "Take time this week for prayer, repentance, and Scripture reading. Ask the Lord to renew your love for Christ and compassion for others.",
+      "This is also a beautiful time to invite a friend, neighbour, or family member to join us for worship.",
+    ],
+  },
+  {
+    slug: "volunteer-spotlight-welcome-team",
+    title: "Volunteer Spotlight: The Welcome Team",
+    excerpt:
+      "Meet the team that helps guests feel seen, supported, and at home from the moment they arrive.",
+    dateIso: "2026-03-16",
+    category: "community-news",
+    readTimeMinutes: 4,
+    authorName: "Praise Tabernacle",
+    tags: ["Serve", "Hospitality", "Welcome Team"],
+    content: [
+      "A warm welcome can be a ministry in itself. Our welcome team helps create a calm, friendly first impression for every guest.",
+      "From helping with seating to answering simple questions, this team makes church feel accessible and personal.",
+      "If you enjoy hospitality and conversation, serving on this team could be a meaningful next step for you.",
+    ],
+  },
+  {
+    slug: "testimony-finding-peace-through-prayer",
+    title: "Testimony: Finding Peace Through Prayer",
+    excerpt:
+      "One member shares how steady prayer and support from the church brought peace during a stressful season.",
+    dateIso: "2026-03-12",
+    category: "testimonies",
+    readTimeMinutes: 5,
+    authorName: "Praise Tabernacle Member",
+    tags: ["Prayer", "Peace", "Testimony"],
+    content: [
+      "During a season of uncertainty, I found myself overwhelmed and tired. I did not have all the answers, but I kept bringing my concerns to God.",
+      "The prayers of the church family reminded me that I was not carrying the burden alone. God met me with peace before circumstances changed.",
+      "Looking back, I see that the Lord was faithful not only in the outcome, but in the quiet daily grace that sustained me.",
+    ],
+  },
+  {
+    slug: "pastor-message-march-2026",
+    title: "Pastor's Monthly Message - March 2026",
+    excerpt:
+      "Pastor Mano shares this month's church prayer focus, spiritual encouragement, and a few next steps for families.",
+    dateIso: "2026-03-01",
+    category: "pastors-message",
+    readTimeMinutes: 4,
+    authorName: "Pastor Mano",
+    tags: ["Monthly Message", "Prayer", "Church Family"],
+    content: [
+      "As we begin a new month, let us stay rooted in prayer, unity, and the Word of God.",
+      "This month we are praying especially for families, spiritual growth, and open doors for outreach in Mississauga.",
+      "Please stay connected through Sunday worship, midweek prayer, and simple acts of encouragement within the church family.",
+    ],
+  },
   {
     slug: "pastor-update-february-2026",
     title: "Monthly Update from Pastor Mano — February 2026",
     excerpt:
       "A short word of encouragement, prayer focus for the month, and ways to stay connected as a church family.",
     dateIso: "2026-02-01",
-    category: "announcements",
+    category: "pastors-message",
     readTimeMinutes: 4,
     authorName: "Pastor Mano",
     tags: ["Monthly Update", "Prayer"],
     content: [
       "Thanks for visiting with us. Guests are always welcome — in person or online. We pray this month will strengthen your faith and encourage your family.",
       "Our prayer focus this month is unity, spiritual growth, and a renewed love for Christ. Please join our prayer times and invite someone who needs hope.",
-      "If you’re new, we’d love to meet you. Plan your visit, send a message, or request prayer — we’re here for you.",
+      "If you're new, we'd love to meet you. Plan your visit, send a message, or request prayer — we're here for you.",
     ],
   },
   {
@@ -63,13 +145,13 @@ export const blogPosts: BlogPost[] = [
     excerpt:
       "A short devotional to help you slow down, pray, and remember the gentle invitation of Jesus.",
     dateIso: "2026-01-28",
-    category: "devotionals",
+    category: "bible-study-notes",
     readTimeMinutes: 5,
     authorName: "Praise Tabernacle",
     tags: ["Devotional", "Prayer"],
     content: [
       "Life can feel heavy — responsibilities, anxiety, and uncertainty can pile up quickly.",
-      "Jesus invites us to come to Him and find rest. Rest is not the absence of work; it’s the presence of Christ with us.",
+      "Jesus invites us to come to Him and find rest. Rest is not the absence of work; it's the presence of Christ with us.",
       "This week, take five minutes each day: read a short passage, pray honestly, and ask God for His peace to guard your heart.",
     ],
   },
@@ -84,9 +166,9 @@ export const blogPosts: BlogPost[] = [
     authorName: "Praise Tabernacle",
     tags: ["Welcome", "Next Steps"],
     content: [
-      "We’re glad you’re here. Whether you’re exploring faith or returning to church, there’s a place for you and your family at Praise Tabernacle.",
-      "Expect a warm welcome, worship, and clear teaching. Come as you are — there’s no pressure and no dress code.",
-      "If you’d like help with your first visit, reach out anytime. We’d love to meet you.",
+      "We're glad you're here. Whether you're exploring faith or returning to church, there's a place for you and your family at Praise Tabernacle.",
+      "Expect a warm welcome, worship, and clear teaching. Come as you are — there's no pressure and no dress code.",
+      "If you'd like help with your first visit, reach out anytime. We'd love to meet you.",
     ],
   },
   {
@@ -95,14 +177,14 @@ export const blogPosts: BlogPost[] = [
     excerpt:
       "A simple explanation of why Sunday worship matters and how it shapes our faith and relationships.",
     dateIso: "2026-01-12",
-    category: "teachings",
+    category: "bible-study-notes",
     readTimeMinutes: 6,
     authorName: "Praise Tabernacle",
     tags: ["Worship", "Church"],
     content: [
       "We gather because God is worthy of worship — and because we need one another.",
-      "God’s Word shapes us, corrects us, and gives us hope. When we hear Scripture taught, our faith becomes steady and strong.",
-      "Community matters: we carry burdens together, pray together, and grow together. Church is not a performance — it’s a family.",
+      "God's Word shapes us, corrects us, and gives us hope. When we hear Scripture taught, our faith becomes steady and strong.",
+      "Community matters: we carry burdens together, pray together, and grow together. Church is not a performance — it's a family.",
     ],
   },
   {
@@ -111,7 +193,7 @@ export const blogPosts: BlogPost[] = [
     excerpt:
       "A recap of our recent prayer night — worship, Scripture, and a powerful time of intercession together.",
     dateIso: "2026-02-03",
-    category: "events",
+    category: "event-recaps",
     readTimeMinutes: 4,
     authorName: "Praise Tabernacle",
     tags: ["Prayer", "Events"],
@@ -119,14 +201,31 @@ export const blogPosts: BlogPost[] = [
     content: [
       "Thank you to everyone who joined our community prayer night. It was a calm, focused evening of worship and intercession.",
       "We prayed for families, young people, healing, and growth in our church. God is faithful — and we believe He is answering prayer.",
-      "If you couldn’t attend, you’re welcome at the next one. Bring a friend and come expectant.",
+      "If you couldn't attend, you're welcome at the next one. Bring a friend and come expectant.",
+    ],
+  },
+  {
+    slug: "event-recap-family-fellowship-sunday",
+    title: "Event Recap: Family Fellowship Sunday",
+    excerpt:
+      "A short recap of worship, fellowship, and conversations from our recent Family Fellowship Sunday.",
+    dateIso: "2026-02-18",
+    category: "event-recaps",
+    readTimeMinutes: 4,
+    authorName: "Praise Tabernacle",
+    tags: ["Family", "Fellowship", "Recap"],
+    galleryImageSrcs: ["/event-family.svg"],
+    content: [
+      "Family Fellowship Sunday was a joyful time of worship, connection, and prayer across generations.",
+      "We were encouraged to see new families meeting longtime members and taking simple next steps into community.",
+      "Thank you to everyone who served, welcomed guests, and helped create a warm church-home atmosphere.",
     ],
   },
   {
     slug: "testimony-gods-faithfulness-in-hard-times",
-    title: "Testimony: God’s Faithfulness in Hard Times",
+    title: "Testimony: God's Faithfulness in Hard Times",
     excerpt:
-      "A short testimony from one of our members about God’s provision and peace through a difficult season.",
+      "A short testimony from one of our members about God's provision and peace through a difficult season.",
     dateIso: "2026-01-20",
     category: "testimonies",
     readTimeMinutes: 5,
@@ -134,8 +233,24 @@ export const blogPosts: BlogPost[] = [
     tags: ["Testimony", "Hope"],
     content: [
       "In a season of uncertainty, God reminded me that He is near and that He provides day by day.",
-      "Through prayer and support from the church, my faith grew stronger. I learned to trust God with what I couldn’t control.",
-      "If you’re walking through hardship right now, don’t give up. God sees you, and He is faithful.",
+      "Through prayer and support from the church, my faith grew stronger. I learned to trust God with what I couldn't control.",
+      "If you're walking through hardship right now, don't give up. God sees you, and He is faithful.",
+    ],
+  },
+  {
+    slug: "community-news-outreach-in-mississauga",
+    title: "Community News: Serving Mississauga Together",
+    excerpt:
+      "An update on practical care, local outreach, and how the church family is serving neighbours in Mississauga.",
+    dateIso: "2026-02-14",
+    category: "community-news",
+    readTimeMinutes: 4,
+    authorName: "Praise Tabernacle",
+    tags: ["Outreach", "Community", "Mississauga"],
+    content: [
+      "Our church continues to look for simple, faithful ways to serve local families and support our neighbours.",
+      "From prayer and follow-up to practical care and connection, every act of service helps reflect the love of Christ.",
+      "If you would like to join upcoming outreach opportunities, visit the Serve page or speak with a ministry leader this Sunday.",
     ],
   },
   {
@@ -144,14 +259,14 @@ export const blogPosts: BlogPost[] = [
     excerpt:
       "A short Christmas message: the light of Christ has come, and hope is available for everyone.",
     dateIso: "2025-12-25",
-    category: "announcements",
+    category: "pastors-message",
     readTimeMinutes: 4,
     authorName: "Pastor Mano",
     tags: ["Christmas", "Hope"],
     content: [
       "Christmas reminds us that God stepped into our world — not to condemn us, but to save us.",
       "Jesus is our hope: for families, for healing, for the future. The light shines in the darkness, and the darkness cannot overcome it.",
-      "Wherever you are today, you are welcome. We pray God’s peace will fill your home.",
+      "Wherever you are today, you are welcome. We pray God's peace will fill your home.",
     ],
   },
   {
@@ -174,7 +289,7 @@ export const blogPosts: BlogPost[] = [
     title: "Devotional: Psalm 23 - The Lord Is My Shepherd",
     excerpt: "A short devotional reminder that God leads, restores, and stays near in every season.",
     dateIso: "2026-01-22",
-    category: "devotionals",
+    category: "bible-study-notes",
     readTimeMinutes: 5,
     authorName: "Praise Tabernacle",
     tags: ["Devotional", "Hope"],
@@ -189,7 +304,7 @@ export const blogPosts: BlogPost[] = [
     title: "Teaching: Prayer & Fasting",
     excerpt: "What fasting is (and isn't), why Christians fast, and how to start simply and safely.",
     dateIso: "2026-01-15",
-    category: "teachings",
+    category: "bible-study-notes",
     readTimeMinutes: 7,
     authorName: "Praise Tabernacle",
     tags: ["Prayer", "Fasting"],
@@ -219,7 +334,7 @@ export const blogPosts: BlogPost[] = [
     title: "Upcoming: Baptism Class",
     excerpt: "If you're considering baptism, this short class will explain what it means and how the process works.",
     dateIso: "2026-01-05",
-    category: "events",
+    category: "announcements",
     readTimeMinutes: 3,
     authorName: "Praise Tabernacle",
     tags: ["Baptism", "Next Steps"],
@@ -249,7 +364,7 @@ export const blogPosts: BlogPost[] = [
     title: "Teaching: What Is Baptism?",
     excerpt: "A simple explanation of baptism, why it matters, and common questions people ask.",
     dateIso: "2025-11-20",
-    category: "teachings",
+    category: "bible-study-notes",
     readTimeMinutes: 6,
     authorName: "Praise Tabernacle",
     tags: ["Baptism", "Discipleship"],
@@ -279,14 +394,14 @@ export const blogPosts: BlogPost[] = [
     title: "How Do I Pray? A Simple Starting Point",
     excerpt: "A simple, honest guide to prayer for anyone who feels stuck or unsure how to begin.",
     dateIso: "2026-02-06",
-    category: "teachings",
+    category: "bible-study-notes",
     readTimeMinutes: 5,
     authorName: "Praise Tabernacle",
     tags: ["Prayer", "Spiritual Questions"],
     content: [
       "Prayer is not a performance. It is a conversation with God.",
-      "Start simple: thank God, share what’s on your heart, and ask for help. Silence is okay, too.",
-      "If you want help, ask a friend or send us a message — we’re happy to pray with you.",
+      "Start simple: thank God, share what's on your heart, and ask for help. Silence is okay, too.",
+      "If you want help, ask a friend or send us a message — we're happy to pray with you.",
     ],
   },
   {
@@ -294,14 +409,14 @@ export const blogPosts: BlogPost[] = [
     title: "Why Is There Suffering?",
     excerpt: "A short, compassionate reflection on suffering and where God meets us in pain.",
     dateIso: "2026-02-05",
-    category: "teachings",
+    category: "bible-study-notes",
     readTimeMinutes: 6,
     authorName: "Praise Tabernacle",
     tags: ["Suffering", "Hope", "Spiritual Questions"],
     content: [
       "Suffering is one of the hardest questions of faith. The Bible does not minimize pain.",
       "God is not distant from our suffering — Jesus entered our brokenness and carries our grief.",
-      "If you are hurting, you are not alone. We’re here to listen and pray with you.",
+      "If you are hurting, you are not alone. We're here to listen and pray with you.",
     ],
   },
   {
@@ -309,7 +424,7 @@ export const blogPosts: BlogPost[] = [
     title: "How Do I Start Reading the Bible?",
     excerpt: "A practical way to begin reading the Bible without getting overwhelmed.",
     dateIso: "2026-02-04",
-    category: "teachings",
+    category: "bible-study-notes",
     readTimeMinutes: 5,
     authorName: "Praise Tabernacle",
     tags: ["Bible", "Spiritual Questions"],
@@ -320,23 +435,59 @@ export const blogPosts: BlogPost[] = [
     ],
   },
   {
+    slug: "tamil-prayer-encouragement-march-2026",
+    language: "ta",
+    title: "ஜெபத்தில் ஊக்கம்: மார்ச் 2026",
+    excerpt: "ஜெபம், நம்பிக்கை, மற்றும் தேவனின் உண்மையில் நிலைத்திருக்க ஒரு சிறிய ஊக்கம்.",
+    dateIso: "2026-03-11",
+    category: "bible-study-notes",
+    readTimeMinutes: 4,
+    authorName: "Praise Tabernacle",
+    tags: ["ஜெபம்", "நம்பிக்கை"],
+    content: [
+      "சில நாட்களில் நம்முடைய மனம் கவலையாகவும் பலவீனமாகவும் இருக்கலாம்.",
+      "ஆனால் ஜெபம் என்பது நம்மை தேவனிடத்தில் மீண்டும் திருப்பிச் செல்லும் ஒரு அருள்வழியாகும்.",
+      "இந்த வாரம் தொடர்ந்து ஜெபித்து, உங்கள் இருதயத்தை தேவன் பலப்படுத்துவார் என்று நம்புங்கள்.",
+    ],
+  },
+  {
+    slug: "tamil-community-update-families",
+    language: "ta",
+    title: "சமூக செய்தி: குடும்பங்களுடன் ஒன்றாக வளர்வோம்",
+    excerpt: "சபை குடும்பங்களில் நடக்கும் ஊக்கமான சிறிய முன்னேற்றங்கள் மற்றும் உறவுகள் பற்றி ஒரு பதிவு.",
+    dateIso: "2026-03-07",
+    category: "community-news",
+    readTimeMinutes: 4,
+    authorName: "Praise Tabernacle",
+    tags: ["குடும்பம்", "சமூகம்"],
+    content: [
+      "சமீப வாரங்களில் சபையில் நிறைய குடும்பங்கள் எளிமையான ஆதரவு, ஜெபம், மற்றும் உறவுகளில் வளர்ந்து வருகின்றன.",
+      "இளைஞர்கள், குழந்தைகள், பெற்றோர் அனைவருக்கும் இடமுள்ள ஒரு சபை சமூகமாக வளருவதைக் காண்பது மகிழ்ச்சி.",
+      "நீங்கள் இணைய விரும்பினால், ஒரு குழு, ஒரு சேவைக் குழு, அல்லது ஒரு ஜெபக் குழு உங்களுக்காக காத்திருக்கிறது.",
+    ],
+  },
+  {
     slug: "tamil-devotional-god-is-with-you",
     language: "ta",
     title: "தியானம்: தேவன் உங்களோடு இருக்கிறார்",
-    excerpt:
-      "இன்றைக்கு ஒரு சிறிய தியானம் — பயப்பட வேண்டாம், தேவன் நம்மோடு இருக்கிறார் என்பதைக் நினைவுபடுத்துகிறது.",
+    excerpt: "இன்றைக்கு ஒரு சிறிய தியானம் — பயப்பட வேண்டாம், தேவன் நம்மோடு இருக்கிறார் என்பதை நினைவூட்டுகிறது.",
     dateIso: "2026-02-04",
-    category: "devotionals",
+    category: "bible-study-notes",
     readTimeMinutes: 4,
     authorName: "Praise Tabernacle",
     tags: ["தியானம்", "நம்பிக்கை"],
     content: [
-      "சில சமயங்களில் நம் மனம் கவலை, பயம், உறுதியின்மை ஆகியவற்றால் நிறைந்து போகலாம்.",
-      "ஆனால் தேவனுடைய வார்த்தை நமக்கு மீண்டும் மீண்டும் சொல்லுகிறது: “பயப்படாதே… நான் உன்னோடு இருக்கிறேன்.”",
-      "இன்றைக்கு ஒரு நிமிடம்: ஆழமாக சுவாசித்து, தேவனிடம் உங்கள் கவலையை ஒப்புக்கொடுத்து, அவர் சமாதானத்தை கேளுங்கள்.",
+      "சில சமயங்களில் நம் மனம் கவலை, பயம், உறுதியின்மை ஆகியவற்றால் நிரம்பிப் போகலாம்.",
+      "ஆனால் தேவனுடைய வார்த்தை நமக்குச் சொல்லுகிறது: “பயப்படாதே... நான் உன்னோடு இருக்கிறேன்.”",
+      "இன்றைக்கு ஒரு நிமிடம்: ஆழமாக சுவாசித்து, தேவனிடம் உங்கள் கவலைகளை ஒப்படைத்து, அவருடைய சமாதானத்தை கேளுங்கள்.",
     ],
   },
 ]
+
+export const blogPosts: BlogPost[] = rawBlogPosts.map((post) => ({
+  ...post,
+  coverImageSrc: post.coverImageSrc ?? defaultCoverImageForCategory(post.category),
+}))
 
 export function getBlogPostBySlug(slug: string) {
   return blogPosts.find((p) => p.slug === slug) ?? null
@@ -352,4 +503,17 @@ export function getBlogPostsByLanguage(language: BlogLanguage) {
 
 export function listBlogPostsNewestFirst(posts: BlogPost[] = blogPosts) {
   return posts.slice().sort((a, b) => b.dateIso.localeCompare(a.dateIso))
+}
+
+export function getRelatedBlogPosts(post: BlogPost, limit = 3) {
+  return listBlogPostsNewestFirst(
+    blogPosts.filter((candidate) => {
+      if (candidate.slug === post.slug) return false
+      if ((candidate.language ?? "en") !== (post.language ?? "en")) return false
+      if (candidate.category === post.category) return true
+
+      const sourceTags = new Set(post.tags ?? [])
+      return (candidate.tags ?? []).some((tag) => sourceTags.has(tag))
+    }),
+  ).slice(0, limit)
 }

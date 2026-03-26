@@ -70,6 +70,11 @@ function deriveYouTubeVideoId(sermon: Sermon) {
   return ""
 }
 
+function derivePrimarySermonHref(sermon: Sermon, youtubeVideoId: string) {
+  if (sermon.source === "youtube-api" && sermon.platforms?.youtubeUrl) return sermon.platforms.youtubeUrl
+  return youtubeVideoId ? `/sermons/${sermon.slug}?play=1` : `/sermons/${sermon.slug}`
+}
+
 export default function SermonArchive({
   sermons,
   series,
@@ -208,7 +213,7 @@ export default function SermonArchive({
 
   return (
     <section className="bg-white" id="library">
-      <div className="mx-auto max-w-6xl">
+      <div className="mx-auto max-w-[1200px]">
         <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
           <div>
             <div className="section-kicker">Archive</div>
@@ -547,7 +552,8 @@ function SermonCard({
   const youtubeVideoId = deriveYouTubeVideoId(sermon)
   const seriesTitle = sermon.seriesId ? seriesById.get(sermon.seriesId)?.title : null
   const seriesCoverSrc = sermon.seriesId ? seriesById.get(sermon.seriesId)?.coverImageSrc : null
-  const detailHref = youtubeVideoId ? `/sermons/${sermon.slug}?play=1` : `/sermons/${sermon.slug}`
+  const detailHref = derivePrimarySermonHref(sermon, youtubeVideoId)
+  const opensExternally = detailHref.startsWith("http")
   const thumbSrc =
     sermon.thumbnailImageSrc ||
     (youtubeVideoId ? `https://img.youtube.com/vi/${youtubeVideoId}/mqdefault.jpg` : "") ||
@@ -569,6 +575,8 @@ function SermonCard({
           href={detailHref}
           className="group block focus-ring"
           aria-label={sermon.youtubeVideoId ? `Play sermon: ${sermon.title}` : `Open sermon: ${sermon.title}`}
+          target={opensExternally ? "_blank" : undefined}
+          rel={opensExternally ? "noreferrer" : undefined}
         >
           <div className="relative aspect-video w-full bg-churchBlueSoft">
             <Image
@@ -600,13 +608,18 @@ function SermonCard({
           <div className="min-w-0">
             <div className="text-xs font-semibold tracking-wide text-churchBlue/60">
               {formatDate(sermon.dateIso)}
-              {seriesTitle ? ` • ${seriesTitle}` : ""}
+              {seriesTitle ? ` " ${seriesTitle}` : ""}
             </div>
             {sermon.durationMinutes ? (
               <div className="mt-1 text-sm text-churchBlue/70">{sermon.durationMinutes} min</div>
             ) : null}
             <h4 className="mt-2 text-lg font-semibold tracking-tight text-churchBlue">
-              <Link href={detailHref} className="focus-ring rounded-lg">
+              <Link
+                href={detailHref}
+                className="focus-ring rounded-lg"
+                target={opensExternally ? "_blank" : undefined}
+                rel={opensExternally ? "noreferrer" : undefined}
+              >
                 {sermon.title}
               </Link>
             </h4>
@@ -650,8 +663,13 @@ function SermonCard({
         ) : null}
 
         <div className="mt-6 grid gap-2">
-          <Link href={detailHref} className="btn btn-sm btn-primary w-full">
-            {youtubeVideoId ? "Watch on site" : "View sermon"}
+          <Link
+            href={detailHref}
+            className="btn btn-sm btn-primary w-full"
+            target={opensExternally ? "_blank" : undefined}
+            rel={opensExternally ? "noreferrer" : undefined}
+          >
+            {opensExternally ? "Watch on YouTube" : youtubeVideoId ? "Watch on site" : "View sermon"}
           </Link>
 
           {hasMedia ? (
@@ -747,7 +765,10 @@ function SermonCard({
           ) : null}
 
           {sermon.transcriptText || sermon.transcriptHref ? (
-            <Link href={`/sermons/${sermon.slug}#transcript`} className="btn btn-sm btn-secondary w-full">
+            <Link
+              href={`/sermons/${sermon.slug}#transcript`}
+              className="btn btn-sm btn-secondary w-full"
+            >
               View transcript
             </Link>
           ) : null}

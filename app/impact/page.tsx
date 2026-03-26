@@ -72,21 +72,13 @@ export default function ImpactPage() {
                         {formatMonth(m.monthIso)}
                       </h3>
                       <div className="mt-5 grid gap-3">
-                        <MetricRow
-                          labelEn="People served"
-                          labelTa="சேவை பெற்றவர்கள்"
-                          value={m.peopleServed}
-                        />
+                        <MetricRow labelEn="People served" labelTa="சேவை பெற்றவர்கள்" value={m.peopleServed} />
                         <MetricRow
                           labelEn="Prayer requests answered"
                           labelTa="ஜெப வேண்டுகோள்கள்"
                           value={m.prayerRequestsAnswered}
                         />
-                        <MetricRow
-                          labelEn="Families reached"
-                          labelTa="குடும்பங்கள்"
-                          value={m.familiesReached}
-                        />
+                        <MetricRow labelEn="Families reached" labelTa="குடும்பங்கள்" value={m.familiesReached} />
                         <MetricRow
                           labelEn="Community outreach moments"
                           labelTa="சமூக சேவை"
@@ -131,7 +123,12 @@ function MetricRow({
       <div className="text-sm font-semibold text-churchBlue/80">
         <Lang en={labelEn} ta={labelTa} taClassName="font-tamil" />
       </div>
-      <CountUp value={value} durationMs={1500} locale="en-CA" className="text-lg font-semibold text-churchBlue" />
+      <CountUp
+        value={value}
+        durationMs={1500}
+        locale="en-CA"
+        className="text-lg font-semibold text-churchBlue"
+      />
     </div>
   )
 }

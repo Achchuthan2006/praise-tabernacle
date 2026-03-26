@@ -4,6 +4,7 @@ import Image from "next/image"
 import Link from "next/link"
 import { useState } from "react"
 
+import Lang from "@/components/language/Lang"
 import Container from "@/components/ui/Container"
 import Reveal from "@/components/ui/Reveal"
 import { mediaPhotos } from "@/lib/media"
@@ -23,26 +24,34 @@ export default function PhotosMediaSection() {
   return (
     <section className="border-t border-churchBlue/10 bg-white">
       <Container className="section-padding">
-        <div className="mx-auto max-w-6xl">
+        <div className="content-shell-wide">
           <Reveal>
             <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
               <div>
-                <div className="section-kicker">Photos & Media</div>
-                <h2 className="section-heading">A glimpse of church life</h2>
+                <div className="section-kicker">
+                  <Lang en="Photos & Media" ta="படங்கள் மற்றும் ஊடகம்" taClassName="font-tamil" />
+                </div>
+                <h2 className="section-heading">
+                  <Lang en="A glimpse of church life" ta="சபை வாழ்க்கையின் ஒளிவிழி" taClassName="font-tamil" />
+                </h2>
                 <p className="mt-2 max-w-2xl text-sm text-churchBlue/70 sm:text-base">
-                  Worship, ministries, and community moments from Praise Tabernacle.
+                  <Lang
+                    en="Worship, ministries, and community moments from Praise Tabernacle."
+                    ta="Praise Tabernacle ஆராதனை, ஊழியங்கள், மற்றும் சமூக தருணங்களின் சிறு தொகுப்பு."
+                    taClassName="font-tamil"
+                  />
                 </p>
               </div>
             </div>
           </Reveal>
 
-          <div className="mt-10 bento-grid">
+          <div className="mt-6 bento-grid">
             {mediaPhotos.slice(0, 6).map((photo, idx) => (
               <Reveal key={`${photo.label}-${idx}`} delay={idx === 0 ? 0 : idx === 1 ? 1 : 2}>
                 {photo.href ? (
                   <Link
                     href={photo.href}
-                    className={["card group focus-ring rounded-3xl h-full", bentoClassForIndex(idx)].filter(Boolean).join(" ")}
+                    className={["card group focus-ring h-full rounded-3xl", bentoClassForIndex(idx)].filter(Boolean).join(" ")}
                     aria-label={photo.label}
                   >
                     <div className="image-reveal relative h-full">
@@ -68,14 +77,14 @@ export default function PhotosMediaSection() {
                             className="text-sm text-white/85 transition-transform group-hover:translate-x-0.5"
                             aria-hidden="true"
                           >
-                            {"\u203A"}
+                            {"›"}
                           </span>
                         </div>
                       </div>
                     </div>
                   </Link>
                 ) : (
-                  <div className={["card rounded-3xl h-full", bentoClassForIndex(idx)].filter(Boolean).join(" ")}>
+                  <div className={["card h-full rounded-3xl", bentoClassForIndex(idx)].filter(Boolean).join(" ")}>
                     <div className="image-reveal relative h-full">
                       <Image
                         src={failed[photo.src] && photo.fallbackSrc ? photo.fallbackSrc : photo.src}

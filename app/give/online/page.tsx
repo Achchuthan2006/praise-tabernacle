@@ -7,6 +7,7 @@ import Container from "@/components/ui/Container"
 import PageHeader from "@/components/ui/PageHeader"
 import Reveal from "@/components/ui/Reveal"
 import { givingCategories } from "@/lib/giving"
+import { getGivingProviderLabel } from "@/lib/givingProvider"
 import { pageMetadata } from "@/lib/seo"
 import { siteConfig } from "@/lib/site"
 
@@ -19,17 +20,19 @@ export const metadata: Metadata = pageMetadata({
 export default function OnlineDonationPage() {
   const onlineGivingUrl = siteConfig.giving?.onlineGivingUrl ?? ""
   const recurringGivingUrl = siteConfig.giving?.recurringGivingUrl ?? ""
-  const qrCodes = siteConfig.giving?.qrCodes ?? []
   const textToGiveNumber = siteConfig.giving?.textToGiveNumber ?? ""
   const textToGiveKeyword = siteConfig.giving?.textToGiveKeyword ?? "GIVE"
+  const processorName = siteConfig.giving?.processorName?.trim() ?? ""
+  const providerLabel = getGivingProviderLabel(processorName, onlineGivingUrl)
+  const hasOnlineGiving = Boolean(onlineGivingUrl)
 
   return (
     <>
       <PageHeader
         titleEn="Online donation"
         titleTa="ஆன்லைன் கொடை"
-        descriptionEn="A simple, secure way to give. Choose a category, amount, and frequency."
-        descriptionTa="எளிதாகவும் பாதுகாப்பாகவும் கொடுக்கலாம். வகை, தொகை, மற்றும் அடிக்கடி என்பவற்றைத் தேர்வு செய்யுங்கள்."
+        descriptionEn="A simple, secure way to give when online giving is enabled."
+        descriptionTa="ஆன்லைன் கொடை செயல்படுத்தப்பட்டிருக்கும்போது, எளிய மற்றும் பாதுகாப்பான கொடை வழி."
       />
 
       <section className="bg-white">
@@ -44,33 +47,63 @@ export default function OnlineDonationPage() {
                   <h2 className="section-heading mt-2">
                     <Lang en="Give online" ta="ஆன்லைனில் கொடுங்கள்" taClassName="font-tamil" />
                   </h2>
-                  <p className="mt-3 text-sm leading-relaxed text-churchBlue/70 sm:text-base">
-                    <Lang
-                      en="Fill in the details below, then continue to the secure giving page to complete your donation."
-                      ta="கீழே உள்ள விவரங்களை நிரப்பி, பின்னர் பாதுகாப்பான கொடைப் பக்கத்திற்கு சென்று உங்கள் கொடையை முடிக்கவும்."
-                      taClassName="font-tamil"
-                    />
-                  </p>
 
-                  <div className="mt-7">
-                    <OnlineDonationForm
-                      onlineGivingUrl={onlineGivingUrl}
-                      recurringGivingUrl={recurringGivingUrl}
-                      categories={givingCategories}
-                    />
-                  </div>
-
-                  {!onlineGivingUrl ? (
-                    <div className="mt-6 rounded-2xl border border-churchBlue/10 bg-churchBlueSoft p-4 text-sm text-churchBlue/75">
-                      <p>
+                  {hasOnlineGiving ? (
+                    <>
+                      <p className="mt-3 text-sm leading-relaxed text-churchBlue/70 sm:text-base">
                         <Lang
-                          en="Admin note: Set your giving link in lib/site.ts → siteConfig.giving.onlineGivingUrl to enable the final payment step."
-                          ta="Admin note: இறுதி கட்டத்தை இயக்கு, lib/site.ts → siteConfig.giving.onlineGivingUrl இல் கொடை இணைப்பை அமைக்கவும்."
+                          en={
+                            processorName
+                              ? `Choose a category, amount, and frequency, then continue to ${providerLabel} to complete your donation securely.`
+                              : "Choose a category, amount, and frequency, then continue to the secure giving page to complete your donation."
+                          }
+                          ta={
+                            processorName
+                              ? `வகை, தொகை, மற்றும் அடிக்கடி என்பவற்றைத் தேர்வு செய்து, பாதுகாப்பாக கொடையை முடிக்க ${processorName} பக்கத்திற்குச் செல்லுங்கள்.`
+                              : "வகை, தொகை, மற்றும் அடிக்கடி என்பவற்றைத் தேர்வு செய்து, பாதுகாப்பான கொடைப் பக்கத்திற்குச் சென்று உங்கள் கொடையை முடிக்கவும்."
+                          }
                           taClassName="font-tamil"
                         />
                       </p>
+
+                      <div className="mt-7">
+                        <OnlineDonationForm
+                          onlineGivingUrl={onlineGivingUrl}
+                          recurringGivingUrl={recurringGivingUrl}
+                          categories={givingCategories}
+                          processorName={processorName}
+                        />
+                      </div>
+                    </>
+                  ) : (
+                    <div className="mt-6 rounded-3xl border border-amber-300 bg-amber-50 p-6">
+                      <h3 className="text-lg font-semibold tracking-tight text-churchBlue">
+                        <Lang
+                          en="Online giving is almost ready"
+                          ta="ஆன்லைன் கொடை இன்னும் இணைக்கப்படவில்லை"
+                          taClassName="font-tamil"
+                        />
+                      </h3>
+                      <p className="mt-3 text-sm leading-relaxed text-churchBlue/75 sm:text-base">
+                        <Lang
+                          en="This page already supports a real secure giving provider, but the church's live processor URL has not been added yet. Once that link is configured, online donations will open directly from here."
+                          ta="இந்த பக்கம் உண்மையான கொடை வழங்குநருக்குத் தயாராக இருக்கிறது, ஆனால் நேரடி கட்டண செயலி இணைப்பு இன்னும் அமைக்கப்படவில்லை. அது இணைக்கப்படும் வரை, கீழே உள்ள மற்ற கொடை வழிகளை பயன்படுத்துங்கள்."
+                          taClassName="font-tamil"
+                        />
+                      </p>
+                      <div className="mt-6 flex flex-col gap-3 sm:flex-row">
+                        <Link href="/give" className="btn btn-md btn-primary">
+                          <Lang en="Back to giving options" ta="கொடை வழிகளுக்கு திரும்ப" taClassName="font-tamil" />
+                        </Link>
+                        <a
+                          href={`mailto:${siteConfig.email}?subject=${encodeURIComponent("Giving setup")}`}
+                          className="btn btn-md btn-secondary"
+                        >
+                          <Lang en="Contact the church" ta="சபையை தொடர்புகொள்ளுங்கள்" taClassName="font-tamil" />
+                        </a>
+                      </div>
                     </div>
-                  ) : null}
+                  )}
                 </div>
               </Reveal>
             </div>
@@ -87,7 +120,7 @@ export default function OnlineDonationPage() {
                   <p className="mt-3 text-sm leading-relaxed text-churchBlue/70 sm:text-base">
                     <Lang
                       en="Giving is always voluntary. Thank you for supporting worship, discipleship, missions, and local care."
-                      ta="கொடை எப்போதும் விருப்பத்திற்குரியது. ஆராதனை, சீஷத்துவம், மிஷன், மற்றும் உள்ளூர் உதவிக்கு ஆதரவளித்ததற்கு நன்றி."
+                      ta="கொடை எப்போதும் விருப்பமானது. ஆராதனை, சீஷத்துவம், மிஷன், மற்றும் உள்ளூர் உதவிக்கான ஆதரவுக்கு நன்றி."
                       taClassName="font-tamil"
                     />
                   </p>
@@ -106,7 +139,7 @@ export default function OnlineDonationPage() {
                 <Reveal delay={2}>
                   <div className="rounded-3xl border border-churchBlue/10 bg-white p-6 shadow-glow sm:p-8">
                     <div className="section-kicker">
-                      <Lang en="Quick option" ta="விரைவு" taClassName="font-tamil" />
+                      <Lang en="Quick option" ta="விரைவு வழி" taClassName="font-tamil" />
                     </div>
                     <h3 className="mt-2 text-xl font-semibold tracking-tight text-churchBlue sm:text-2xl">
                       <Lang en="Text-to-give" ta="SMS கொடை" taClassName="font-tamil" />
@@ -121,32 +154,6 @@ export default function OnlineDonationPage() {
                   </div>
                 </Reveal>
               ) : null}
-
-              {qrCodes.length ? (
-                <Reveal delay={3}>
-                  <div className="rounded-3xl border border-churchBlue/10 bg-white p-6 shadow-glow sm:p-8">
-                    <div className="section-kicker">
-                      <Lang en="Mobile" ta="மொபைல்" taClassName="font-tamil" />
-                    </div>
-                    <h3 className="mt-2 text-xl font-semibold tracking-tight text-churchBlue sm:text-2xl">
-                      <Lang en="Scan a QR code" ta="QR code ஸ்கேன்" taClassName="font-tamil" />
-                    </h3>
-                    <div className="mt-5 grid gap-4 sm:grid-cols-2">
-                      {qrCodes.slice(0, 4).map((code) => (
-                        <div key={code.labelEn} className="rounded-2xl border border-churchBlue/10 bg-churchBlueSoft p-4">
-                          <div className="text-xs font-semibold tracking-wide text-churchBlue/70">
-                            <Lang en={code.labelEn} ta={code.labelTa} taClassName="font-tamil" />
-                          </div>
-                          <div className="mt-3 overflow-hidden rounded-xl bg-white p-3">
-                            {/* eslint-disable-next-line @next/next/no-img-element */}
-                            <img src={code.src} alt="" className="h-auto w-full" loading="lazy" />
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                </Reveal>
-              ) : null}
             </div>
           </div>
         </Container>
@@ -154,4 +161,3 @@ export default function OnlineDonationPage() {
     </>
   )
 }
-

@@ -41,7 +41,7 @@ export default async function SermonNotesPage({
       <PageHeader
         titleEn="Sermon Notes"
         titleTa=""
-        descriptionEn={[sermon.title, sermon.dateIso, sermon.speaker ? `• ${sermon.speaker}` : ""].filter(Boolean).join(" ")}
+        descriptionEn={[sermon.title, sermon.dateIso, sermon.speaker ? `" ${sermon.speaker}` : ""].filter(Boolean).join(" ")}
         descriptionTa=""
       />
 
@@ -62,7 +62,7 @@ export default async function SermonNotesPage({
                 </h2>
                 <p className="mt-2 text-sm text-churchBlue/70">
                   {sermon.dateIso}
-                  {sermon.speaker ? ` • ${sermon.speaker}` : ""}
+                  {sermon.speaker ? ` " ${sermon.speaker}` : ""}
                 </p>
 
                 {sermon.scriptures?.length ? (

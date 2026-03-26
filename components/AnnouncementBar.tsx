@@ -1,99 +1,53 @@
-﻿import Link from "next/link"
+import Link from "next/link"
 
-import GlitchText from "@/components/GlitchText"
-import LiveServiceIndicator from "@/components/LiveServiceIndicator"
 import Lang from "@/components/language/Lang"
 import Container from "@/components/ui/Container"
 import { siteConfig } from "@/lib/site"
-import { joinWithBullet, splitDayTime } from "@/lib/text"
+import { joinWithBullet, normalizeBullets } from "@/lib/text"
+
+function stripSundayPrefix(value: string) {
+  return normalizeBullets(value).replace(/^Sundays?\s*[•·-]\s*/i, "").trim()
+}
 
 export default function AnnouncementBar() {
   if (!siteConfig.topBar.enabled) return null
 
-  const serviceSummaryEn = joinWithBullet(
-    siteConfig.serviceTimes.map((service) => {
-      const { time } = splitDayTime(service.time)
-      const label = service.labelEn.replace(" Service", "")
-      return `${label} ${time}`
-    }),
-  )
+  const englishService = siteConfig.serviceTimes.find((service) => service.id === "english-service")
+  const tamilService = siteConfig.serviceTimes.find((service) => service.id === "tamil-service")
+  const englishTime = stripSundayPrefix(englishService?.time ?? "Sundays • 9:15 AM") || "9:15 AM"
+  const tamilTime = stripSundayPrefix(tamilService?.time ?? "Sundays • 10:30 AM") || "10:30 AM"
 
-  const serviceSummaryTa = joinWithBullet(
-    siteConfig.serviceTimes.map((service) => {
-      const { time } = splitDayTime(service.time)
-      return `${service.labelTa} ${time}`
-    }),
-  )
+  const serviceSummaryEn =
+    siteConfig.topBar.announcementEn.trim() ||
+    joinWithBullet([`English ${englishTime}`, `Tamil (English translation) ${tamilTime}`])
 
-  const serviceTimesCompact = joinWithBullet(siteConfig.serviceTimes.map((service) => splitDayTime(service.time).time))
-  const serviceSummaryEnCompact = `Sun: ${joinWithBullet(
-    siteConfig.serviceTimes.map((service) => {
-      const { time } = splitDayTime(service.time)
-      const shortLabel = service.labelEn.toLowerCase().includes("tamil") ? "TA" : "EN"
-      return `${shortLabel} ${time}`
-    }),
-  )}`
-
-  const hasAnnouncement = Boolean(siteConfig.topBar.announcementEn || siteConfig.topBar.announcementTa)
-  const announcementEn = siteConfig.topBar.announcementEn || "Important update"
-  const announcementTa = siteConfig.topBar.announcementTa || siteConfig.topBar.announcementEn || "முக்கிய அறிவிப்பு"
+  const serviceSummaryTa =
+    siteConfig.topBar.announcementTa.trim() ||
+    joinWithBullet([`ஆங்கில ஆராதனை ${englishTime}`, `தமிழ் ஆராதனை (ஆங்கில மொழிபெயர்ப்பு) ${tamilTime}`])
 
   return (
-    <div className="top-bar border-b border-white/10 bg-[linear-gradient(90deg,rgb(var(--primary-navy))_0%,rgb(var(--primary-purple))_55%,rgb(var(--primary-teal))_100%)] text-white">
-      <Container className="announcement-bar flex flex-col items-center gap-1 px-3 py-1.5 text-center sm:gap-2 sm:py-2.5 md:px-0 lg:flex-row lg:items-center lg:justify-between lg:text-left">
-        <div className="w-full min-w-0 lg:w-auto">
-          <div className="text-[11px] font-medium text-white/90 sm:text-xs">
-            <span className="font-semibold">
-              <Lang en="Service times:" ta="ஆராதனை நேரங்கள்:" />
-            </span>{" "}
-            <span className="hidden sm:inline">
-              <Lang en={serviceSummaryEn} ta={serviceSummaryTa} taClassName="font-tamil" />
-            </span>
-            <span className="sm:hidden">
-              <Lang en={serviceSummaryEnCompact} ta={serviceTimesCompact} taClassName="font-tamil" />
-            </span>
-          </div>
+    <div className="top-bar text-white">
+      <Container className="top-bar-shell relative flex flex-col gap-2.5 py-2.5 lg:grid lg:grid-cols-[1fr,minmax(0,auto),1fr] lg:items-center lg:gap-6">
+        <div className="hidden lg:block" aria-hidden="true" />
+
+        <div className="top-bar-summary min-w-0 text-center text-[11px] font-semibold leading-tight text-white/95 lg:justify-self-center lg:text-xs">
+          <span className="text-white/88">
+            <Lang en="Service times:" ta="ஆராதனை நேரங்கள்:" taClassName="font-tamil" />
+          </span>{" "}
+          <Lang en={serviceSummaryEn} ta={serviceSummaryTa} taClassName="font-tamil" />
         </div>
 
-        <div className="flex w-full flex-col items-center justify-center gap-1 sm:w-auto sm:flex-row sm:flex-wrap sm:gap-2 lg:justify-end">
-          <LiveServiceIndicator />
-
-          {hasAnnouncement ? (
-            <Link
-              href={siteConfig.topBar.announcementHref}
-              className="focus-ring inline-flex min-h-10 w-full max-w-full items-center justify-center gap-2 rounded-full border border-white/20 bg-white/10 px-3 py-1 text-[11px] font-semibold text-white transition-colors hover:bg-white/15 sm:min-h-11 sm:w-auto sm:text-xs"
-              aria-label="Announcement / அறிவிப்பு"
-              title={siteConfig.topBar.announcementTa || siteConfig.topBar.announcementEn}
-            >
-              <span className="hidden rounded-full bg-white/15 px-2 py-0.5 text-[11px] font-bold tracking-wide sm:inline">
-                NEW
-              </span>
-              <span className="min-w-0 max-w-[36ch]">
-                <Lang
-                  en={<GlitchText text={announcementEn} />}
-                  ta={<GlitchText text={announcementTa} className="font-tamil" />}
-                  enClassName="block truncate"
-                  taClassName="block truncate font-tamil"
-                />
-              </span>
-            </Link>
-          ) : null}
-
+        <div className="top-bar-actions flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-center lg:justify-self-end">
           <Link
             href={siteConfig.topBar.watchLatestHref}
-            className="focus-ring watch-btn inline-flex min-h-10 w-full items-center justify-center rounded-full px-2.5 py-1 text-[11px] font-semibold text-churchBlue sm:min-h-11 sm:w-auto sm:px-4 sm:py-1.5 sm:text-xs"
+            className="focus-ring watch-btn top-bar-watch mx-auto inline-flex min-h-10 items-center justify-center rounded-full px-5 py-1.5 text-xs font-semibold sm:mx-0 sm:shrink-0"
           >
-            <span className="hidden sm:inline">
-              <Lang
-                en={siteConfig.topBar.watchLatestLabelEn}
-                ta={siteConfig.topBar.watchLatestLabelTa}
-                taClassName="font-tamil"
-              />
-            </span>
-            <span className="sm:hidden">
-              <Lang en="Watch" ta="பாருங்கள்" taClassName="font-tamil" />
-            </span>
-            <span className="ml-1" aria-hidden="true">
+            <Lang
+              en={siteConfig.topBar.watchLatestLabelEn}
+              ta={siteConfig.topBar.watchLatestLabelTa}
+              taClassName="font-tamil"
+            />
+            <span className="ml-1.5 text-sm" aria-hidden="true">
               &rarr;
             </span>
           </Link>

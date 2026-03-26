@@ -50,8 +50,11 @@ export default function EventRsvpForm({ eventSlug, eventTitle, initialRemaining,
   const [message, setMessage] = useState<string>("")
   const [remaining, setRemaining] = useState<number | null>(initialRemaining)
   const [shake, setShake] = useState(false)
+  const [touched, setTouched] = useState<{ name: boolean; email: boolean }>({ name: false, email: false })
 
   const isFull = useMemo(() => (remaining !== null ? remaining <= 0 : false), [remaining])
+  const nameOk = name.trim().length > 1
+  const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())
 
   useEffect(() => {
     if (status !== "error") return
@@ -61,6 +64,17 @@ export default function EventRsvpForm({ eventSlug, eventTitle, initialRemaining,
   }, [status])
 
   const submit = async () => {
+    setTouched({ name: true, email: true })
+    if (!nameOk) {
+      setStatus("error")
+      setMessage("Please enter your name before RSVP.")
+      return
+    }
+    if (!emailOk) {
+      setStatus("error")
+      setMessage("Please enter a valid email address before RSVP.")
+      return
+    }
     setStatus("loading")
     setMessage("")
     try {
@@ -90,6 +104,12 @@ export default function EventRsvpForm({ eventSlug, eventTitle, initialRemaining,
   }
 
   const cancel = async () => {
+    setTouched((current) => ({ ...current, email: true }))
+    if (!emailOk) {
+      setStatus("error")
+      setMessage("Enter the email address used for the RSVP to cancel it.")
+      return
+    }
     setStatus("loading")
     setMessage("")
     try {
@@ -144,9 +164,17 @@ export default function EventRsvpForm({ eventSlug, eventTitle, initialRemaining,
             <input
               className="float-input"
               value={name}
-              onChange={(e) => setName(e.target.value)}
+              onChange={(e) => {
+                setName(e.target.value)
+                if (status === "success" || status === "error") {
+                  setStatus("idle")
+                  setMessage("")
+                }
+              }}
+              onBlur={() => setTouched((current) => ({ ...current, name: true }))}
               placeholder="Your name"
               disabled={status === "loading"}
+              aria-invalid={touched.name && !nameOk ? "true" : undefined}
             />
             <span className="float-label">Name</span>
           </div>
@@ -156,10 +184,18 @@ export default function EventRsvpForm({ eventSlug, eventTitle, initialRemaining,
             <input
               className="float-input"
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={(e) => {
+                setEmail(e.target.value)
+                if (status === "success" || status === "error") {
+                  setStatus("idle")
+                  setMessage("")
+                }
+              }}
+              onBlur={() => setTouched((current) => ({ ...current, email: true }))}
               placeholder="you@example.com"
               inputMode="email"
               disabled={status === "loading"}
+              aria-invalid={touched.email && !emailOk ? "true" : undefined}
             />
             <span className="float-label">Email</span>
           </div>
@@ -188,6 +224,7 @@ export default function EventRsvpForm({ eventSlug, eventTitle, initialRemaining,
               ? "border-red-200 bg-red-50 text-red-700"
               : "border-churchBlue/10 bg-churchBlueSoft text-churchBlue/80",
           ].join(" ")}
+          role={status === "error" ? "alert" : "status"}
         >
           {message}
         </div>

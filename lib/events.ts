@@ -366,15 +366,15 @@ export function isUpcomingOneOffEvent(event: Event, now = new Date()) {
   return start.getTime() >= now.getTime()
 }
 
-export function getUpcomingEvents(now = new Date()) {
-  return events
+export function getUpcomingEvents(now = new Date(), eventList: Event[] = events) {
+  return eventList
     .filter((e) => isUpcomingOneOffEvent(e, now))
     .slice()
     .sort((a, b) => (a.startAtLocal ?? "").localeCompare(b.startAtLocal ?? ""))
 }
 
-export function getNextMajorEvent(now = new Date()) {
-  const candidates = events
+export function getNextMajorEvent(now = new Date(), eventList: Event[] = events) {
+  const majorCandidates = eventList
     .filter((e) => e.isMajor)
     .map((e) => {
       const nextStart =
@@ -388,7 +388,19 @@ export function getNextMajorEvent(now = new Date()) {
     .filter((x) => x.nextStart.getTime() >= now.getTime())
     .sort((a, b) => a.nextStart.getTime() - b.nextStart.getTime())
 
-  const next = candidates[0]
+  const nextOneOffMajor = majorCandidates.find((x) => Boolean(x.event.startAtLocal))
+  const nextNonYearlyMajor = majorCandidates.find((x) => x.event.recurrence?.kind !== "yearly")
+  const fallbackUpcomingEvent = getUpcomingEvents(now, eventList)[0]
+
+  const next =
+    nextOneOffMajor ??
+    nextNonYearlyMajor ??
+    (fallbackUpcomingEvent
+      ? {
+          event: fallbackUpcomingEvent,
+          nextStart: toLocalDate(fallbackUpcomingEvent.startAtLocal!),
+        }
+      : null)
   if (!next) return null
 
   // Ensure startAtLocal is present for countdown/calendar links even for recurring events.
@@ -402,15 +414,15 @@ export function getNextMajorEvent(now = new Date()) {
   return next.event
 }
 
-export function getPastEvents(now = new Date()) {
-  return events
+export function getPastEvents(now = new Date(), eventList: Event[] = events) {
+  return eventList
     .filter((e) => isPastEvent(e, now))
     .slice()
     .sort((a, b) => (b.startAtLocal ?? "").localeCompare(a.startAtLocal ?? ""))
 }
 
-export function getRecurringEvents() {
-  return events.filter((e) => e.recurrence)
+export function getRecurringEvents(eventList: Event[] = events) {
+  return eventList.filter((e) => e.recurrence)
 }
 
 export function getEventBySlug(slug: string) {

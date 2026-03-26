@@ -27,11 +27,11 @@ export default function StickyScrollNextSteps() {
       {
         id: "visit",
         titleEn: "Plan your first visit",
-        titleTa: "முதல் வருகையை திட்டமிடுங்கள்",
-        bodyEn: "Service times, parking, kids check-in, and what to expect—everything in one place.",
-        bodyTa: "ஆராதனை நேரம், பார்க்கிங், குழந்தைகள் check-in, என்ன எதிர்பார்க்கலாம்—அனைத்தும் ஒரே இடத்தில்.",
+        titleTa: "முதல் வருகையைத் திட்டமிடுங்கள்",
+        bodyEn: "Service times, parking, kids check-in, and what to expect - everything in one place.",
+        bodyTa: "ஆராதனை நேரம், பார்க்கிங், குழந்தைகள் பதிவு, மற்றும் என்ன எதிர்பார்க்கலாம் என்பவை அனைத்தும் ஒரே இடத்தில்.",
         ctaHref: "/im-new",
-        ctaEn: "I’m new",
+        ctaEn: "I'm new",
         ctaTa: "நான் புதியவர்",
       },
       {
@@ -39,7 +39,7 @@ export default function StickyScrollNextSteps() {
         titleEn: "Watch online this week",
         titleTa: "இந்த வாரம் ஆன்லைனில் பாருங்கள்",
         bodyEn: "Catch up on the latest sermons and highlights, then join us in person.",
-        bodyTa: "சமீபத்திய பிரசங்கங்கள் மற்றும் highlights-ஐ பார்த்து, பிறகு நேரில் சேருங்கள்.",
+        bodyTa: "சமீபத்திய பிரசங்கங்களையும் முக்கிய பகுதிகளையும் பார்த்து, பின்னர் நேரில் எங்களுடன் சேருங்கள்.",
         ctaHref: "/watch",
         ctaEn: "Watch",
         ctaTa: "பாருங்கள்",
@@ -47,9 +47,9 @@ export default function StickyScrollNextSteps() {
       {
         id: "connect",
         titleEn: "Get connected",
-        titleTa: "இணைந்து கொள்ளுங்கள்",
+        titleTa: "இணைந்துகொள்ளுங்கள்",
         bodyEn: "Find a group, serve on a team, or explore ministries for every age.",
-        bodyTa: "குழு, சேவை குழு, அல்லது அனைத்து வயதுக்கும் ministries-ஐ அறிந்து கொள்ளுங்கள்.",
+        bodyTa: "ஒரு குழுவைத் தேடுங்கள், சேவைக்குழுவில் சேருங்கள், அல்லது எல்லா வயதிற்குமான ஊழியங்களை அறிந்துகொள்ளுங்கள்.",
         ctaHref: "/groups",
         ctaEn: "Groups",
         ctaTa: "குழுக்கள்",
@@ -95,7 +95,7 @@ export default function StickyScrollNextSteps() {
   return (
     <section className="border-t border-churchBlue/10 bg-white">
       <Container className="section-padding">
-        <div className="mx-auto max-w-6xl">
+        <div className="content-shell-wide">
           <Reveal>
             <div className="section-kicker">
               <Lang en="Next steps" ta="அடுத்த படிகள்" taClassName="font-tamil" />
@@ -106,7 +106,7 @@ export default function StickyScrollNextSteps() {
             <p className="mt-3 max-w-2xl text-sm text-churchBlue/70 sm:text-base">
               <Lang
                 en="Follow these next steps to visit, watch, and get connected."
-                ta="ஸ்க்ரோல் செய்து அடுத்ததாக என்ன செய்யலாம் என்பதைப் பாருங்கள்—வருகை, பார்வை, இணைவு."
+                ta="வருகை, பார்வை, மற்றும் இணைவு ஆகியவற்றிற்கான அடுத்த படிகளை இங்கே பாருங்கள்."
                 taClassName="font-tamil"
               />
             </p>
@@ -115,11 +115,7 @@ export default function StickyScrollNextSteps() {
           <div className="mt-8 lg:hidden">
             <div className="mb-4 rounded-2xl border border-churchBlue/10 bg-churchBlueSoft p-4">
               <p className="text-sm font-semibold text-churchBlue">
-                <Lang
-                  en="3 simple steps"
-                  ta="\u0bae\u0bc2\u0ba9\u0bcd\u0bb1\u0bc1 \u0b8e\u0bb3\u0bbf\u0baf \u0baa\u0b9f\u0bbf\u0b95\u0bb3\u0bcd"
-                  taClassName="font-tamil"
-                />
+                <Lang en="3 simple steps" ta="மூன்று எளிய படிகள்" taClassName="font-tamil" />
               </p>
               <div className="mt-3 h-2 w-full overflow-hidden rounded-full bg-white">
                 <div className="h-full w-full rounded-full bg-churchBlue" aria-hidden="true" />
@@ -161,8 +157,8 @@ export default function StickyScrollNextSteps() {
             </div>
           </div>
 
-          <div className="sticky-scroll-container mt-10 hidden lg:block">
-            <div className="grid gap-10 lg:grid-cols-12 lg:items-start">
+          <div className="sticky-scroll-container mt-8 hidden lg:block">
+            <div className="grid gap-8 lg:grid-cols-12 lg:items-start">
               <div className="lg:col-span-5">
                 <div className="sticky-content">
                   <div className="card w-full overflow-hidden rounded-3xl">
@@ -186,8 +182,8 @@ export default function StickyScrollNextSteps() {
                 </div>
               </div>
 
-              <div className="lg:col-span-7 lg:pt-[30vh]">
-                <div className="space-y-8">
+              <div className="lg:col-span-7 lg:pt-[5vh]">
+                <div className="space-y-6">
                   {steps.map((step) => (
                     <div
                       key={step.id}

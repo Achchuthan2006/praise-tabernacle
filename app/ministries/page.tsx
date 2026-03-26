@@ -2,6 +2,7 @@ import type { Metadata } from "next"
 import Link from "next/link"
 
 import Lang from "@/components/language/Lang"
+import Breadcrumbs from "@/components/ui/Breadcrumbs"
 import Container from "@/components/ui/Container"
 import PageHeader from "@/components/ui/PageHeader"
 import Reveal from "@/components/ui/Reveal"
@@ -32,7 +33,14 @@ export default function MinistriesPage() {
       />
 
       <Container className="section-padding">
-        <div className="mx-auto max-w-6xl">
+        <div className="mx-auto max-w-[1200px]">
+          <Breadcrumbs
+            className="mb-8"
+            items={[
+              { href: "/", labelEn: "Home", labelTa: "முகப்பு" },
+              { labelEn: "Ministries", labelTa: "சேவைகள்" },
+            ]}
+          />
           {ministryCategories.map((category, sectionIdx) => {
             const items = ministries.filter((m) => m.category === category)
             if (items.length === 0) return null

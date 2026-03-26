@@ -1,3 +1,6 @@
+import { sendEmail } from "@/lib/email"
+import { buildNewsletterConfirmationEmail } from "@/lib/newsletterEmails"
+import { createNewsletterToken, isNewsletterConfirmed, savePendingNewsletterSubscription } from "@/lib/newsletter"
 import { appendSubmission, isValidEmail } from "@/lib/submissions"
 import { rateLimit } from "@/lib/rateLimit"
 import { enforceSameOrigin, getClientIp, validateCsrf } from "@/lib/requestSecurity"
@@ -27,6 +30,24 @@ export async function POST(req: Request) {
     const email = typeof body.email === "string" ? body.email.trim() : ""
     if (!isValidEmail(email)) return Response.json({ ok: false, error: "invalid_email" }, { status: 400 })
 
+    if (await isNewsletterConfirmed(email)) {
+      return Response.json({ ok: true, status: "already_confirmed" })
+    }
+
+    const providerConfigured = Boolean(process.env.RESEND_API_KEY && process.env.RSVP_FROM_EMAIL)
+    if (!providerConfigured) {
+      return Response.json({ ok: false, error: "email_provider_not_configured" }, { status: 503 })
+    }
+
+    const token = createNewsletterToken()
+    const confirmation = buildNewsletterConfirmationEmail({ email, token })
+    const sendResult = await sendEmail({ to: email, ...confirmation })
+    if (!sendResult.ok) {
+      return Response.json({ ok: false, error: "confirmation_send_failed" }, { status: 502 })
+    }
+
+    await savePendingNewsletterSubscription(email, token)
+
     await appendSubmission("newsletter", {
       kind: "newsletter",
       email,
@@ -35,7 +56,7 @@ export async function POST(req: Request) {
       ip,
     })
 
-    return Response.json({ ok: true })
+    return Response.json({ ok: true, status: "pending_confirmation" })
   } catch {
     return Response.json({ ok: false, error: "server_error" }, { status: 500 })
   }

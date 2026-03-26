@@ -5,6 +5,7 @@ import Link from "next/link"
 import { useEffect, useMemo, useRef, useState } from "react"
 
 import Lang from "@/components/language/Lang"
+import { useLanguage } from "@/components/language/LanguageProvider"
 import HolographicText from "@/components/HolographicText"
 import Container from "@/components/ui/Container"
 import Reveal from "@/components/ui/Reveal"
@@ -52,6 +53,7 @@ function CtaButton({ cta }: { cta: FeaturedCta }) {
 }
 
 export default function FeaturedBanner() {
+  const { language } = useLanguage()
   const slides = useMemo(() => getFeaturedSlides(), [])
   const [index, setIndex] = useState(0)
   const prefersReducedMotion = usePrefersReducedMotion()
@@ -82,15 +84,15 @@ export default function FeaturedBanner() {
   const next = () => setIndex((i) => (i + 1) % count)
 
   return (
-    <section className="bg-white">
-      <Container className="pb-10 sm:pb-14">
+    <section className="bg-[linear-gradient(180deg,#fcfbf8_0%,#f5f2ec_100%)]">
+      <Container className="pb-6 sm:pb-8">
         <div className="mx-auto max-w-6xl">
           <Reveal>
             <Spotlight
-              className="rounded-3xl border border-churchBlue/10 bg-white shadow-glow overflow-hidden"
+              className="overflow-hidden rounded-3xl border border-churchBlue/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.98)_0%,rgba(248,246,241,0.98)_100%)] shadow-[0_22px_44px_rgb(18_27_62_/_0.08)]"
               role="region"
               aria-roledescription="carousel"
-              aria-label="Featured"
+              aria-label={language === "ta" ? "முக்கிய அம்சங்கள்" : "Featured"}
               onMouseEnter={() => {
                 pausedRef.current = true
               }}
@@ -106,11 +108,11 @@ export default function FeaturedBanner() {
             >
               <div className="grid gap-0 lg:grid-cols-12">
                 <div className="lg:col-span-5">
-                  <div className="relative aspect-[16/10] w-full bg-churchBlueSoft">
+                  <div className="relative aspect-[16/10] w-full bg-[linear-gradient(180deg,#ece9e2_0%,#e3e7f2_100%)]">
                     {current.imageSrc ? (
                       <Image
                         src={current.imageSrc}
-                        alt=""
+                        alt={language === "ta" ? current.titleTa : current.titleEn}
                         fill
                         sizes="(max-width: 1024px) 100vw, 40vw"
                         className="object-cover"
@@ -141,31 +143,27 @@ export default function FeaturedBanner() {
                           />
                         </h2>
                         <p className="mt-3 text-sm leading-relaxed text-churchBlue/75 sm:text-base">
-                          <Lang
-                            en={current.descriptionEn}
-                            ta={current.descriptionTa}
-                            taClassName="font-tamil"
-                          />
+                          <Lang en={current.descriptionEn} ta={current.descriptionTa} taClassName="font-tamil" />
                         </p>
                       </div>
 
                       {count > 1 ? (
-                        <div className="hidden sm:flex items-center gap-2">
+                        <div className="hidden items-center gap-2 sm:flex">
                           <button
                             type="button"
                             className="btn btn-sm btn-secondary"
                             onClick={prev}
-                            aria-label="Previous"
+                            aria-label={language === "ta" ? "முந்தைய ஸ்லைடு" : "Previous"}
                           >
-                            ‹
+                            {"‹"}
                           </button>
                           <button
                             type="button"
                             className="btn btn-sm btn-secondary"
                             onClick={next}
-                            aria-label="Next"
+                            aria-label={language === "ta" ? "அடுத்த ஸ்லைடு" : "Next"}
                           >
-                            ›
+                            {"›"}
                           </button>
                         </div>
                       ) : null}
@@ -179,7 +177,7 @@ export default function FeaturedBanner() {
 
                     {count > 1 ? (
                       <div className="mt-6 flex items-center justify-between gap-3">
-                        <div className="flex flex-wrap gap-2" aria-label="Slides">
+                        <div className="flex flex-wrap gap-2" aria-label={language === "ta" ? "ஸ்லைடுகள்" : "Slides"}>
                           {slides.map((s, i) => (
                             <button
                               key={s.id}
@@ -189,7 +187,7 @@ export default function FeaturedBanner() {
                                 i === index ? "bg-churchBlue" : "bg-churchBlue/25 hover:bg-churchBlue/40",
                               ].join(" ")}
                               onClick={() => setIndex(i)}
-                              aria-label={`Go to slide ${i + 1}`}
+                              aria-label={language === "ta" ? `${i + 1}வது ஸ்லைடுக்கு செல்ல` : `Go to slide ${i + 1}`}
                               aria-current={i === index ? "true" : undefined}
                             />
                           ))}

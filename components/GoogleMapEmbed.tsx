@@ -45,17 +45,13 @@ export default function GoogleMapEmbed({
       {!interactive ? (
         <button
           type="button"
-          className={[
-            "absolute inset-0 grid place-items-center",
-            "bg-black/10 text-churchBlue",
-            "focus-ring",
-          ].join(" ")}
+          className={["absolute inset-0 grid place-items-center", "bg-black/10 text-churchBlue", "focus-ring"].join(" ")}
           onClick={() => setInteractive(true)}
           aria-label={language === "ta" ? "வரைபடத்தை இயக்கவும்" : "Enable map interactions"}
-          title={language === "ta" ? "வரைபடத்துடன் தொடர்பு கொள்ளத் தொடவும்" : "Tap to interact with the map"}
+          title={language === "ta" ? "வரைபடத்துடன் தொடர்பு கொள்ள தொடவும்" : "Tap to interact with the map"}
         >
           <span className={ctaClassName ?? "btn btn-sm btn-secondary"}>
-            {ctaLabel ?? (language === "ta" ? "தொடுவதன் மூலம் இயக்கவும்" : "Tap to interact")}
+            {ctaLabel ?? (language === "ta" ? "தொட்டு இயக்கவும்" : "Tap to interact")}
           </span>
         </button>
       ) : null}

@@ -7,16 +7,10 @@ import Lang from "@/components/language/Lang"
 import Container from "@/components/ui/Container"
 import PageHeader from "@/components/ui/PageHeader"
 import Reveal from "@/components/ui/Reveal"
-import { getAllMagazineIssueSlugs, getMagazineIssueBySlug } from "@/lib/magazine"
+import { formatMonthIso } from "@/lib/dates"
+import { getAllMagazineIssueSlugs, getMagazineIssueBySlug, hasPublicAsset } from "@/lib/magazine"
 import { pageMetadata } from "@/lib/seo"
 import { siteConfig } from "@/lib/site"
-
-function formatMonth(monthIso: string) {
-  const [y, m] = monthIso.split("-").map((v) => Number(v))
-  if (!y || !m) return monthIso
-  const d = new Date(Date.UTC(y, m - 1, 1))
-  return new Intl.DateTimeFormat("en-CA", { year: "numeric", month: "long" }).format(d)
-}
 
 function languageLabel(lang: "en" | "ta" | "both") {
   if (lang === "both") return "EN + TA"
@@ -33,7 +27,7 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
 
   return pageMetadata({
     title: issue.titleEn,
-    description: `Digital magazine for ${formatMonth(issue.monthIso)}.`,
+    description: `Digital magazine for ${formatMonthIso(issue.monthIso)}.`,
     path: `/magazine/${issue.slug}`,
     image: issue.coverImageSrc ?? siteConfig.branding.logoEnBgSrc,
   })
@@ -44,7 +38,8 @@ export default function MagazineIssuePage({ params }: { params: { slug: string }
   if (!issue) notFound()
 
   const cover = (issue.coverImageSrc ?? "").trim()
-  const monthLabel = formatMonth(issue.monthIso)
+  const monthLabel = formatMonthIso(issue.monthIso)
+  const pdfReady = hasPublicAsset(issue.pdfHref)
 
   return (
     <>
@@ -52,7 +47,7 @@ export default function MagazineIssuePage({ params }: { params: { slug: string }
         titleEn={issue.titleEn}
         titleTa={issue.titleTa}
         descriptionEn={`${monthLabel} • ${languageLabel(issue.language)}`}
-        descriptionTa=""
+        descriptionTa={`${monthLabel} • ${languageLabel(issue.language)}`}
       />
 
       <section className="bg-white">
@@ -70,7 +65,7 @@ export default function MagazineIssuePage({ params }: { params: { slug: string }
                           fill
                           sizes="(max-width: 1024px) 100vw, 60vw"
                           className="object-cover"
-                          quality={90}
+                          quality={80}
                           priority
                         />
                       ) : (
@@ -87,38 +82,50 @@ export default function MagazineIssuePage({ params }: { params: { slug: string }
                       </div>
 
                       <div className="mt-6 grid gap-2">
-                        <a
-                          href={issue.pdfHref}
-                          target="_blank"
-                          rel="noreferrer"
-                          className="btn btn-md btn-primary w-full"
-                        >
-                          <Lang en="Open PDF" ta="PDF à®¤à®¿à®±à®•à¯à®•" taClassName="font-tamil" />
-                        </a>
-                        <a href={issue.pdfHref} download className="btn btn-md btn-secondary w-full">
-                          <Lang en="Download PDF" ta="PDF à®ªà®¤à®¿à®µà®¿à®±à®•à¯à®•à®®à¯" taClassName="font-tamil" />
-                        </a>
+                        {pdfReady ? (
+                          <>
+                            <a
+                              href={issue.pdfHref}
+                              target="_blank"
+                              rel="noreferrer"
+                              className="btn btn-md btn-primary w-full"
+                            >
+                              <Lang en="Open PDF" ta="PDF திறக்க" taClassName="font-tamil" />
+                            </a>
+                            <a href={issue.pdfHref} download className="btn btn-md btn-secondary w-full">
+                              <Lang en="Download PDF" ta="PDF பதிவிறக்கம்" taClassName="font-tamil" />
+                            </a>
+                          </>
+                        ) : (
+                          <div className="rounded-2xl border border-dashed border-churchBlue/20 bg-churchBlueSoft/50 p-4 text-sm text-churchBlue/75">
+                            <Lang
+                              en="The issue page is ready, but the PDF file has not been added to public/magazine yet."
+                              ta="இதழ் பக்கம் தயாராக உள்ளது, ஆனால் PDF கோப்பு இன்னும் public/magazine உள்ளே சேர்க்கப்படவில்லை."
+                              taClassName="font-tamil"
+                            />
+                          </div>
+                        )}
                         <Link href="/magazine" className="btn btn-md btn-secondary-soft w-full">
-                          <Lang en="All issues" ta="à®…à®©à¯ˆà®¤à¯à®¤à¯ à®‡à®¤à®´à¯à®•à®³à¯" taClassName="font-tamil" />
+                          <Lang en="All issues" ta="அனைத்து இதழ்கள்" taClassName="font-tamil" />
                         </Link>
                       </div>
 
                       <div className="mt-8 space-y-3 text-sm text-churchBlue/75">
                         <div className="font-semibold text-churchBlue">
-                          <Lang en="Quick links" ta="à®µà®¿à®°à¯ˆà®µà¯ à®‡à®£à¯ˆà®ªà¯à®ªà¯à®•à®³à¯" taClassName="font-tamil" />
+                          <Lang en="Quick links" ta="விரைவு இணைப்புகள்" taClassName="font-tamil" />
                         </div>
                         <div className="flex flex-wrap gap-2">
                           <Link href="/events" className="btn btn-sm btn-secondary">
-                            <Lang en="Events" ta="à®¨à®¿à®•à®´à¯à®µà¯à®•à®³à¯" taClassName="font-tamil" />
+                            <Lang en="Events" ta="நிகழ்வுகள்" taClassName="font-tamil" />
                           </Link>
                           <Link href="/testimonies" className="btn btn-sm btn-secondary">
-                            <Lang en="Testimonies" ta="à®šà®¾à®Ÿà¯à®šà®¿à®•à®³à¯" taClassName="font-tamil" />
+                            <Lang en="Testimonies" ta="சாட்சிகள்" taClassName="font-tamil" />
                           </Link>
                           <Link href="/blog" className="btn btn-sm btn-secondary">
-                            <Lang en="Teaching" ta="à®ªà¯‹à®¤à®©à¯ˆ" taClassName="font-tamil" />
+                            <Lang en="Teaching" ta="போதனை" taClassName="font-tamil" />
                           </Link>
                           <Link href="/sermons" className="btn btn-sm btn-secondary">
-                            <Lang en="Sermons" ta="à®ªà®¿à®°à®šà®™à¯à®•à®™à¯à®•à®³à¯" taClassName="font-tamil" />
+                            <Lang en="Sermons" ta="பிரசங்கங்கள்" taClassName="font-tamil" />
                           </Link>
                         </div>
                       </div>
@@ -128,6 +135,35 @@ export default function MagazineIssuePage({ params }: { params: { slug: string }
               </article>
             </Reveal>
 
+            {pdfReady ? (
+              <div className="mt-10">
+                <Reveal>
+                  <div className="card overflow-hidden">
+                    <div className="card-content p-0">
+                      <div className="flex items-center justify-between border-b border-churchBlue/10 px-6 py-4">
+                        <div>
+                          <div className="text-lg font-semibold tracking-tight text-churchBlue">
+                            <Lang en="Read online" ta="ஆன்லைனில் படிக்க" taClassName="font-tamil" />
+                          </div>
+                          <p className="mt-1 text-sm text-churchBlue/70">
+                            <Lang en="Viewer for this month's issue." ta="இந்த மாத இதழுக்கான பார்வையாளர்." taClassName="font-tamil" />
+                          </p>
+                        </div>
+                        <a href={issue.pdfHref} target="_blank" rel="noreferrer" className="btn btn-sm btn-secondary">
+                          <Lang en="Open in new tab" ta="புதிய தாவலில் திறக்க" taClassName="font-tamil" />
+                        </a>
+                      </div>
+                      <iframe
+                        title={`${issue.titleEn} PDF viewer`}
+                        src={`${issue.pdfHref}#view=FitH`}
+                        className="h-[72vh] w-full"
+                      />
+                    </div>
+                  </div>
+                </Reveal>
+              </div>
+            ) : null}
+
             <div className="mt-10 grid gap-6 lg:grid-cols-12">
               <div className="lg:col-span-7">
                 <Reveal>
@@ -135,8 +171,8 @@ export default function MagazineIssuePage({ params }: { params: { slug: string }
                     <div className="card-content p-8">
                       <h2 className="text-xl font-semibold tracking-tight text-churchBlue sm:text-2xl">
                         <Lang
-                          en={issue.pastorMessageTitleEn ?? "Pastor’s message"}
-                          ta={issue.pastorMessageTitleTa ?? "à®ªà¯‹à®¤à®•à®°à®¿à®©à¯ à®šà¯†à®¯à¯à®¤à®¿"}
+                          en={issue.pastorMessageTitleEn ?? "Pastor's message"}
+                          ta={issue.pastorMessageTitleTa ?? "போதகரின் செய்தி"}
                           taClassName="font-tamil"
                         />
                       </h2>
@@ -150,8 +186,8 @@ export default function MagazineIssuePage({ params }: { params: { slug: string }
                         ) : (
                           <p>
                             <Lang
-                              en="This issue is ready to download. Add a short pastor’s message in lib/magazine.ts to show it here."
-                              ta="à®‡à®¨à¯à®¤ à®‡à®¤à®´à¯ à®ªà®¤à®¿à®µà®¿à®±à®•à¯à®•à®®à¯ à®šà¯†à®¯à¯à®¯ à®¤à®¯à®¾à®°à®¾à®•à®¿à®°à¯à®•à¯à®•à®¿à®±à®¤à¯. à®‡à®™à¯à®•à¯‡ à®•à®¾à®£ `lib/magazine.ts` à®‡à®²à¯ à®•à¯à®±à¯à®®à¯ à®ªà¯‹à®¤à®•à®°à®¿à®©à¯ à®šà¯†à®¯à¯à®¤à®¿à®¯à¯ˆ à®šà¯‡à®°à¯à®•à®•à¯à®•à®µà¯à®®à¯."
+                              en="This issue is ready to download. Add a short pastor's message in lib/magazine.ts to show it here."
+                              ta="இந்த இதழுக்கான சிறிய போதகரின் செய்தியை lib/magazine.ts-இல் சேர்த்தால் இங்கே காட்டப்படும்."
                               taClassName="font-tamil"
                             />
                           </p>
@@ -167,7 +203,7 @@ export default function MagazineIssuePage({ params }: { params: { slug: string }
                   <div className="card">
                     <div className="card-content p-8">
                       <h2 className="text-lg font-semibold tracking-tight text-churchBlue">
-                        <Lang en="Inside this issue" ta="à®‡à®¤à®¿à®²à¯" taClassName="font-tamil" />
+                        <Lang en="Inside this issue" ta="இந்த இதழில்" taClassName="font-tamil" />
                       </h2>
 
                       {issue.highlightsEn?.length || issue.highlightsTa?.length ? (
@@ -190,8 +226,8 @@ export default function MagazineIssuePage({ params }: { params: { slug: string }
                       ) : (
                         <p className="mt-4 text-sm text-churchBlue/70 sm:text-base">
                           <Lang
-                            en="Add highlights in lib/magazine.ts to list what’s included each month."
-                            ta="à®®à®¾à®¤à®®à¯ à®¤à¯‹à®±à¯à®®à¯ à®‡à®¤à®¿à®²à¯ à®Žà®©à¯à®© à®‰à®³à¯à®³à®¤à¯ à®Žà®©à¯à®ªà®¤à¯ˆ à®•à®¾à®£ `lib/magazine.ts` à®‡à®²à¯ highlights à®šà¯‡à®°à¯à®•à¯à®•à®µà¯à®®à¯."
+                            en="Add highlights in lib/magazine.ts to list what's included each month."
+                            ta="ஒவ்வொரு மாதமும் இதில் என்ன உள்ளது என்பதை காண lib/magazine.ts-இல் highlights சேர்க்கலாம்."
                             taClassName="font-tamil"
                           />
                         </p>
@@ -203,7 +239,7 @@ export default function MagazineIssuePage({ params }: { params: { slug: string }
                             {issue.teachingArticles?.length ? (
                               <div>
                                 <div className="text-sm font-semibold text-churchBlue">
-                                  <Lang en="Teaching" ta="à®ªà¯‹à®¤à®©à¯ˆ" taClassName="font-tamil" />
+                                  <Lang en="Teaching" ta="போதனை" taClassName="font-tamil" />
                                 </div>
                                 <div className="mt-3 flex flex-col gap-2">
                                   {issue.teachingArticles.map((a) => (
@@ -218,7 +254,7 @@ export default function MagazineIssuePage({ params }: { params: { slug: string }
                             {issue.testimonies?.length ? (
                               <div>
                                 <div className="text-sm font-semibold text-churchBlue">
-                                  <Lang en="Testimonies" ta="à®šà®¾à®Ÿà¯à®šà®¿à®•à®³à¯" taClassName="font-tamil" />
+                                  <Lang en="Testimonies" ta="சாட்சிகள்" taClassName="font-tamil" />
                                 </div>
                                 <div className="mt-3 flex flex-col gap-2">
                                   {issue.testimonies.map((t) => (
@@ -243,4 +279,3 @@ export default function MagazineIssuePage({ params }: { params: { slug: string }
     </>
   )
 }
-

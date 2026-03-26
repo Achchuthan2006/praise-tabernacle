@@ -1,6 +1,7 @@
 import type { Metadata } from "next"
 
 import Lang from "@/components/language/Lang"
+import PrivacyPreferencesCard from "@/components/PrivacyPreferencesCard"
 import Container from "@/components/ui/Container"
 import PageHeader from "@/components/ui/PageHeader"
 import Reveal from "@/components/ui/Reveal"
@@ -86,6 +87,9 @@ export default function PrivacyPage() {
                         Our site may store a small preference in your browser to remember your cookie/analytics choice. If analytics is enabled,
                         you can accept or decline when prompted. You can also clear your browser storage to reset your choice.
                       </p>
+                      <div className="mt-5">
+                        <PrivacyPreferencesCard />
+                      </div>
                     </section>
 
                     <section>

@@ -8,7 +8,7 @@ export default function FaqSection() {
   return (
     <section className="relative bg-churchBlueSoft">
       <Container className="section-padding">
-        <div className="feature-box rounded-3xl border border-churchBlue/10 bg-white p-8 shadow-glow md:p-12">
+        <div className="feature-box no-decor-lines rounded-3xl border border-churchBlue/10 bg-white p-8 shadow-glow md:p-12">
           <div className="max-w-2xl">
             <div className="section-kicker">
               <Lang en="FAQ" ta="அடிக்கடி கேட்கப்படும் கேள்விகள்" taClassName="font-tamil" />

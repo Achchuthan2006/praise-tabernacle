@@ -1,6 +1,7 @@
 import type { Metadata } from "next"
 import Link from "next/link"
 
+import GoogleMapEmbed from "@/components/GoogleMapEmbed"
 import PrayerRequestForm from "@/components/PrayerRequestForm"
 import ServiceSchedule from "@/components/ServiceSchedule"
 import Lang from "@/components/language/Lang"
@@ -19,6 +20,9 @@ export const metadata: Metadata = pageMetadata({
 })
 
 export default function VisitPage() {
+  const mapQuery = encodeURIComponent(siteConfig.addressLines.join(", "))
+  const mapEmbedUrl = `https://www.google.com/maps?q=${mapQuery}&output=embed`
+
   return (
     <>
       <PageHeader
@@ -110,6 +114,15 @@ export default function VisitPage() {
                       <Lang en="Contact us" ta="தொடர்பு கொள்ளுங்கள்" />
                     </Link>
                   </div>
+                </div>
+
+                <div className="mt-8 overflow-hidden rounded-3xl border border-churchBlue/10 bg-white shadow-glow">
+                  <GoogleMapEmbed
+                    title="Google Map - Praise Tabernacle"
+                    src={mapEmbedUrl}
+                    className="h-[220px] w-full bg-churchBlueSoft sm:h-[260px] md:h-[320px]"
+                    ctaLabel="Tap to move the map"
+                  />
                 </div>
               </div>
             </Reveal>

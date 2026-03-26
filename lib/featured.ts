@@ -43,7 +43,7 @@ function buildEventSlides(): FeaturedSlide[] {
       descriptionTa: event.description,
       imageSrc: event.imageSrc,
       ctas: [
-        { href: `/events/${event.slug}`, labelEn: "View details", labelTa: "விவரம் பார்க்க", variant: "primary" },
+        { href: `/events/${event.slug}`, labelEn: "View details", labelTa: "விவரங்களைப் பார்க்க", variant: "primary" },
         { href: "/events", labelEn: "All events", labelTa: "அனைத்து நிகழ்வுகள்", variant: "secondary" },
       ],
     }))
@@ -67,14 +67,14 @@ function buildSeriesSlide(): FeaturedSlide | null {
       "Sermon series highlights, notes, and discussion questions to help you grow in the Word.",
     descriptionTa:
       series.summary ??
-      "வேதாகமத்தில் வளர உதவும் பிரசங்கத் தொடர், குறிப்புகள் மற்றும் குழு கேள்விகள்.",
+      "வேதத்தில் வளர உதவும் பிரசங்கத் தொடர், குறிப்புகள் மற்றும் கலந்துரையாடல் கேள்விகள்.",
     imageSrc: series.coverImageSrc,
     ctas: [
       latest
         ? {
             href: `/sermons/${latest.slug}`,
             labelEn: "Watch latest",
-            labelTa: "சமீபம் பார்க்க",
+            labelTa: "சமீபத்தியதைப் பார்க்க",
             variant: "primary",
           }
         : { href: "/sermons", labelEn: "Sermons", labelTa: "பிரசங்கங்கள்", variant: "primary" },
@@ -96,10 +96,10 @@ function buildAnnouncementSlide(): FeaturedSlide | null {
     titleEn: en || "Announcement",
     titleTa: ta || "அறிவிப்பு",
     descriptionEn: "Tap to read the full update and next steps.",
-    descriptionTa: "முழு விவரம் மற்றும் அடுத்த படிகளை பார்க்க தட்டுங்கள்.",
+    descriptionTa: "முழு அறிவிப்பையும் அடுத்த படிகளையும் பார்க்கத் தட்டுங்கள்.",
     imageSrc: "/hero-photo-placeholder.svg",
     ctas: [
-      { href: href || "/events", labelEn: "Learn more", labelTa: "மேலும் பார்க்க", variant: "primary" },
+      { href: href || "/events", labelEn: "Learn more", labelTa: "மேலும் அறிய", variant: "primary" },
       { href: siteConfig.topBar.watchLatestHref || "/watch", labelEn: "Watch", labelTa: "பார்க்க", variant: "secondary" },
     ],
   }

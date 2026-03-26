@@ -1,35 +1,54 @@
 import type { Metadata } from "next"
 
-import { siteConfig } from "@/lib/site"
 import type { BlogPost } from "@/lib/blog"
 import type { Event } from "@/lib/events"
+import type { PastorProfile } from "@/lib/pastor"
 import type { Sermon } from "@/lib/sermons"
+import { siteConfig } from "@/lib/site"
+
+export const defaultSeoKeywords = [
+  siteConfig.nameEn,
+  "Tamil church Mississauga",
+  "Tamil & English church",
+  "Church in Mississauga",
+  "Bible teaching",
+  "Prayer",
+  "Christian church Ontario",
+  "Worship service Mississauga",
+]
 
 export function pageMetadata({
   title,
   description,
   path,
   image,
+  keywords,
   openGraphType = "website",
 }: {
   title: string
   description: string
   path: string
   image?: string
+  keywords?: string[]
   openGraphType?: "website" | "article" | "video.other"
 }): Metadata {
   const resolvedImage = toAbsoluteUrl(image ?? siteConfig.branding.logoEnBgSrc)
   const canonicalUrl = toAbsoluteUrl(path)
   const enUrl = toAbsoluteUrl(`/en${path === "/" ? "" : path}`)
   const taUrl = toAbsoluteUrl(`/ta${path === "/" ? "" : path}`)
+  const resolvedKeywords = keywords && keywords.length > 0 ? keywords : defaultSeoKeywords
+
   return {
     title,
     description,
+    keywords: resolvedKeywords,
+    category: "Church",
     alternates: {
       canonical: canonicalUrl,
       languages: {
         en: enUrl,
         ta: taUrl,
+        "x-default": canonicalUrl,
       },
     },
     openGraph: {
@@ -39,6 +58,7 @@ export function pageMetadata({
       siteName: siteConfig.nameEn,
       type: openGraphType,
       locale: "en_CA",
+      alternateLocale: ["ta_IN"],
       images: [
         {
           url: resolvedImage,
@@ -54,6 +74,9 @@ export function pageMetadata({
       card: "summary_large_image",
       images: [resolvedImage],
     },
+    other: {
+      "apple-mobile-web-app-title": siteConfig.nameEn,
+    },
   }
 }
 
@@ -66,9 +89,10 @@ export function toAbsoluteUrl(urlOrPath: string) {
 export function churchJsonLd() {
   const addressText = siteConfig.addressLines.join(", ")
   const mapsUrl = `https://www.google.com/maps?q=${encodeURIComponent(addressText)}`
+
   return {
     "@context": "https://schema.org",
-    "@type": "Church",
+    "@type": ["Church", "LocalBusiness"],
     "@id": `${siteConfig.siteUrl}#church`,
     name: siteConfig.nameEn,
     url: siteConfig.siteUrl,
@@ -78,8 +102,8 @@ export function churchJsonLd() {
     ),
     email: siteConfig.email,
     telephone: siteConfig.phone,
-    image: siteConfig.branding.logoEnBgSrc,
-    logo: siteConfig.branding.logoEnSrc,
+    image: toAbsoluteUrl(siteConfig.branding.logoEnBgSrc),
+    logo: toAbsoluteUrl(siteConfig.branding.logoEnSrc),
     knowsLanguage: ["English", "Tamil"],
     areaServed: ["Mississauga, ON", "Greater Toronto Area"],
     hasMap: mapsUrl,
@@ -96,6 +120,32 @@ export function churchJsonLd() {
       ...(siteConfig.instagramUrl ? [siteConfig.instagramUrl] : []),
       ...(siteConfig.spotifyUrl ? [siteConfig.spotifyUrl] : []),
     ],
+  }
+}
+
+export function pastorJsonLd(profile: PastorProfile) {
+  const url = toAbsoluteUrl("/pastor")
+  const image = toAbsoluteUrl(profile.photoSrc || profile.photoFallbackSrc || siteConfig.branding.logoEnSrc)
+
+  return {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "@id": `${url}#person`,
+    name: profile.nameEn,
+    alternateName: profile.nameTa,
+    jobTitle: profile.roleEn,
+    description: profile.bioEn.join(" "),
+    url,
+    image,
+    email: profile.contactEmail,
+    worksFor: {
+      "@type": "Church",
+      "@id": `${siteConfig.siteUrl}#church`,
+      name: siteConfig.nameEn,
+      url: siteConfig.siteUrl,
+    },
+    knowsLanguage: ["English", "Tamil"],
+    sameAs: profile.introVideoId ? [`https://www.youtube.com/watch?v=${profile.introVideoId}`] : [],
   }
 }
 
@@ -120,6 +170,7 @@ export function websiteJsonLd() {
 export function blogPostJsonLd(post: BlogPost) {
   const url = toAbsoluteUrl(`/blog/${post.slug}`)
   const image = post.coverImageSrc ? [toAbsoluteUrl(post.coverImageSrc)] : undefined
+
   return {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
@@ -146,9 +197,10 @@ export function blogPostJsonLd(post: BlogPost) {
 
 export function sermonJsonLd(sermon: Sermon, opts?: { seriesTitle?: string | null }) {
   const url = toAbsoluteUrl(`/sermons/${sermon.slug}`)
-  const description = `Sermon from ${sermon.dateIso}${sermon.speaker ? ` • ${sermon.speaker}` : ""}`
+  const description = `Sermon from ${sermon.dateIso}${sermon.speaker ? ` - ${sermon.speaker}` : ""}`
+  const inLanguage =
+    sermon.language === "ta" ? "ta" : sermon.language === "en" ? "en" : ["ta", "en"]
 
-  // If a YouTube video is available, prefer VideoObject (most useful for rich results).
   if (sermon.youtubeVideoId) {
     const videoId = sermon.youtubeVideoId
     return {
@@ -164,11 +216,11 @@ export function sermonJsonLd(sermon: Sermon, opts?: { seriesTitle?: string | nul
       contentUrl: `https://www.youtube.com/watch?v=${videoId}`,
       publisher: { "@type": "Church", "@id": `${siteConfig.siteUrl}#church`, name: siteConfig.nameEn },
       mainEntityOfPage: url,
+      inLanguage,
       ...(opts?.seriesTitle ? { isPartOf: { "@type": "CreativeWorkSeries", name: opts.seriesTitle } } : {}),
     }
   }
 
-  // Fallback: basic CreativeWork when no video exists yet.
   return {
     "@context": "https://schema.org",
     "@type": "CreativeWork",
@@ -179,6 +231,7 @@ export function sermonJsonLd(sermon: Sermon, opts?: { seriesTitle?: string | nul
     datePublished: sermon.dateIso,
     publisher: { "@type": "Church", "@id": `${siteConfig.siteUrl}#church`, name: siteConfig.nameEn },
     mainEntityOfPage: url,
+    inLanguage,
     ...(opts?.seriesTitle ? { isPartOf: { "@type": "CreativeWorkSeries", name: opts.seriesTitle } } : {}),
   }
 }
@@ -204,6 +257,7 @@ export function eventJsonLd(event: Event, opts?: { startIso?: string; endIso?: s
     ...(opts?.endIso ? { endDate: opts.endIso } : {}),
     eventAttendanceMode: attendanceMode,
     eventStatus: "https://schema.org/EventScheduled",
+    inLanguage: ["en", "ta"],
     organizer: {
       "@type": "Church",
       "@id": `${siteConfig.siteUrl}#church`,

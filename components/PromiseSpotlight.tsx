@@ -4,8 +4,8 @@ import Image from "next/image"
 import Link from "next/link"
 import { useEffect, useMemo, useState } from "react"
 
-import Lang from "@/components/language/Lang"
 import Container from "@/components/ui/Container"
+import Lang from "@/components/language/Lang"
 import type { PromiseKind } from "@/lib/promises"
 import { getPromiseVideo, promiseVideos } from "@/lib/promises"
 
@@ -45,7 +45,7 @@ export default function PromiseSpotlight() {
   const thumbSrc = thumbFor(current?.youtubeVideoId)
 
   return (
-    <section className="relative bg-white overflow-hidden">
+    <section className="relative overflow-hidden bg-white">
       <div className="blob-background blob-right" aria-hidden="true" />
       <Container className="section-padding">
         <div className="mx-auto max-w-7xl">
@@ -59,8 +59,8 @@ export default function PromiseSpotlight() {
               </h2>
               <p className="mt-2 max-w-2xl text-sm text-churchBlue/70">
                 <Lang
-                  en="Promise of the Month and Promise of the Year — plus trusted links you can explore."
-                  ta="மாதத்தின் வாக்குத்தத்தமும் ஆண்டின் வாக்குத்தத்தமும் — மேலும் உங்களுக்கு உதவும் இணைப்புகள்."
+                  en="Promise of the Month and Promise of the Year, plus trusted links you can explore."
+                  ta="மாதத்தின் வாக்குத்தத்தமும் ஆண்டின் வாக்குத்தத்தமும், மேலும் நீங்கள் பார்க்கக்கூடிய உதவியான இணைப்புகளும்."
                   taClassName="font-tamil"
                 />
               </p>
@@ -68,7 +68,7 @@ export default function PromiseSpotlight() {
 
             <div className="flex flex-wrap items-center gap-2">
               <Link href="/promises" className="btn btn-sm btn-secondary">
-                <Lang en="View promises" ta="வாக்குத்தத்தங்கள்" taClassName="font-tamil" />
+                <Lang en="View promises" ta="வாக்குத்தத்தங்களை பார்க்க" taClassName="font-tamil" />
               </Link>
               {externalLinks.map((l) => (
                 <a
@@ -99,10 +99,7 @@ export default function PromiseSpotlight() {
                         className="h-full w-full object-cover"
                         quality={85}
                       />
-                      <div
-                        aria-hidden="true"
-                        className="pointer-events-none absolute inset-0 z-20 grid place-items-center"
-                      >
+                      <div aria-hidden="true" className="pointer-events-none absolute inset-0 z-20 grid place-items-center">
                         <div className="play-button grid h-16 w-16 place-items-center rounded-full bg-white/90 shadow-glow backdrop-blur">
                           <svg viewBox="0 0 24 24" className="ml-0.5 h-8 w-8 text-churchBlue" fill="currentColor">
                             <path d="M8 5v14l11-7z" />
@@ -135,11 +132,7 @@ export default function PromiseSpotlight() {
                         <Lang en={current?.titleEn ?? "Promise"} ta={current?.titleTa ?? "வாக்குத்தத்தம்"} taClassName="font-tamil" />
                       </h3>
                       <p className="mt-2 text-sm text-churchBlue/75 sm:text-base">
-                        <Lang
-                          en={current?.descriptionEn ?? ""}
-                          ta={current?.descriptionTa ?? ""}
-                          taClassName="font-tamil"
-                        />
+                        <Lang en={current?.descriptionEn ?? ""} ta={current?.descriptionTa ?? ""} taClassName="font-tamil" />
                       </p>
                     </div>
 
@@ -165,18 +158,10 @@ export default function PromiseSpotlight() {
                       <Lang en="Promise verse" ta="வாக்குத்தத்த வசனம்" taClassName="font-tamil" />
                     </div>
                     <div className="mt-2 text-sm font-semibold text-churchBlue">
-                      <Lang
-                        en={current?.verseRefEn ?? ""}
-                        ta={current?.verseRefTa ?? ""}
-                        taClassName="font-tamil"
-                      />
+                      <Lang en={current?.verseRefEn ?? ""} ta={current?.verseRefTa ?? ""} taClassName="font-tamil" />
                     </div>
                     <div className="mt-2 text-sm leading-relaxed text-churchBlue/75 sm:text-base">
-                      <Lang
-                        en={current?.verseTextEn ?? ""}
-                        ta={current?.verseTextTa ?? ""}
-                        taClassName="font-tamil"
-                      />
+                      <Lang en={current?.verseTextEn ?? ""} ta={current?.verseTextTa ?? ""} taClassName="font-tamil" />
                     </div>
                   </div>
 
@@ -195,9 +180,7 @@ export default function PromiseSpotlight() {
                         />
                       ))}
                       <span className="ml-2 text-xs text-churchBlue/60">
-                        {mounted ? (
-                          <Lang en="Auto-rotates" ta="தானாக மாறும்" taClassName="font-tamil" />
-                        ) : null}
+                        {mounted ? <Lang en="Auto-rotates" ta="தானாக மாறும்" taClassName="font-tamil" /> : null}
                       </span>
                     </div>
                   ) : null}

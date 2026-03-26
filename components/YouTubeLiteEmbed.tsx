@@ -94,36 +94,42 @@ export default function YouTubeLiteEmbed(props: Props) {
           className="object-cover"
           quality={85}
         />
-        <div className="absolute inset-0 bg-[radial-gradient(30rem_18rem_at_50%_10%,rgba(255,255,255,0.20),transparent_60%)]" />
+        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(18,27,62,0.14)_0%,rgba(18,27,62,0.22)_100%)]" />
       </div>
     ) : (
-      <div className="relative grid h-full w-full place-items-center bg-[radial-gradient(40rem_26rem_at_50%_0%,rgba(91,33,182,0.10),transparent_60%),radial-gradient(30rem_20rem_at_10%_20%,rgba(14,116,144,0.10),transparent_55%)]">
-        <div className="text-center">
-          <div className="text-sm font-semibold text-churchBlue">
-            {language === "ta" ? "YouTube-இல் பாருங்கள்" : "Watch on YouTube"}
-          </div>
-          <div className="mt-1 text-xs text-churchBlue/70">
-            {language === "ta" ? "சமீபத்திய ஆராதனை பட்டியல்" : "Latest services playlist"}
+      <div className="relative h-full w-full overflow-hidden bg-[radial-gradient(44rem_28rem_at_10%_0%,rgba(248,202,69,0.16),transparent_50%),radial-gradient(38rem_26rem_at_100%_0%,rgba(109,51,230,0.20),transparent_48%),linear-gradient(180deg,#fbfbff_0%,#eef2ff_100%)]">
+        <div className="absolute inset-0 opacity-60 [background-image:linear-gradient(rgba(109,51,230,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(109,51,230,0.05)_1px,transparent_1px)] [background-size:32px_32px]" />
+        <div className="relative flex h-full items-center justify-center px-6 py-10 sm:px-10">
+          <div className="max-w-xl rounded-[28px] border border-white/70 bg-white/78 p-6 text-center shadow-[0_24px_60px_rgb(26_35_72_/_0.12)] backdrop-blur sm:p-8">
+            <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-[linear-gradient(135deg,#6d33e6,#4d71ff)] text-xl font-bold text-white shadow-[0_18px_32px_rgb(77_113_255_/_0.24)]">
+              YT
+            </div>
+            <div className="text-xl font-semibold tracking-tight text-churchBlue sm:text-2xl">
+              {language === "ta" ? "யூடியூபில் ஆராதனையை பாருங்கள்" : "Watch the Service on YouTube"}
+            </div>
+            <div className="mt-3 text-sm leading-relaxed text-churchBlue/72 sm:text-base">
+              {language === "ta"
+                ? "சமீபத்திய ஆராதனையையோ முழு சேவை பிளேலிஸ்டையோ திறந்து தொடர்ந்து பாருங்கள்."
+                : "Open the latest available service or continue watching from the full services playlist."}
+            </div>
+            <div className="mt-5 inline-flex rounded-full border border-churchBlue/10 bg-churchBlue/5 px-4 py-2 text-xs font-semibold uppercase tracking-[0.24em] text-churchBlue/70">
+              {language === "ta" ? "பிளேலிஸ்ட்" : "Playlist"}
+            </div>
           </div>
         </div>
       </div>
     )
 
   return (
-    <div
-      ref={containerRef}
-      className={["relative h-full w-full overflow-hidden", props.className ?? ""].join(" ")}
-    >
+    <div ref={containerRef} className={["relative h-full w-full overflow-hidden", props.className ?? ""].join(" ")}>
       {loaded ? iframe : placeholder}
 
       {!loaded ? (
         <button
           type="button"
           onClick={onActivate}
-          className={["absolute inset-0 grid place-items-center", "focus-ring"].join(" ")}
-          aria-label={
-            language === "ta" ? `இயக்கு: ${props.title}` : `Play: ${props.title}`
-          }
+          className="absolute inset-0 grid place-items-center focus-ring"
+          aria-label={language === "ta" ? `இயக்கு: ${props.title}` : `Play: ${props.title}`}
         >
           <span className="grid h-16 w-16 place-items-center rounded-full border border-white/25 bg-black/35 text-white shadow-glow backdrop-blur">
             <span className="ml-1 text-2xl" aria-hidden="true">

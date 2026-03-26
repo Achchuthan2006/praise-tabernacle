@@ -1,15 +1,28 @@
- import Link from "next/link"
+import Link from "next/link"
 
 import BrandLogo from "@/components/BrandLogo"
 import Lang from "@/components/language/Lang"
-import NewsletterSignupForm from "@/components/NewsletterSignupForm"
-import GoogleMapEmbed from "@/components/GoogleMapEmbed"
 import Container from "@/components/ui/Container"
 import { siteConfig } from "@/lib/site"
 import { normalizeBullets } from "@/lib/text"
 
-type FooterLink = { href: string; labelEn: string; labelTa: string; external?: boolean }
-type FooterGroup = { titleEn: string; titleTa: string; links: FooterLink[] }
+type FooterLink = {
+  href: string
+  labelEn: string
+  labelTa: string
+}
+
+type FooterGroup = {
+  titleEn: string
+  titleTa: string
+  links: FooterLink[]
+}
+
+type SocialLink = {
+  href: string
+  labelEn: string
+  labelTa: string
+}
 
 const footerGroups: FooterGroup[] = [
   {
@@ -31,7 +44,7 @@ const footerGroups: FooterGroup[] = [
       { href: "/calendar", labelEn: "Calendar", labelTa: "நாட்காட்டி" },
       { href: "/blog", labelEn: "Blog", labelTa: "செய்திகள்" },
       { href: "/sermons", labelEn: "Livestream / Sermons", labelTa: "நேரலை / பிரசங்கங்கள்" },
-      { href: "/bible", labelEn: "Bible (NKJV)", labelTa: "வேதாகமம் (NKJV)" },
+      { href: "/bible", labelEn: "Bible", labelTa: "வேதாகமம்" },
     ],
   },
   {
@@ -39,8 +52,8 @@ const footerGroups: FooterGroup[] = [
     titleTa: "அறிந்து கொள்ளுங்கள்",
     links: [
       { href: "/learn/baptism", labelEn: "Baptism", labelTa: "ஞானஸ்நானம்" },
-      { href: "/learn/building-rental", labelEn: "Building Rental", labelTa: "கட்டிடம் வாடகை" },
-      { href: "/learn/community-safety", labelEn: "Community Safety", labelTa: "பாதுகாப்பு" },
+      { href: "/learn/building-rental", labelEn: "Building Rental", labelTa: "கட்டிட பயன்பாடு" },
+      { href: "/learn/community-safety", labelEn: "Community Safety", labelTa: "சமூக பாதுகாப்பு" },
       { href: "/learn/weddings", labelEn: "Weddings", labelTa: "திருமணம்" },
     ],
   },
@@ -51,278 +64,179 @@ const footerGroups: FooterGroup[] = [
       { href: "/ministries", labelEn: "All Ministries", labelTa: "அனைத்து ஊழியங்கள்" },
       { href: "/ministries/kids", labelEn: "Kids", labelTa: "குழந்தைகள்" },
       { href: "/ministries/youth", labelEn: "Youth", labelTa: "இளைஞர்கள்" },
-      { href: "/ministries/prayer-care", labelEn: "Prayer & Care", labelTa: "ஜெபம் & அக்கறை" },
+      { href: "/ministries/prayer-care", labelEn: "Prayer & Care", labelTa: "ஜெபமும் அக்கறையும்" },
       { href: "/ministries/outreach", labelEn: "Outreach", labelTa: "சமூக சேவை" },
       { href: "/ministries/missions", labelEn: "Missions", labelTa: "மிஷன்" },
     ],
   },
-  {
-    titleEn: "Connect",
-    titleTa: "இணைப்பு",
-    links: [
-      { href: "/visit", labelEn: "Plan Your Visit", labelTa: "வருகையை திட்டமிடுங்கள்" },
-      { href: "/care", labelEn: "Request Care", labelTa: "அக்கறை வேண்டுகோள்" },
-      { href: "/groups", labelEn: "Small Groups", labelTa: "சிறு குழுக்கள்" },
-      { href: "/serve", labelEn: "Serve", labelTa: "சேவை" },
-      { href: "/membership", labelEn: "Membership", labelTa: "உறுப்பினர்" },
-      { href: "/missions", labelEn: "Missions", labelTa: "மிஷன்" },
-      { href: "/events", labelEn: "Join an Event", labelTa: "ஒரு நிகழ்வில் சேருங்கள்" },
-      { href: "/give", labelEn: "Give Online", labelTa: "ஆன்லைன் கொடை" },
-    ],
-  },
-  {
-    titleEn: "Policies",
-    titleTa: "கொள்கைகள்",
-    links: [
-      { href: "/privacy", labelEn: "Privacy Policy", labelTa: "தனியுரிமை" },
-      { href: "/accessibility", labelEn: "Accessibility", labelTa: "அணுகல்" },
-    ],
-  },
 ]
 
-const primaryFooterGroups = footerGroups.slice(0, 5)
-const secondaryFooterGroups = footerGroups.slice(5)
+function SocialIcon({ name }: { name: "youtube" | "facebook" | "instagram" }) {
+  const cls = "h-4 w-4"
+
+  if (name === "youtube") {
+    return (
+      <svg viewBox="0 0 24 24" className={cls} fill="currentColor" aria-hidden="true">
+        <path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.6 3.6 12 3.6 12 3.6s-7.6 0-9.4.5A3 3 0 0 0 .5 6.2 31.3 31.3 0 0 0 0 12a31.3 31.3 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.8.5 9.4.5 9.4.5s7.6 0 9.4-.5a3 3 0 0 0 2.1-2.1A31.3 31.3 0 0 0 24 12a31.3 31.3 0 0 0-.5-5.8ZM9.6 15.7V8.3l6.4 3.7-6.4 3.7Z" />
+      </svg>
+    )
+  }
+
+  if (name === "facebook") {
+    return (
+      <svg viewBox="0 0 24 24" className={cls} fill="currentColor" aria-hidden="true">
+        <path d="M13.5 22v-8h2.7l.4-3.1h-3.1V8.9c0-.9.3-1.5 1.6-1.5h1.7V4.6c-.3 0-1.3-.1-2.5-.1-2.5 0-4.2 1.5-4.2 4.3v2.1H8v3.1h2.6v8h2.9Z" />
+      </svg>
+    )
+  }
+
+  return (
+    <svg viewBox="0 0 24 24" className={cls} fill="currentColor" aria-hidden="true">
+      <path d="M7.5 2h9A5.5 5.5 0 0 1 22 7.5v9A5.5 5.5 0 0 1 16.5 22h-9A5.5 5.5 0 0 1 2 16.5v-9A5.5 5.5 0 0 1 7.5 2Zm0 1.8A3.7 3.7 0 0 0 3.8 7.5v9a3.7 3.7 0 0 0 3.7 3.7h9a3.7 3.7 0 0 0 3.7-3.7v-9a3.7 3.7 0 0 0-3.7-3.7h-9Zm9.7 1.5a1.1 1.1 0 1 1 0 2.2 1.1 1.1 0 0 1 0-2.2ZM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10Zm0 1.8A3.2 3.2 0 1 0 12 15.2 3.2 3.2 0 0 0 12 8.8Z" />
+    </svg>
+  )
+}
 
 export default function Footer() {
   const year = new Date().getFullYear()
-  const mapsQuery = encodeURIComponent(siteConfig.addressLines.join(", "))
-  const mapsEmbedUrl = `https://www.google.com/maps?q=${mapsQuery}&output=embed`
 
-  const socials: Array<{
-    href: string
-    label: string
-    icon: "youtube" | "facebook" | "instagram" | "spotify" | "email"
-  }> = [
-    { href: siteConfig.youtubeChannelUrl, label: "YouTube", icon: "youtube" },
-    ...(siteConfig.facebookUrl
-      ? [{ href: siteConfig.facebookUrl, label: "Facebook", icon: "facebook" as const }]
-      : []),
+  const socialLinks: SocialLink[] = [
+    {
+      href: siteConfig.youtubeChannelUrl,
+      labelEn: "YouTube",
+      labelTa: "யூடியூப்",
+    },
+    {
+      href: siteConfig.facebookUrl,
+      labelEn: "Facebook",
+      labelTa: "ஃபேஸ்புக்",
+    },
     ...(siteConfig.instagramUrl
-      ? [{ href: siteConfig.instagramUrl, label: "Instagram", icon: "instagram" as const }]
+      ? [
+          {
+            href: siteConfig.instagramUrl,
+            labelEn: "Instagram",
+            labelTa: "இன்ஸ்டாகிராம்",
+          } satisfies SocialLink,
+        ]
       : []),
-    ...(siteConfig.spotifyUrl
-      ? [{ href: siteConfig.spotifyUrl, label: "Spotify", icon: "spotify" as const }]
-      : []),
-    { href: `mailto:${siteConfig.email}`, label: "Email", icon: "email" },
   ]
 
   return (
-    <footer className="footer-wave relative bg-churchBlue text-white">
-      <Container className="py-14">
-        <div className="grid gap-12 lg:grid-cols-12 lg:items-start">
-          <div className="order-1 lg:col-span-4">
-            <div className="logo-container footer-logo-glow">
-              <BrandLogo variant="onDark" className="w-[170px]" />
+    <footer className="border-t border-white/5 bg-[#1b2b53] text-white">
+      <Container className="py-14 md:py-16">
+        <div className="grid gap-10 lg:grid-cols-[1.2fr,3fr] lg:items-start">
+          <div className="max-w-sm">
+            <div className="logo-container">
+              <BrandLogo variant="onDark" className="w-[120px] sm:w-[140px]" />
             </div>
-            <p className="mt-4 text-sm text-white/85">
+
+            <p className="mt-6 text-sm leading-8 text-white/82">
               <Lang
-                en={
-                  <>
-                    A warm Tamil &amp; English church family in {siteConfig.locationShort}.
-                  </>
-                }
-                ta={
-                  <>
-                    {siteConfig.locationShort} நகரில் உள்ள ஒரு வரவேற்கும் தமிழ் &amp; ஆங்கில சபைக் குடும்பம்.
-                  </>
-                }
+                en={`A warm Tamil & English church family in ${siteConfig.locationShort}.`}
+                ta={`${siteConfig.locationShort} நகரில் உள்ள ஒரு வரவேற்கும் தமிழ் மற்றும் ஆங்கில சபைக் குடும்பம்.`}
+                taClassName="font-tamil"
               />
             </p>
 
-            <div className="mt-4 text-sm text-white/85">
-              <div className="text-xs font-semibold text-white/85">
-                <Lang en="Address" ta="முகவரி" taClassName="font-tamil" />
+            <div className="mt-6 rounded-3xl border border-white/12 bg-white/6 p-5 shadow-[0_20px_50px_rgb(0_0_0_/_0.18)] backdrop-blur-sm">
+              <div className="text-[11px] font-semibold uppercase tracking-[0.22em] text-white/60">
+                <Lang en="Contact" ta="தொடர்பு" taClassName="font-tamil" />
               </div>
-              <p className="mt-2">
-                {siteConfig.addressLines[0]}
-                <br />
-                {siteConfig.addressLines[1]}
-              </p>
 
-              <div className="mt-4 overflow-hidden rounded-2xl border border-white/15 bg-white/10">
-                <GoogleMapEmbed
-                  title="Google Map"
-                  src={mapsEmbedUrl}
-                  iframeClassName="h-36 w-full sm:h-40"
-                  ctaClassName="btn btn-sm btn-secondary-invert"
-                />
-              </div>
-            </div>
-
-            <div className="mt-6 grid grid-cols-2 gap-2 sm:flex sm:flex-wrap">
-              {socials.map((s) => (
+              <div className="mt-4 space-y-3">
                 <a
-                  key={s.label}
-                  href={s.href}
-                  target={s.href.startsWith("mailto:") ? undefined : "_blank"}
-                  rel={s.href.startsWith("mailto:") ? undefined : "noreferrer"}
-                  className={[
-                    "focus-ring inline-flex w-full items-center justify-center gap-2",
-                    "rounded-full border border-white/20 bg-white/10 px-4 py-2 text-sm text-white",
-                    "transition-colors hover:bg-white/15",
-                    "sm:w-auto sm:justify-start",
-                  ].join(" ")}
-                  aria-label={s.label}
-                  title={s.label}
+                  href={`tel:${siteConfig.phone.replace(/[^\d+]/g, "")}`}
+                  className="focus-ring block text-xl font-extrabold tracking-tight text-white transition-colors hover:text-[#ffd86a]"
                 >
-                  <Icon name={s.icon} />
-                  <span>{s.label}</span>
+                  {siteConfig.phone}
                 </a>
-              ))}
-            </div>
 
-            <div className="mt-8 rounded-3xl border border-white/15 bg-white/10 p-6 backdrop-blur sm:max-w-md lg:max-w-none">
-              <div className="text-sm font-semibold text-white">
-                <Lang en="Newsletter" ta="செய்திமடல்" />
+                <div className="text-base font-semibold leading-7 text-white/92">
+                  <p>{siteConfig.addressLines[0]}</p>
+                  <p>{siteConfig.addressLines[1]}</p>
+                </div>
+
+                <a
+                  href={`mailto:${siteConfig.email}`}
+                  className="focus-ring inline-flex items-center gap-2 text-sm font-semibold text-white/78 transition-colors hover:text-white"
+                >
+                  <span className="text-white/45" aria-hidden="true">
+                    {"\u2709"}
+                  </span>
+                  {siteConfig.email}
+                </a>
               </div>
-              <p className="mt-2 text-sm text-white/80">
-                <Lang
-                  en="Get updates about events, prayer times, and church news."
-                  ta="நிகழ்வுகள், ஜெப நேரங்கள், மற்றும் சபை செய்திகளைப் பற்றிய புதுப்பிப்புகளை பெறுங்கள்."
-                />
-              </p>
-              <NewsletterSignupForm variant="footer" className="mt-4" noteId="footer-newsletter-note" />
+
+              <div className="mt-5 flex flex-wrap gap-2">
+                {socialLinks.map((link) => {
+                  const iconName =
+                    link.labelEn === "YouTube"
+                      ? "youtube"
+                      : link.labelEn === "Facebook"
+                        ? "facebook"
+                        : "instagram"
+
+                  return (
+                    <a
+                      key={link.labelEn}
+                      href={link.href}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="focus-ring inline-flex items-center gap-2 rounded-full border border-white/14 bg-white/8 px-4 py-2 text-sm font-semibold text-white/88 transition-[transform,background-color,border-color,color,box-shadow] hover:-translate-y-0.5 hover:border-white/28 hover:bg-white/14 hover:text-white hover:shadow-[0_12px_24px_rgb(0_0_0_/_0.18)]"
+                    >
+                      <SocialIcon name={iconName} />
+                      <Lang en={link.labelEn} ta={link.labelTa} taClassName="font-tamil" />
+                    </a>
+                  )
+                })}
+              </div>
             </div>
           </div>
 
-          <div className="order-2 lg:col-span-8">
-            <div className="grid grid-cols-1 min-[360px]:grid-cols-2 gap-8 sm:grid-cols-3 lg:grid-cols-5">
-              {primaryFooterGroups.map((group) => (
-                <FooterColumn key={group.titleEn} group={group} />
-              ))}
-            </div>
-
-            <div className="mt-8 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
-              {secondaryFooterGroups.map((group) => (
-                <FooterColumn key={group.titleEn} group={group} />
-              ))}
-              <FooterInfo />
-            </div>
+          <div className="grid grid-cols-2 gap-8 sm:grid-cols-4">
+            {footerGroups.map((group) => (
+              <div key={group.titleEn}>
+                <h2 className="text-sm font-semibold text-white">
+                  <Lang en={group.titleEn} ta={group.titleTa} taClassName="font-tamil" />
+                </h2>
+                <ul className="mt-4 space-y-3 text-sm text-white/80">
+                  {group.links.map((link) => (
+                    <li key={`${group.titleEn}-${link.href}`}>
+                      <Link
+                        href={link.href}
+                        className="focus-ring inline-flex transition-colors hover:text-white"
+                      >
+                        <Lang en={link.labelEn} ta={link.labelTa} taClassName="font-tamil" />
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
           </div>
         </div>
 
-        <div className="mt-12 flex flex-col gap-3 border-t border-white/15 pt-6 text-center text-xs text-white/75 md:flex-row md:items-center md:justify-between md:text-left">
-          <div>
-            <Lang
-              en={
-                <>
-                  {"\u00a9"} {year} {siteConfig.nameEn}. All rights reserved.
-                </>
-              }
-              ta={
-                <>
-                  {"\u00a9"} {year} {siteConfig.nameTa}. அனைத்து உரிமைகளும் பாதுகாக்கப்பட்டுள்ளன.
-                </>
-              }
-              taClassName="font-tamil"
-            />
+        <div className="mt-12 flex flex-col gap-4 border-t border-white/10 pt-6 text-sm text-white/72 md:flex-row md:items-end md:justify-between">
+          <div className="space-y-1">
+            <div className="text-white/80">
+              {siteConfig.serviceTimes.map((service) => (
+                <p key={service.id}>{normalizeBullets(service.time)}</p>
+              ))}
+            </div>
           </div>
-          <div className="flex flex-wrap items-center justify-center gap-4 md:justify-end">
-            <span>{siteConfig.locationShort}</span>
-            <span className="hidden md:inline">{"\u2022"}</span>
-            <span className="hidden md:inline">{siteConfig.phone}</span>
+
+          <div className="space-y-2 text-left md:text-right">
+            <p>
+              <Lang
+                en={`© ${year} ${siteConfig.nameEn}. All rights reserved.`}
+                ta={`© ${year} ${siteConfig.nameTa}. அனைத்து உரிமைகளும் பாதுகாக்கப்பட்டுள்ளன.`}
+                taClassName="font-tamil"
+              />
+            </p>
           </div>
         </div>
       </Container>
     </footer>
-  )
-}
-
-function FooterColumn({ group }: { group: FooterGroup }) {
-  return (
-    <div>
-      <div className="text-sm font-semibold text-white">
-        <Lang en={group.titleEn} ta={group.titleTa} />
-      </div>
-      <ul className="mt-3 space-y-2 text-sm">
-        {group.links.map((l) => (
-          <li key={`${l.href}-${l.labelEn}`}>
-            {l.external ? (
-              <a
-                href={l.href}
-                target="_blank"
-                rel="noreferrer"
-                className="focus-ring text-white/85 transition-colors hover:text-white"
-              >
-                <Lang en={l.labelEn} ta={l.labelTa} />
-              </a>
-            ) : (
-              <Link href={l.href} className="focus-ring text-white/85 transition-colors hover:text-white">
-                <Lang en={l.labelEn} ta={l.labelTa} />
-              </Link>
-            )}
-          </li>
-        ))}
-      </ul>
-    </div>
-  )
-}
-
-function FooterInfo() {
-  return (
-    <div className="sm:col-span-2 lg:col-span-1">
-      <div className="text-sm font-semibold text-white">
-        <Lang en="Info" ta="தகவல்" />
-      </div>
-      <ul className="mt-3 space-y-3 text-sm text-white/85">
-        {siteConfig.serviceTimes.map((s) => (
-          <li key={s.time} className="leading-snug">
-            <p className="text-white">
-              <Lang en={s.labelEn} ta={s.labelTa} />
-            </p>
-            <p className="text-white/85">{normalizeBullets(s.time)}</p>
-          </li>
-        ))}
-      </ul>
-
-      <div className="mt-6 border-t border-white/15 pt-6 text-sm text-white/85">
-        <div>
-          <a
-            className="focus-ring text-white/85 transition-colors hover:text-white"
-            href={`mailto:${siteConfig.email}`}
-          >
-            {siteConfig.email}
-          </a>
-        </div>
-        <div className="mt-2">{siteConfig.phone}</div>
-      </div>
-    </div>
-  )
-}
-
-function Icon({ name }: { name: "youtube" | "facebook" | "instagram" | "spotify" | "email" }) {
-  const common = { width: 16, height: 16, fill: "currentColor", "aria-hidden": true } as const
-  if (name === "youtube") {
-    return (
-      <svg viewBox="0 0 24 24" {...common}>
-        <path d="M21.8 8.001a3 3 0 0 0-2.113-2.12C17.97 5.4 12 5.4 12 5.4s-5.97 0-7.687.48A3 3 0 0 0 2.2 8C1.72 9.726 1.72 12 1.72 12s0 2.274.48 4a3 3 0 0 0 2.113 2.12c1.717.48 7.687.48 7.687.48s5.97 0 7.687-.48A3 3 0 0 0 21.8 16c.48-1.726.48-4 .48-4s0-2.274-.48-3.999zM10 15.5v-7l6 3.5-6 3.5z" />
-      </svg>
-    )
-  }
-  if (name === "facebook") {
-    return (
-      <svg viewBox="0 0 24 24" {...common}>
-        <path d="M22 12a10 10 0 1 0-11.56 9.87v-6.99H7.9V12h2.54V9.8c0-2.5 1.49-3.88 3.77-3.88 1.09 0 2.23.2 2.23.2v2.46h-1.25c-1.24 0-1.62.77-1.62 1.55V12h2.76l-.44 2.88h-2.32v6.99A10 10 0 0 0 22 12z" />
-      </svg>
-    )
-  }
-  if (name === "instagram") {
-    return (
-      <svg viewBox="0 0 24 24" {...common}>
-        <path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm10 2H7a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3zm-5 4.3A3.7 3.7 0 1 1 8.3 12 3.7 3.7 0 0 1 12 8.3zm0 2A1.7 1.7 0 1 0 13.7 12 1.7 1.7 0 0 0 12 10.3zM17.6 6.8a.6.6 0 1 1-.6.6.6.6 0 0 1 .6-.6z" />
-      </svg>
-    )
-  }
-  if (name === "spotify") {
-    return (
-      <svg viewBox="0 0 24 24" {...common}>
-        <path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm4.59 14.47a.75.75 0 0 1-1.03.25A8.48 8.48 0 0 0 8.9 16a.75.75 0 0 1 .05-1.5 9.97 9.97 0 0 1 7.39 1.0.75.75 0 0 1 .25 1.03zm.86-2.61a.9.9 0 0 1-1.24.3 10.25 10.25 0 0 0-7.85-1.19.9.9 0 1 1-.45-1.74 12.05 12.05 0 0 1 9.23 1.41.9.9 0 0 1 .31 1.22zm.07-2.79A1.05 1.05 0 0 1 16.09 12a12.3 12.3 0 0 0-9.78-1.3 1.05 1.05 0 1 1-.6-2.01A14.4 14.4 0 0 1 17.2 10a1.05 1.05 0 0 1 .32 1.07z" />
-      </svg>
-    )
-  }
-  return (
-    <svg viewBox="0 0 24 24" {...common}>
-      <path d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm0 4.2-8 5-8-5V6l8 5 8-5v2.2z" />
-    </svg>
   )
 }

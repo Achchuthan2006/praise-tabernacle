@@ -128,7 +128,7 @@ export default async function DailyPromisePage({
                       <div className="relative aspect-[4/3] w-full bg-churchBlueSoft">
                         <Image
                           src={graphicSrc}
-                          alt="Promise graphic"
+                          alt={`${promise.verseRefEn} promise graphic`}
                           fill
                           sizes="(max-width: 1024px) 100vw, 360px"
                           className="object-cover"
@@ -163,4 +163,3 @@ export default async function DailyPromisePage({
     </>
   )
 }
-

@@ -1,7 +1,7 @@
 "use client"
 
 import Link from "next/link"
-import { useEffect, useMemo, useState } from "react"
+import { useEffect, useMemo, useRef, useState } from "react"
 
 import Lang from "@/components/language/Lang"
 import { useLanguage } from "@/components/language/LanguageProvider"
@@ -68,6 +68,9 @@ export default function ChatWidget() {
   const { language } = useLanguage()
   const [open, setOpen] = useState(false)
   const [isOnline, setIsOnline] = useState(false)
+  const toggleButtonRef = useRef<HTMLButtonElement | null>(null)
+  const closeButtonRef = useRef<HTMLButtonElement | null>(null)
+  const wasOpenRef = useRef(false)
 
   useEffect(() => {
     const update = () => setIsOnline(isWithinOfficeHours(new Date(), siteConfig.officeHours))
@@ -75,6 +78,22 @@ export default function ChatWidget() {
     const id = window.setInterval(update, 60_000)
     return () => window.clearInterval(id)
   }, [])
+
+  useEffect(() => {
+    if (!open) {
+      if (wasOpenRef.current) toggleButtonRef.current?.focus()
+      wasOpenRef.current = false
+      return
+    }
+
+    wasOpenRef.current = true
+    closeButtonRef.current?.focus()
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setOpen(false)
+    }
+    document.addEventListener("keydown", onKeyDown)
+    return () => document.removeEventListener("keydown", onKeyDown)
+  }, [open])
 
   const whatsappText = useMemo(() => {
     return language === "ta" ? siteConfig.whatsapp.defaultMessageTa : siteConfig.whatsapp.defaultMessageEn
@@ -111,7 +130,12 @@ export default function ChatWidget() {
       ].join(" ")}
     >
       {open ? (
-        <div className="mb-3 w-[19.5rem] overflow-hidden rounded-2xl border border-churchBlue/10 bg-white shadow-glow">
+        <div
+          role="dialog"
+          aria-modal="false"
+          aria-label={language === "ta" ? "உதவி அரட்டை" : "Help chat"}
+          className="mb-3 w-[19.5rem] overflow-hidden rounded-2xl border border-churchBlue/10 bg-white shadow-glow"
+        >
           <div className="flex items-start justify-between gap-3 border-b border-churchBlue/10 bg-churchBlueSoft px-4 py-3">
             <div className="min-w-0">
               <div className="text-sm font-semibold text-churchBlue">
@@ -137,6 +161,7 @@ export default function ChatWidget() {
             </div>
 
             <button
+              ref={closeButtonRef}
               type="button"
               className="focus-ring grid h-9 w-9 place-items-center rounded-xl border border-churchBlue/10 bg-white text-churchBlue/80 hover:bg-churchBlueSoft"
               onClick={() => setOpen(false)}
@@ -200,6 +225,7 @@ export default function ChatWidget() {
       ) : null}
 
       <button
+        ref={toggleButtonRef}
         type="button"
         className={[
           "focus-ring grid h-14 w-14 place-items-center rounded-full border border-churchBlue/10 shadow-glow",
@@ -215,4 +241,3 @@ export default function ChatWidget() {
     </div>
   )
 }
-

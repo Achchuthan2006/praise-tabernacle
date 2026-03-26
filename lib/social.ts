@@ -15,19 +15,23 @@ export type SocialImage = {
   alt: string
 }
 
-const instagramHref = siteConfig.instagramUrl || "https://www.instagram.com/"
+const instagramHref = siteConfig.instagramUrl
 const facebookHref = siteConfig.facebookUrl || "https://www.facebook.com/"
 const youtubeHref = siteConfig.youtubeChannelUrl || "https://www.youtube.com/"
 
 export const socialFeed: SocialPost[] = [
-  {
-    id: "p1",
-    platform: "Instagram",
-    title: "Sunday service highlights",
-    excerpt: "A few moments from worship, prayer, and a short word of encouragement.",
-    href: instagramHref,
-    dateLabel: "This week",
-  },
+  ...(instagramHref
+    ? [
+        {
+          id: "p1",
+          platform: "Instagram" as const,
+          title: "Sunday service highlights",
+          excerpt: "A few moments from worship, prayer, and a short word of encouragement.",
+          href: instagramHref,
+          dateLabel: "This week",
+        },
+      ]
+    : []),
   {
     id: "p2",
     platform: "YouTube",

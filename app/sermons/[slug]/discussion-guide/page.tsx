@@ -50,7 +50,7 @@ export default async function SermonDiscussionGuidePage({
       <PageHeader
         titleEn="Discussion Guide"
         titleTa=""
-        descriptionEn={[sermon.title, sermon.dateIso, sermon.speaker ? `• ${sermon.speaker}` : ""].filter(Boolean).join(" ")}
+        descriptionEn={[sermon.title, sermon.dateIso, sermon.speaker ? `" ${sermon.speaker}` : ""].filter(Boolean).join(" ")}
         descriptionTa=""
       />
 
@@ -71,7 +71,7 @@ export default async function SermonDiscussionGuidePage({
                 </h2>
                 <p className="mt-2 text-sm text-churchBlue/70">
                   {sermon.dateIso}
-                  {sermon.speaker ? ` • ${sermon.speaker}` : ""}
+                  {sermon.speaker ? ` " ${sermon.speaker}` : ""}
                 </p>
 
                 {sermon.scriptures?.length ? (

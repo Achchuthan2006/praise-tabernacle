@@ -28,6 +28,15 @@ export type Ministry = {
   nextStepsEn?: string[]
   nextStepsTa?: string[]
   photoSrc?: string
+  locationDetailsEn?: string[]
+  locationDetailsTa?: string[]
+  teamMembers?: {
+    name: string
+    roleEn: string
+    roleTa: string
+    photoSrc?: string
+    email?: string
+  }[]
   youtubeVideoId?: string
   youtubePlaylistId?: string
   meetingTimeEn: string
@@ -107,13 +116,46 @@ export const ministries: Ministry[] = [
     nextStepsEn: ["Ask about age groups", "Plan your first Sunday", "Connect with the kids team"],
     nextStepsTa: ["வயது குழுக்கள் பற்றி கேளுங்கள்", "முதல் ஞாயிறை திட்டமிடுங்கள்", "குழந்தைகள் குழுவுடன் தொடர்பு கொள்ளுங்கள்"],
     photoSrc: "/photos/home/kids-ministry.webp",
+    locationDetailsEn: [
+      "Children check in at the family welcome desk in the main lobby before service.",
+      "Nursery and early years rooms are located in the lower-level classrooms.",
+      "Parents receive pickup guidance and classroom information on arrival.",
+    ],
+    locationDetailsTa: [
+      "ஆராதனைக்கு முன் குடும்ப வரவேற்பு மேசையில் குழந்தைகள் பதிவு செய்யப்படுகிறார்கள்.",
+      "நர்சரி மற்றும் சிறுவர் வகுப்பறைகள் கீழ்தள வகுப்பறைகளில் உள்ளன.",
+      "வருகை தரும் பெற்றோருக்கு வகுப்பறை மற்றும் குழந்தைகளை அழைத்து செல்லும் தகவல் வழங்கப்படும்.",
+    ],
+    teamMembers: [
+      {
+        name: "Kids Welcome Team",
+        roleEn: "Lobby check-in and parent support",
+        roleTa: "நுழைவாயில் பதிவு மற்றும் பெற்றோர் உதவி",
+        photoSrc: "/photos/home/church-front.webp",
+        email: defaultContactEmail,
+      },
+      {
+        name: "Sunday Lesson Team",
+        roleEn: "Bible lesson leaders and classroom teachers",
+        roleTa: "வேதாகமப் பாட ஆசிரியர்கள் மற்றும் வகுப்பு வழிநடத்துநர்கள்",
+        photoSrc: "/photos/home/kids-ministry.webp",
+        email: defaultContactEmail,
+      },
+      {
+        name: "Family Care Volunteers",
+        roleEn: "Pickup coordination and family follow-up",
+        roleTa: "குழந்தைகளை அழைத்து செல்லும் ஒருங்கிணைப்பு மற்றும் குடும்ப பிந்தொடர்பு",
+        photoSrc: "/photos/home/adults-fellowship.webp",
+        email: defaultContactEmail,
+      },
+    ],
     // Optional: add a Kids/VBS YouTube video id or playlist id.
     youtubeVideoId: "",
     youtubePlaylistId: "",
     meetingTimeEn: "Sundays • 9:30 AM",
     meetingTimeTa: "\u0b9e\u0bbe\u0baf\u0bbf\u0bb1\u0bc1 • 9:30 AM",
-    locationEn: "On-site at church",
-    locationTa: "\u0b9a\u0baa\u0bc8 \u0bb5\u0bb3\u0bbe\u0b95\u0ba4\u0bcd\u0ba4\u0bbf\u0bb2\u0bcd",
+    locationEn: "Lower-level classrooms, Praise Tabernacle",
+    locationTa: "பிரேஸ் டேபர்னாக்கிள் கீழ்தள வகுப்பறைகள்",
     contactName: "Sunday School Team",
     contactEmail: defaultContactEmail,
   },
@@ -183,10 +225,43 @@ export const ministries: Ministry[] = [
     nextStepsEn: ["Bring a friend", "Ask about youth events", "Join a serving team"],
     nextStepsTa: ["ஒருவரை அழைத்து வாருங்கள்", "இளைஞர் நிகழ்வுகள் பற்றி கேளுங்கள்", "சேவை குழுவில் சேருங்கள்"],
     photoSrc: "/photos/home/church-life.webp",
+    locationDetailsEn: [
+      "Youth meets in the fellowship hall after the main worship gathering.",
+      "Small-group circles use side classrooms and the youth lounge when available.",
+      "Parents can speak with leaders at the end of the session near the lobby.",
+    ],
+    locationDetailsTa: [
+      "முக்கிய ஆராதனைக்குப் பிறகு இளைஞர்கள் கூட்டரங்கில் கூடுகின்றனர்.",
+      "சிறு குழு சந்திப்புகள் பக்க வகுப்பறைகள் மற்றும் இளைஞர் லவுஞ்சில் நடக்கின்றன.",
+      "சந்திப்பு முடிந்ததும் லாபி அருகே தலைவர்களுடன் பெற்றோர் பேசலாம்.",
+    ],
+    teamMembers: [
+      {
+        name: "Youth Leaders",
+        roleEn: "Weekly gathering hosts and mentors",
+        roleTa: "வாராந்திர சந்திப்பு வழிநடத்துநர்கள் மற்றும் வழிகாட்டிகள்",
+        photoSrc: "/photos/home/church-life.webp",
+        email: defaultContactEmail,
+      },
+      {
+        name: "Small Group Mentors",
+        roleEn: "Discussion leaders for middle and high school students",
+        roleTa: "இடைநிலை மற்றும் மேல்நிலை மாணவர்களுக்கான உரையாடல் வழிநடத்துநர்கள்",
+        photoSrc: "/photos/home/adults-fellowship.webp",
+        email: defaultContactEmail,
+      },
+      {
+        name: "Worship & Media Support",
+        roleEn: "Music, slides, and youth event setup",
+        roleTa: "இசை, திரைகள் மற்றும் இளைஞர் நிகழ்ச்சி அமைப்பு உதவி",
+        photoSrc: "/photos/home/church-front-2.webp",
+        email: defaultContactEmail,
+      },
+    ],
     meetingTimeEn: "Sundays • 11:00 AM",
     meetingTimeTa: "\u0b9e\u0bbe\u0baf\u0bbf\u0bb1\u0bc1 • 11:00 AM",
-    locationEn: "On-site at church",
-    locationTa: "\u0b9a\u0baa\u0bc8 \u0bb5\u0bb3\u0bbe\u0b95\u0ba4\u0bcd\u0ba4\u0bbf\u0bb2\u0bcd",
+    locationEn: "Fellowship hall and youth rooms, Praise Tabernacle",
+    locationTa: "பிரேஸ் டேபர்னாக்கிள் கூட்டரங்கு மற்றும் இளைஞர் அறைகள்",
     contactName: "Youth Leaders",
     contactEmail: defaultContactEmail,
   },
@@ -208,10 +283,43 @@ export const ministries: Ministry[] = [
     nextStepsEn: ["Submit a prayer request", "Join prayer times", "Request pastoral care"],
     nextStepsTa: ["ஜெப வேண்டுகோள் சமர்ப்பிக்கவும்", "ஜெப நேரங்களில் சேருங்கள்", "மேய்ப்பர் அக்கறை கோருங்கள்"],
     photoSrc: "/event-prayer.svg",
+    locationDetailsEn: [
+      "Wednesday morning prayer meets in the sanctuary prayer area.",
+      "Private care conversations are arranged in a quieter follow-up room when needed.",
+      "Pastoral care appointments can also be scheduled by email.",
+    ],
+    locationDetailsTa: [
+      "புதன்கிழமை காலை ஜெபம் சந்நிதி ஜெபப்பகுதியில் நடைபெறும்.",
+      "தனிப்பட்ட பராமரிப்பு உரையாடல்கள் தேவையானபோது அமைதியான அறையில் ஏற்பாடு செய்யப்படும்.",
+      "மேய்ப்பர் ஆலோசனை நேரங்களை மின்னஞ்சல் மூலம் முன்பதிவு செய்யலாம்.",
+    ],
+    teamMembers: [
+      {
+        name: "Prayer Team",
+        roleEn: "Intercession during services and weekly prayer gatherings",
+        roleTa: "ஆராதனைகளிலும் வாராந்திர ஜெப நேரங்களிலும் ஜெப ஆதரவு",
+        photoSrc: "/photos/home/church-front.webp",
+        email: defaultContactEmail,
+      },
+      {
+        name: "Care Follow-up Team",
+        roleEn: "Confidential response and check-ins through the week",
+        roleTa: "ரகசியமான பதில்கள் மற்றும் வாரம் முழுவதும் பிந்தொடர்பு",
+        photoSrc: "/photos/home/adults-fellowship.webp",
+        email: defaultContactEmail,
+      },
+      {
+        name: "Pastoral Support",
+        roleEn: "Pastoral prayer and next-step guidance",
+        roleTa: "மேய்ப்பரின் ஜெப ஆதரவும் அடுத்த படி வழிகாட்டுதலும்",
+        photoSrc: "/photos/pastor/pastor-mano.jpg",
+        email: defaultContactEmail,
+      },
+    ],
     meetingTimeEn: "Wednesdays • 10:30 AM + monthly prayer times",
     meetingTimeTa: "\u0baa\u0bc1\u0ba4\u0ba9\u0bcd • 10:30 AM",
-    locationEn: "On-site (varies)",
-    locationTa: "\u0b9a\u0baa\u0bc8\u0baf\u0bbf\u0bb2\u0bcd (\u0bae\u0bbe\u0bb1\u0bc1\u0baa\u0b9f\u0bc1\u0bae\u0bcd)",
+    locationEn: "Sanctuary prayer space and care rooms, Praise Tabernacle",
+    locationTa: "பிரேஸ் டேபர்னாக்கிள் சந்நிதி ஜெபப்பகுதி மற்றும் பராமரிப்பு அறைகள்",
     contactName: "Prayer Team",
     contactEmail: defaultContactEmail,
   },
@@ -283,6 +391,39 @@ export const ministries: Ministry[] = [
     nextStepsEn: ["Join a meeting", "Ask about small groups", "Serve with a team"],
     nextStepsTa: ["ஒரு கூடுகையில் சேருங்கள்", "சிறு குழுக்கள் பற்றி கேளுங்கள்", "ஒரு குழுவுடன் சேவை செய்யுங்கள்"],
     photoSrc: "/event-community.svg",
+    locationDetailsEn: [
+      "Most outreach teams meet first in the church lobby for prayer and assignments.",
+      "Serve locations vary across Mississauga depending on the project and partner organization.",
+      "Volunteers receive the exact meetup address and arrival details before each outreach day.",
+    ],
+    locationDetailsTa: [
+      "பல சமூக சேவை குழுக்கள் முதலில் சபை லாபியில் ஜெபத்திற்கும் ஒழுங்கமைப்பிற்கும் கூடுகின்றன.",
+      "சேவை நடைபெறும் இடங்கள் திட்டத்திற்கும் கூட்டாளி அமைப்பிற்கும் ஏற்ப மிசிசாகா முழுவதும் மாறுபடும்.",
+      "ஒவ்வொரு சேவை நாளுக்கும் முன் துல்லியமான சந்திப்பு முகவரி மற்றும் வருகை விவரங்கள் அனுப்பப்படும்.",
+    ],
+    teamMembers: [
+      {
+        name: "Outreach Coordinator",
+        roleEn: "Schedules projects and community partnerships",
+        roleTa: "சேவை திட்டங்களும் சமூக கூட்டாண்மைகளும் ஒருங்கிணைப்பு",
+        photoSrc: "/photos/home/church-front.webp",
+        email: defaultContactEmail,
+      },
+      {
+        name: "Community Support Volunteers",
+        roleEn: "Food support, visits, and practical care",
+        roleTa: "உணவு உதவி, வீட்டு வருகைகள் மற்றும் நடைமுறை பராமரிப்பு",
+        photoSrc: "/photos/home/adults-fellowship.webp",
+        email: defaultContactEmail,
+      },
+      {
+        name: "Hospitality & Follow-up Team",
+        roleEn: "Welcome, registration, and follow-up connection",
+        roleTa: "வரவேற்பு, பதிவு மற்றும் பிந்தொடர்பு இணைப்பு",
+        photoSrc: "/photos/home/church-life.webp",
+        email: defaultContactEmail,
+      },
+    ],
     meetingTimeEn: "1st Saturday • 9:30 AM",
     meetingTimeTa: "\u0b9a\u0ba9\u0bbf • 9:30 AM",
     locationEn: "On-site / small groups (varies)",
@@ -310,8 +451,8 @@ export const ministries: Ministry[] = [
     photoSrc: "/event-community.svg",
     meetingTimeEn: "Monthly • Dates announced",
     meetingTimeTa: "\u0bae\u0bbe\u0ba4\u0bae\u0bcd • \u0ba4\u0bc7\u0ba4\u0bbf \u0b85\u0bb1\u0bbf\u0bb5\u0bbf\u0b95\u0bcd\u0b95\u0baa\u0bcd\u0baa\u0b9f\u0bc1\u0bae\u0bcd",
-    locationEn: "Off-site (varies)",
-    locationTa: "\u0bb5\u0bc6\u0bb3\u0bbf\u0baf\u0bc7 (\u0bae\u0bbe\u0bb1\u0bc1\u0baa\u0b9f\u0bc1\u0bae\u0bcd)",
+    locationEn: "Mississauga outreach sites and church lobby meetup point",
+    locationTa: "மிசிசாகா சமூக சேவை இடங்கள் மற்றும் சபை லாபி சந்திப்பு இடம்",
     contactName: "Outreach Coordinator",
     contactEmail: defaultContactEmail,
   },

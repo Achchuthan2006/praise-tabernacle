@@ -1,6 +1,6 @@
 "use client"
 
-import type { ComponentPropsWithoutRef } from "react"
+import type { ComponentPropsWithoutRef, CSSProperties } from "react"
 import { useEffect, useRef } from "react"
 
 function prefersReducedMotion() {
@@ -77,11 +77,10 @@ export default function Spotlight({
           {
             width: `${spotlightSize}px`,
             height: `${spotlightSize}px`,
-          } as any
+          } satisfies CSSProperties
         }
       />
       <div className="spotlight-content">{children}</div>
     </div>
   )
 }
-

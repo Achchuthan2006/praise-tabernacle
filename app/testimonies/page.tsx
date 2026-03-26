@@ -24,8 +24,8 @@ export default function TestimoniesPage() {
       <PageHeader
         titleEn="Testimonies"
         titleTa="சாட்சிகள்"
-        descriptionEn="Before/after stories and video testimonies from our community."
-        descriptionTa="எங்கள் சமூகத்திலிருந்து முன்பு/பிறகு சாட்சிகளும் வீடியோ சாட்சிகளும்."
+        descriptionEn="Before-and-after stories and video testimonies from our community."
+        descriptionTa="எங்கள் சமூகத்தில் இருந்து வந்த மாற்றக் கதைகளும் வீடியோ சாட்சிகளும்."
       />
 
       <section className="bg-white">
@@ -38,14 +38,14 @@ export default function TestimoniesPage() {
                 </h2>
                 <p className="mt-3 max-w-3xl text-sm leading-relaxed text-churchBlue/70 sm:text-base">
                   <Lang
-                    en="If you’d like to share a testimony (written or video), email us. With your permission, we can add it here to encourage others."
-                    ta="நீங்கள் ஒரு சாட்சியை (எழுத்து அல்லது வீடியோ) பகிர விரும்பினால் மின்னஞ்சல் செய்யுங்கள். உங்கள் அனுமதியுடன் அதை இங்கே சேர்க்கலாம்."
+                    en="If you'd like to share a testimony in writing or on video, email us. With your permission, we can add it here to encourage others."
+                    ta="நீங்கள் எழுத்து வடிவிலோ வீடியோவிலோ ஒரு சாட்சியை பகிர விரும்பினால் எங்களுக்கு மின்னஞ்சல் அனுப்புங்கள். உங்கள் அனுமதியுடன் அதை மற்றவர்களை உற்சாகப்படுத்த இங்கே சேர்க்கலாம்."
                     taClassName="font-tamil"
                   />
                 </p>
                 <div className="mt-6 flex flex-col gap-2 sm:flex-row">
                   <a href={mailto} className="btn btn-md btn-primary">
-                    <Lang en="Email us" ta="மின்னஞ்சல்" taClassName="font-tamil" />
+                    <Lang en="Email us" ta="எங்களுக்கு மின்னஞ்சல் அனுப்புங்கள்" taClassName="font-tamil" />
                   </a>
                   <Link href="/prayer-wall" className="btn btn-md btn-secondary">
                     <Lang en="Prayer wall" ta="ஜெபச் சுவர்" taClassName="font-tamil" />
@@ -54,7 +54,7 @@ export default function TestimoniesPage() {
               </div>
             </Reveal>
 
-            <div className="mt-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="mt-10 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
               {items.map((t, idx) => (
                 <Reveal key={t.slug} delay={(idx % 4) as 0 | 1 | 2 | 3}>
                   <Link

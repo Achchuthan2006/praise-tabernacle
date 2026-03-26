@@ -1,7 +1,12 @@
 "use client"
 
 import type { ComponentPropsWithoutRef } from "react"
-import { useLayoutEffect, useRef, useState } from "react"
+import { useEffect, useRef, useState } from "react"
+
+function prefersReducedMotion() {
+  if (typeof window === "undefined") return true
+  return window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches ?? false
+}
 
 export default function Reveal({
   className,
@@ -12,37 +17,28 @@ export default function Reveal({
   delay?: 0 | 1 | 2 | 3
 }) {
   const ref = useRef<HTMLDivElement | null>(null)
-  const [visible, setVisible] = useState(true)
-  const [mounted, setMounted] = useState(false)
+  const [visible, setVisible] = useState(prefersReducedMotion())
 
-  useLayoutEffect(() => {
-    const el = ref.current
-    if (!el) return
-
-    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches
-    if (prefersReducedMotion) {
-      setMounted(true)
+  useEffect(() => {
+    if (prefersReducedMotion()) {
       setVisible(true)
       return
     }
 
-    const rect = el.getBoundingClientRect()
-    const inView = rect.top < window.innerHeight * 0.9 && rect.bottom > 0
-
-    setMounted(true)
-    setVisible(inView)
-
-    if (inView) return
+    const el = ref.current
+    if (!el) return
 
     const observer = new IntersectionObserver(
       (entries) => {
         const entry = entries[0]
-        if (entry?.isIntersecting) {
-          setVisible(true)
-          observer.disconnect()
-        }
+        if (!entry?.isIntersecting) return
+        setVisible(true)
+        observer.disconnect()
       },
-      { threshold: 0.15, rootMargin: "0px 0px -10% 0px" },
+      {
+        rootMargin: "0px 0px -12% 0px",
+        threshold: 0.16,
+      },
     )
 
     observer.observe(el)
@@ -52,8 +48,8 @@ export default function Reveal({
   return (
     <div
       ref={ref}
-      data-visible={mounted ? (visible ? "true" : "false") : undefined}
-      className={["reveal", "fade-in-section", visible ? "is-visible" : "", delay ? `reveal-${delay}` : "", className]
+      data-visible={visible ? "true" : "false"}
+      className={["reveal", "fade-in-section", "is-visible", delay ? `reveal-${delay}` : "", className]
         .filter(Boolean)
         .join(" ")}
       {...props}

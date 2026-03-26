@@ -18,7 +18,7 @@ export default function PrayerPage() {
         titleEn="Prayer"
         titleTa="ஜெபம்"
         descriptionEn="Send a private prayer request, or share a public request/testimony on the Prayer Wall."
-        descriptionTa="தனிப்பட்ட ஜெப வேண்டுகோளை அனுப்புங்கள், அல்லது Prayer Wall-ல் பொது வேண்டுகோள்/சாட்சி பகிருங்கள்."
+        descriptionTa="தனிப்பட்ட ஜெப வேண்டுகோளை அனுப்புங்கள், அல்லது Prayer Wall-ல் பொது வேண்டுகோள் அல்லது சாட்சியை பகிருங்கள்."
       />
 
       <section className="bg-white">
@@ -29,11 +29,10 @@ export default function PrayerPage() {
             titleEn="Prayer request"
             titleTa="ஜெப வேண்டுகோள்"
             subtitleEn="Choose private (to our prayer team) or public (Prayer Wall)."
-            subtitleTa="தனிப்பட்டது (ஜெபக் குழு) அல்லது பொது (Prayer Wall) என்பதை தேர்வு செய்யுங்கள்."
+            subtitleTa="தனிப்பட்டது (எங்கள் ஜெபக் குழுவுக்கு) அல்லது பொது (Prayer Wall) என்பதை தேர்வு செய்யுங்கள்."
           />
         </Container>
       </section>
     </>
   )
 }
-

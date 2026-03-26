@@ -8,9 +8,9 @@ import Lang from "@/components/language/Lang"
 import MajorEventCountdown from "@/components/MajorEventCountdown"
 import Container from "@/components/ui/Container"
 import PageHeader from "@/components/ui/PageHeader"
-import { events } from "@/lib/events"
+import { events, nextOccurrenceLocal, toLocalDate } from "@/lib/events"
 import { getReservedSeatsBySlug } from "@/lib/rsvpStore"
-import { pageMetadata } from "@/lib/seo"
+import { eventJsonLd, pageMetadata } from "@/lib/seo"
 import { siteConfig } from "@/lib/site"
 
 export const metadata: Metadata = pageMetadata({
@@ -28,6 +28,7 @@ export default async function EventsPage() {
       Math.max(0, (e.capacity ?? 0) - (reservedBySlug[e.slug] ?? 0)),
     ]),
   ) as Record<string, number>
+
   const eventsWithLiveSpots = events.map((e) =>
     e.capacity ? { ...e, spotsRemaining: remainingBySlug[e.slug] ?? e.spotsRemaining } : e,
   )
@@ -43,6 +44,23 @@ export default async function EventsPage() {
       url: `${siteConfig.siteUrl}/events/${event.slug}`,
     })),
   }
+  const jsonLdUpcomingEvents = eventsWithLiveSpots.slice(0, 12).map((event) => {
+    const startLocal = event.startAtLocal
+      ? toLocalDate(event.startAtLocal)
+      : event.recurrence
+        ? nextOccurrenceLocal(event.recurrence)
+        : null
+    const endLocal = event.endAtLocal
+      ? toLocalDate(event.endAtLocal)
+      : startLocal
+        ? new Date(startLocal.getTime() + 60 * 60 * 1000)
+        : null
+
+    return eventJsonLd(event, {
+      startIso: startLocal ? startLocal.toISOString() : undefined,
+      endIso: endLocal ? endLocal.toISOString() : undefined,
+    })
+  })
 
   return (
     <>
@@ -52,11 +70,17 @@ export default async function EventsPage() {
         strategy="beforeInteractive"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdItemList) }}
       />
+      <Script
+        id="schema-org-upcoming-events"
+        type="application/ld+json"
+        strategy="beforeInteractive"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdUpcomingEvents) }}
+      />
       <PageHeader
         titleEn="Events"
         titleTa="நிகழ்வுகள்"
         descriptionEn="Prayer times, youth gatherings, family events, and community connections."
-        descriptionTa="ஜெப நேரங்கள், இளைஞர் கூடுகைகள், குடும்ப நிகழ்வுகள், சமூக இணைப்பு."
+        descriptionTa="ஜெப நேரங்கள், இளைஞர் கூடுகைகள், குடும்ப நிகழ்வுகள், மற்றும் சமூக இணைப்புகள்."
       />
 
       <MajorEventCountdown />

@@ -1,7 +1,7 @@
-﻿"use client"
+"use client"
 
-import { useEffect, useState } from "react"
 import Link from "next/link"
+import { useEffect, useState } from "react"
 
 import Lang from "@/components/language/Lang"
 import { googleCalendarUrl, outlookCalendarUrl } from "@/lib/calendarLinks"
@@ -87,14 +87,13 @@ export default function MajorEventCountdown() {
     : null
 
   return (
-    <section className="relative bg-white overflow-hidden">
-      <div className="blob-background blob-left" aria-hidden="true" />
+    <section className="relative overflow-hidden bg-white">
       <div className="mx-auto max-w-6xl px-6 py-10">
-        <div className="rounded-3xl border border-churchBlue/10 bg-white p-6 shadow-glow sm:p-8">
+        <div className="major-event-card no-decor-lines rounded-3xl border border-churchBlue/10 bg-white p-6 shadow-glow sm:p-8">
           <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
             <div className="min-w-0">
               <div className="section-kicker">
-                <Lang en="Next Major Event" ta="à®…à®Ÿà¯à®¤à¯à®¤ à®®à¯à®•à¯à®•à®¿à®¯ à®¨à®¿à®•à®´à¯à®µà¯" taClassName="font-tamil" />
+                <Lang en="Next Major Event" ta="அடுத்த முக்கிய நிகழ்வு" taClassName="font-tamil" />
               </div>
               <h2 className="section-heading">
                 <Lang en={event.title} ta={event.title} taClassName="font-tamil" />
@@ -107,36 +106,36 @@ export default function MajorEventCountdown() {
 
             <div className="rounded-2xl border border-churchBlue/10 bg-churchBlueSoft p-4 text-center sm:p-5">
               <div className="countdown-container" role="group" aria-label="Event countdown">
-              {countdownItems.map((item) => (
-                <div key={item.label} className="countdown-item">
-                  <div
-                    key={`${item.label}-${hydrated && parts ? item.value : "placeholder"}`}
-                    className="countdown-number countdown-tick"
-                    suppressHydrationWarning
-                  >
-                    {hydrated && parts ? item.value : "—"}
+                {countdownItems.map((item) => (
+                  <div key={item.label} className="countdown-item">
+                    <div
+                      key={`${item.label}-${hydrated && parts ? item.value : "placeholder"}`}
+                      className="countdown-number countdown-tick-clean"
+                      suppressHydrationWarning
+                    >
+                      {hydrated && parts ? item.value : "—"}
+                    </div>
+                    <div className="countdown-label">{item.label}</div>
                   </div>
-                  <div className="countdown-label">{item.label}</div>
-                </div>
-              ))}
+                ))}
               </div>
             </div>
           </div>
 
           <div className="event-actions mt-6 grid grid-cols-2 gap-2 sm:gap-3">
             <Link href={`/events/${event.slug}`} className="btn btn-sm btn-primary w-full text-sm">
-              <Lang en="View event details" ta="à®¨à®¿à®•à®´à¯à®µà¯ à®µà®¿à®µà®°à®™à¯à®•à®³à¯" taClassName="font-tamil" />
+              <Lang en="View event details" ta="நிகழ்வு விவரங்கள்" taClassName="font-tamil" />
             </Link>
             <a href={`/events/${event.slug}/calendar`} className="btn btn-sm btn-secondary w-full text-sm">
-              <Lang en="Download iCal (.ics)" ta="iCal (.ics) à®ªà®¤à®¿à®µà®¿à®±à®•à¯à®•à®µà¯à®®à¯" taClassName="font-tamil" />
+              <Lang en="Download iCal (.ics)" ta="iCal (.ics) பதிவிறக்கவும்" taClassName="font-tamil" />
             </a>
             {calendarLinks ? (
               <>
                 <a href={calendarLinks.google} target="_blank" rel="noreferrer" className="btn btn-sm btn-secondary w-full text-sm">
-                  <Lang en="Add to Google Calendar" ta="Google Calendar-à®²à¯ à®šà¯‡à®°à¯" taClassName="font-tamil" />
+                  <Lang en="Add to Google Calendar" ta="Google Calendar-ல் சேர்க்க" taClassName="font-tamil" />
                 </a>
                 <a href={calendarLinks.outlook} target="_blank" rel="noreferrer" className="btn btn-sm btn-secondary w-full text-sm">
-                  <Lang en="Add to Outlook" ta="Outlook-à®²à¯ à®šà¯‡à®°à¯" taClassName="font-tamil" />
+                  <Lang en="Add to Outlook" ta="Outlook-ல் சேர்க்க" taClassName="font-tamil" />
                 </a>
               </>
             ) : null}
@@ -146,4 +145,3 @@ export default function MajorEventCountdown() {
     </section>
   )
 }
-

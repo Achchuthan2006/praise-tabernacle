@@ -56,7 +56,7 @@ export default async function EventsTamilPage() {
         titleEn="Events (Tamil)"
         titleTa="நிகழ்வுகள் (தமிழ்)"
         descriptionEn="Prayer times, youth gatherings, family events, and community connections (Tamil)."
-        descriptionTa="ஜெப நேரங்கள், இளைஞர் கூடுகைகள், குடும்ப நிகழ்வுகள், சமூக இணைப்பு (தமிழ்)."
+        descriptionTa="ஜெப நேரங்கள், இளைஞர் கூடுகைகள், குடும்ப நிகழ்வுகள், மற்றும் சமூக இணைப்புகள் (தமிழ்)."
       />
 
       <section className="bg-white">
@@ -72,7 +72,7 @@ export default async function EventsTamilPage() {
               <Lang en="Tamil" ta="தமிழ்" taClassName="font-tamil" />
             </Link>
             <Link href="/events/calendar" className="btn btn-sm btn-secondary">
-              Subscribe calendar (iCal)
+              <Lang en="Subscribe calendar (iCal)" ta="நாட்காட்டிக்கு சந்தா செய்யுங்கள் (iCal)" taClassName="font-tamil" />
             </Link>
             <a
               href="https://calendar.google.com/calendar/u/0/r/settings/addbyurl"
@@ -81,7 +81,7 @@ export default async function EventsTamilPage() {
               className="btn btn-sm btn-secondary"
               title="Add by URL in Google Calendar, then paste the /events/calendar link"
             >
-              Google Calendar subscribe
+              <Lang en="Google Calendar subscribe" ta="Google Calendar-ல் சந்தா" taClassName="font-tamil" />
             </a>
           </div>
 
@@ -91,4 +91,3 @@ export default async function EventsTamilPage() {
     </>
   )
 }
-

@@ -32,20 +32,20 @@ export default function PrayerRequestForm({
   const title = language === "ta" ? titleTa : titleEn
   const subtitle = language === "ta" ? subtitleTa : subtitleEn
 
-  const [mode, setMode] = useState<SubmitMode>(enablePrayerWallOption ? "private" : "private")
+  const [mode, setMode] = useState<SubmitMode>("private")
   const [isTestimony, setIsTestimony] = useState(false)
 
   const [name, setName] = useState("")
   const [email, setEmail] = useState("")
   const [message, setMessage] = useState("")
-  const [honey, setHoney] = useState("") // honeypot
+  const [honey, setHoney] = useState("")
 
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle")
   const [shake, setShake] = useState(false)
   const [countPulse, setCountPulse] = useState(false)
 
-  const MESSAGE_MAX = 1000
-  const nearLimit = message.length >= Math.floor(MESSAGE_MAX * 0.85)
+  const messageMax = 1000
+  const nearLimit = message.length >= Math.floor(messageMax * 0.85)
 
   const resetIfDone = () => {
     if (status === "success" || status === "error") setStatus("idle")
@@ -65,13 +65,13 @@ export default function PrayerRequestForm({
 
     if (status === "error") {
       return language === "ta"
-        ? "இப்போது அனுப்ப முடியவில்லை. தயவுசெய்து மின்னஞ்சல் செய்யவும்:"
+        ? "இப்போது அனுப்ப முடியவில்லை. தயவுசெய்து மின்னஞ்சல் செய்யுங்கள்:"
         : "Couldn't send right now. Please email us:"
     }
 
     if (mode === "public") {
       return language === "ta"
-        ? "தயவு செய்து தனிப்பட்ட தகவல்களை சேர்க்க வேண்டாம். பதிவுகள் பரிசீலனைக்குப் பிறகு வெளியிடப்படும்."
+        ? "தயவுசெய்து தனிப்பட்ட தகவல்களை சேர்க்க வேண்டாம். பொதுப் பதிவுகள் பரிசீலனைக்குப் பிறகு வெளியிடப்படும்."
         : "Please avoid private details. Public posts are reviewed before appearing on the Prayer Wall."
     }
 
@@ -163,7 +163,7 @@ export default function PrayerRequestForm({
           {enablePrayerWallOption ? (
             <div className="rounded-3xl border border-churchBlue/10 bg-churchBlueSoft p-4">
               <div className="text-sm font-semibold text-churchBlue">
-                {language === "ta" ? "எப்படி பகிர விரும்புகிறீர்கள்?" : "How would you like to share this?"}
+                {language === "ta" ? "இதை எப்படி பகிர விரும்புகிறீர்கள்?" : "How would you like to share this?"}
               </div>
               <div className="mt-3 flex flex-wrap gap-2">
                 <button
@@ -184,11 +184,11 @@ export default function PrayerRequestForm({
                     setMode("public")
                   }}
                 >
-                  {language === "ta" ? "Prayer Wall" : "Prayer Wall"}
+                  Prayer Wall
                 </button>
 
                 <Link href="/prayer-wall" className="btn btn-sm btn-secondary">
-                  {language === "ta" ? "Prayer Wall பார்க்க" : "View Prayer Wall"}
+                  {language === "ta" ? "Prayer Wall-ஐ பார்க்க" : "View Prayer Wall"}
                 </Link>
               </div>
 
@@ -205,7 +205,7 @@ export default function PrayerRequestForm({
                   />
                   <span className={language === "ta" ? "font-tamil" : undefined}>
                     {language === "ta"
-                      ? "இது பதிலான ஜெபத்தின் சாட்சியா (Testimony) பகிர்கிறேன்"
+                      ? "இது பதிலான ஜெபத்தின் சாட்சி (Testimony) என பகிர்கிறேன்"
                       : "This is an answered prayer / testimony (public)"}
                   </span>
                 </label>
@@ -261,9 +261,9 @@ export default function PrayerRequestForm({
             <div className="float-field">
               <textarea
                 className="float-input min-h-40 resize-y"
-                placeholder={language === "ta" ? "எப்படி ஜெபிக்கலாம்?" : "How can we pray for you?"}
+                placeholder={language === "ta" ? "உங்களுக்காக எப்படி ஜெபிக்கலாம்?" : "How can we pray for you?"}
                 required
-                maxLength={MESSAGE_MAX}
+                maxLength={messageMax}
                 value={message}
                 disabled={status === "loading"}
                 onChange={(e) => {
@@ -278,7 +278,7 @@ export default function PrayerRequestForm({
             <div className={["field-status", nearLimit ? "is-near" : "", countPulse ? "anim-pop" : ""].join(" ")}>
               <span />
               <span aria-live="polite">
-                {message.length} / {MESSAGE_MAX}
+                {message.length} / {messageMax}
               </span>
             </div>
           </label>
@@ -294,7 +294,10 @@ export default function PrayerRequestForm({
               {status === "success" ? <span aria-hidden="true">✓</span> : null}
               {submitLabel}
             </button>
-            <p id={`${formId}-note`} className={["text-xs text-churchBlue/65", language === "ta" ? "font-tamil" : ""].join(" ")}>
+            <p
+              id={`${formId}-note`}
+              className={["text-xs text-churchBlue/65", language === "ta" ? "font-tamil" : ""].join(" ")}
+            >
               {noteText}{" "}
               {status === "error" ? (
                 <a href={`mailto:${siteConfig.email}`} className="underline underline-offset-2">
@@ -314,10 +317,7 @@ export default function PrayerRequestForm({
 
   return (
     <section className="border-t border-churchBlue/10 bg-white">
-      <Container className="section-padding">
-        {form}
-      </Container>
+      <Container className="section-padding">{form}</Container>
     </section>
   )
 }
-
