@@ -34,11 +34,11 @@ export default function VisitPage() {
 
       <ServiceSchedule />
 
-      <section className="border-t border-churchBlue/10 bg-white">
+      <section className="section-soft-stage border-t border-churchBlue/10">
         <Container className="section-padding">
           <div className="mx-auto max-w-3xl">
             <Reveal>
-              <div>
+              <div className="premium-surface px-6 py-7 sm:px-8 sm:py-8">
                 <h2 className="text-3xl font-semibold tracking-tight text-churchBlue sm:text-4xl">
                   <Lang en="What to expect" ta="என்ன எதிர்பார்க்கலாம்" />
                 </h2>
@@ -52,7 +52,7 @@ export default function VisitPage() {
               </div>
             </Reveal>
 
-            <div className="mt-10 divide-y divide-churchBlue/10 border-y border-churchBlue/10">
+            <div className="premium-surface mt-8 divide-y divide-churchBlue/10 px-6 py-2 sm:px-8">
               <Reveal>
                 <InfoRow
                   titleEn="Your first visit"
@@ -88,7 +88,7 @@ export default function VisitPage() {
             </div>
 
             <Reveal className="mt-12">
-              <div className="border-y border-churchBlue/10 py-8">
+              <div className="premium-surface px-6 py-7 sm:px-8 sm:py-8">
                 <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
                   <div>
                     <h3 className="text-lg font-medium tracking-tight text-churchBlue sm:text-xl">
@@ -116,7 +116,7 @@ export default function VisitPage() {
                   </div>
                 </div>
 
-                <div className="mt-8 overflow-hidden rounded-3xl border border-churchBlue/10 bg-white shadow-glow">
+                <div className="mt-8 overflow-hidden rounded-3xl border border-white/40 bg-white/70 shadow-glow">
                   <GoogleMapEmbed
                     title="Google Map - Praise Tabernacle"
                     src={mapEmbedUrl}

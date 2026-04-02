@@ -1,10 +1,9 @@
-import Link from "next/link"
-
 import BrandLogo from "@/components/BrandLogo"
 import Lang from "@/components/language/Lang"
 import Container from "@/components/ui/Container"
 import { siteConfig } from "@/lib/site"
 import { normalizeBullets } from "@/lib/text"
+import Link from "next/link"
 
 type FooterLink = {
   href: string
@@ -123,7 +122,7 @@ export default function Footer() {
   ]
 
   return (
-    <footer className="border-t border-white/5 bg-[#1b2b53] text-white">
+    <footer className="site-footer">
       <Container className="py-14 md:py-16">
         <div className="grid gap-10 lg:grid-cols-[1.2fr,3fr] lg:items-start">
           <div className="max-w-sm">
@@ -139,7 +138,7 @@ export default function Footer() {
               />
             </p>
 
-            <div className="mt-6 rounded-3xl border border-white/12 bg-white/6 p-5 shadow-[0_20px_50px_rgb(0_0_0_/_0.18)] backdrop-blur-sm">
+            <div className="footer-glass-panel mt-6 p-5">
               <div className="text-[11px] font-semibold uppercase tracking-[0.22em] text-white/60">
                 <Lang en="Contact" ta="தொடர்பு" taClassName="font-tamil" />
               </div>
@@ -183,7 +182,7 @@ export default function Footer() {
                       href={link.href}
                       target="_blank"
                       rel="noreferrer"
-                      className="focus-ring inline-flex items-center gap-2 rounded-full border border-white/14 bg-white/8 px-4 py-2 text-sm font-semibold text-white/88 transition-[transform,background-color,border-color,color,box-shadow] hover:-translate-y-0.5 hover:border-white/28 hover:bg-white/14 hover:text-white hover:shadow-[0_12px_24px_rgb(0_0_0_/_0.18)]"
+                      className="footer-link-pill focus-ring gap-2 text-sm font-semibold text-white/88"
                     >
                       <SocialIcon name={iconName} />
                       <Lang en={link.labelEn} ta={link.labelTa} taClassName="font-tamil" />
@@ -205,7 +204,7 @@ export default function Footer() {
                     <li key={`${group.titleEn}-${link.href}`}>
                       <Link
                         href={link.href}
-                        className="focus-ring inline-flex transition-colors hover:text-white"
+                        className="footer-link-pill focus-ring text-white/82"
                       >
                         <Lang en={link.labelEn} ta={link.labelTa} taClassName="font-tamil" />
                       </Link>

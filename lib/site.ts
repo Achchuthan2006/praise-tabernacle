@@ -55,8 +55,8 @@ export const siteConfig = {
   topBar: {
     enabled: true,
     watchLatestHref: "/watch",
-    watchLatestLabelEn: "Watch Latest Service",
-    watchLatestLabelTa: "சமீபத்திய ஆராதனையைப் பாருங்கள்",
+    watchLatestLabelEn: "Watch Live",
+    watchLatestLabelTa: "நேரலையை பாருங்கள்",
     announcementEn: "",
     announcementTa: "",
     announcementHref: "/events",

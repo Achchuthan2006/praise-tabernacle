@@ -2,8 +2,8 @@
 
 import React, { createContext, useContext, useEffect, useMemo, useState } from "react"
 
-import type { Language } from "@/lib/i18n"
-import { DEFAULT_LANGUAGE, LANGUAGE_STORAGE_KEY, isLanguage } from "@/lib/i18n"
+import type { Language } from "@/lib/language"
+import { DEFAULT_LANGUAGE, LANGUAGE_STORAGE_KEY, isLanguage } from "@/lib/language"
 
 function readCookieLanguage(): Language | null {
   if (typeof document === "undefined") return null

@@ -52,32 +52,30 @@ export default function Hero() {
       <Container className="hero-content py-8 sm:py-10 lg:py-14">
         <div className="mx-auto max-w-4xl text-center">
           <Reveal>
-            <div className="flex flex-col items-center gap-4">
-              <div className="inline-flex items-center gap-3 rounded-full border border-white/15 bg-white/10 px-4 py-2 text-xs text-white/85 backdrop-blur">
+            <div className="flex flex-col items-center gap-5">
+              <div className="hero-glass-pill text-xs text-white/85">
                 <span className="h-1 w-10 rounded-full bg-white/35" aria-hidden="true" />
                 <span className={language === "ta" ? "font-tamil" : undefined}>{pillText}</span>
               </div>
 
-              <div className="leading-tight">
-                <div className="logo-container mx-auto w-full max-w-[180px] sm:max-w-[230px] lg:max-w-[270px]">
-                  <Image
-                    src={language === "ta" ? siteConfig.branding.logoTaSrc : siteConfig.branding.logoEnSrc}
-                    alt={ta(language === "ta" ? siteConfig.nameTa : siteConfig.nameEn)}
-                    width={520}
-                    height={240}
-                    priority
-                    className="logo-icon h-auto w-full select-none drop-shadow-[0_10px_18px_rgba(0,0,0,0.25)]"
-                  />
-                </div>
-                <span className="sr-only">{siteConfig.nameEn}</span>
+              <div className="logo-container mx-auto w-full max-w-[180px] sm:max-w-[230px] lg:max-w-[270px]">
+                <Image
+                  src={language === "ta" ? siteConfig.branding.logoTaSrc : siteConfig.branding.logoEnSrc}
+                  alt={ta(language === "ta" ? siteConfig.nameTa : siteConfig.nameEn)}
+                  width={520}
+                  height={240}
+                  priority
+                  className="logo-icon h-auto w-full select-none drop-shadow-[0_16px_28px_rgba(0,0,0,0.32)]"
+                />
               </div>
+              <span className="sr-only">{siteConfig.nameEn}</span>
             </div>
           </Reveal>
 
           <Reveal delay={1}>
             <h1
               className={[
-                "hero-stage-title hero-title-anim mx-auto mt-4 max-w-[14ch] text-balance leading-tight sm:max-w-[16ch]",
+                "hero-stage-title hero-title-anim mx-auto mt-5 max-w-[14ch] text-balance leading-tight sm:max-w-[16ch]",
                 language === "ta" ? "font-tamil" : "",
               ].join(" ")}
             >
@@ -86,13 +84,13 @@ export default function Hero() {
           </Reveal>
 
           <Reveal delay={2}>
-            <p className="hero-stage-lead hero-lead-anim mx-auto mt-4 max-w-2xl text-balance">
+            <p className="hero-stage-lead hero-lead-anim mx-auto mt-5 max-w-2xl text-balance">
               <span className={language === "ta" ? "font-tamil" : undefined}>{heroLead}</span>
             </p>
           </Reveal>
 
           <Reveal delay={3}>
-            <div className="mt-6 flex flex-col justify-center gap-3 sm:flex-row">
+            <div className="mt-7 flex flex-col justify-center gap-3 sm:flex-row">
               <Magnetic>
                 <Link href="/visit" className="btn btn-md btn-primary">
                   {t(ui.cta.planVisit, language)}
@@ -107,22 +105,22 @@ export default function Hero() {
           </Reveal>
         </div>
 
-        <Reveal className="mx-auto mt-8 max-w-5xl">
-          <div className="overflow-hidden rounded-3xl border border-white/15 bg-white/10 shadow-glow backdrop-blur">
+        <Reveal className="mx-auto mt-10 max-w-5xl">
+          <div className="hero-panel">
             <div className="grid gap-0 lg:grid-cols-[1.2fr,1fr]">
               <div className="border-b border-white/15 px-6 py-6 sm:px-8 lg:border-b-0 lg:border-r">
-                <div className={["text-base font-semibold text-white", language === "ta" ? "font-tamil" : ""].join(" ")}>
-                  {language === "ta" ? ta("à®†à®°à®¾à®¤à®©à¯ˆ à®¨à¯‡à®°à®™à¯à®•à®³à¯") : "Service times"}
+                <div className="hero-panel-title">
+                  {language === "ta" ? <span className="font-tamil">{ta("à®†à®°à®¾à®¤à®©à¯ˆ à®¨à¯‡à®°à®™à¯à®•à®³à¯")}</span> : "Service times"}
                 </div>
-                <p className="mt-2 text-sm text-white/75">
+                <p className="mt-3 text-sm text-white/75">
                   <span className={language === "ta" ? "font-tamil" : undefined}>
                     {language === "ta" ? ta("à®‡à®¨à¯à®¤ à®žà®¾à®¯à®¿à®±à¯ à®Žà®™à¯à®•à®³à¯à®Ÿà®©à¯ à®šà¯‡à®°à¯à®™à¯à®•à®³à¯.") : "Join us this Sunday."}
                   </span>
                 </p>
 
-                <div className="mt-5 divide-y divide-white/15 border-y border-white/15">
+                <div className="mt-5 rounded-[1.5rem] border border-white/12 bg-black/10 px-4 py-2 sm:px-5">
                   {siteConfig.serviceTimes.map((service) => (
-                    <div key={service.time} className="flex items-start justify-between gap-4 py-4">
+                    <div key={service.time} className="hero-service-row">
                       <div className="min-w-0">
                         <div className="text-base font-semibold text-white">
                           {language === "ta" ? <span className="font-tamil">{ta(service.labelTa)}</span> : service.labelEn}
@@ -131,7 +129,7 @@ export default function Hero() {
                           {language === "ta" ? service.labelEn : <span className="font-tamil">{ta(service.labelTa)}</span>}
                         </div>
                       </div>
-                      <div className="whitespace-nowrap rounded-full border border-white/15 bg-white/10 px-3 py-1.5 text-sm font-semibold text-white/90 backdrop-blur">
+                      <div className="hero-time-chip text-sm font-semibold text-white/90">
                         {normalizeBullets(service.time)}
                       </div>
                     </div>
@@ -140,10 +138,10 @@ export default function Hero() {
               </div>
 
               <div className="px-6 py-6 sm:px-8">
-                <div className={["text-base font-semibold text-white", language === "ta" ? "font-tamil" : ""].join(" ")}>
-                  {language === "ta" ? ta("à®…à®Ÿà¯à®¤à¯à®¤ à®ªà®Ÿà®¿à®•à®³à¯") : "Next steps"}
+                <div className="hero-panel-title">
+                  {language === "ta" ? <span className="font-tamil">{ta("à®…à®Ÿà¯à®¤à¯à®¤ à®ªà®Ÿà®¿à®•à®³à¯")}</span> : "Next steps"}
                 </div>
-                <p className="mt-2 text-sm text-white/75">
+                <p className="mt-3 text-sm text-white/75">
                   <span className={language === "ta" ? "font-tamil" : undefined}>
                     {language === "ta"
                       ? ta(
@@ -152,7 +150,7 @@ export default function Hero() {
                       : "New here? Start with a planned visit, watch recent messages, or contact us directly."}
                   </span>
                 </p>
-                <div className="mt-5 grid gap-3">
+                <div className="hero-action-stack mt-5">
                   <Link href="/visit" className="btn btn-sm btn-primary w-full justify-center">
                     {language === "ta" ? ta("à®µà®°à¯à®•à¯ˆà®¯à¯ˆ à®¤à®¿à®Ÿà¯à®Ÿà®®à®¿à®Ÿà¯à®™à¯à®•à®³à¯") : "Plan your visit"}
                   </Link>

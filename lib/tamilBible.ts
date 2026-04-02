@@ -1,5 +1,6 @@
 import type { BibleBookId } from "@/lib/bible"
 
+export const TAMIL_BIBLE_READ_HREF = "https://www.bible.com/bible/339/GEN.1.TAOVBSI"
 export const TAMIL_BIBLE_INDEX_HREF = "https://tamilchristiansongs.in/tamil/bible/"
 const TAMIL_BIBLE_BASE = "https://tamilchristiansongs.in/"
 

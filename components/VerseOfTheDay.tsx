@@ -39,7 +39,7 @@ export default function VerseOfTheDay({
               <p className="mt-1 text-sm text-churchBlue/70">{subtitle}</p>
             </div>
             <p className="text-xs text-churchBlue/60">
-              Short excerpt only. Read the full verse on BibleGateway (English) and TamilChristianSongs.in (Tamil).
+              Short excerpt only. Read the full verse on BibleGateway (English) and the Tamil Bible link.
             </p>
           </div>
 
@@ -104,10 +104,10 @@ export default function VerseOfTheDay({
                     tamil={v.tamil}
                     aria-label={
                       v.tamil
-                        ? `தமிழ் வசனத்தைத் திற: ${v.reference} (TamilChristianSongs.in)`
+                        ? `தமிழ் வசனத்தைத் திற: ${v.reference} `
                         : `Open ${v.reference} on BibleGateway`
                     }
-                    title={v.tamil ? "தமிழில் திற (TamilChristianSongs.in)" : "Open on Bible.com"}
+                    title={v.tamil ? "தமிழில் திற " : "Open on BibleGateway"}
                   />
                 </div>
 
@@ -158,3 +158,4 @@ const defaultVerses: [Verse, Verse] = [
     tamil: true,
   },
 ]
+

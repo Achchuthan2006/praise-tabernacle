@@ -1,10 +1,11 @@
 ﻿"use client"
 
-import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { useEffect, useMemo, useState } from "react"
 
 import Lang from "@/components/language/Lang"
+import Link from "@/components/language/LocalizedLink"
+import { stripLanguagePrefix } from "@/lib/language"
 
 type LiveState =
   | { live: false; service: 1 | 2 }
@@ -140,6 +141,7 @@ function Action({
 
 export default function FloatingActions() {
   const pathname = usePathname()
+  const normalizedPathname = stripLanguagePrefix(pathname || "/")
   const [liveState, setLiveState] = useState<LiveState>({ live: false, service: 1 })
 
   useEffect(() => {
@@ -163,7 +165,7 @@ export default function FloatingActions() {
       <nav aria-label="Quick actions" className="mx-auto grid h-14 w-full max-w-screen-sm grid-cols-3 gap-2">
         <Action
           href={watchHref}
-          active={pathname.startsWith("/watch")}
+          active={normalizedPathname.startsWith("/watch")}
           icon="play"
           labelEn={liveState.live ? "Watch Live" : "Watch"}
           labelTa={
@@ -175,14 +177,14 @@ export default function FloatingActions() {
         />
         <Action
           href="/prayer"
-          active={pathname.startsWith("/prayer")}
+          active={normalizedPathname.startsWith("/prayer")}
           icon="prayer"
           labelEn="Prayer"
           labelTa="\u0B9C\u0BC6\u0BAA\u0BAE\u0BCD"
         />
         <Action
           href="/give"
-          active={pathname.startsWith("/give")}
+          active={normalizedPathname.startsWith("/give")}
           icon="give"
           labelEn="Give"
           labelTa="\u0B95\u0BCA\u0B9F\u0BC1\u0B99\u0BCD\u0B95\u0BB3\u0BCD"

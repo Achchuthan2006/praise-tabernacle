@@ -7,7 +7,7 @@ import Container from "@/components/ui/Container"
 import PageHeader from "@/components/ui/PageHeader"
 import { bibleStudies } from "@/lib/bibleStudies"
 import { pageMetadata } from "@/lib/seo"
-import { TAMIL_BIBLE_INDEX_HREF } from "@/lib/tamilBible"
+import { TAMIL_BIBLE_READ_HREF } from "@/lib/tamilBible"
 
 const NKJV_GATEWAY_HREF =
   "https://www.biblegateway.com/passage/?search=Genesis%201&version=NKJV"
@@ -39,8 +39,8 @@ export default function BiblePage() {
                     BibleGateway (NKJV)
                   </a>
                   . Tamil is available through{" "}
-                  <a href={TAMIL_BIBLE_INDEX_HREF} target="_blank" rel="noreferrer" className="underline underline-offset-2">
-                    TamilChristianSongs.in
+                  <a href={TAMIL_BIBLE_READ_HREF} target="_blank" rel="noreferrer" className="underline underline-offset-2">
+                    Bible.com (Tamil)
                   </a>
                   , and you can always open it in a new tab.
                 </>
@@ -53,12 +53,12 @@ export default function BiblePage() {
                   </a>{" "}
                   மூலம் படிக்கலாம். தமிழ் வேதாகமத்தை{" "}
                   <a
-                    href={TAMIL_BIBLE_INDEX_HREF}
+                    href={TAMIL_BIBLE_READ_HREF}
                     target="_blank"
                     rel="noreferrer"
                     className="underline underline-offset-2"
                   >
-                    TamilChristianSongs.in
+                    Bible.com
                   </a>{" "}
                   மூலம் திறந்து படிக்கலாம்.
                 </>
@@ -70,8 +70,8 @@ export default function BiblePage() {
               <a href={NKJV_GATEWAY_HREF} target="_blank" rel="noreferrer" className="btn btn-sm btn-secondary">
                 NKJV (BibleGateway)
               </a>
-              <a href={TAMIL_BIBLE_INDEX_HREF} target="_blank" rel="noreferrer" className="btn btn-sm btn-secondary">
-                Tamil Bible (External)
+              <a href={TAMIL_BIBLE_READ_HREF} target="_blank" rel="noreferrer" className="btn btn-sm btn-secondary">
+                Tamil Bible (Bible.com)
               </a>
             </div>
           </div>

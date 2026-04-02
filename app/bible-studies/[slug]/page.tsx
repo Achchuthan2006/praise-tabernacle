@@ -20,7 +20,7 @@ export function generateStaticParams() {
 export async function generateMetadata({
   params,
 }: {
-  params: { slug: string } | Promise<{ slug: string }>
+  params: Promise<{ slug: string }>
 }): Promise<Metadata> {
   const resolvedParams = await params
   const study = getBibleStudyBySlug(resolvedParams?.slug)
@@ -47,8 +47,8 @@ export default async function BibleStudyDetailPage({
   params,
   searchParams,
 }: {
-  params: { slug: string } | Promise<{ slug: string }>
-  searchParams?: { play?: string } | Promise<{ play?: string }>
+  params: Promise<{ slug: string }>
+  searchParams?: Promise<{ play?: string }>
 }) {
   const resolvedParams = await params
   const resolvedSearchParams = searchParams ? await searchParams : undefined

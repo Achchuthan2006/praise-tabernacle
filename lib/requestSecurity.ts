@@ -1,4 +1,5 @@
 import { randomBytes } from "crypto"
+import { NextResponse } from "next/server"
 
 import { siteConfig } from "@/lib/site"
 
@@ -90,3 +91,25 @@ export function csrfCookieHeader(token: string) {
   return parts.join("; ")
 }
 
+function expectsHtml(req: Request) {
+  const accept = (req.headers.get("accept") ?? "").toLowerCase()
+  const destination = (req.headers.get("sec-fetch-dest") ?? "").toLowerCase()
+  return accept.includes("text/html") || destination === "document"
+}
+
+export function protectedRouteUnauthorized(
+  req: Request,
+  options?: {
+    redirectTo?: string
+    message?: string
+  },
+) {
+  const message = options?.message ?? "Unauthorized."
+  const redirectTo = options?.redirectTo ?? "/"
+
+  if (req.method === "GET" || req.method === "HEAD" || expectsHtml(req)) {
+    return NextResponse.redirect(new URL(redirectTo, req.url), { status: 303 })
+  }
+
+  return NextResponse.json({ ok: false, message: "Not found." }, { status: 404 })
+}

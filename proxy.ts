@@ -79,6 +79,12 @@ export function proxy(request: NextRequest) {
     return response
   }
 
+  if (isHtmlNavigation(request) && !isSupportedLanguage(prefix)) {
+    const url = request.nextUrl.clone()
+    url.pathname = `/${cookieLang}${pathname === "/" ? "" : pathname}`
+    return NextResponse.redirect(url)
+  }
+
   return NextResponse.next()
 }
 

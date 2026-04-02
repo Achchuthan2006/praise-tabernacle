@@ -1,6 +1,6 @@
 ﻿"use client"
 
-import Link from "next/link"
+import Link from "@/components/language/LocalizedLink"
 import { usePathname } from "next/navigation"
 import type { ReactNode } from "react"
 import { useCallback, useEffect, useMemo, useRef, useState } from "react"
@@ -595,6 +595,7 @@ export default function Navbar() {
   const [open, setOpen] = useState(false)
   const { language } = useLanguage()
   const [hydrated, setHydrated] = useState(false)
+  const stableLanguage = hydrated ? language : "en"
   const safePathname = hydrated ? pathname : ""
   // Keep SSR/client markup stable even if the language preference differs at hydration time.
   const searchLabel = "Search"
@@ -607,10 +608,13 @@ export default function Navbar() {
   const offeringsCtaTa = "தசமபாகமும் காணிக்கைகளும்"
   const [openMenu, setOpenMenu] = useState<NavMenuItem["id"] | null>(null)
   const [offeringsOpen, setOfferingsOpen] = useState(false)
+  const [offeringsPinned, setOfferingsPinned] = useState(false)
   const [scrolled, setScrolled] = useState(false)
   const [mobileSections, setMobileSections] = useState<Record<string, boolean>>({})
   const desktopNavRef = useRef<HTMLDivElement | null>(null)
+  const offeringsRef = useRef<HTMLDivElement | null>(null)
   const closeMenuTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const closeOfferingsTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
   const menuUnmountTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
   const offeringsUnmountTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
   const mobileMenuUnmountTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
@@ -635,9 +639,37 @@ export default function Navbar() {
     closeMenuTimerRef.current = null
   }
 
+  const cancelCloseOfferings = () => {
+    if (closeOfferingsTimerRef.current) clearTimeout(closeOfferingsTimerRef.current)
+    closeOfferingsTimerRef.current = null
+  }
+
+  const openOfferingsNow = ({ pin = false }: { pin?: boolean } = {}) => {
+    cancelCloseOfferings()
+    cancelCloseMenu()
+    setOpenMenu(null)
+    setOfferingsPinned(pin)
+    setOfferingsOpen(true)
+  }
+
+  const closeOfferingsNow = () => {
+    cancelCloseOfferings()
+    setOfferingsPinned(false)
+    setOfferingsOpen(false)
+  }
+
+  const closeOfferingsSoon = () => {
+    if (offeringsPinned) return
+    cancelCloseOfferings()
+    closeOfferingsTimerRef.current = setTimeout(() => {
+      setOfferingsPinned(false)
+      setOfferingsOpen(false)
+    }, 420)
+  }
+
   const openMenuNow = (id: NavMenuItem["id"]) => {
     cancelCloseMenu()
-    setOfferingsOpen(false)
+    closeOfferingsNow()
     setOpenMenu(id)
   }
 
@@ -648,7 +680,7 @@ export default function Navbar() {
 
   useEffect(() => {
     setOpenMenu(null)
-    setOfferingsOpen(false)
+    closeOfferingsNow()
     setOpen(false)
   }, [safePathname])
 
@@ -810,7 +842,7 @@ export default function Navbar() {
     const onKeyDown = (event: KeyboardEvent) => {
       if (event.key !== "Escape") return
       setOpen(false)
-      setOfferingsOpen(false)
+      closeOfferingsNow()
       setOpenMenu(null)
     }
     document.addEventListener("keydown", onKeyDown)
@@ -838,6 +870,28 @@ export default function Navbar() {
       document.removeEventListener("keydown", onKeyDown)
     }
   }, [openMenu])
+
+  useEffect(() => {
+    if (!offeringsOpen) return
+
+    const onPointerDown = (event: PointerEvent) => {
+      const target = event.target as Node | null
+      if (!target) return
+      if (offeringsRef.current?.contains(target)) return
+      closeOfferingsNow()
+    }
+
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") closeOfferingsNow()
+    }
+
+    document.addEventListener("pointerdown", onPointerDown)
+    document.addEventListener("keydown", onKeyDown)
+    return () => {
+      document.removeEventListener("pointerdown", onPointerDown)
+      document.removeEventListener("keydown", onKeyDown)
+    }
+  }, [offeringsOpen])
 
   useEffect(() => {
     if (!openMenu) {
@@ -878,10 +932,10 @@ export default function Navbar() {
         scrolled ? "scrolled" : "",
       ].join(" ")}
     >
-      <Container
+        <Container
         className={[
           "flex items-center justify-between gap-3 py-2.5 lg:grid lg:grid-cols-[auto,minmax(0,1fr),auto] lg:items-center lg:py-3",
-          language === "ta" ? "lg:gap-5 xl:gap-6" : "lg:gap-8 xl:gap-10",
+          stableLanguage === "ta" ? "lg:gap-6 xl:gap-7" : "lg:gap-8 xl:gap-10",
         ].join(" ")}
       >
         <Link
@@ -900,14 +954,14 @@ export default function Navbar() {
           <div
             className={[
               "relative flex min-w-0 flex-1 items-center justify-start gap-1 pl-2 pr-2",
-              language === "ta"
-                ? "lg:gap-1 lg:pl-2 lg:pr-1 xl:gap-1.5 xl:pl-2"
+              stableLanguage === "ta"
+                ? "lg:gap-1.5 lg:pl-3 lg:pr-2 xl:gap-2 xl:pl-3"
                 : "lg:gap-1.5 lg:pl-3 lg:pr-2 xl:gap-2 xl:pl-4",
             ].join(" ")}
             ref={desktopNavRef}
             onMouseLeave={() => {
               setHoveredKey(null)
-              setOfferingsOpen(false)
+              closeOfferingsSoon()
             }}
           >
             {navItems.map((item) => {
@@ -1072,27 +1126,27 @@ export default function Navbar() {
                         </div>
 
                         <div className="border-t border-churchBlue/10 bg-churchBlueSoft p-4 lg:border-l lg:border-t-0">
-                          <div className="text-xs font-semibold tracking-wide text-churchBlue/60">
-                            {language === "ta" ? "முன்னோட்டம்" : "Preview"}
+                        <div className="text-xs font-semibold tracking-wide text-churchBlue/60">
+                            {stableLanguage === "ta" ? "முன்னோட்டம்" : "Preview"}
                           </div>
                           <div className="mt-2 text-sm font-semibold text-churchBlue">
                             {(() => {
                               const sub = item.items.find((s) => s.href === menuPreviewHref) ?? item.items[0]
                               if (!sub) return ""
-                              return t(ui.nav[sub.key], language)
+                              return t(ui.nav[sub.key], stableLanguage)
                             })()}
                           </div>
                           <p
                             className={[
                               "mt-2 text-sm leading-relaxed text-churchBlue/75",
-                              language === "ta" ? "font-tamil" : "",
+                              stableLanguage === "ta" ? "font-tamil" : "",
                             ].join(" ")}
                           >
                             {(() => {
                               const preview = navPreviews[menuPreviewHref]
                               if (!preview)
-                                return language === "ta" ? "இந்தப் பக்கத்தை பார்க்க கிளிக் செய்யுங்கள்." : "Click to explore this page."
-                              return language === "ta" ? preview.bodyTa : preview.bodyEn
+                                return stableLanguage === "ta" ? "இந்தப் பக்கத்தை பார்க்க கிளிக் செய்யுங்கள்." : "Click to explore this page."
+                              return stableLanguage === "ta" ? preview.bodyTa : preview.bodyEn
                             })()}
                           </p>
                           <div className="mt-4 space-y-3">
@@ -1103,14 +1157,14 @@ export default function Navbar() {
                             >
                               {(() => {
                                 const preview = navPreviews[menuPreviewHref]
-                                if (!preview) return language === "ta" ? "திற" : "Open"
-                                return language === "ta" ? preview.ctaTa ?? "திற" : preview.ctaEn ?? "Open"
+                                if (!preview) return stableLanguage === "ta" ? "திற" : "Open"
+                                return stableLanguage === "ta" ? preview.ctaTa ?? "திற" : preview.ctaEn ?? "Open"
                               })()}
                             </Link>
 
                             <div className="rounded-xl border border-churchBlue/10 bg-white/70 p-3">
                               <div className="text-[11px] font-semibold tracking-wide text-churchBlue/60">
-                                {language === "ta" ? "விரைவு இணைப்புகள்" : "Quick links"}
+                                {stableLanguage === "ta" ? "விரைவு இணைப்புகள்" : "Quick links"}
                               </div>
                               <div className="mt-2 grid gap-2">
                                 {buildMenuLayout(item).quickLinks.map((q) => (
@@ -1151,7 +1205,7 @@ export default function Navbar() {
             href="/care"
             className={[
               "btn btn-sm btn-primary whitespace-nowrap !h-11 !min-h-11",
-              language === "ta" ? "px-4 xl:px-[1.05rem]" : "px-5",
+              stableLanguage === "ta" ? "px-4 xl:px-[1.05rem]" : "px-5",
               "nav-cta",
               careActive ? "ring-2 ring-white/80 ring-offset-2 ring-offset-transparent" : "",
             ].join(" ")}
@@ -1167,26 +1221,29 @@ export default function Navbar() {
 
           <div
             className="relative"
+            ref={offeringsRef}
             onMouseEnter={() => {
-              cancelCloseMenu()
-              setOpenMenu(null)
-              setOfferingsOpen(true)
+              openOfferingsNow()
               setHoveredKey("offerings")
             }}
-            onMouseLeave={() => setOfferingsOpen(false)}
+            onMouseLeave={closeOfferingsSoon}
           >
             <Link
               href="/give"
               className={[
                 "btn btn-sm btn-offerings whitespace-nowrap !h-11 !min-h-11",
-                language === "ta" ? "px-4 xl:px-[1.05rem]" : "px-5",
+                stableLanguage === "ta" ? "px-4 xl:px-[1.05rem]" : "px-5",
                 "nav-cta",
                 offeringsActive ? "ring-2 ring-white/80 ring-offset-2 ring-offset-transparent" : "",
               ].join(" ")}
               data-navkey="offerings"
               onPointerEnter={() => setHoveredKey("offerings")}
               onFocus={() => setHoveredKey("offerings")}
-              onClick={() => setOfferingsOpen((v) => !v)}
+              onClick={(event) => {
+                event.preventDefault()
+                if (offeringsOpen && offeringsPinned) closeOfferingsNow()
+                else openOfferingsNow({ pin: true })
+              }}
               title="Tithes & Offerings / தசமபாகமும் காணிக்கைகளும்"
               aria-label="Tithes & Offerings / தசமபாகமும் காணிக்கைகளும்"
               aria-haspopup="dialog"
@@ -1207,15 +1264,18 @@ export default function Navbar() {
                 ].join(" ")}
                 role="dialog"
                 aria-label={offeringsDialogLabel}
-                onMouseEnter={() => setOfferingsOpen(true)}
-                onMouseLeave={() => setOfferingsOpen(false)}
+                onMouseEnter={() => {
+                  cancelCloseOfferings()
+                  setOfferingsOpen(true)
+                }}
+                onMouseLeave={closeOfferingsSoon}
               >
                 <div className="p-5">
                   <div className="text-sm font-semibold text-churchBlue">
-                    {language === "ta" ? "தசமபாகமும் காணிக்கைகளும்" : "Tithes & Offerings"}
+                    {stableLanguage === "ta" ? "தசமபாகமும் காணிக்கைகளும்" : "Tithes & Offerings"}
                   </div>
-                  <p className={["mt-2 text-sm leading-relaxed text-churchBlue/75", language === "ta" ? "font-tamil" : ""].join(" ")}>
-                    {language === "ta"
+                  <p className={["mt-2 text-sm leading-relaxed text-churchBlue/75", stableLanguage === "ta" ? "font-tamil" : ""].join(" ")}>
+                    {stableLanguage === "ta"
                       ? "நன்றியுணர்வு, விசுவாசம், மற்றும் அன்பின் வெளிப்பாடாக நாம் கொடுக்கிறோம்."
                       : "We give as an act of worship, gratitude, and faithfulness."}
                   </p>
@@ -1233,15 +1293,15 @@ export default function Navbar() {
                   </div>
 
                   <div className="mt-5 grid gap-2 sm:grid-cols-2">
-                    <Link href="/give" className="btn btn-sm btn-offerings w-full" onClick={() => setOfferingsOpen(false)}>
-                      {language === "ta" ? "கொடுக்க" : "Give"}
+                    <Link href="/give" className="btn btn-sm btn-offerings w-full" onClick={closeOfferingsNow}>
+                      {stableLanguage === "ta" ? "கொடுக்க" : "Give"}
                     </Link>
                     <Link
                       href="/contact"
                       className="btn btn-sm btn-secondary w-full"
-                      onClick={() => setOfferingsOpen(false)}
+                      onClick={closeOfferingsNow}
                     >
-                      {language === "ta" ? "உதவி வேண்டுமா?" : "Need help?"}
+                      {stableLanguage === "ta" ? "உதவி வேண்டுமா?" : "Need help?"}
                     </Link>
                   </div>
                 </div>
@@ -1256,7 +1316,7 @@ export default function Navbar() {
             className="header-search-button group focus-ring inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-churchBlue/12 bg-white text-churchBlue transition-[transform,background-color,box-shadow,border-color] active:scale-95"
             aria-label={searchLabel}
             onClick={() => {
-              setOfferingsOpen(false)
+              closeOfferingsNow()
               setOpenMenu(null)
             }}
           >
@@ -1299,7 +1359,7 @@ export default function Navbar() {
               {open ? mobileMenuCloseLabel : mobileMenuOpenLabel}
             </span>
             <span className="text-sm font-semibold text-churchBlue">
-              {language === "ta" ? "பட்டியல்" : "Menu"}
+              {stableLanguage === "ta" ? "பட்டியல்" : "Menu"}
             </span>
             <div className="grid gap-1.5">
               <span
@@ -1351,7 +1411,7 @@ export default function Navbar() {
             <div className="flex h-full flex-col">
               <div className="sticky top-0 z-10 border-b border-white/15 bg-white/5 px-4 py-3 backdrop-blur">
                 <div className="flex items-center justify-between">
-                  <span className="text-sm font-semibold text-white">{language === "ta" ? "பட்டியல்" : "Menu"}</span>
+                  <span className="text-sm font-semibold text-white">{stableLanguage === "ta" ? "பட்டியல்" : "Menu"}</span>
                   <button
                     type="button"
                     className="focus-ring inline-flex h-10 w-10 items-center justify-center rounded-xl border border-white/20 bg-white/10 text-white"
@@ -1368,13 +1428,13 @@ export default function Navbar() {
               <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain px-2 py-3">
                 <div className="grid gap-2 px-2">
                   <Link href="/care" onClick={() => setOpen(false)} className="btn btn-md btn-primary w-full">
-                    {language === "ta" ? "அக்கறை கோருங்கள்" : "Request Care"}
+                    {stableLanguage === "ta" ? "அக்கறை கோருங்கள்" : "Request Care"}
                   </Link>
                   <Link href="/give" onClick={() => setOpen(false)} className="btn btn-md btn-offerings w-full">
-                    {language === "ta" ? "தசமபாகமும் காணிக்கைகளும்" : "Tithes & Offerings"}
+                    {stableLanguage === "ta" ? "தசமபாகமும் காணிக்கைகளும்" : "Tithes & Offerings"}
                   </Link>
                   <Link href="/search" onClick={() => setOpen(false)} className="btn btn-md btn-secondary w-full">
-                    {language === "ta" ? "தேடல்" : "Search"}
+                    {stableLanguage === "ta" ? "தேடல்" : "Search"}
                   </Link>
                 </div>
 
@@ -1395,7 +1455,7 @@ export default function Navbar() {
                           ].join(" ")}
                         >
                           <div className="flex items-center justify-between">
-                            <span>{t(ui.nav[item.key], language)}</span>
+                            <span>{t(ui.nav[item.key], stableLanguage)}</span>
                             <span className="text-white/60" aria-hidden="true">
                               {"\u203A"}
                             </span>
@@ -1406,10 +1466,10 @@ export default function Navbar() {
 
                     const isExpanded = Boolean(mobileSections[item.id])
                     const label = (() => {
-                      if (item.id === "ourChurch") return t(ui.navGroups.ourChurch, language)
-                      if (item.id === "getInvolved") return t(ui.navGroups.getInvolved, language)
-                      if (item.id === "resources") return language === "ta" ? "வளங்கள்" : "Resources"
-                      return t(ui.nav.ministries, language)
+                      if (item.id === "ourChurch") return t(ui.navGroups.ourChurch, stableLanguage)
+                      if (item.id === "getInvolved") return t(ui.navGroups.getInvolved, stableLanguage)
+                      if (item.id === "resources") return stableLanguage === "ta" ? "வளங்கள்" : "Resources"
+                      return t(ui.nav.ministries, stableLanguage)
                     })()
 
                     return (
@@ -1422,7 +1482,7 @@ export default function Navbar() {
                             setMobileSections((v) => ({ ...v, [item.id]: !Boolean(v[item.id]) }))
                           }
                         >
-                          <span className={language === "ta" ? "font-tamil" : undefined}>{label}</span>
+                          <span className={stableLanguage === "ta" ? "font-tamil" : undefined}>{label}</span>
                           <span className="text-xs text-white/70" aria-hidden="true">
                             {isExpanded ? "\u2212" : "+"}
                           </span>
@@ -1448,7 +1508,7 @@ export default function Navbar() {
                                       <span className="grid h-8 w-8 place-items-center rounded-xl bg-white/10 text-white/85">
                                         <MenuIcon name={menuIconForHref(sub.href)} />
                                       </span>
-                                      <span>{t(ui.nav[sub.key], language)}</span>
+                                      <span>{t(ui.nav[sub.key], stableLanguage)}</span>
                                     </span>
                                     <span className="text-white/60" aria-hidden="true">
                                       {"\u203A"}

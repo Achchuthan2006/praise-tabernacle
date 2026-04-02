@@ -1,8 +1,7 @@
 "use client"
 
-import Link from "next/link"
-
 import Lang from "@/components/language/Lang"
+import Link from "@/components/language/LocalizedLink"
 import { useLanguage } from "@/components/language/LanguageProvider"
 import Container from "@/components/ui/Container"
 

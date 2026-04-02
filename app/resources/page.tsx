@@ -109,11 +109,11 @@ export default function ResourcesPage() {
         descriptionTa="வாரம் முழுவதும் ஆராதனை, கற்றல், வாசிப்பு, மற்றும் ஆவிக்குரிய வளர்ச்சிக்கான உதவிகரமான வளங்கள்."
       />
 
-      <section className="bg-white">
+      <section className="section-soft-stage">
         <Container className="section-padding">
           <div className="mx-auto max-w-6xl">
             <Reveal>
-              <div className="rounded-3xl border border-churchBlue/10 bg-churchBlueSoft p-8 shadow-glow md:p-10">
+              <div className="premium-surface p-8 md:p-10">
                 <div className="section-kicker">
                   <Lang en="Library" ta="நூலகம்" taClassName="font-tamil" />
                 </div>
@@ -133,7 +133,7 @@ export default function ResourcesPage() {
             <div className="mt-10 grid gap-6 md:grid-cols-2 xl:grid-cols-4">
               {featuredResources.map((item, idx) => (
                 <Reveal key={item.href} delay={idx === 0 ? 0 : idx === 1 ? 1 : idx === 2 ? 2 : 3}>
-                  <div className="flex h-full flex-col rounded-3xl border border-churchBlue/10 bg-white p-7 shadow-glow">
+                  <div className="card flex h-full flex-col p-7">
                     <h2 className="text-xl font-semibold tracking-tight text-churchBlue">
                       <Lang en={item.titleEn} ta={item.titleTa} taClassName="font-tamil" />
                     </h2>
@@ -152,7 +152,7 @@ export default function ResourcesPage() {
 
             <div className="mt-10 grid gap-6 lg:grid-cols-[1.1fr_0.9fr]">
               <Reveal>
-                <div className="rounded-3xl border border-churchBlue/10 bg-white p-8 shadow-glow">
+                <div className="premium-surface p-8">
                   <div className="section-kicker">
                     <Lang en="Study Tools" ta="படிப்பு உதவிகள்" taClassName="font-tamil" />
                   </div>
@@ -164,7 +164,7 @@ export default function ResourcesPage() {
                       <Link
                         key={item.href}
                         href={item.href}
-                        className="rounded-2xl border border-churchBlue/10 bg-churchBlueSoft p-5 transition hover:-translate-y-0.5 hover:shadow-glow focus-ring"
+                        className="card focus-ring block p-5"
                       >
                         <div className="text-base font-semibold text-churchBlue">
                           <Lang en={item.titleEn} ta={item.titleTa} taClassName="font-tamil" />
@@ -179,7 +179,7 @@ export default function ResourcesPage() {
               </Reveal>
 
               <Reveal delay={1}>
-                <div className="rounded-3xl border border-churchBlue/10 bg-churchBlueSoft p-8 shadow-glow">
+                <div className="premium-surface p-8">
                   <div className="section-kicker">
                     <Lang en="Practical Guides" ta="நடைமுறை வழிகாட்டிகள்" taClassName="font-tamil" />
                   </div>
@@ -191,7 +191,7 @@ export default function ResourcesPage() {
                       <Link
                         key={item.href}
                         href={item.href}
-                        className="flex items-center justify-between rounded-2xl border border-white/40 bg-white/75 px-5 py-4 text-sm font-semibold text-churchBlue transition hover:bg-white focus-ring"
+                        className="card focus-ring flex items-center justify-between px-5 py-4 text-sm font-semibold text-churchBlue"
                       >
                         <span>
                           <Lang en={item.titleEn} ta={item.titleTa} taClassName="font-tamil" />

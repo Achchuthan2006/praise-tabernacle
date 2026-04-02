@@ -29,9 +29,8 @@ export const mediaPhotos: MediaPhoto[] = [
     href: "/visit",
   },
   {
-    src: "/photos/home/church-front-2.webp",
-    fallbackSrc: "/photos/home/church-front-2.jpeg",
-    alt: "Praise Tabernacle church building",
+    src: "/Praise Tabernacle inside image.png",
+    alt: "Inside Praise Tabernacle sanctuary",
     label: "Our Church",
     href: "/about",
   },

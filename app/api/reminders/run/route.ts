@@ -2,6 +2,7 @@ import { NextResponse } from "next/server"
 
 import { sendEmail } from "@/lib/email"
 import { events, isOneOffEvent, nextOccurrenceLocal, toLocalDate } from "@/lib/events"
+import { protectedRouteUnauthorized } from "@/lib/requestSecurity"
 import { listAllRsvps, markReminderSent } from "@/lib/rsvpStore"
 import { siteConfig } from "@/lib/site"
 
@@ -15,7 +16,7 @@ export async function POST(request: Request) {
   const secret = process.env.REMINDERS_SECRET
   const provided = request.headers.get("x-reminders-secret") ?? ""
   if (!secret || provided !== secret) {
-    return NextResponse.json({ ok: false, message: "Unauthorized." }, { status: 401 })
+    return protectedRouteUnauthorized(request, { redirectTo: "/events" })
   }
 
   const lookaheadHours = Math.max(1, Math.min(72, Number(process.env.REMINDERS_LOOKAHEAD_HOURS ?? "24") || 24))
@@ -74,4 +75,8 @@ export async function POST(request: Request) {
   }
 
   return NextResponse.json({ ok: true, attempted, sent, skipped, lookaheadHours })
+}
+
+export async function GET(request: Request) {
+  return protectedRouteUnauthorized(request, { redirectTo: "/events" })
 }

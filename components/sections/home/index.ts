@@ -1,0 +1,5 @@
+export { default as HomeAboutSection } from "./HomeAboutSection"
+export { default as HomeContactSection } from "./HomeContactSection"
+export { default as HomeEventsSection } from "./HomeEventsSection"
+export { default as HomeGallerySection } from "./HomeGallerySection"
+export { default as HomeMinistriesSection } from "./HomeMinistriesSection"

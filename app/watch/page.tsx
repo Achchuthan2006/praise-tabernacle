@@ -1,6 +1,9 @@
 import type { Metadata } from "next"
+import Image from "next/image"
+import Link from "next/link"
 
 import Lang from "@/components/language/Lang"
+import NextLivestreamCountdown from "@/components/NextLivestreamCountdown"
 import Container from "@/components/ui/Container"
 import Reveal from "@/components/ui/Reveal"
 import YouTubeLiteEmbed from "@/components/YouTubeLiteEmbed"
@@ -9,10 +12,60 @@ import { siteConfig } from "@/lib/site"
 import { getLatestYouTubeSermon } from "@/lib/youtubeSermons"
 
 export const metadata: Metadata = pageMetadata({
-  title: "Watch",
-  description: "Watch our Tamil and English services online.",
+  title: "Watch Live",
+  description: "Join Praise Tabernacle online for Sunday worship, livestreams, and service resources.",
   path: "/watch",
 })
+
+type ServiceChoice = 1 | 2
+
+function getServiceMeta(service: ServiceChoice | null) {
+  if (service === 1) {
+    return {
+      id: 1 as const,
+      titleEn: "English Livestream",
+      titleTa: "à®†à®™à¯à®•à®¿à®² à®¨à¯‡à®°à®²à¯ˆ",
+      subtitleEn: "Sunday worship with prayer, Scripture, and a Christ-centred message.",
+      subtitleTa: "à®œà¯†à®ªà®®à¯, à®µà¯‡à®¤à®¾à®•à®® à®µà®¾à®šà®¿à®ªà¯à®ªà¯, à®®à®±à¯à®±à¯à®®à¯ à®•à®¿à®±à¯à®¸à¯à®¤à¯à®µà¯ˆ à®®à¯ˆà®¯à®®à®¾à®•à®•à¯ à®•à¯Šà®£à¯à®Ÿ à®šà¯†à®¯à¯à®¤à®¿à®¯à¯à®Ÿà®©à¯ à®žà®¾à®¯à®¿à®±à¯ à®†à®°à®¾à®¤à®©à¯ˆ.",
+      timeEn: "Sundays at 9:15 AM",
+      timeTa: "à®žà®¾à®¯à®¿à®±à¯à®±à¯à®•à¯à®•à®¿à®´à®®à¯ˆà®•à®³à¯ à®•à®¾à®²à¯ˆ 9:15",
+      pastorEn: "Pastor Mano",
+      pastorRoleEn: "Lead Pastor",
+      watchLabelEn: "English service selected",
+      watchLabelTa: "à®†à®™à¯à®•à®¿à®² à®†à®°à®¾à®¤à®©à¯ˆ à®¤à¯‡à®°à¯à®µà¯",
+    }
+  }
+
+  if (service === 2) {
+    return {
+      id: 2 as const,
+      titleEn: "Tamil Livestream",
+      titleTa: "à®¤à®®à®¿à®´à¯ à®¨à¯‡à®°à®²à¯ˆ",
+      subtitleEn: "Tamil service with English translation for families worshipping together.",
+      subtitleTa: "à®•à¯à®Ÿà¯à®®à¯à®ªà®™à¯à®•à®³à¯ à®’à®©à¯à®±à®¾à®• à®†à®°à®¾à®¤à®¿à®•à¯à®• à®¤à®®à®¿à®´à¯ à®†à®°à®¾à®¤à®©à¯ˆ à®®à®±à¯à®±à¯à®®à¯ à®†à®™à¯à®•à®¿à®² à®®à¯Šà®´à®¿à®ªà¯†à®¯à®°à¯à®ªà¯à®ªà¯.",
+      timeEn: "Sundays at 10:30 AM",
+      timeTa: "à®žà®¾à®¯à®¿à®±à¯à®±à¯à®•à¯à®•à®¿à®´à®®à¯ˆà®•à®³à¯ à®•à®¾à®²à¯ˆ 10:30",
+      pastorEn: "Pastor Mano",
+      pastorRoleEn: "Lead Pastor",
+      watchLabelEn: "Tamil service selected",
+      watchLabelTa: "à®¤à®®à®¿à®´à¯ à®†à®°à®¾à®¤à®©à¯ˆ à®¤à¯‡à®°à¯à®µà¯",
+    }
+  }
+
+  return {
+    id: null,
+    titleEn: "Watch Praise Tabernacle Live",
+    titleTa: "Praise Tabernacle à®¨à¯‡à®°à®²à¯ˆ à®†à®°à®¾à®¤à®©à¯ˆ",
+    subtitleEn: "Worship with our church family online and open the latest available livestream or replay.",
+    subtitleTa: "à®Žà®™à¯à®•à®³à¯ à®šà®ªà¯ˆà®•à¯ à®•à¯à®Ÿà¯à®®à¯à®ªà®¤à¯à®¤à¯à®Ÿà®©à¯ à®†à®©à¯à®²à¯ˆà®©à®¿à®²à¯ à®†à®°à®¾à®¤à®¿à®¯à¯à®™à¯à®•à®³à¯; à®šà®®à¯€à®ªà®¤à¯à®¤à®¿à®¯ à®¨à¯‡à®°à®²à¯ˆ à®…à®²à¯à®²à®¤à¯ à®®à®±à¯à®ªà®¾à®°à¯à®µà¯ˆà®¯à¯ˆà®¤à¯ à®¤à®¿à®±à®•à¯à®•à®²à®¾à®®à¯.",
+    timeEn: "English 9:15 AM • Tamil 10:30 AM",
+    timeTa: "à®†à®™à¯à®•à®¿à®²à®®à¯ 9:15 • à®¤à®®à®¿à®´à¯ 10:30",
+    pastorEn: "Pastor Mano",
+    pastorRoleEn: "Lead Pastor",
+    watchLabelEn: "Sunday livestream",
+    watchLabelTa: "à®žà®¾à®¯à®¿à®±à¯ à®¨à¯‡à®°à®²à¯ˆ",
+  }
+}
 
 export default async function WatchPage({
   searchParams,
@@ -22,105 +75,106 @@ export default async function WatchPage({
   const resolvedSearchParams = searchParams ? await searchParams : undefined
   const service =
     resolvedSearchParams?.service === "1" ? 1 : resolvedSearchParams?.service === "2" ? 2 : null
+
+  const selected = getServiceMeta(service)
+  const countdownService = service === 2 ? 2 : 1
   const latestSermon = await getLatestYouTubeSermon(service)
   const videoId = latestSermon?.youtubeVideoId ?? ""
-  const watchTitleEn =
-    service === 2 ? "Watch Our Tamil Service" : service === 1 ? "Watch Our English Service" : "Watch Our Service"
-  const watchTitleTa =
-    service === 2
-      ? "எங்கள் தமிழ் ஆராதனையை பாருங்கள்"
-      : service === 1
-        ? "எங்கள் ஆங்கில ஆராதனையை பாருங்கள்"
-        : "எங்கள் ஆராதனையை பாருங்கள்"
+  const givingHref = siteConfig.giving.onlineGivingUrl || "/give"
+  const playlistHref = siteConfig.youtubeServicesPlaylistUrl || siteConfig.youtubeChannelUrl
+  const serviceOptions = [
+    {
+      id: 1 as const,
+      href: "/watch?service=1",
+      titleEn: "English Service",
+      titleTa: "à®†à®™à¯à®•à®¿à®² à®†à®°à®¾à®¤à®©à¯ˆ",
+      timeEn: "Sunday at 9:15 AM",
+      timeTa: "à®žà®¾à®¯à®¿à®±à¯ à®•à®¾à®²à¯ˆ 9:15",
+      noteEn: "Prayer, worship, Scripture, and preaching in English.",
+      noteTa: "à®†à®™à¯à®•à®¿à®²à®®à®¿à®²à¯ à®œà¯†à®ªà®®à¯, à®†à®°à®¾à®¤à®©à¯ˆ, à®µà¯‡à®¤à®¾à®•à®®, à®ªà®¿à®°à®šà®™à¯à®•à®®à¯.",
+    },
+    {
+      id: 2 as const,
+      href: "/watch?service=2",
+      titleEn: "Tamil Service",
+      titleTa: "à®¤à®®à®¿à®´à¯ à®†à®°à®¾à®¤à®©à¯ˆ",
+      timeEn: "Sunday at 10:30 AM",
+      timeTa: "à®žà®¾à®¯à®¿à®±à¯ à®•à®¾à®²à¯ˆ 10:30",
+      noteEn: "Tamil worship with English translation support for families.",
+      noteTa: "à®•à¯à®Ÿà¯à®®à¯à®ªà®™à¯à®•à®³à¯à®•à¯à®•à®¾à®© à®†à®™à¯à®•à®¿à®² à®®à¯Šà®´à®¿à®ªà¯†à®¯à®°à¯à®ªà¯à®ªà¯à®Ÿà®©à¯ à®¤à®®à®¿à®´à¯ à®†à®°à®¾à®¤à®©à¯ˆ.",
+    },
+  ]
 
   return (
-    <section className="bg-[linear-gradient(180deg,#ffffff_0%,#f8f8fd_100%)]">
-      <Container className="section-padding pt-10 md:pt-12">
-        <div className="mx-auto max-w-5xl">
+    <section className="overflow-hidden bg-[radial-gradient(56rem_28rem_at_12%_-4%,rgba(223,185,79,0.16),transparent_52%),radial-gradient(44rem_24rem_at_100%_0%,rgba(255,255,255,0.08),transparent_45%),linear-gradient(180deg,#1a1a1a_0%,#121212_46%,#0d0d0d_100%)] text-white">
+      <Container className="py-8 sm:py-10 lg:py-14">
+        <Reveal>
+          <div className="mx-auto flex max-w-3xl flex-col items-center text-center">
+            <div className="inline-flex items-center gap-3 rounded-full border border-white/12 bg-white/[0.04] px-4 py-2 text-xs font-semibold uppercase tracking-[0.24em] text-white/82 backdrop-blur">
+              <span className="h-2.5 w-2.5 rounded-full bg-[#dfb94f] shadow-[0_0_18px_rgba(223,185,79,0.8)]" aria-hidden="true" />
+              <Lang en={selected.watchLabelEn} ta={selected.watchLabelTa} taClassName="font-tamil" />
+            </div>
+
+            <h1 className="mt-6 max-w-4xl text-balance text-4xl font-semibold tracking-[-0.04em] text-white sm:text-5xl lg:text-6xl">
+              <Lang en={selected.titleEn} ta={selected.titleTa} taClassName="font-tamil" />
+            </h1>
+
+            <p className="mt-5 max-w-2xl text-pretty text-sm leading-7 text-white/72 sm:text-base">
+              <Lang en={selected.subtitleEn} ta={selected.subtitleTa} taClassName="font-tamil" />
+            </p>
+
+            <div className="mt-6 flex flex-wrap items-center justify-center gap-3 text-sm">
+              <div className="rounded-full border border-[#dfb94f]/25 bg-[#dfb94f]/10 px-4 py-2 font-semibold text-[#f4df96]">
+                {selected.timeEn}
+              </div>
+              <div className="rounded-full border border-white/10 bg-white/[0.04] px-4 py-2 text-white/74 font-tamil">
+                {selected.timeTa}
+              </div>
+            </div>
+          </div>
+        </Reveal>
+
+        <div className="mt-8 grid gap-6 xl:grid-cols-[minmax(0,1.55fr),360px] xl:items-start">
           <Reveal>
-            <div className="overflow-hidden rounded-[32px] border border-churchBlue/10 bg-[radial-gradient(28rem_18rem_at_10%_10%,rgba(248,202,69,0.14),transparent_42%),radial-gradient(28rem_18rem_at_88%_12%,rgba(109,51,230,0.16),transparent_42%),linear-gradient(180deg,#ffffff_0%,#f7f8fe_100%)] px-6 py-8 shadow-[0_28px_60px_rgb(26_35_72_/_0.08)] sm:px-8 md:px-10 md:py-10">
-              <div className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
-                <div className="max-w-3xl">
-                  <div className="section-kicker">
-                    <Lang en="Watch" ta="பாருங்கள்" taClassName="font-tamil" />
+            <div className="overflow-hidden rounded-[34px] border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.05),rgba(255,255,255,0.02))] shadow-[0_32px_90px_rgba(0,0,0,0.34)] backdrop-blur">
+              <div className="flex flex-col gap-4 border-b border-white/8 px-5 py-5 sm:px-6 sm:py-6 lg:flex-row lg:items-end lg:justify-between">
+                <div className="min-w-0">
+                  <div className="text-[11px] font-semibold uppercase tracking-[0.24em] text-[#dfb94f]">
+                    <Lang en="Watch now" ta="à®‡à®ªà¯à®ªà¯‹à®¤à¯ à®ªà®¾à®°à¯à®™à¯à®•à®³à¯" taClassName="font-tamil" />
                   </div>
-                  <h1 className="section-heading max-w-3xl">
-                    <Lang en={watchTitleEn} ta={watchTitleTa} taClassName="font-tamil" />
-                  </h1>
-                  <p className="mt-3 max-w-2xl text-sm leading-relaxed text-churchBlue/72 sm:text-base">
+                  <h2 className="mt-3 text-2xl font-semibold tracking-tight text-white sm:text-[2rem]">
+                    {latestSermon?.title ?? "Praise Tabernacle Sunday Worship"}
+                  </h2>
+                  <p className="mt-3 max-w-2xl text-sm leading-7 text-white/66">
                     <Lang
-                      en="Join our Tamil and English services online and stay connected with worship, prayer, and the Word throughout the week."
-                      ta="எங்கள் தமிழ் மற்றும் ஆங்கில ஆராதனைகளை ஆன்லைனில் பாருங்கள். வாரம் முழுவதும் ஆராதனை, ஜெபம் மற்றும் தேவவார்த்தையுடன் இணைந்திருங்கள்."
+                      en="Join the latest livestream or replay, then continue into the full YouTube playlist for previous worship gatherings."
+                      ta="à®šà®®à¯€à®ªà®¤à¯à®¤à®¿à®¯ à®¨à¯‡à®°à®²à¯ˆ à®…à®²à¯à®²à®¤à¯ à®®à®±à¯à®ªà®¾à®°à¯à®µà¯ˆà®¯à¯ˆ à®ªà®¾à®°à¯à®™à¯à®•à®³à¯; à®ªà®¿à®±à®•à¯ à®®à¯à®¨à¯à®¤à¯ˆà®¯ à®†à®°à®¾à®¤à®©à¯ˆà®•à®³à¯ˆ à®®à¯à®´à¯ à®ªà®¿à®³à¯‡à®²à®¿à®¸à¯à®Ÿà®¿à®²à¯ à®¤à¯Šà®Ÿà®°à¯à®¨à¯à®¤à¯ à®ªà®¾à®°à¯à®™à¯à®•à®³à¯."
                       taClassName="font-tamil"
                     />
                   </p>
-
-                  <div className="mt-5 flex flex-wrap gap-3">
-                    <div className="rounded-full border border-churchBlue/10 bg-white/90 px-4 py-2 text-sm font-semibold text-churchBlue shadow-[0_10px_20px_rgb(26_35_72_/_0.06)]">
-                      <Lang en="Tamil & English services" ta="தமிழ் மற்றும் ஆங்கில ஆராதனைகள்" taClassName="font-tamil" />
-                    </div>
-                    <div className="rounded-full border border-churchBlue/10 bg-white/90 px-4 py-2 text-sm font-semibold text-churchBlue shadow-[0_10px_20px_rgb(26_35_72_/_0.06)]">
-                      <Lang en="Latest sermon available" ta="சமீபத்திய ஆராதனை கிடைக்கிறது" taClassName="font-tamil" />
-                    </div>
-                    <div className="rounded-full border border-churchBlue/10 bg-white/90 px-4 py-2 text-sm font-semibold text-churchBlue shadow-[0_10px_20px_rgb(26_35_72_/_0.06)]">
-                      <Lang en="YouTube streaming" ta="யூடியூப் ஒளிபரப்பு" taClassName="font-tamil" />
-                    </div>
-                  </div>
                 </div>
 
-                <div className="flex flex-col gap-3 lg:items-end">
-                  <div className="rounded-3xl border border-churchBlue/10 bg-white/90 px-5 py-4 text-sm text-churchBlue/75 shadow-[0_14px_28px_rgb(15_23_42_/_0.08)]">
-                    <div className="font-semibold text-churchBlue">
-                      <Lang en="Worship online" ta="ஆன்லைனில் ஆராதியுங்கள்" taClassName="font-tamil" />
-                    </div>
-                    <div className="mt-1">
-                      <Lang
-                        en="Watch the latest service or open the full playlist."
-                        ta="சமீபத்திய ஆராதனையை பாருங்கள் அல்லது முழு பிளேலிஸ்டை திறக்குங்கள்."
-                        taClassName="font-tamil"
-                      />
-                    </div>
-                  </div>
-
+                <div className="flex flex-wrap gap-3">
                   <a
-                    href={siteConfig.youtubeServicesPlaylistUrl || siteConfig.youtubeChannelUrl}
+                    href={playlistHref}
                     target="_blank"
                     rel="noreferrer"
-                    className="btn btn-sm btn-secondary rounded-full px-6 shadow-[0_14px_28px_rgb(15_23_42_/_0.08)]"
+                    className="btn btn-sm btn-primary"
                   >
-                    <Lang en="YouTube playlist" ta="யூடியூப் பிளேலிஸ்ட்" taClassName="font-tamil" />
+                    <Lang en="Open YouTube" ta="à®¯à¯‚à®Ÿà®¿à®¯à¯‚à®ªà¯ à®¤à®¿à®±à®•à¯à®•" taClassName="font-tamil" />
                   </a>
-                </div>
-              </div>
-            </div>
-          </Reveal>
-
-          <Reveal delay={1}>
-            <div className="mt-8 overflow-hidden rounded-[34px] border border-[#d9ddef] bg-white shadow-[0_30px_70px_rgb(26_35_72_/_0.14)]">
-              <div className="flex flex-col gap-3 border-b border-churchBlue/10 bg-[linear-gradient(180deg,#ffffff_0%,#f8f9ff_100%)] px-5 py-4 sm:flex-row sm:items-center sm:justify-between sm:px-6">
-                <div>
-                  <div className="text-xs font-semibold uppercase tracking-[0.24em] text-churchBlue/55">
-                    <Lang en="Featured Service" ta="முக்கிய ஆராதனை" taClassName="font-tamil" />
-                  </div>
-                  <div className="mt-1 text-sm font-semibold text-churchBlue sm:text-base">
-                    {latestSermon?.title ?? "Praise Tabernacle Services Playlist"}
-                  </div>
-                </div>
-                <div className="rounded-full border border-churchBlue/10 bg-white px-4 py-2 text-xs font-semibold text-churchBlue/70">
-                  <Lang
-                    en={videoId ? "Latest message ready to watch" : "Playlist ready to watch"}
-                    ta={videoId ? "சமீபத்திய செய்தி பார்க்க தயாராக உள்ளது" : "பிளேலிஸ்ட் பார்க்க தயாராக உள்ளது"}
-                    taClassName="font-tamil"
-                  />
+                  <Link href="/sermons" className="btn btn-sm btn-secondary-invert">
+                    <Lang en="Browse Sermons" ta="à®ªà®¿à®°à®šà®™à¯à®•à®™à¯à®•à®³à¯ˆ à®ªà®¾à®°à¯à®™à¯à®•à®³à¯" taClassName="font-tamil" />
+                  </Link>
                 </div>
               </div>
 
-              <div className="aspect-video w-full bg-[radial-gradient(36rem_20rem_at_14%_8%,rgba(248,202,69,0.12),transparent_38%),radial-gradient(34rem_22rem_at_84%_10%,rgba(109,51,230,0.16),transparent_42%),linear-gradient(180deg,#f7f8ff_0%,#edf1ff_100%)]">
+              <div className="aspect-video w-full bg-black">
                 {videoId ? (
                   <YouTubeLiteEmbed
                     kind="video"
                     videoId={videoId}
-                    title="Praise Tabernacle - Latest service"
+                    title="Praise Tabernacle livestream"
                     load="click"
                     posterQuality="hq"
                   />
@@ -128,10 +182,226 @@ export default async function WatchPage({
                   <YouTubeLiteEmbed
                     kind="playlist"
                     playlistId={siteConfig.youtubeServicesPlaylistId}
-                    title="Praise Tabernacle - Services playlist"
+                    title="Praise Tabernacle services playlist"
                     load="click"
                   />
                 )}
+              </div>
+
+              <div className="grid gap-4 border-t border-white/8 px-5 py-5 sm:grid-cols-3 sm:px-6">
+                <div className="rounded-[24px] border border-white/8 bg-white/[0.03] p-4">
+                  <div className="text-[11px] font-semibold uppercase tracking-[0.22em] text-[#dfb94f]">
+                    <Lang en="Current focus" ta="à®¤à®±à¯à®ªà¯‹à®¤à¯ˆà®¯ à®•à®µà®©à®®à¯" taClassName="font-tamil" />
+                  </div>
+                  <div className="mt-3 text-base font-semibold text-white">
+                    <Lang en={selected.titleEn} ta={selected.titleTa} taClassName="font-tamil" />
+                  </div>
+                  <div className="mt-2 text-sm text-white/62">{selected.timeEn}</div>
+                </div>
+
+                <div className="rounded-[24px] border border-white/8 bg-white/[0.03] p-4">
+                  <div className="text-[11px] font-semibold uppercase tracking-[0.22em] text-[#dfb94f]">
+                    <Lang en="Worship rhythm" ta="à®†à®°à®¾à®¤à®©à¯ˆ à®’à®´à¯à®™à¯à®•à¯" taClassName="font-tamil" />
+                  </div>
+                  <div className="mt-3 text-sm leading-7 text-white/66">
+                    <Lang
+                      en="Come ready with your Bible, gather your family, and worship prayerfully from home."
+                      ta="à®‰à®™à¯à®•à®³à¯ à®µà¯‡à®¤à®¾à®•à®®à®¤à¯à®¤à¯à®Ÿà®©à¯, à®•à¯à®Ÿà¯à®®à¯à®ªà®¤à¯à®¤à¯à®Ÿà®©à¯, à®œà¯†à®ª à®®à®¨à®¤à¯à®Ÿà®©à¯ à®†à®°à®¾à®¤à®¨à¯ˆà®•à¯à®•à¯ à®‡à®£à¯ˆà®™à¯à®•à®³à¯."
+                      taClassName="font-tamil"
+                    />
+                  </div>
+                </div>
+
+                <div className="rounded-[24px] border border-white/8 bg-white/[0.03] p-4">
+                  <div className="text-[11px] font-semibold uppercase tracking-[0.22em] text-[#dfb94f]">
+                    <Lang en="Need prayer?" ta="à®œà¯†à®ªà®®à¯ à®¤à¯‡à®µà¯ˆà®¯à®¾?" taClassName="font-tamil" />
+                  </div>
+                  <div className="mt-3 text-sm leading-7 text-white/66">
+                    <Lang
+                      en="Reach out during the week and let our church family stand with you in prayer."
+                      ta="à®µà®¾à®°à®¤à¯à®¤à®¿à®²à¯ à®Žà®ªà¯à®ªà¯‹à®¤à¯à®®à¯ à®Žà®™à¯à®•à®³à¯ à®šà®ªà¯ˆ à®•à¯à®Ÿà¯à®®à¯à®ªà®¤à¯à®¤à¯à®Ÿà®©à¯ à®œà¯†à®ªà®¤à¯à®¤à®¿à®²à¯ à®‡à®£à¯ˆà®™à¯à®•à®³à¯."
+                      taClassName="font-tamil"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </Reveal>
+
+          <Reveal className="xl:sticky xl:top-28 xl:self-start">
+            <aside className="space-y-5 rounded-[32px] border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.06),rgba(255,255,255,0.025))] p-5 shadow-[0_28px_70px_rgba(0,0,0,0.32)] backdrop-blur sm:p-6">
+              <div>
+                <div className="text-[11px] font-semibold uppercase tracking-[0.24em] text-[#dfb94f]">
+                  <Lang en="Next live gathering" ta="à®…à®Ÿà¯à®¤à¯à®¤ à®¨à¯‡à®°à®²à¯ˆ à®†à®°à®¾à®¤à®©à¯ˆ" taClassName="font-tamil" />
+                </div>
+                <h2 className="mt-3 text-2xl font-semibold tracking-tight text-white">
+                  <Lang en="Join us this Sunday" ta="à®‡à®¨à¯à®¤ à®žà®¾à®¯à®¿à®±à¯ à®‡à®£à¯ˆà®™à¯à®•à®³à¯" taClassName="font-tamil" />
+                </h2>
+                <p className="mt-3 text-sm leading-7 text-white/68">
+                  <Lang
+                    en="Choose your service and be ready a few minutes early so worship can begin without distraction."
+                    ta="à®‰à®™à¯à®•à®³à¯ à®†à®°à®¾à®¤à®©à¯ˆà®¯à¯ˆ à®¤à¯‡à®°à¯à®µà¯à®šà¯†à®¯à¯à®¤à¯, à®†à®°à®¾à®¤à®©à¯ˆ à®†à®°à®®à¯à®ªà®¿à®•à¯à®•à¯à®®à¯ à®®à¯à®©à¯ à®šà®¿à®² à®¨à®¿à®®à®¿à®Ÿà®™à¯à®•à®³à¯ à®®à¯à®©à¯à®©à®¤à®¾à®• à®¤à®¯à®¾à®°à®¾à®• à®‡à®°à¯à®™à¯à®•à®³à¯."
+                    taClassName="font-tamil"
+                  />
+                </p>
+              </div>
+
+              <div className="rounded-[28px] border border-white/8 bg-white/[0.05] p-2">
+                <NextLivestreamCountdown service={countdownService} />
+              </div>
+
+              <div className="rounded-[28px] border border-white/8 bg-white/[0.04] p-5">
+                <div className="flex items-center gap-4">
+                  <div className="relative h-16 w-16 overflow-hidden rounded-full border border-white/12 bg-white/10">
+                    <Image
+                      src="/Pastor Mano.jpg"
+                      alt="Pastor Mano"
+                      fill
+                      sizes="64px"
+                      className="object-cover object-[center_18%]"
+                    />
+                  </div>
+                  <div className="min-w-0">
+                    <div className="text-base font-semibold text-white">{selected.pastorEn}</div>
+                    <div className="text-sm text-white/58">{selected.pastorRoleEn}</div>
+                  </div>
+                </div>
+
+                <div className="mt-5 grid gap-3">
+                  <div className="rounded-2xl border border-white/8 bg-black/20 px-4 py-3">
+                    <div className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#dfb94f]">English</div>
+                    <div className="mt-1 text-sm text-white/72">Sunday at 9:15 AM</div>
+                  </div>
+                  <div className="rounded-2xl border border-white/8 bg-black/20 px-4 py-3">
+                    <div className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#dfb94f]">Tamil</div>
+                    <div className="mt-1 text-sm text-white/72">Sunday at 10:30 AM</div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="grid gap-3">
+                <a
+                  href={givingHref}
+                  target={givingHref.startsWith("http") ? "_blank" : undefined}
+                  rel={givingHref.startsWith("http") ? "noreferrer" : undefined}
+                  className="btn btn-primary w-full justify-center"
+                >
+                  <Lang en="Give Online" ta="à®†à®©à¯à®²à¯ˆà®©à®¿à®²à¯ à®•à¯Šà®Ÿà¯à®™à¯à®•à®³à¯" taClassName="font-tamil" />
+                </a>
+                <Link href="/prayer" className="btn btn-secondary-invert w-full justify-center">
+                  <Lang en="Request Prayer" ta="à®œà¯†à®ªà®®à¯ à®•à¯‹à®°à¯à®™à¯à®•à®³à¯" taClassName="font-tamil" />
+                </Link>
+                <Link href="/magazine" className="btn btn-secondary-invert w-full justify-center">
+                  <Lang en="View Church Magazine" ta="à®šà®ªà¯ˆ à®‡à®¤à®´à¯ˆ à®ªà®¾à®°à¯à®™à¯à®•à®³à¯" taClassName="font-tamil" />
+                </Link>
+              </div>
+            </aside>
+          </Reveal>
+        </div>
+
+        <div className="mt-6 grid gap-6 lg:grid-cols-[minmax(0,1.1fr),minmax(0,0.9fr)]">
+          <Reveal delay={1}>
+            <div className="rounded-[30px] border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.05),rgba(255,255,255,0.02))] p-6 shadow-[0_24px_60px_rgba(0,0,0,0.24)] backdrop-blur sm:p-7">
+              <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+                <div>
+                  <div className="text-[11px] font-semibold uppercase tracking-[0.24em] text-[#dfb94f]">
+                    <Lang en="Choose your stream" ta="à®‰à®™à¯à®•à®³à¯ à®’à®³à®¿à®ªà®°à®ªà¯à®ªà¯ˆà®¤à¯ à®¤à¯‡à®°à¯à®µà¯à®šà¯†à®¯à¯à®•" taClassName="font-tamil" />
+                  </div>
+                  <h2 className="mt-3 text-2xl font-semibold tracking-tight text-white">
+                    <Lang en="Pick the service that fits your household" ta="à®‰à®™à¯à®•à®³à¯ à®•à¯à®Ÿà¯à®®à¯à®ªà®¤à¯à®¤à®¿à®±à¯à®•à¯ à®ªà¯Šà®°à¯à®¤à¯à®¤à®®à®¾à®© à®†à®°à®¾à®¤à®©à¯ˆà®¯à¯ˆ à®¤à¯‡à®°à¯à®µà¯à®šà¯†à®¯à¯à®•" taClassName="font-tamil" />
+                  </h2>
+                </div>
+                <div className="text-sm text-white/58">
+                  <Lang en="Both services stream here every Sunday." ta="à®‡à®°à®£à¯à®Ÿà¯ à®†à®°à®¾à®¤à®©à¯ˆà®•à®³à¯à®®à¯ à®’à®µà¯à®µà¯Šà®°à¯ à®žà®¾à®¯à®¿à®±à¯à®®à¯ à®‡à®™à¯à®•à¯‡ à®’à®³à®¿à®ªà®°à®ªà¯à®ªà®¾à®•à¯à®®à¯." taClassName="font-tamil" />
+                </div>
+              </div>
+
+              <div className="mt-6 grid gap-4 md:grid-cols-2">
+                {serviceOptions.map((option) => {
+                  const isActive = service === option.id || (service === null && option.id === 1)
+
+                  return (
+                    <Link
+                      key={option.id}
+                      href={option.href}
+                      aria-current={isActive ? "page" : undefined}
+                      className={[
+                        "group rounded-[26px] border p-5 transition duration-300",
+                        isActive
+                          ? "border-[#dfb94f]/35 bg-[linear-gradient(180deg,rgba(223,185,79,0.18),rgba(223,185,79,0.08))] shadow-[0_24px_50px_rgba(223,185,79,0.12)]"
+                          : "border-white/10 bg-white/[0.03] hover:border-white/18 hover:bg-white/[0.06]",
+                      ].join(" ")}
+                    >
+                      <div className="flex items-start justify-between gap-3">
+                        <div>
+                          <div className="text-lg font-semibold text-white">{option.titleEn}</div>
+                          <div className="mt-1 text-sm font-tamil text-white/66">{option.titleTa}</div>
+                        </div>
+                        <span
+                          className={[
+                            "rounded-full px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.2em]",
+                            isActive ? "bg-[#f3df9b] text-[#3a2d05]" : "border border-white/12 bg-white/[0.05] text-white/58",
+                          ].join(" ")}
+                        >
+                          {isActive ? "Selected" : "Watch"}
+                        </span>
+                      </div>
+                      <div className="mt-5 text-sm font-semibold text-white/86">{option.timeEn}</div>
+                      <div className="mt-1 text-sm font-tamil text-white/62">{option.timeTa}</div>
+                      <p className="mt-4 text-sm leading-7 text-white/64">
+                        <Lang en={option.noteEn} ta={option.noteTa} taClassName="font-tamil" />
+                      </p>
+                    </Link>
+                  )
+                })}
+              </div>
+            </div>
+          </Reveal>
+
+          <Reveal delay={2}>
+            <div className="rounded-[30px] border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.05),rgba(255,255,255,0.02))] p-6 shadow-[0_24px_60px_rgba(0,0,0,0.24)] backdrop-blur sm:p-7">
+              <div className="text-[11px] font-semibold uppercase tracking-[0.24em] text-[#dfb94f]">
+                <Lang en="Stay connected" ta="à®‡à®£à¯ˆà®¨à¯à®¤à®¿à®°à¯à®™à¯à®•à®³à¯" taClassName="font-tamil" />
+              </div>
+              <h2 className="mt-3 text-2xl font-semibold tracking-tight text-white">
+                <Lang en="Keep worship going through the week" ta="à®µà®¾à®°à®®à¯ à®®à¯à®´à¯à®µà®¤à¯à®®à¯ à®†à®°à®¾à®¤à®©à¯ˆà®¯à¯ˆ à®¤à¯Šà®Ÿà®°à¯à®™à¯à®•à®³à¯" taClassName="font-tamil" />
+              </h2>
+
+              <div className="mt-5 space-y-4 text-sm leading-7 text-white/68">
+                <p>
+                  <Lang
+                    en="If you’re joining from home, prepare your Bible, set aside distractions, and worship with expectation in real time."
+                    ta="à®¨à¯€à®™à¯à®•à®³à¯ à®µà¯€à®Ÿà¯à®Ÿà®¿à®²à®¿à®°à¯à®¨à¯à®¤à¯ à®‡à®£à¯ˆà®¯à¯à®®à¯à®ªà¯‹à®¤à¯, à®µà¯‡à®¤à®¾à®•à®®à®¤à¯à®¤à¯ˆà®¤à¯ à®¤à®¯à®¾à®°à®¿à®¤à¯à®¤à¯, à®‡à®Ÿà¯ˆà®žà¯à®šà®²à¯à®•à®³à¯ˆ à®’à®¤à¯à®•à¯à®•à®¿, à®Žà®¤à®¿à®°à¯à®ªà®¾à®°à¯à®ªà¯à®ªà¯à®Ÿà®©à¯ à®†à®°à®¾à®¤à®¨à¯ˆà®•à¯à®•à¯ à®‡à®£à¯ˆà®™à¯à®•à®³à¯."
+                    taClassName="font-tamil"
+                  />
+                </p>
+                <p>
+                  <Lang
+                    en="After the stream, continue with prayer, giving, and sermon replays using the links below."
+                    ta="à®¨à¯‡à®°à®²à¯ˆà®•à¯à®•à¯à®ªà¯ à®ªà®¿à®±à®•à¯, à®•à¯€à®´à¯‡ à®‰à®³à¯à®³ à®‡à®£à¯ˆà®ªà¯à®ªà¯à®•à®³à¯ à®®à¯‚à®²à®®à¯ à®œà¯†à®ªà®®à¯, à®•à¯Šà®Ÿà¯ˆ, à®®à®±à¯à®±à¯à®®à¯ à®®à®±à¯à®ªà®¾à®°à¯à®µà¯ˆ à®ªà®¿à®°à®šà®™à¯à®•à®™à¯à®•à®³à¯ˆà®¤à¯ à®¤à¯Šà®Ÿà®°à¯à®™à¯à®•à®³à¯."
+                    taClassName="font-tamil"
+                  />
+                </p>
+              </div>
+
+              <div className="mt-6 grid gap-3 sm:grid-cols-2">
+                <Link href="/prayer" className="btn btn-secondary-invert w-full justify-center">
+                  <Lang en="Request Prayer" ta="à®œà¯†à®ªà®®à¯ à®•à¯‹à®°à¯à®™à¯à®•à®³à¯" taClassName="font-tamil" />
+                </Link>
+                <Link href="/contact" className="btn btn-secondary-invert w-full justify-center">
+                  <Lang en="Contact Church" ta="à®šà®ªà¯ˆà®¯à¯ˆ à®¤à¯Šà®Ÿà®°à¯à®ªà¯à®•à¯Šà®³à¯à®³" taClassName="font-tamil" />
+                </Link>
+                <Link href="/sermons" className="btn btn-secondary-invert w-full justify-center">
+                  <Lang en="Browse Sermons" ta="à®ªà®¿à®°à®šà®™à¯à®•à®™à¯à®•à®³à¯ˆ à®ªà®¾à®°à¯à®™à¯à®•à®³à¯" taClassName="font-tamil" />
+                </Link>
+                <a
+                  href={playlistHref}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="btn btn-primary w-full justify-center"
+                >
+                  <Lang en="Full Playlist" ta="à®®à¯à®´à¯ à®ªà®¿à®³à¯‡à®²à®¿à®¸à¯à®Ÿà¯" taClassName="font-tamil" />
+                </a>
               </div>
             </div>
           </Reveal>

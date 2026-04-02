@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server"
 
 import { approvePrayerPost, deletePrayerPost } from "@/lib/prayerWallStore"
+import { protectedRouteUnauthorized } from "@/lib/requestSecurity"
 
 function badRequest(message: string) {
   return NextResponse.json({ ok: false, message }, { status: 400 })
@@ -10,7 +11,7 @@ export async function POST(request: Request) {
   const secret = process.env.PRAYER_WALL_ADMIN_SECRET
   const provided = request.headers.get("x-admin-secret") ?? ""
   if (!secret || provided !== secret) {
-    return NextResponse.json({ ok: false, message: "Unauthorized." }, { status: 401 })
+    return protectedRouteUnauthorized(request, { redirectTo: "/prayer-wall" })
   }
 
   let body: any
@@ -37,3 +38,6 @@ export async function POST(request: Request) {
   return badRequest("Unknown action.")
 }
 
+export async function GET(request: Request) {
+  return protectedRouteUnauthorized(request, { redirectTo: "/prayer-wall" })
+}

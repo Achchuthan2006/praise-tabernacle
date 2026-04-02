@@ -33,11 +33,13 @@ export default function ContactPage() {
       <Container className="section-padding">
         <div className="mx-auto max-w-3xl">
           <Reveal>
-            <ContactMessageForm />
+            <div className="premium-surface px-6 py-7 sm:px-8 sm:py-8">
+              <ContactMessageForm />
+            </div>
           </Reveal>
 
           <Reveal delay={1}>
-            <section className="border-y border-churchBlue/10 py-8">
+            <section className="premium-surface mt-8 px-6 py-7 sm:px-8 sm:py-8">
               <h2 className="text-xl font-semibold tracking-tight text-churchBlue">
                 <Lang en="Location" ta="இடம்" taClassName="font-tamil" />
               </h2>
@@ -60,7 +62,7 @@ export default function ContactPage() {
                 </Link>
               </div>
 
-              <div className="mt-8 overflow-hidden rounded-3xl border border-churchBlue/10 bg-white shadow-glow">
+              <div className="mt-8 overflow-hidden rounded-3xl border border-white/40 bg-white/70 shadow-glow">
                 <GoogleMapEmbed
                   title="Google Map - Praise Tabernacle"
                   src={mapEmbedUrl}
@@ -72,7 +74,7 @@ export default function ContactPage() {
           </Reveal>
 
           <Reveal delay={2}>
-            <section className="border-b border-churchBlue/10 py-8">
+            <section className="premium-surface mt-8 px-6 py-7 sm:px-8 sm:py-8">
               <h3 className="text-sm font-semibold tracking-tight text-churchBlue">
                 <Lang en="Service Times" ta="ஆராதனை நேரங்கள்" taClassName="font-tamil" />
               </h3>
@@ -92,7 +94,7 @@ export default function ContactPage() {
           </Reveal>
 
           <Reveal delay={3}>
-            <section className="py-8">
+            <section className="premium-surface mt-8 px-6 py-7 sm:px-8 sm:py-8">
               <h3 className="text-sm font-semibold tracking-tight text-churchBlue">
                 <Lang en="Contact" ta="தொடர்பு" taClassName="font-tamil" />
               </h3>

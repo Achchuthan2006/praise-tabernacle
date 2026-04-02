@@ -1,13 +1,13 @@
-export type Language = "en" | "ta"
-
 import { fixMojibakeText } from "@/lib/text"
-
-export const DEFAULT_LANGUAGE: Language = "en"
-export const LANGUAGE_STORAGE_KEY = "pt_lang"
-
-export function isLanguage(value: string): value is Language {
-  return value === "en" || value === "ta"
-}
+import type { Language } from "@/lib/language"
+export {
+  DEFAULT_LANGUAGE,
+  LANGUAGE_STORAGE_KEY,
+  isLanguage,
+  localizePath,
+  stripLanguagePrefix,
+} from "@/lib/language"
+export type { Language } from "@/lib/language"
 
 export const ui = {
   nav: {

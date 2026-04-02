@@ -1,6 +1,5 @@
-import Link from "next/link"
-
 import Lang from "@/components/language/Lang"
+import Link from "@/components/language/LocalizedLink"
 
 type BreadcrumbItem = {
   href?: string
